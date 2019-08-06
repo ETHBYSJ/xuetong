@@ -1,0 +1,22 @@
+ <scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower"  scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+ 
+ <view class="tap-wrp">
+     <view class="tab-list {{currentTab=='全部' ? 'on' : ''}}" data-current="全部" bindtap="swichNav">全部</view>     
+     <view class="tab-list {{currentTab=='待支付'? 'on' : ''}}" data-current="待支付" bindtap="swichNav">待支付</view>
+   </view>
+
+<view class='spending_border' wx:for="{{vo.infor}}" bindtap="bindItemTap" data-type="{{item.noticeid}}">
+  <text class='film_card' hidden='{{item.orderType == 1}}'>{{item.gradeName?item.gradeName:''}} <text hidden='{{!item.clazzName}}'>( {{item.clazzName}} )</text></text>
+   <text class='film_card' hidden='{{item.orderType != 1}}'>{{item.heading?item.heading:''}} </text>
+  <text class='film_status' style='color:{{item.status=="待支付"?"red":""}}'>{{item.status?item.status:''}}</text>
+  <view class='spending_content'>
+    <text class='pay_way' hidden='{{item.orderType == 1}}'>{{item.studentName?item.studentName:''}}</text>
+	 <text class='pay_way' hidden='{{item.orderType != 1}}'>报名人数:  {{item.amount?item.amount:''}}</text>
+    <text class='money_color' hidden='{{item.orderType == 1}}'>{{item.heading?item.heading:''}}</text>
+  </view>
+  <view class='money_Prompt' hidden='{{item.status =="已支付"&&item.payAmount != 0}}'>{{item.createTime?item.createTime:''}}</view>
+   <view class='money_Prompt' hidden='{{item.status!="已支付"&&item.payAmount == 0}}'>{{item.paymentTime?item.paymentTime:''}}</view>
+  <view class='money_many'>金额 ￥{{item.payAmount}}</view>
+
+</view>
+</scroll-view>

@@ -1,0 +1,83 @@
+.base-cells_after-title{
+  border-top: 2rpx solid #1296db;
+  border-bottom: 2rpx solid #1296db;
+  background: #fff;
+  font-size: 26rpx;
+  color: #1296db;
+  margin-bottom: 15rpx;
+}
+.base-cell:before {
+    content: " ";
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 1px;
+    border-top: 2rpx solid #1296db;
+    color: #d9d9d9;
+    left: 15px;
+}
+.base-cell__ft{
+  color: #1296db;
+  width: 350rpx;
+  height: 42rpx;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+}
+.Movietype{
+   background-color: #20223B;
+   min-height: 100%;
+   width: 715rpx;
+   position: absolute;
+   z-index: 1;
+   top: 0;
+   left: 0;
+   padding:0rpx 0rpx 0rpx 35rpx;
+
+}
+.Movietype view{
+  border:solid 1px #ed5315;
+  float: left;
+  color: #ed5315;
+  font-size: 26rpx;
+  padding: 10rpx 27rpx;
+  border-radius: 56rpx;
+  margin-top: 35rpx;
+  margin-right: 35rpx;
+  background: #2a2c47;
+}
+.Movietype view.active-tag{
+   background: #ed5315;
+   color:#fff;
+}
+.base-btn{ 
+  width: 690rpx;
+  background: #1296db;
+  color: #fff;
+  display: block;
+  margin-top:60px; 
+  margin-bottom:10px; 
+}
+.hide{
+ display: none;
+}
+.show{ 
+ display: block;
+}
+.base-cell__ft_in-access:after {
+    content: " ";
+    display: inline-block;
+    height: 12rpx;
+    width: 12rpx;
+    border-width: 4rpx 4rpx 0 0;
+    border-color: #1296db;
+    border-style: solid;
+    -webkit-transform: matrix(.71, .71, -.71, .71, 0, 0);
+    transform: matrix(.71, .71, -.71, .71, 0, 0);
+    position: relative;
+    top: -2px;
+    position: absolute;
+    top: 50%;
+    margin-top: -8rpx;
+    right: 4rpx
+}

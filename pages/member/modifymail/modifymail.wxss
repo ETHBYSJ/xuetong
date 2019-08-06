@@ -1,0 +1,60 @@
+.base-cells_after-title{
+  border-top: 2rpx solid #1296db;
+  border-bottom: 2rpx solid #1296db;
+  background: #fff;
+  font-size: 26rpx;
+  color: #1296db;
+  margin-bottom: 10px;
+}
+.base-cells__tipsbox{
+   margin-bottom: 10px;
+}
+.base-cell_input{
+  height: 85rpx;
+}
+.base-cell:before {
+    content: " ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 1px;
+    border-top: 2rpx solid #1296db;
+    color: #d9d9d9;
+    left: 15px;
+}
+.base-vcode-btn {
+  width: 203rpx;
+  height: 59rpx;
+  border: solid 1px #1296db;
+  text-align: center;
+  padding: 0;
+  line-height: 60rpx;
+  margin-right:15rpx; 
+  font-size:28rpx;
+  border-radius: 59rpx;
+  color: #1296db; 
+  background: #fff;
+}
+.base-vcode-btn[disabled]:not([type]){ 
+  color: #1296db; 
+  background: #fff;
+ } 
+.base-vcode-btn:active {
+    color: #1296db
+}
+.base-btn{ 
+  width: 690rpx;
+  background: #1296db;
+  color: #fff;
+  display: block;
+  margin-top:10px; 
+  margin-bottom:10px; 
+}
+.base-cells__tips{
+  font-size:22rpx;
+  color: #1296db;
+}
+.base-cell__bd text{
+  color: #1296db;
+}

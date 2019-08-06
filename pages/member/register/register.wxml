@@ -1,0 +1,82 @@
+<view class='page'>
+  <view class='regstration_top'>
+  <view class="{{selectIndex==1?'on':''}}" data-index="1" bindtap="switchSlider">密码登陆</view>
+    <view class='on' class="{{selectIndex==0?'on':''}}" data-index="0" bindtap="switchSlider">短信登陆</view>
+    
+  </view>
+  <view  hidden="{{selectIndex!=0}}">
+    <form bindsubmit="formSMS">
+      <view class="base-cells">
+            <view class="base-cell base-cell_input">
+                <view class="base-cell__hd">
+                    <view class="base-label">手机号</view>
+                </view>
+                <view class="base-cell__bd">
+                    <input class="base-input" name="mobile" placeholder="请输入手机号" type='number' maxlength='11' bindinput='bindEquipmentId' />
+                </view>
+            </view>
+
+             <radio-group class="radio-groups" bindchange="radioChanges" hidden='{{items.length <=1 }}'>
+  <label class="radios" wx:for="{{items}}">
+    <radio value="{{item.type}}" color='#1296db'/>{{item.name}}
+  </label>
+</radio-group>
+            <view class="base-cell base-cell_input base-cell_vcode">
+                <view class="base-cell__hd">
+                    <view class="base-label">验证码</view>
+                </view>
+                <view class="base-cell__bd">
+                    <input class="base-input" name="code" value="{{po.code}}" placeholder="请输入验证码" type='number' maxlength='6' bindinput='bindCodeId'/>
+                </view>
+                <view class="base-cell__ft">
+                    <button class="base-vcode-btn" disabled='{{disabled}}' bindtap='CodeData'>{{code}}</button>
+                </view>
+            </view>
+        </view>
+        <radio-group class="radio-group">
+          <label class="radio" bindtap="radioChange">
+            <radio value="" checked="{{checked}}" color='#1296db'/>我已阅读并同意《学童邦网站服务条款》
+          </label>
+        </radio-group>
+         <button class='base-btn' formType="submit" bindtap='Landcode'>登录</button>
+      </form>
+    </view>
+    <view  hidden="{{selectIndex!=1}}">
+    <form bindsubmit="formpassword">
+    <view class="base-cells">
+        <view class="base-cell base-cell_input">
+            <view class="base-cell__hd">
+                <view class="base-label">手机号</view>
+            </view>
+            <view class="base-cell__bd">
+                <input class="base-input" name="mobile" placeholder="请输入手机号" type='number' maxlength='11' bindinput='bindEquipmentId'/>
+            </view>
+        </view>
+
+        
+             <radio-group class="radio-groups" bindchange="radioChanges" hidden='{{items.length <=1 }}'>
+  <label class="radios" wx:for="{{items}}">
+    <radio value="{{item.type}}" color='#1296db'/>{{item.name}}
+  </label>
+</radio-group>
+        <view class="base-cell base-cell_input">
+            <view class="base-cell__hd">
+                <view class="base-label">密　码</view>
+            </view>
+            <view class="base-cell__bd">
+                <input class="base-input" name="password" value='{{po.password}}' type='number' password='true' placeholder="请输入密码" bindinput='bindPasswordId'/>
+            </view>
+        </view>
+    </view>
+       <view  class="radio-group">
+     <navigator url="/pages/member/resetPasswords/resetPasswords" open-type="redirect">忘记密码？</navigator>
+     </view>
+      <button class='base-btn' formType="submit" bindtap='Landpassword'>登录</button>
+     </form>
+    </view>
+    <view class='promptBox' style='display:{{promptDisplay}}'>
+      <icon type='info' color='#fff' size='30'></icon>
+      <view>{{promptTxt}}</view>
+    </view>
+    <view class='Return' bindtap='Returnindex'>返回活动首页</view>
+</view>

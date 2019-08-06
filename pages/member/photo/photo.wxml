@@ -1,0 +1,33 @@
+<view class='page'>
+  <view class="image-warper">
+    <view class='base-nav-grid-warper'>
+      <view class='base-nav-grid-groud' wx:for="{{vo.dest}}" wx:for-item="groud">
+        <view class='base-nav-grid-groud-title'>{{groud.uploadDate}}</view>
+        <view class='base-nav-grid'>
+          <view scroll-y class='base-nav-grid-pic' wx:for="{{groud.data}}" wx:for-item="dImg">
+            <image hidden='{{dImg.filetype == 1}}' src='{{vo.imgBaseUrl}}{{dImg.photoPath}}' bindtap="imgYu" data-list="{{groud.imgList}}" data-type='{{dImg.filetype}}' data-src="{{vo.imgBaseUrl}}{{dImg.photoPath}}" data-index='{{dImg.id}}' bindlongpress="{{userType=='教职工'?'deleteImg':''}}"></image>
+            <video id='{{dImg.id}}' bindfullscreenchange='bindVideoScreenChange' data-index='{{dImg.id}}' hidden='{{dImg.filetype == 0}}' controls='{{status}}' src="{{vo.imgBaseUrl}}{{dImg.photoPath}}"
+              custom-cache='{{false}}' event-model="bubble">
+              <cover-view class="controls" style="display:{{status?'none':'inline-block'}}" bindtap='videoYu' data-type='{{dImg.filetype}}' bindlongpress="{{userType=='教职工'?'deleteImg':''}}" data-index='{{dImg.id}}'>
+                
+                <cover-image class="video_backgroud" hidden='{{status}}' src='{{dImg.framepath?vo.imgBaseUrl+""+dImg.framepath:""}}'></cover-image>
+                <cover-image class="video_image" hidden='{{status}}' src="/assets/icon/play.png"></cover-image>
+                <cover-view class="video_test">{{dImg.duration}}</cover-view>
+
+
+              </cover-view>
+            </video>
+          </view>
+        </view>
+      </view>
+    </view>
+
+  </view>
+  <view class='title-warper' hidden='{{status}}'>
+    <view class='image-title'>{{gradename}}</view>
+    <view class='clazz'>{{clazzname}} ({{total}})
+    </view>
+    <image hidden="{{userType=='家长'||userType=='门店管理员'}}" class='uploadVideo' src='/assets/icon/video.png' bindtap="chooseVideo"></image>
+    <image hidden="{{userType=='家长'||userType=='门店管理员'}}" class='uploadPhoto' src='/assets/icon/photo.png' bindtap='uploadPhoto'></image>
+  </view>
+</view>

@@ -1,0 +1,37 @@
+<view class='page'>
+  <view class="base-cells_after-title">
+      <view class="base-cell base-cell_input">
+          <view class="base-cell__hd">
+              <view class="base-label">+86</view>
+          </view>
+          <view class="base-cell__bd">
+              <input class="base-input" name="mobile" type='number' bindinput="syncName" placeholder="请输入新手机号" value="{{po.mobile}}"  maxlength='11'/>
+          </view>
+      </view>
+      <view class="base-cell base-cell_input base-cell_vcode">
+          <view class="base-cell__hd">
+              <view class="base-label">手机验证码</view>
+          </view>
+          <view class="base-cell__bd">
+              <input class="base-input" name="code" placeholder="请输入手机验证码" type='number' maxlength='6' bindinput='bindEquipmentId'/>
+          </view>
+          <view class="base-cell__ft">
+              <button class="base-vcode-btn" disabled='{{disabled}}' bindtap='CodeData'>{{code}}</button>
+          </view>
+      </view>
+      <view class="base-cell base-cell_input">
+          <view class="base-cell__hd">
+              <view class="base-label">登录密码</view>
+          </view>
+          <view class="base-cell__bd">
+              <input class="base-input" name="password" type='number' password='true' placeholder="请输入登录密码" value="{{po.password}}" bindinput="syncPass"/>
+          </view>
+      </view>
+  </view>
+  
+    <button class='base-btn' bindtap='toSave'>确认</button>
+    <view class='promptBox' style='display:{{promptDisplay}}'>
+      <icon type='info' color='#fff' size='30'></icon>
+      <view>{{promptTxt}}</view>
+    </view>
+</view>

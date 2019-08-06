@@ -1,0 +1,84 @@
+.base-cells_after-title{
+  border-top: 2rpx solid #8a8a8a;
+  border-bottom: 2rpx solid #8a8a8a;
+  font-size: 30rpx;
+  color: #000;
+  margin-bottom: 15rpx;
+}
+.base-cell:before {
+    content: " ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 1px;
+    border-top: 2rpx solid #8a8a8a;
+    color: #d9d9d9;
+    left: 15px;
+}
+.border-none:before{
+ display: none;
+}
+
+.member{
+  width: 710rpx;
+  height: 226rpx;
+  margin: 15rpx auto;
+  background: #1296db;
+  border-radius: 20rpx;
+  position: relative;
+}
+.memberpic{
+  width: 115rpx;
+  height: 115rpx;
+  overflow: scroll;
+  border-radius: 50%;
+  margin-left: 30rpx;
+  margin-top: 55rpx;
+  float: left;
+}
+.nickname{
+  font-size: 26rpx;
+  color: #fff;
+  margin-top:45rpx; 
+  float: right;
+  width: 520rpx;
+  margin-right: 25rpx;
+}
+.Loginname{
+  font-size: 26rpx;
+  color: #fff;
+  float: right;
+  width: 520rpx;
+  margin-right: 25rpx;
+  line-height: 22rpx;
+}
+.Loginname .left{
+  float: left;
+}
+.Loginname .right{
+  float: right;
+}
+.newsicon{
+  width: 48rpx;
+  height: 65rpx;
+  position: absolute;
+  right: 30rpx;
+  top:80rpx;
+}
+.newsnum{
+  background: #ff0000;
+  width: 32rpx;
+  height: 32rpx;
+  border-radius: 50%;
+  position: absolute;
+  right: 20rpx;
+  top:70rpx;
+  font-size:22rpx;
+  color: #fff;
+  text-align: center;
+  line-height: 32rpx; 
+}
+.access_button{
+  width:100%
+}

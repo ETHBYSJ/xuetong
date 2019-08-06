@@ -1,0 +1,7 @@
+<view class='page'>
+  <image src='/assets/icon/logo_black.png' class='logo' mode='widthFix'></image>
+  <view class='Aboutus'><text space="emsp">  学童邦是一款帮助社区托管中心或机构实现智慧社区、智慧托管的互联网工具，为社区托管提高工作效率，打造强有力的竞争格局和品牌形象。</text></view>
+   <view class='Aboutus'><text space="emsp">电话：18872208938\n邮箱：company@xuetongbang.com\n地址：湖北省武汉市</text></view> 
+   <button class='base-btn' bindtap='makePhone'>联系我们</button>
+   <view class="versions">Copyright©2019</view>  
+</view>

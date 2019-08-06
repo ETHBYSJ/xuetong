@@ -1,0 +1,69 @@
+<view class="page">
+  <view class="tap-wrp">
+    <view class="tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">正在报名</view>
+    <view class="tab-list {{currentTab==1? 'on' : ''}}" data-current="1" bindtap="swichNav">精彩瞬间</view>
+  </view>
+  <swiper wx:if="{{vo.imgUrls.length && currentTab==0}}" indicator-color='#fff' indicator-active-color='#1296db' autoplay='{{true}}' indicator-dots="{{true}}" circular='{{true}}' interval='5000' duration="300" class='base_graphbanner' style='height:{{180}}px'>
+    <block wx:for="{{vo.imgUrls}}" wx:key="imgUrls" wx:for-item="item" wx:if="{{item.photopath}}">
+      <swiper-item>
+        <!--../../member/Mycardbag/Mycardbag-->
+        <navigator url='../detail/detail?id={{item.id}}'>
+          <image src="{{vo.imgBaseUrl}}{{item.photopath}}" class="base_graphbanner-image" data-info='{{item.id}}' mode='scaleToFill'></image>
+        </navigator>
+        <view style='position:relative;'>
+          <navigator url='../../activity/index/index'>
+            <view class='more'>{{item.heading}}</view>
+          </navigator>
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
+
+  <!--搜索框  -->
+  <view class="base-search-bar" bindload='searchLoad'>
+    <view class='base-cinema-loaction' bindtap='Currentcity'>
+      <image src="/assets/icon/location-fill.png" class='base-cinema-loaction-img'></image>
+      <text class='base-cinema-loaction-txt'>{{vo.Currentcity}}</text>
+      <image src="/assets/icon/Open_icon.png" class='base-cinema-loaction-icon'></image>
+    </view>
+    <view class="base-search-bar__form">
+      <view class="base-search-bar__box">
+        <icon class="base-icon-search_in-box" type="search" size="14"></icon>
+        <input type="text" class="base-search-bar__input" placeholder-style="color:#a5a5a5;font-size:30rpx;" placeholder="请输入关键字" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" />
+        <view class="base-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+          <icon type="clear" size="14"></icon>
+        </view>
+      </view>
+      <label class="base-search-bar__label" style='display:{{inputShowed?"none":""}}' bindtap="showInput">
+        <icon class="base-icon-search" type="search" size="14"></icon>
+        <view class="base-search-bar__text">请输入关键字</view>
+      </label>
+    </view>
+    <view class="base-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
+  </view>
+
+  <view scroll-y class='base-nav_contant'>
+    <view bindtap="{{currentTab== 0 ?'jumpPage':'' }}" data-id="{{item.id}}" wx:for="{{vo.infor}}" wx:for-index="ind" wx:key="infor">
+      <view class="list_num" hidden="{{currentTab== 0}}">NO.{{ind+1}}</view>
+      <view class='base-nav_contant_list clearfix'>
+        <image src='{{item.titlePhoto?vo.imgBaseUrl+""+item.titlePhoto:"/images/icon8.jpg"}}' mode='scaleToFill' id="{{item.id}}" class='base-nav_contant_list-img'></image>
+        <view class='base-nav_contant_list_cen' id="{{item.id}}">
+          <view class='base-nav_contant_list_txt' id="{{item.id}}">{{item.heading}}</view>
+          <view class='active_warp' id="">
+            <text style='color:#1296db'>{{currentTab == 1 ?'活动结束':'活动报名中'}}</text>
+            <text hidden="{{currentTab== 1}}" style="padding-left:130rpx;">剩余<text style='color:red'>{{item.remains}}</text>个名额</text>
+          </view>
+        </view>
+      </view>
+      <scroll-view hidden="{{currentTab== 0}}" scroll-x class='imagewrap'>
+      <view class='box' style='width:{{item.photos.length*(216+26)}}rpx'>
+        <view wx:for="{{item.photos}}" wx:key="imgUrls"  class="photos">
+            <image mode="aspectFill" class="photo" src="{{vo.imgBaseUrl}}{{item.photo_path}}" bindtap="imgYu" data-src="{{vo.imgBaseUrl}}{{item.photo_path}}" data-index='{{ind}}'/>
+        </view>
+      </view>  
+      </scroll-view>
+    </view>
+  </view>
+
+
+</view>

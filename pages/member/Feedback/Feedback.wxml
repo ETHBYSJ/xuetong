@@ -1,0 +1,14 @@
+<view class='page'>
+ <view class="feedback_header">
+ 建议类型<view class="picker_type">{{array[index]}}</view>
+  <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+    <view class="picker">
+     建议类型{{array[index]}}
+    </view>
+  </picker> 
+  </view>
+  <view class="textarea-wrp">
+      <textarea maxlength="-1"/>
+    </view>
+  <button class='base-btn' bindtap='confirm'>确认</button>
+</view>

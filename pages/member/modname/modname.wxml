@@ -1,0 +1,19 @@
+<view class='page'>
+  <view class="base-cells_after-title">
+      <view class="base-cell base-cell_input">
+          <view class="base-cell__hd">
+              <view hidden='{{userType=="教职工"}}' class="base-label">修改家长姓名</view>
+              <view hidden='{{userType=="家长"}}' class="base-label">修改教职工姓名</view>
+              
+          </view>
+          <view class="base-cell__bd">
+              <input class="base-input"  bindinput="syncName" placeholder="请输入姓名" value="{{po.name}}"/>
+          </view>
+          
+      </view>
+  </view>
+  
+    <button hidden='{{userType=="教职工"}}' class='base-btn' bindtap='toSave'>确认</button>
+     <button hidden='{{userType=="家长"}}' class='base-btn' bindtap='toTeachSave'>确认</button>
+ 
+</view>

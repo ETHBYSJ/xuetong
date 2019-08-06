@@ -1,0 +1,235 @@
+.swiper-tab {
+  width: 100%;
+  border-bottom: 1px solid #777;
+  text-align: center;
+  line-height: 40px;
+  background-color: #fff;
+}
+
+
+.swiper-tab-list {
+  font-size: 13px;
+  display: inline-block;
+  width: 33.3%;
+  color: #777;
+}
+.on {
+  color: #FFF;
+  background-color: #528dc3;
+  border-top:5rpx solid #528dc3;
+  border-bottom:5rpx solid #528dc3;
+}
+
+
+.swiper-box {
+  display: block;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+
+.swiper-box view {
+  text-align: center;
+}
+
+.baby-body{
+  width:100%;
+  height: 100vh;
+}
+.school-title{
+  width:100%;
+  height: 142rpx;
+  line-height: 142rpx;
+  color: #000000;
+}
+.school-icon{
+  width:80rpx;
+  height:80rpx;
+  position: relative;
+  bottom: -24rpx;
+  margin-left: 20rpx;
+  border-radius: 50%;
+}
+.school-name{
+  display:inline-block; 
+  font-size: 32rpx;
+  height:20rpx;
+  vertical-align: top;
+   margin-left:20rpx; 
+   width: 400rpx;
+   text-align: left;
+}
+.member{
+  width: 750rpx;
+  height: 500rpx;
+  margin: 5rpx auto;
+  position: relative;
+}
+.member-bg{
+  position: absolute;
+  z-index: -99;
+  width: 750rpx;
+  height: 500rpx;
+}
+.memberpic{
+  width: 180rpx;
+  height: 215rpx;
+  border-radius: 20rpx;
+  overflow: scroll;
+  margin-left: 36rpx;
+  float: left;
+}
+.nickname{
+  float: left;
+  width: 200rpx;
+  margin-top: 50rpx;
+}
+.Loginname{
+  color:#000000;
+  float: left;
+  margin-left: 60rpx;
+  width: 400rpx;
+  line-height: 40rpx;
+ 
+}
+
+.left-name{
+  display: inline-block;
+  font-size: 32rpx;
+   margin-right: 60rpx;
+   margin-bottom: 10rpx;
+}
+.left-clssname{
+  font-size: 32rpx;
+}
+.check{
+  position: absolute;
+  width:92%;
+  left: 4%;
+  top:380rpx;
+  height: 250rpx;
+  text-align: left;
+  color:#000000;
+  font-size: 32rpx;
+  
+}
+.navwarp{
+  width:100%;
+  position:absolute;
+  height:250rpx;
+  z-index: 5;
+}
+.check-name{
+  border-top-left-radius: 10rpx;
+  border-top-right-radius: 10rpx;
+  border: 1rpx solid #8a8a8a;
+  font-size: 30rpx;
+  padding-bottom: 10rpx;
+  background: #fff;
+  text-align: center;
+}
+.check-name text{
+  margin-left: 10rpx;
+}
+.check-name:after {
+    content: " ";
+    display: inline-block;
+    height: 13rpx;
+    width: 13rpx;
+    border-width: 4rpx 4rpx 0 0;
+    border-color: #8a8a8a;
+    border-style: solid;
+    -webkit-transform: matrix(.71, .71, -.71, .71, 0, 0);
+    transform: matrix(.71, .71, -.71, .71, 0, 0);
+    position: relative;
+    top: 50%;
+    margin-top: 26rpx;
+    left: 100rpx
+}
+
+
+.check-icon{
+  width:32rpx;
+  height:32rpx;
+  position: relative;
+  bottom: -2rpx;
+  margin-left: 20rpx;
+  margin-right: 10rpx;
+}
+.check-time{
+  border-bottom-left-radius: 10rpx;
+  border-bottom-right-radius: 10rpx;
+  border-left:1rpx solid #8a8a8a;
+   border-right:1rpx solid #8a8a8a;
+    border-bottom:1rpx solid #8a8a8a;
+  height: 180rpx;
+  display: flex;
+  color: #000000;
+}
+.s-bg{
+  position: absolute;
+  z-index: -1;
+   width:99.6%;
+  height: 180rpx;
+}
+.in-time{
+  position: relative;
+  height: 160rpx;
+  padding-top:20rpx;
+  padding-left: 60rpx;
+   flex: 1;
+}
+
+.out-time{
+  height: 160rpx;
+  padding-top:20rpx;
+  padding-left: 60rpx;
+  
+}
+.out-time{
+  position: relative;
+  flex:1;
+}
+.in-time-img{
+  position: absolute;
+  top:30rpx;
+  left: 200rpx;
+  width:120rpx;
+  height:120rpx;
+  border-radius:50%;
+}
+.in-time-text{
+  width: 70rpx;
+  display: inline-block;
+  vertical-align: top;
+  padding-top: 30rpx;
+  padding-right: 20rpx;
+ 
+}
+.in-time-title{
+  width: 200rpx;
+}
+
+
+
+
+
+.shcool-name{
+  width:100%;
+  height: 60rpx;
+  line-height: 60rpx;
+  padding-left: 20rpx;
+  text-align: left;
+  color:#000000;
+  font-size: 30rpx;
+  border-bottom: 1rpx solid #000000;
+}
+.footer{width: 100%;background-color:#fff;display: flex;margin-top: 180rpx;}
+ .footer view{flex: 1;margin:20rpx 0 0 0; } 
+ .footer view image{display: block;width: 85rpx;height: 85rpx;margin: 0 auto;}
+ .footer view text{display: block;font-size:30rpx;color:#000000;text-align: center;} 
+ .footer_1{width: 100%;background-color:#fff;}
+ .footer_1 view{width:25%;margin:60rpx 0 0 0; display: inline-block;} 
+ .footer_1 view image{display: block;width: 85rpx;height: 85rpx;margin: 0 auto;}
+ .footer_1 view text{display: block;font-size:30rpx;color:#000000;text-align: center;} 

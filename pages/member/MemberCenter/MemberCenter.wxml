@@ -1,0 +1,67 @@
+<view class='page' hidden='{{hidden}}'>
+  <view class='member'>
+    <navigator url='../myprofile/myprofile'>
+    <!-- <image wx:if="{{vo.UserInfo.loginImage}}" src='{{vo.imgBaseUrl}}{{vo.UserInfo.loginImage}}' class='memberpic'></image> -->
+     <open-data class='userImage' type="userAvatarUrl"  class='memberpic'></open-data>
+    <view class="nickname">昵称： {{vo.UserInfo.name}}</view>
+    <view class="Loginname">
+      <text class="left">
+      账号：{{vo.UserInfo.loginName}}
+      </text>
+    </view>
+     <view class="Loginname">
+      <text class="left">
+      角色：{{vo.UserInfo.userType}}
+      </text>
+    </view>
+    </navigator>
+    <navigator url='../../email/email' open-type="switchTab">
+    <image src='/assets/icon/news_icon.png' class='newsicon'></image>
+     <view class='newsnum' hidden='{{vo.unreadCount==0}}'>{{vo.unreadCount}}</view>
+    </navigator>
+  </view>
+  <view class="base-cells_after-title">
+      <navigator hidden='{{vo.UserInfo.userType=="教职工"||vo.UserInfo.userType=="门店管理员"}}' url="../myChildren/myChildren" class="base-cell base-cell_access">
+          <view class="base-cell__bd">我的孩子</view>
+          <view class="base-cell__ft base-cell__ft_in-access"></view>
+      </navigator>
+
+      <navigator url="../attendance/attendance"  class="{{vo.UserInfo.userType=='教职工'||vo.UserInfo.userType=='门店管理员'?'border-none':''}} base-cell base-cell_access">
+          <view class="base-cell__bd">考勤记录</view>
+          <view class="base-cell__ft base-cell__ft_in-access"></view>
+      </navigator>
+
+      <!-- <navigator url="../photo/photo" class="base-cell base-cell_access" > -->
+          <!-- <view class="base-cell__bd">成长相册</view> -->
+          <!-- <view class="base-cell__ft base-cell__ft_in-access"></view> -->
+      <!-- </navigator> -->
+
+      <navigator url="../mySpending/mySpending" hidden='{{vo.UserInfo.userType=="教职工"||vo.UserInfo.userType=="门店管理员"}}' class="base-cell base-cell_access" >
+          <view class="base-cell__bd">缴费记录</view>
+          <view class="base-cell__ft base-cell__ft_in-access"></view>
+      </navigator>
+
+      <!-- <navigator  url="../../school/index/index" class="base-cell base-cell_access" > -->
+          <!-- <view class="base-cell__bd">我的福利</view> -->
+          <!-- <view class="base-cell__ft base-cell__ft_in-access"></view> -->
+      <!-- </navigator> -->
+
+          <!-- <view class="base-cell base-cell_access" hover-class="base-cell_active"> -->
+          <!-- <view class="base-cell__bd"> -->
+          <!-- 联系客服 -->
+          <!-- <button open-type="contact" class="access_button">联系客服</button> -->
+          <!-- </view> -->
+          <!-- <view class="base-cell__ft base-cell__ft_in-access"></view> -->
+          <!-- </view> -->
+      <navigator  url='../myprofile/myprofile' class=" base-cell base-cell_access"  >
+          <view class="base-cell__bd">账号管理</view>
+          <view class="base-cell__ft base-cell__ft_in-access"></view>
+      </navigator>
+           
+      <navigator url="../Aboutus/Aboutus" class="base-cell base-cell_access" hover-class="base-cell_active">
+          <view class="base-cell__bd">联系我们</view>
+          <view class="base-cell__ft base-cell__ft_in-access"></view>
+      </navigator>
+  </view>
+  
+</view>

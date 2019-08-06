@@ -1,0 +1,196 @@
+.tap-wrp{
+  display: flex;
+  width: 100%;
+  height: 65rpx;
+  line-height: 65rpx;
+  margin-bottom: 8rpx;
+  text-align: center;
+  font-size: 26rpx;
+  font-weight: bold;
+  border: 1rpx solid #1296db;
+  background: #fff;
+}
+.tab-list{
+  flex: 1;
+  border-right: 1rpx solid #1296db;
+}
+.tab-list:last-child{
+  border-right:none; 
+}
+.on{
+  background: #1296db;
+  color: #fff;
+}
+
+.log-list {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 0;
+  /* padding-bottom:60rpx; */
+}
+.log-item {
+  margin: 10rpx;
+  font-size: 30rpx;
+}
+.title {
+  height: 60rpx;
+  line-height: 60rpx;
+  padding-left: 40rpx;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 1);
+  background: #ccc;
+  margin-top:60rpx;
+}
+.title:first-child {
+  margin-top:0;
+}
+.list-group{
+  padding-bottom: 60rpx;
+}
+.list-group-item {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  padding: 40rpx 0 0 20rpx;
+}
+.tap-title{
+  text-align: center;
+  font-size: 30rpx;
+  font-weight: bold;
+  padding-bottom: 20rpx;
+}
+.list-group-item .icon {
+  width:100rpx;
+  height:100rpx;
+  border-radius: 50%;
+}
+.icons_1{
+  width:60rpx;
+  height:60rpx;
+  position:absolute;
+  right:120rpx;
+}
+.icons_2{
+  width:60rpx;
+  height:60rpx;
+  position:absolute;
+  right:40rpx;
+}
+::-webkit-scrollbar{
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+.list-shortcut {
+  position: fixed;
+  z-index: 30;
+  right: 0;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  width: 20px;
+  padding: 20px 0;
+  border-radius: 10px;
+  text-align: center;
+  font-family: Helvetica;
+}
+.list-shortcut text {
+  display: block;
+  padding: 3px;
+  line-height: 1;
+  font-size: 12px;
+}
+.current{
+  display: inline-block;
+  width: 26rpx;
+  height: 26rpx;
+  background:  #0bc448;
+  vertical-align: middle;
+  border-radius: 50%;
+  color: #fff;
+
+
+}
+.list-fixed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.fixed-title {
+  height:60rpx;
+  line-height:60rpx;
+  padding-left:40rpx;
+  font-size:12px;
+  color:rgba(255, 255, 255, 1);
+  background:#ccc;
+}
+
+
+.drawer_screen {
+  width: 100vh;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background: #000;
+  opacity: 0.08;
+  overflow: hidden;
+}
+/*content*/
+.drawer_attr_box {
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1001;
+  background: #fff;
+}
+.drawer_content {
+  padding: 20rpx 40rpx;
+  overflow-y: scroll;
+}
+.drawer_title{
+  padding:20rpx;
+  font:42rpx "microsoft yahei";
+  text-align: center;
+}
+.line{
+  border-bottom: 1px solid #f8f8f8;
+}
+.log-reach{
+   position:absolute;
+  right:280rpx;
+  color: #000;
+  font-size: 30rpx;
+}
+.log-reach_1{
+  display: inline-block;
+  vertical-align: middle;
+  width: 30rpx;
+  height: 30rpx;
+  background: red;
+  border-radius: 50%;
+  margin-right: 10rpx;
+}
+.log-reach_2{
+  display: inline-block;
+  vertical-align: middle;
+  width: 30rpx;
+  height: 30rpx;
+  background: #0bc448;
+  border-radius: 50%;
+  margin-right: 10rpx;
+}
+.log-reach_3{
+  display: inline-block;
+  vertical-align: middle;
+  width: 30rpx;
+  height: 30rpx;
+  background: yellow;
+  border-radius: 50%;
+  margin-right: 10rpx;
+}

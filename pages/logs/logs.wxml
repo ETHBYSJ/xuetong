@@ -1,0 +1,46 @@
+<!--logs.wxml-->
+<swiper class="container log-list" current="{{currentTab}}"  duration="0" bindchange="switchTab"
+     style="height:100vh">
+      <swiper-item wx:for="{{[0,1,2]}}">
+ <view class="tap-title">
+  {{clazzname}}（{{nowDate}}）
+ 
+ </view>
+
+ <view class="tap-wrp">
+      <view class="tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">全部 （{{totalSize}}）</view>
+      <view class="tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">已签 （{{pageSize}}）</view>
+      <view class="tab-list {{currentTab==2 ? 'on' : ''}}" data-current="2" bindtap="swichNav">未签 （{{pageNo}}）</view>
+    </view>
+  <scroll-view scroll-y='{{!showModalStatus}}' style="height:93vh;white-space:nowrap;" scroll-into-view="{{toView}}" enable-back-to-top bindscroll="_scroll" scroll-with-animation scroll-top="{{scrollTop}}">
+    <view class="list-group" wx:for="{{logs}}" wx:for-index="idx" wx:for-item="group">
+      <view class="title" id="{{group.title}}">{{group.title}}</view>
+      <block wx:for="{{group.items}}" wx:for-item="user" wx:for-index="ifx">
+        <view id="" class="list-group-item">
+          <image class="icon" src="{{user.avatar?imgBaseUrl+''+user.avatar:'/assets/icon/loadImg.jpg'}}" lazy-load="true" mode='aspectFill'></image>
+          <text class="log-item">{{user.name}}</text>
+          <view class='log-reach' hidden='{{user.reach!=0||currentTab!=0}}'><text class='log-reach_1'></text>未到</view>
+           <view class='log-reach' hidden='{{user.reach!=1||currentTab!=0}}'><text class='log-reach_2'></text>已到</view>
+            <view class='log-reach' hidden='{{user.reach!=2||currentTab!=0}}'><text class='log-user._3'></text>请假</view>
+          <image class="icons_1" hidden='{{user.reach!=0}}' bindtap='changeReach' data-name='{{user.name}}' data-studentid='{{user.number}}' src="/assets/icon/logs_2.png" lazy-load="true" mode='aspectFill'></image>
+          <image class="icons_2" src="/assets/icon/logs_1.png" bindtap="powerDrawer" data-index="{{idx}}{{ifx}}" data-statu="open" lazy-load="true" mode='aspectFill'></image>
+        </view>
+        <view class="drawer_screen" bindtap="powerDrawer" data-index="{{idx}}{{ifx}}" data-statu="close" wx:if="{{showModalStatus&&idx+''+ifx==list_num&&user.webchatFamilyInfoList!=''}}"></view>
+
+          <view animation="{{animationData}}" class="drawer_attr_box" wx:if="{{showModalStatus&&idx+''+ifx==list_num&&user.webchatFamilyInfoList!=''}}">
+            <!--drawer content-->
+            <view class="drawer_content">
+              <view class="drawer_title line" wx:for="{{user.webchatFamilyInfoList}}" data-phone="{{item.phone}}" bindtap='calling' wx:for-item="item">{{item.name}} {{item.phone}} </view>
+            </view>
+          </view>
+      </block>
+    </view>
+  </scroll-view>
+  <!-- 侧边字母导航 -->
+  <view class="list-shortcut">
+    <block wx:for="{{logs}}">
+      <text class="{{currentIndex===index?'current':''}}" data-id="{{item.title}}" bindtap='scrollToview'>{{item.title}}</text>
+    </block>
+  </view>
+</swiper-item>
+</swiper>

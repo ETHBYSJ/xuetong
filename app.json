@@ -1,0 +1,82 @@
+{
+  "pages": [
+    "pages/funclist/funclist",
+    "pages/activity/index/index",
+    "pages/activity/detail/detail",
+    "pages/activity/apply/apply",
+    "pages/school/index/index",
+    "pages/school/list/list",
+    "pages/baby/index/index",
+    "pages/baby/CropPhoto/CropPhoto",
+    "pages/member/MemberCenter/MemberCenter",
+    "pages/email/email",
+    "pages/logs/logs",
+    "pages/member/register/register",
+    "pages/member/Modifypassword/Modifypassword",
+    "pages/member/Aboutus/Aboutus",
+    "pages/member/Feedback/Feedback",
+    "pages/member/myChildren/myChildren",
+    "pages/member/myprofile/myprofile",
+    "pages/member/modifymail/modifymail",
+    "pages/member/modifyname/modifyname",
+    "pages/member/modname/modname",
+    "pages/member/Bindingphone/Bindingphone",
+    "pages/member/resetPasswords/resetPasswords",
+    "pages/member/mySpending/mySpending",
+    "pages/member/attendance/attendance",
+    "pages/member/modaddress/modaddress",
+    "pages/member/contacter/contacter",
+    "pages/member/contactphone/contactphone",
+    "pages/member/introduce/introduce",
+    "pages/member/name/name",
+    "pages/member/phone/phone",
+    "pages/member/watchword/watchword",
+    "pages/member/worktime/worktime",
+    "pages/member/photo/photo",
+    "pages/answer/answer",
+    "pages/answerb/answerb"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "学童邦",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#8a8a8a",
+    "selectedColor": "#1296db",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/activity/index/index",
+        "text": "活动",
+        "iconPath": "/assets/icon/baby.png",
+        "selectedIconPath": "/assets/icon/s_baby.png"
+      },
+      {
+        "pagePath": "pages/baby/index/index",
+        "text": "学堂",
+        "iconPath": "/assets/icon/office.png",
+        "selectedIconPath": "/assets/icon/s_office.png"
+      },
+      {
+        "pagePath": "pages/email/email",
+        "text": "消息",
+        "iconPath": "/assets/icon/email.png",
+        "selectedIconPath": "/assets/icon/s_email.png"
+      },
+      {
+        "pagePath": "pages/member/MemberCenter/MemberCenter",
+        "text": "我的",
+        "iconPath": "/assets/icon/account.png",
+        "selectedIconPath": "/assets/icon/s_account.png"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
+  "sitemapLocation": "sitemap.json"
+}

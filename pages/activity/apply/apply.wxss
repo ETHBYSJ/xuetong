@@ -1,0 +1,411 @@
+.home {
+	position: relative;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.gap {
+  height: 5%;
+  width: 100%;
+  background-color: #f2f2f2;
+  position: absolute;
+  z-index: 88;
+  top:-60rpx;
+}
+
+.home .header {
+  position: absolute;
+   left: 32%;
+   top:-56rpx;
+}
+
+.home .header .header-text {
+  position: absolute;
+  width: 120px;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  background-color: skyblue;
+  color: #fff;
+  font-size: 16px;
+  margin: 0 auto;
+  z-index: 99;
+}
+
+.header-text::before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  border-top: 40rpx solid transparent;
+  border-right: 40rpx solid #1296db;
+  position: absolute;
+  top: 0;
+  left: -39rpx;
+}
+
+.header-text::after {
+   content: "";
+  width: 0px;
+  height: 0px;
+  border-top: 40rpx solid transparent;
+  border-left: 40rpx solid #1296db;
+  position: absolute;
+  top: 0;
+  right: -39rpx;
+}
+
+.contain {
+  background-color: #fff;
+  height: 95%;
+  width: 100%;
+}
+
+/* 详情 */
+
+.activity-info {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 42px 12px 0;
+  box-sizing: border-box;
+}
+
+.activity-info-right {
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+.underway {
+  color: skyblue;
+}
+
+.num {
+  color: red;
+}
+
+.activity-detail-tips {
+  margin-top: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+}
+
+.activity-info image {
+  width: 56px;
+  height: 56px;
+}
+
+/* 表单添加 */
+
+.name-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #000;
+  min-height: 56px;
+  padding: 0 16px;
+  font-size:32rpx;
+}
+
+.name-list image {
+  width: 24px;
+  height: 24px;
+}
+
+.name-list .child-list {
+  text-align: left;
+  width: 96%;
+  padding-left: 20rpx;
+}
+
+.child-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.child-item .child-delete {
+  width: 32rpx;
+  height: 32rpx;
+  margin-left: 2rpx;
+  margin-top: 8rpx;
+  margin-right: 18rpx;
+}
+
+.name-list .parent-list {
+  text-align: left;
+  width: 90%;
+  padding-left: 20rpx;
+}
+
+/* 按钮 */
+
+.btn {
+  width: 90%;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+.pay {
+  background-color: #00b848;
+  margin: 20px auto 10px;
+}
+
+.consult {
+  background-color: #ccc;
+  margin: 0 auto;
+}
+
+/* 弹窗 */
+
+.bottom-dialog {
+  transition: 0.2s cubic-bezier(0.73, -0.37, 0.31, 1.06);
+  transition-property: height;
+  position: relative;
+    bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 3;
+  width: 100%;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+.active-bottom-dialog {
+  bottom: 0;
+  position: absolute;
+  display: block;
+}
+
+.child-select-list {
+  margin-top: 6px;
+  margin-bottom: 50rpx;
+}
+
+	
+.parent-select-list {
+  margin-top: 6px;
+  margin-bottom: 50rpx;
+}
+
+.child-select-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  width: 90%;
+  height: 210rpx;
+  margin: 0 auto;
+  border-radius: 8px;
+  padding: 0 12px;
+  margin-bottom: 6px;
+}
+
+.parent-select-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  width: 90%;
+  height: 80px;
+  margin: 0 auto;
+  border-radius: 8px;
+  padding: 0 12px;
+  margin-bottom: 6px;
+}
+
+.child-select-item-info {
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.child-select-item-selcet {
+  width: 10%;
+}
+
+.parent-select-item .child-select-item-info {
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: inherit;
+}
+
+.select-child-img{
+  width:60rpx;
+  height:60rpx;
+}
+
+.parent-info-right {
+  margin-left: 24px;
+}
+
+.radius-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  padding: 1px;
+  border-radius: 4px;
+  margin-right: 6px;
+  background-clip: content-box, padding-box;
+}
+
+.select-right {
+  width: 16px;
+  height: 16px;
+}
+
+.blue {
+  border: 1px solid #1296db;
+}
+.sure-wrapper{
+	display: flex;
+	margin-bottom: 60rpx;
+}
+.sure-select {
+  background-color: #1296db;
+  margin: 0 auto;
+  width: 120rpx;
+  text-align: center;
+  border-radius: 10rpx;
+  
+}
+
+.show-child {
+  display: block;
+}
+
+.show-parent {
+  display: block;
+}
+
+.none {
+  display: none !important;
+}
+
+.base-nav_contant_list {
+  font-size: 28rpx;
+  margin:24rpx;
+  margin-top:62rpx;
+  background: #fff;
+  padding-left: 24rpx;
+  position: relative;
+  height: 200rpx;
+  border-top-left-radius: 10rpx;
+  border-top-right-radius: 10rpx;
+}
+
+navigator {
+  display: block;
+  height: 100%;
+}
+
+.base-nav_contant_list-img {
+  height: 146rpx;
+  width: 188rpx;
+  position: absolute;
+  top: 20rpx;
+  left: 0rpx;
+  border-radius: 5rpx;
+}
+
+.base-nav_contant_list_cen {
+  float: left;
+  margin-top: 144rpx;
+  margin-left: 204rpx;
+}
+
+.base-nav_contant_list_right {
+  float: right;
+  margin-top: 20rpx;
+  margin-right: 20rpx;
+  text-align: right;
+}
+
+.base-nav_contant_list_txt {
+  font-size: 32rpx;
+  color: #000;
+  font-weight: bold;
+  position: absolute;
+  left: 228rpx;
+  top: 20rpx;
+  width: 476rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.base-nav_contant_list_des {
+  font-size: 26rpx;
+  color: #666;
+  position: absolute;
+  top: 132rpx;
+  right: 24rpx;
+  width: 440rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.active_warp{
+  position: absolute;
+  margin-top: -28rpx; 
+
+}
+.btn-wrp {
+    display: flex;
+    width: 100%;
+    height: 100rpx;
+    text-align: center;
+    line-height: 100rpx;
+	margin-top:20rpx;
+}
+
+.base-btn {
+    flex: 1;
+    font-size: 22rpx;
+    color: red;
+    height: 100rpx;
+    line-height: 100rpx;
+    background: #fff;
+}
+
+.base-btn view {
+    height: 40rpx;
+    line-height: 60rpx;
+}
+
+.base-btn-ok {
+    flex: 1;
+    color: #000;
+}
+.select-child-date{
+	height:20rpx;
+}
+.name{
+position: absolute;
+left:100rpx;
+top:106rpx;
+}
+.brithay{
+	position: absolute;
+	left: 100rpx;
+	top:162rpx;
+}
+._name{
+position: absolute;
+left:130rpx;
+top:62rpx;
+}

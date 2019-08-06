@@ -1,0 +1,28 @@
+.userinfor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userImage {
+  height: 228rpx;
+  width: 228rpx;
+  margin-top: 200rpx;
+  overflow: scroll;
+  border-radius: 50%;
+}
+
+.userNickname {
+  color: #fff;
+  margin-top: 20rpx;
+  margin-bottom: 100rpx;
+  color: black;
+}
+
+button {
+  width: 680rpx;
+  background: #1296db;
+  font-size: 36rpx;
+  color: #fff;
+}
+

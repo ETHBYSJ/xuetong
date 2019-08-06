@@ -1,0 +1,70 @@
+<!--answer.wxml-->
+<!-- <view class="container"> -->
+<!-- <view class="answer-content" wx:for="{{feed.studentEverydayAttendanceVOList[0].attendanceStudentList}}" wx:key="item.id" wx:for-item="item"> -->
+
+<!-- <view class="text-wrapper">   -->
+<!-- <text> 姓名：{{feed.name}} -->
+<!-- 班级：{{feed.clazzname}} -->
+<!-- 学校：{{feed.gradename}} -->
+<!-- 打卡时间：{{item.attendancedate}} {{item.attendancetime}} -->
+<!-- </text> -->
+<!-- </view> -->
+<!-- <image src="{{item.photopath}}" mode="aspectFit"></image>   -->
+<!-- </view> -->
+<!-- </view> -->
+
+<view class="container" hidden='{{userType=="教职工"}}'>
+  <view wx:for="{{imgData}}" wx:key="item.id" wx:for-item="item">
+    <view class="question">
+    </view>
+    <view class="answerer-wrp">
+      <view class="bg-half"></view>
+      <view class="answerer flex-wrp">
+        <view class="avatar flex-item">
+          <image src="{{vo.imgBaseUrl}}{{feed.photo}}"></image>
+        </view>
+        <view class="answerer-info flex-item">
+          <text class="answerer-name">打卡消息</text>
+          <text class="answerer-des">{{item.attendancedate}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="answer-content">
+      <text class="answer-content-text"> 姓名：{{feed.name}}
+                     学校：{{feed.gradename}}
+                     班级：{{feed.clazzname}}
+                     打卡时间: {{item.attendancetime}}
+        </text>
+      <image class="content_img" src="{{item.photopath}}" mode='aspectFit'></image>
+    </view>
+  </view>
+</view>
+
+
+
+<view class="container" hidden='{{userType=="家长"}}' >
+  <view wx:for="{{imgData}}" wx:key="item.id" wx:for-item="item">
+    <view class="question">
+    </view>
+    <view class="answerer-wrp">
+      <view class="bg-half"></view>
+      <view class="answerer flex-wrp">
+        <view class="avatar flex-item">
+          <image src="{{vo.imgBaseUrl}}{{feed.photo}}"></image>
+        </view>
+        <view class="answerer-info flex-item">
+          <text class="answerer-name">打卡消息</text>
+          <text class="answerer-des">{{item.attendancedate}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="answer-content">
+      <text class="answer-content-text"> 姓名：{{feed.name}}
+                      学校：{{feed.gradename}}
+                      班级：{{feed.clazzname}}
+                     打卡时间: {{item.attendancetime}}
+        </text>
+      <image class="content_img" src="{{item.photopath}}" mode='aspectFit'></image>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,29 @@
+.logo{
+  width: 100px;
+  height: 100px;
+  display: block; 
+  margin: 20rpx auto;
+}
+.title{
+  text-align: center;
+   font-size:32rpx;
+   margin: 0 auto 20rpx auto; 
+}
+.Aboutus{
+  width: 700rpx;
+  font-size:30rpx; 
+  margin: 0 auto 40rpx auto;
+}
+.versions{
+  position: fixed;
+  bottom: 40rpx;
+  width: 100%;
+  text-align: center;
+  font-size: 26rpx
+}
+.base-btn{
+	width: 524rpx;
+  background: #1296db;
+  color: #fff;
+  margin-top: 100rpx;
+}

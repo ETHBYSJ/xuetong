@@ -1,0 +1,40 @@
+<!--answer.wxml-->
+ <import src="../../wxParse/wxParse.wxml"/>
+<view class="container">
+    <view class="question">
+        <text class="question-title">{{feed.sendername}}通知</text>
+    </view>
+    <view class="answerer-wrp">
+        <view class="bg-half"></view>
+        <view class="answerer flex-wrp">
+            <view class="avatar flex-item">
+                <image src="../../images/icon1.jpeg"></image>
+            </view>
+            <view class="answerer-info flex-item">
+                <text class="answerer-name">{{feed.notice.heading}}</text>
+                <text class="answerer-des">{{feed.notice.createdate}}</text>
+            </view>
+        </view>
+    </view>
+    
+    <view class="answer-content">
+        <view hidden='{{order.length==0}}' class='answerer-header'>
+    <view hidden='{{!order.heading}}'>缴费项目：<text>{{order.heading}}</text></view>
+    <view class='text-pay'>缴费金额：￥{{order.payAmount}}</view>
+    <view hidden='{{order.status =="已支付"}}'>缴费状态：{{order.status}}</view>
+    <view hidden='{{order.status !="已支付"}}'>支付单号：{{order.transactionId}}</view>
+    </view>
+        <view wx:if='{{order.length!=0}}'>
+        <view   class='text-heading'>缴费明细：</view>
+        <text class='text-body'>{{order.note}}</text>
+        </view>
+        <template wx:if='{{order.length==0}}' is="wxParse" data="{{wxParseData:article.nodes}}"/>
+        <image wx:if='{{feed.notice.photopath}}' class="content_img" src="{{feed.notice.noticetype=='ntAttendance'?'':imgBaseUrl}}{{feed.notice.photopath}}" mode='aspectFit'></image>
+        <view class="attechment" data-url='{{imgBaseUrl}}{{feed.notice.attachment}}' bindtap="downloadFile" hidden='{{!feed.notice.attachment}}'>附件：<image class="attechment_icon" src="/images/draft.png"></image>{{feed.notice.originalAttachname}}</view>
+    </view>
+   
+
+</view>
+ <button class='base-btn' hidden='{{order.status!="待支付"}}' bindtap='pay'>确认支付</button>
+  <button class='base-btn-ok' hidden='{{order.status=="待支付"}}'>{{order.status}}</button>
+
