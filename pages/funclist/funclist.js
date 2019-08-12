@@ -9,7 +9,7 @@ new class extends we.Page {
     return {
       canIUse: wx.canIUse('button.open-type.getUserInfo'),
       noticeid:""
-
+      
     }
   }
 

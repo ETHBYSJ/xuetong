@@ -1,4 +1,4 @@
-
+//Load we，赋予we的各种初值，见we/index.js
 let we = require('./we/index.js')
 we({
   router: {
@@ -17,7 +17,7 @@ if (!Function.prototype.bind) {
     }
   }
 }
-
+//创建App，we.App是Application的重命名，Application中定义了App
 new class extends we.App {
   onShow(options) {
     if (options.scene == 1038) {//从另一个小程序返回

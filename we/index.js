@@ -49,7 +49,7 @@ function we(obj = {}) {
         }
         return name
     }
-  Pages.prototype.$imgUrl = imgUrl
+    Pages.prototype.$imgUrl = imgUrl
 
     Application.prototype.$post = http('POST')
     Application.prototype.$get = http('GET')
@@ -57,16 +57,15 @@ function we(obj = {}) {
     Application.prototype.$PATCH = http('PATCH')
     Application.prototype.$DELETE = http('DELETE')
     Application.prototype.$getSession = getSession
-
-
 }
 
-
+//将wx中的on sync等方法copy到we中
 utils.toPromise(we, wx)
+/*
 we.request = request(config.http)
 we.navigateTo = navigateTo(config.router)
 we.redirectTo = redirectTo(config.router)
-
+*/
 
 we.Page = Pages
 we.App = Application

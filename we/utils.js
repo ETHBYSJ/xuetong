@@ -1,7 +1,8 @@
 exports.getClassMethods = function (obj, excludeMethods = []) {
     let methods = Object.getOwnPropertyNames(Object.getPrototypeOf(obj))
-
+    //['constructor', 'data']
     excludeMethods = ['constructor', ...excludeMethods]
+    //从methods中将excludeMethods中的方法剔除
     methods = methods.filter((item) => !~excludeMethods.indexOf(item))
 
     return methods.reduce((total, val) => {
