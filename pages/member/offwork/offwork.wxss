@@ -1,0 +1,20 @@
+.add{
+  height: 90rpx;
+  display: flex;
+  padding: 25rpx 30rpx 25rpx 30rpx;
+}
+.empty{
+  flex: 1;
+}
+.addcontainer{
+  font-size: 34rpx;
+  color: #1296db;
+  flex: 1.25;
+  text-align: center;
+  letter-spacing:4rpx;
+  border: 4rpx dashed #1296db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20rpx;
+}

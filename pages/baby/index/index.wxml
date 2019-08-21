@@ -101,7 +101,10 @@
         <!-- <text>作业上传</text> -->
         <!-- </navigator></view> -->
         <view>
+          <!--
           <navigator url="/pages/member/photo/photo?clazzid={{clazzid}}&gradename={{gradename}}&clazzname={{clazzname}}" open-type="navigate">
+          -->
+          <navigator url="/pages/member/offwork/offwork?studentid={{studentid}}&img={{item.photo?vo.imgBaseUrl+''+item.photo:'/assets/icon/loadImg.jpg'}}&name={{item.name}}" open-type="navigate">
             <image src="/assets/icon/xs.png"></image>
             <text>请假</text>
           </navigator>

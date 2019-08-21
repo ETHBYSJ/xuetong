@@ -1,0 +1,40 @@
+<view class="myinfo">
+  <navigator url="" class="first base-cell base-cell_access">
+    <view class="header_pic">
+      头像
+    </view>
+    <open-data type="userAvatarUrl"  class='memberpic'></open-data>   
+    <view class="base-cell__ft base-cell__ft_in-access"></view> 
+  </navigator>
+
+  <view class="base-cell base-cell_access">
+    <view class="name_prompt">
+      <text decode="{{true}}">姓&emsp;&emsp;名</text>
+    </view>
+  </view>
+
+  <view class="base-cell base-cell_access">
+    <view class="sex_prompt">
+      <text decode="{{true}}">姓&emsp;&emsp;别</text>
+    </view>
+    <radio-group bindchange="changeSex">
+      <label class="radio" >
+        <radio value="男" color='#1296db' checked="{{vo.message.sex=='男'?'true':''}}"/><text decode="{{true}}">男&emsp;&ensp;</text>
+        <radio value="女" color='#1296db' checked="{{vo.message.sex=='女'?'true':''}}"/><text decode="{{true}}">女&emsp;&ensp;</text>
+      </label>
+    </radio-group>
+  </view>
+
+  <view class="base-cell base-cell_access">
+    <view class="birth_prompt">
+      <text>出生日期</text>
+    </view>
+  </view>
+
+  <view class="base-cell base-cell_access">
+    <view class="phone_prompt">
+      <text>手机号码</text>
+    </view>
+  </view>
+
+</view>

@@ -78,7 +78,13 @@ new class extends we.Page {
           }
     }
 }
-
+  //switch handler
+  switch() {
+    //wx.removeStorageSync("__session__");
+    wx.reLaunch({
+      url: '/pages/member/register/register',
+    })
+  }
   UserInfo() {
    this.$get('/v1/member').then(data => {
       this.setData({

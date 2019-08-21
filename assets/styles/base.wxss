@@ -99,7 +99,7 @@ button {
     top: 0;
     right: 0;
     height: 1px;
-    border-top: 2rpx solid #1296db;
+    /*border-top: 2rpx solid #1296db;*/
     color: #d9d9d9;
     left: 15px;
 }
@@ -143,7 +143,7 @@ button {
 
 .base-cell__ft_in-access {
     padding-right: 26rpx;
-    position: relative
+    position: relative;
 }
 
 .base-cell__ft_in-access:after {

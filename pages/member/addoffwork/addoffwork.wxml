@@ -1,0 +1,39 @@
+<view class="page">
+  <view class="student">
+    <view class="base_block">
+      <text class="title">请假人</text>
+      <image src="{{img}}" class="memberpic" mode="aspectFit">
+
+      </image>
+      <text class="name">{{name}}</text>
+    </view>
+  </view>
+
+  <view class="date">
+    
+    <view class="date_block">
+      <picker mode="date" value="{{date}}" start="{{date}}" bindchange="bindDateChange">
+      <view class="calendar">
+        <view class="cal_top">
+          <text class="month">{{nowdate.year}}.{{nowdate.month}}</text>
+        </view>
+        <view class="cal_bottom">
+          <text class="day">{{nowdate.day}}</text>
+        </view>
+      </view>
+      <view class="date_text">
+        <text>请假日期</text>
+      </view>
+      </picker>
+    </view>
+    
+  </view>
+
+  <view class="textarea">
+    <textarea class="textarea-bg" fixed="true" maxlength="300" style="height: {{height}}" bindinput="bindInput" auto-height />
+  </view>
+
+  <view class="bottom">
+    <button class='base-btn' bindtap='confirm'>提交</button>
+  </view>
+</view>

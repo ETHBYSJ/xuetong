@@ -1,0 +1,15 @@
+<view class="page">
+  <view class="add">
+    <navigator class="empty">
+
+    </navigator>
+    <navigator class="addcontainer" url="/pages/member/addoffwork/addoffwork?studentid={{studentid}}&img={{img}}&name={{name}}">
+      +新增请假
+    </navigator>
+    <navigator class="empty">
+
+    </navigator>
+  </view>
+  
+
+</view>
