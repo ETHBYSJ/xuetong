@@ -44,6 +44,7 @@ new class extends we.Page {
 
   //事件处理函数
   bindItemTap(e) {
+    console.log(e);
     var noticeid=e.currentTarget.dataset.type;
     var index = e.currentTarget.dataset.idx;
     var data = this.data.feed;

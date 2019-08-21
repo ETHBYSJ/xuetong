@@ -19,8 +19,7 @@ new class extends we.Page {
     })
     this.$get('/v1/activity/' + noticeid).then(data => {
       var article = data.obj.content;
-
-   WxParse.wxParse('article', 'html', article, this, 5);
+      WxParse.wxParse('article', 'html', article, this, 5);
       this.setData({
         feed: data.obj,
       })

@@ -1,10 +1,10 @@
 .base-cells_after-title{
-  border-top: 2rpx solid #8a8a8a;
-  border-bottom: 2rpx solid #8a8a8a;
-  font-size: 30rpx;
+  font-size: 28rpx;
+  font-family: 微软雅黑;
   color: #000;
-  margin-bottom: 15rpx;
+  font-weight: bold;
 }
+/*
 .base-cell:before {
     content: " ";
     position: absolute;
@@ -16,16 +16,18 @@
     color: #d9d9d9;
     left: 15px;
 }
+*/
+.base-cell{
+  height: 50rpx;
+}
 .border-none:before{
  display: none;
 }
 
 .member{
-  width: 710rpx;
-  height: 226rpx;
+  width: 100%;
+  height: 250rpx;
   margin: 15rpx auto;
-  background: #1296db;
-  border-radius: 20rpx;
   position: relative;
 }
 .memberpic{
@@ -36,22 +38,79 @@
   margin-left: 30rpx;
   margin-top: 55rpx;
   float: left;
+  /*
+  border-color: black;
+  border-width: 2rpx;
+  */
 }
 .nickname{
-  font-size: 26rpx;
-  color: #fff;
-  margin-top:45rpx; 
-  float: right;
-  width: 520rpx;
-  margin-right: 25rpx;
+  font-size: 30rpx;
+  color: black;
+  left: 150rpx;
+  top: 60rpx;
+  position: absolute;
+  width: 400rpx;
 }
 .Loginname{
   font-size: 26rpx;
-  color: #fff;
-  float: right;
-  width: 520rpx;
-  margin-right: 25rpx;
-  line-height: 22rpx;
+  color: black;
+  position: absolute;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  left: 150rpx;
+  top: 110rpx;
+  width: 300rpx;
+}
+.switch{
+  position: absolute;
+  top: 90rpx;
+  left: 550rpx;
+  font-size: 26rpx;
+  color: #1296db;
+}
+.bm{
+  position: absolute;
+  top: 180rpx;
+  left: 30rpx;
+  font-size: 26rpx;
+  font-weight: bold;
+}
+.address-cell{
+  height: 100rpx;
+  padding: 20rpx 30rpx;
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center
+}
+.address-cell__bd{
+  font-size: 30rpx;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;  
+  margin-left: 10rpx;
+}
+.base-cell__bd{
+  margin-left: 10rpx;
+}
+.icon{
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+}
+.address{
+  width: 78rpx;
+  height: 100rpx;
+  margin-right: 10rpx;
+}
+.detail{
+  /*float: right;*/
+  color: #8a8a8a;
+  margin-right: 20rpx;
+  font-weight: normal;
 }
 .Loginname .left{
   float: left;

@@ -1,7 +1,11 @@
 <view class='page' hidden='{{hidden}}'>
+  <!--
   <view class='member'>
+  
     <navigator url='../myprofile/myprofile'>
+  -->
     <!-- <image wx:if="{{vo.UserInfo.loginImage}}" src='{{vo.imgBaseUrl}}{{vo.UserInfo.loginImage}}' class='memberpic'></image> -->
+    <!--
      <open-data class='userImage' type="userAvatarUrl"  class='memberpic'></open-data>
     <view class="nickname">昵称： {{vo.UserInfo.name}}</view>
     <view class="Loginname">
@@ -20,9 +24,13 @@
      <view class='newsnum' hidden='{{vo.unreadCount==0}}'>{{vo.unreadCount}}</view>
     </navigator>
   </view>
+  -->
   <view class="base-cells_after-title">
       <navigator hidden='{{vo.UserInfo.userType=="教职工"||vo.UserInfo.userType=="门店管理员"}}' url="../myChildren/myChildren" class="base-cell base-cell_access">
           <view class="base-cell__bd">我的孩子</view>
+          <!--
+          <image src="../../../images/family_address.png"></image>
+          -->
           <view class="base-cell__ft base-cell__ft_in-access"></view>
       </navigator>
 
@@ -64,4 +72,82 @@
       </navigator>
   </view>
   
+</view>
+
+<view class='page' hidden='{{hidden}}'>
+  <block wx:if='{{vo.UserInfo.userType=="教职工"||vo.UserInfo.userType=="门店管理员"}}'>
+  111
+  </block>
+
+  <block wx:elif='{{vo.UserInfo.userType=="家长"}}'> 
+    <view class='member'>    
+      <open-data class='userImage' type="userAvatarUrl"  class='memberpic'></open-data>
+
+      <view class="nickname">
+        <text style="font-weight: bold;">{{vo.UserInfo.name}}</text>
+        <text style="padding-left: 28rpx; font-size: 26rpx; ">{{vo.UserInfo.userType}}</text>
+      </view>
+
+      <view class="Loginname">
+        <text>{{vo.UserInfo.loginName}}</text>
+      </view>
+
+      <view class="switch" bindtap="switch">
+        <text>切换账号</text>
+      </view>
+      
+      <view class="bm">
+        <text>我的报名</text>
+      </view>
+    </view>
+    
+    <view class="enroll">
+
+    </view>
+
+    <view class="base-cells_after-title">
+      <navigator url="../Aboutus/Aboutus" class="address-cell">
+          <image src="/images/address.png" class="address"></image>
+          <view class="address-cell__bd">
+            <text>家庭\n住址</text>
+          </view>
+          <view class="detail">管理家庭住址</view>
+          <view class="base-cell__ft base-cell__ft_in-access"></view>
+      </navigator>
+      <navigator url="../Aboutus/Aboutus" class="base-cell base-cell_access">
+          <image src="/images/children.png" class="icon"></image>
+          <view class="base-cell__bd">孩子管理</view>
+          <view class="detail">添加和管理孩子信息</view>
+          <view class="base-cell__ft base-cell__ft_in-access"></view>
+      </navigator>
+      <navigator url="../Aboutus/Aboutus" class="base-cell base-cell_access">
+          <image src="/images/family.png" class="icon"></image>
+          <view class="base-cell__bd">家人列表</view>
+          <view class="detail">添加和管理家人信息</view>
+          <view class="base-cell__ft base-cell__ft_in-access"></view>
+      </navigator>
+      <navigator url="../Aboutus/Aboutus" class="base-cell base-cell_access">
+          <image src="/images/record.png" class="icon"></image>
+          <view class="base-cell__bd">缴费记录</view>
+          <view class="base-cell__ft base-cell__ft_in-access"></view>
+      </navigator>
+      <navigator url="../Aboutus/Aboutus" class="base-cell base-cell_access">
+          <image src="/images/activity.png" class="icon"></image>
+          <view class="base-cell__bd">我的活动</view>
+          <view class="detail">查看孩子活动中表现</view>
+          <view class="base-cell__ft base-cell__ft_in-access"></view>
+      </navigator>
+      <navigator url="../myinfo/myinfo" class="base-cell base-cell_access">
+          <image src="/images/info.png" class="icon"></image>
+          <view class="base-cell__bd">我的资料</view>
+          <view class="detail">修改资料与手机号码</view>          
+          <view class="base-cell__ft base-cell__ft_in-access"></view>
+      </navigator>
+      <navigator url="../Aboutus/Aboutus" class="base-cell base-cell_access">
+          <image src="/images/contact_us.png" class="icon"></image>
+          <view class="base-cell__bd">联系我们</view>
+          <view class="base-cell__ft base-cell__ft_in-access"></view>
+      </navigator>
+    </view>
+  </block>
 </view>

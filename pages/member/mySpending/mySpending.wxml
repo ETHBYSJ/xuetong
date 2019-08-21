@@ -3,6 +3,7 @@
  <view class="tap-wrp">
      <view class="tab-list {{currentTab=='全部' ? 'on' : ''}}" data-current="全部" bindtap="swichNav">全部</view>     
      <view class="tab-list {{currentTab=='待支付'? 'on' : ''}}" data-current="待支付" bindtap="swichNav">待支付</view>
+     <!--<view class="tab-list {{currentTab=='未支付'? 'on' : ''}}" data-current="未支付" bindtap="swichNav">未支付</view>-->
    </view>
 
 <view class='spending_border' wx:for="{{vo.infor}}" bindtap="bindItemTap" data-type="{{item.noticeid}}">

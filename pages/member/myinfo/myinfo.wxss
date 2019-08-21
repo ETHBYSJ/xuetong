@@ -1,0 +1,40 @@
+.myinfo{
+  font-size: 30rpx;
+  color: #8d8d8d;
+}
+.base-cell{
+  padding-top: 0;
+  padding-bottom: 0;
+  height: 120rpx;
+  /*border-top: 1rpx solid #d9d9d9;*/
+  border-bottom: 1rpx solid #d9d9d9;
+}
+.first{
+  border-top: 1rpx solid #d9d9d9;
+}
+.memberpic{
+  width: 100rpx;
+  height: 100rpx;
+  overflow: scroll;
+  border-radius: 50%;
+  position: absolute;
+  left: 100rpx;  
+}
+.header_pic{
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;  
+}
+.name_prompt{
+  margin-right: 40rpx;
+}
+.sex_prompt{
+  margin-right: 40rpx;
+}
+.birth_prompt{
+  margin-right: 40rpx;
+}
+.phone_prompt{
+  margin-right: 40rpx;
+}
+

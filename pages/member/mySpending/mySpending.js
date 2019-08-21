@@ -29,6 +29,7 @@ new class extends we.Page {
   //导航事件处理函数
   swichNav(e) {
     var current = e.currentTarget.dataset.current;
+    console.log(current);
     this.setData({
       currentTab: current,
       page: 1,
