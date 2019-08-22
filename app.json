@@ -11,6 +11,7 @@
     "pages/member/MemberCenter/MemberCenter",
     "pages/email/email",
     "pages/logs/logs",
+    "pages/member/StudentAttendRecord/StudentAttendRecord",
     "pages/member/addoffwork/addoffwork",
     "pages/member/offwork/offwork",
     "pages/member/register/register",

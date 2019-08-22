@@ -40,7 +40,12 @@
 
 
       <view class="check" hidden='{{userType=="教职工"||userType=="门店管理员"}}'>
+        <!--
         <navigator class='navwarp' hidden='{{feed.studentEverydayAttendanceVOList[0].attendanceStudentList.length=="0"}}' url="/pages/answerb/answerb?studentid={{studentid}}&date={{vo.nowDay}}" open-type="navigate">
+        </navigator>
+        -->
+        <navigator class='navwarp' url="/pages/member/StudentAttendRecord/StudentAttendRecord?studentid={{studentid}}" open-type="navigate">
+
         </navigator>
         <view class="check-name">
           <text>今日出勤({{vo.nowDate}})</text>

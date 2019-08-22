@@ -79,7 +79,7 @@ new class extends we.Page {
   //使用本地 fake 数据实现刷新效果
   getData() {
     this.$get('/v1/attendance/getStudentAttendanceEverydayList?page=1&size=' + this.data.size).then(data => {
-     
+      console.log(data)
       this.setData({
         feed: data.obj,
         studentid: data.obj[this.data.index].id,
