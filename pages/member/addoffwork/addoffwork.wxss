@@ -37,7 +37,7 @@
   margin-left: 20rpx;
 }
 
-.date {
+.off_date {
   border-top: 1rpx solid #d9d9d9;
   height: 200rpx;
   padding-top: 10rpx;

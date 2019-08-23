@@ -1,4 +1,9 @@
 <view class="page">
+  <view class="scroll_top" hidden="{{hiddenScrollTop}}" bindtap="scrollTop">
+    <image class="scroll_top_icon" src="/images/scrollTop.png"></image>
+  </view>
+  <scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower" bindscroll = "bindScroll" scroll-top="{{scrolltop}}">
+  
   <view class="add">
     <navigator class="empty">
 
@@ -10,6 +15,58 @@
 
     </navigator>
   </view>
-  
 
+  <view class="offwork_block" wx:for="{{feed}}" wx:for-item="item">
+    <view class="offwork_header">
+    
+    </view>
+    <view class="offwork_content">
+      <view class="offwork_content_name">
+        <view class="date">
+          <view class="date_left"></view>
+          <view class="date_mid">
+            <text class="record_text">请假记录</text>
+            <view class="text_wrapper">            
+              
+            </view>
+          </view>
+          <view class="date_right"></view>
+        </view>
+
+        <view class="base_block">
+          <text class="title">请假人</text>
+          <image src="{{img}}" class="memberpic" mode="aspectFit">
+
+          </image>
+          <text class="name">{{name}}</text>
+        </view>
+      </view>
+
+      <view class="offwork_content_date">
+        <view class="date_block">
+          <view class="calendar">
+            <view class="cal_top">
+              <text class="month">{{item.year}}.{{item.month}}</text>
+            </view>
+            <view class="cal_bottom">
+              <text class="day">{{item.day}}</text>
+            </view>
+          </view>
+          <view class="date_text">
+            <text>请假日期</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="offwork_content_detail">
+        
+      </view>
+
+      <view class="offwork_content_btn">
+        <button class='base-btn'>已提交</button>
+      </view>
+    </view>
+  </view>
+  
+  </scroll-view>
 </view>

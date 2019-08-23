@@ -6,8 +6,7 @@
     </view>
     <view class="record_content">
       <view class="record_content_top"> 
-        <view class="date">
-          
+        <view class="date">          
           <view class="date_left"></view>
           <view class="date_mid">
             <text class="date_text">{{item.attendancedate}}</text>

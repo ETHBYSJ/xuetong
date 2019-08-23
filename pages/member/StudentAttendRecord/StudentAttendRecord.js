@@ -23,10 +23,7 @@ new class extends we.Page {
   }
   getData() {
     this.$get('/v1/attendance/getStudentAttendanceEverydayList?page=1&size=' + this.data.size).then(data => {
-      console.log(data)
-      
-      
-      
+      console.log(data)      
       if(this.data.index == "") {
         for (var i = 0; i < data.obj.length; i++) {
           if(this.data.studentid == data.obj[i].id) {

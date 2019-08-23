@@ -9,8 +9,7 @@
     </view>
   </view>
 
-  <view class="date">
-    
+  <view class="off_date">    
     <view class="date_block">
       <picker mode="date" value="{{date}}" start="{{date}}" bindchange="bindDateChange">
       <view class="calendar">

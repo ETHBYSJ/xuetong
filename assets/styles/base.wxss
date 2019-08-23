@@ -2218,3 +2218,43 @@ border: 1px solid #FE0002 ;
 .promptBox view{
   margin-top:10px; 
 }
+/*日期组件*/
+.date {
+  position: absolute;
+  left: 375rpx;
+  top: 0;
+}
+.date_right {
+  position: absolute;
+  /*background-color: #1296db;*/
+  width: 0;
+  height: 0;
+  border: 16rpx solid;
+  border-color: transparent transparent #1296db #1296db;
+  left: 125rpx;
+  top: -30rpx;
+}
+.date_mid {
+  position: absolute;
+  background-color: rgb(80, 193, 227);
+  width: 250rpx;
+  height: 60rpx;
+  top: -30rpx;
+  left: -125rpx;
+  text-align: center;
+  color: white;
+  font-size: 30rpx;
+}
+.date_left {
+  position: absolute;
+  /*background-color: #1296db;*/
+  width: 0;
+  height: 0;
+  border: 16rpx solid;
+  border-color: transparent #1296db #1296db transparent;
+  top: -30rpx;
+  left: -155rpx;
+}
+.text_wrapper {
+  position: absolute;
+}
