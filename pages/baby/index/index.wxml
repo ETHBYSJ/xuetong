@@ -87,10 +87,26 @@
             <image class="in-time-img" src="{{feed.teacherEverydayAttendanceVOList[0].attendanceTeacherList[1].photopath}}" mode='aspectFill'></image>
           </view>
         </view>
+        <!-- 日期下拉条 -->
+        <view class="class-date">
+          <picker mode="date" value="{{date}}" start="2000-01-01" end="2099-12-31" bindchange="bindDateChange">
+            <view class="picker">
+              汉阳2班（{{date}}）
+            </view>
+          </picker>
+        </view>
+
+        <!-- 全部 已签 未签-->
+        <view class="tap-wrp">
+          <view class="tab-list {{currentTab==2 ? 'on' : ''}}" data-current="2" bindtap="swichNav">全部</view>     
+          <view class="tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">已签</view>      
+          <view class="tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">未签</view>
+        </view>
+
       </view>
 
 
-      <view class="footer">
+      <view class="footer"  hidden='{{userType=="教职工"||userType=="门店管理员"}}'>
         <view>
           <navigator url="/pages/baby/homework/index/index?studentid={{studentid}}&name={{item.name}}" open-type="navigate">
             <image src="/assets/icon/ks.png"></image>
@@ -122,7 +138,7 @@
           </navigator>
         </view>
 
-		 <view>
+		    <view>
           <navigator url="/pages/member/mySpending/mySpending" open-type="navigate">
             <image src="/assets/icon/ykt.png"></image>
             <text>缴费</text>
@@ -130,12 +146,12 @@
         </view>
       </view>
 
-	  <view class="footer_1">
-	  <view>
-	    <navigator url="/pages/member/photo/photo?clazzid={{clazzid}}&gradename={{gradename}}&clazzname={{clazzname}}" open-type="navigate">
-            <image src="/assets/icon/kjs.png"></image>
-            <text>班级相册</text>
-          </navigator>
+	  <view class="footer_1"  hidden='{{userType=="教职工"||userType=="门店管理员"}}'>
+	    <view>
+	      <navigator url="/pages/member/photo/photo?clazzid={{clazzid}}&gradename={{gradename}}&clazzname={{clazzname}}" open-type="navigate">
+          <image src="/assets/icon/kjs.png"></image>
+          <text>班级相册</text>
+        </navigator>
 		  </view>
 	  </view>
     </swiper-item>

@@ -20,7 +20,8 @@ new class extends we.Page {
       gradename:"",
       clazzname:"",
       userType:"",
-
+      currentTab:2,
+      date:""
 
     }
   }
@@ -109,7 +110,22 @@ new class extends we.Page {
     }
    
   }
+  //日期选择处理函数
+  bindDateChange(e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      date: e.detail.value
+    })
+  }
 
+  //导航事件处理函数
+  swichNav(e) {
+    var current = e.currentTarget.dataset.current;
+    this.setData({
+      currentTab: current,
+
+    });
+  }
   onLoad() {
     this.setData({
       'vo.imgBaseUrl': this.$app.imgBaseUrl
@@ -127,6 +143,7 @@ new class extends we.Page {
     this.setData({
       'vo.nowDate': year + "年" + month + "月" + day + "日",
       'vo.nowDay': year + "-" + month + "-" + day,
+      'date': year + "-" + month + "-" + day,
     })
   }
   loadgradeInfo() {
