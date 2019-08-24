@@ -74,7 +74,9 @@ new class extends we.Page {
 
     init() {
         let that = this
-
+      console.log(this.data.inputVal=="")
+      console.log(this.data.selectaddress=="")
+      console.log('/v1/activity/getActivityList?page=1&size=10&status=' + this.data.currentTab + '&keyword=' + this.data.inputVal + '&address=' + this.data.selectaddress)
       this.$get('/v1/activity/getActivityList?page=1&size=10&status=' + this.data.currentTab + '&keyword=' + this.data.inputVal +'&address='+this.data.selectaddress).then(data => {
       console.log(data);
       if (data.totalSize % data.pageSize != 0) {

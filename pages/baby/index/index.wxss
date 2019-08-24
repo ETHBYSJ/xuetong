@@ -35,7 +35,8 @@
 
 .baby-body{
   width:100%;
-  height: 100vh;
+  /*height: 100vh;*/
+  height: 78vh;
 }
 .school-title{
   width:100%;
@@ -258,7 +259,7 @@
   color: #fff;
 }
 
-.footer{width: 100%;background-color:#fff;display: flex;margin-top: 250rpx;}
+.footer{width: 100%;background-color:#fff;display: flex;margin-top: 120rpx;}
  .footer view{flex: 1;margin:20rpx 0 0 0; } 
  .footer view image{display: block;width: 85rpx;height: 85rpx;margin: 0 auto;}
  .footer view text{display: block;font-size:30rpx;color:#000000;text-align: center;} 
@@ -266,5 +267,53 @@
  .footer_1 view{width:25%;margin:60rpx 0 0 0; display: inline-block;} 
  .footer_1 view image{display: block;width: 85rpx;height: 85rpx;margin: 0 auto;}
  .footer_1 view text{display: block;font-size:30rpx;color:#000000;text-align: center;} 
+
+.activity_list {
+  /*background-color: greenyellow;*/
+  margin: 20rpx;
+  border-top: 4rpx solid #d9d9d9;
+}
+.activity_title {
+  height: 50rpx;
+  background-color: white;
+  color: #1296db;
+  font-size: 26rpx;
+  font-weight: bold;
+  letter-spacing:6rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.activity_content {
+  height: 250rpx;
+  /*background-color: red;*/
+  display: flex;
+  /*padding-top: 10rpx;*/
+  padding-bottom: 10rpx;
+}
+.activity_block {
+  flex: 1;
+  /*background-color: greenyellow;*/
+  position: relative;
+  padding-right: 17rpx;
+}
+.activity_block image {
+  width: 220rpx;
+  height: 170rpx;
+}
+.activity_name {
+  position: relative;
+  font-size: 26rpx;
+  line-height: 100%;
+}
+
+.activity_detail {
+  margin-top: 5rpx;
+  position: relative;
+  float: right;
+  font-size: 23rpx;
+  line-height: 100%;
+  color: red;
+}
 
 

@@ -145,7 +145,7 @@
           </navigator>
         </view>
       </view>
-
+    <!--
 	  <view class="footer_1"  hidden='{{userType=="教职工"||userType=="门店管理员"}}'>
 	    <view>
 	      <navigator url="/pages/member/photo/photo?clazzid={{clazzid}}&gradename={{gradename}}&clazzname={{clazzname}}" open-type="navigate">
@@ -154,10 +154,38 @@
         </navigator>
 		  </view>
 	  </view>
+    -->
     </swiper-item>
   </swiper>
 
+  <!--家长端-最新活动-->
+  <view class="activity_list" hidden='{{userType=="教职工"||userType=="门店管理员"}}'>
+    <view class="activity_title">
+      ·最新活动·
+    </view>
 
-
-
+    <view class="activity_content">
+      <view class="activity_block" data-id="{{item.id}}" wx:for="{{activityList}}" bindtap="{{item?'jumpPage':''}}">
+        <image src='{{item.titlePhoto?vo.imgBaseUrl+""+item.titlePhoto:"/images/default.jpg"}}' ></image>
+        <view class="activity_name">
+          {{item.heading}}
+        </view>
+        <view class="activity_detail">
+          剩余{{item.remains}}名额
+        </view>
+      </view>
+      <!--
+      <view class="activity_block">
+        <image src="/images/default.jpg"></image>
+        <text class="activity_name"></text>
+        <text class="activity_detail"></text>
+      </view>
+      <view class="activity_block">
+        <image src="/images/default.jpg"></image>
+        <text class="activity_name"></text>
+        <text class="activity_detail"></text>
+      </view>
+      -->
+    </view>
+  </view>
 </view>

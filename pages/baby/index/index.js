@@ -21,8 +21,8 @@ new class extends we.Page {
       clazzname:"",
       userType:"",
       currentTab:2,
-      date:""
-
+      date:"",
+      activityList: [null, null, null],
     }
   }
   onShow(){
@@ -73,6 +73,8 @@ new class extends we.Page {
 			  })
 		  }
 	  })
+
+    
 	
     
   }
@@ -203,6 +205,7 @@ new class extends we.Page {
       });
       this.loadAttend();
       this.cinemaDetail(data.obj.studentList[this.data.index].gradeid)
+      this.loadActivity();
    //   this.loadCarousel(data.obj.studentList[this.data.index].gradeid)
       }else{
 		  wx.showModal({
@@ -291,6 +294,21 @@ new class extends we.Page {
     })
   }
 
+  loadActivity() {
+    this.$get('/v1/activity/getActivityList?page=1&size=10&status=0&keyword=&address=').then(data => {
+      
+      for(var i = 0; i < data.obj.length; i++) {
+        if(i == 3) break
+        //console.log(i)
+        var activity_ele = "activityList[" + i + "]"
+        this.setData({
+          [activity_ele]: data.obj[i],
+        })
+      }
+      console.log(this.data.activityList)
+    })
+  }
+
   loadTechAttend() {
     this.$get('/v1/attendance/getTeacherAttendanceEverydayList?clazzid=' + this.data.clazzid + '&date=' + this.data.vo.nowDay).then(data => {
       console.log(data.obj)
@@ -338,8 +356,12 @@ new class extends we.Page {
        }
      })*/
 
-
-
   }
-
+  jumpPage(e) {
+    console.log(e)
+    let item = e.currentTarget.dataset;
+    wx.navigateTo({
+      url: "/pages/activity/detail/detail?id=" + item.id
+    })
+  }
 }
