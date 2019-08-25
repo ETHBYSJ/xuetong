@@ -26,7 +26,6 @@ new class extends we.Page {
     }
   }
   onShow(){
-   
 	  this.$get('/v1/member').then(data => {
 		  if (!data.obj) {
 			  wx.showModal({
@@ -45,6 +44,7 @@ new class extends we.Page {
 				  }
 			  })
 		  } else {
+        console.log("---------------")
 			  this.$app.userType = data.obj.userType;
 			  this.setData({
 				  'userType': this.$app.userType
@@ -55,6 +55,7 @@ new class extends we.Page {
 				  this.loadgradeInfo()
 			  } else {
 				  this.loadInfo()
+          this.loadActivity();
 			  }
 		  }
 	  }).catch(err => {
@@ -205,7 +206,6 @@ new class extends we.Page {
       });
       this.loadAttend();
       this.cinemaDetail(data.obj.studentList[this.data.index].gradeid)
-      this.loadActivity();
    //   this.loadCarousel(data.obj.studentList[this.data.index].gradeid)
       }else{
 		  wx.showModal({

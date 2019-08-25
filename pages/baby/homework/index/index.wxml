@@ -1,0 +1,13 @@
+<view class="page">
+  <view wx:if="{{a1<4}}">\
+    222
+  </view>
+  <block wx:if="{{a1>=4}}">
+    <view wx:if="{{a1<8}}">
+      333
+    </view>
+    <view wx:if="{{a1>=8}}">
+      444
+    </view>
+  </block>
+</view>

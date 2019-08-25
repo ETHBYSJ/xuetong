@@ -7,6 +7,7 @@
     "pages/school/index/index",
     "pages/school/list/list",
     "pages/baby/index/index",
+    "pages/baby/homework/index/index",
     "pages/baby/CropPhoto/CropPhoto",
     "pages/member/MemberCenter/MemberCenter",
     "pages/email/email",

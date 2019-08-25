@@ -39,6 +39,7 @@ new class extends we.Page {
           name: data.obj[this.data.index].name
         })
       }
+      /*
       var temp = []
       for (var i = 0; i < data.obj[this.data.index].studentEverydayAttendanceVOList.length; i++) {
         if (data.obj[this.data.index].studentEverydayAttendanceVOList[i].attendanceStudentList[0].type == 0) {
@@ -46,10 +47,11 @@ new class extends we.Page {
         }
       }
       console.log(temp)
+      */
       this.setData({
         page: 1,
-        //feed: data.obj[this.data.index].studentEverydayAttendanceVOList,
-        feed: temp,
+        feed: data.obj[this.data.index].studentEverydayAttendanceVOList,
+        //feed: temp,
         totalsize: data.obj[this.data.index].totalPage,
       })
       //console.log(this.data.totalsize)
@@ -83,14 +85,17 @@ new class extends we.Page {
       })
       this.$get('/v1/attendance/getStudentAttendanceEverydayList?page=' + this.data.page + '&size=' + this.data.size).then(data => {
         console.log(data)
+        /*
         var next = []
         for (var i = 0; i < data.obj[this.data.index].studentEverydayAttendanceVOList.length; i++) {
           if (data.obj[this.data.index].studentEverydayAttendanceVOList[i].attendanceStudentList[0].type == 0) {
             next.push(data.obj[this.data.index].studentEverydayAttendanceVOList[i])
           }
         }
+        */
         this.setData({
-          feed: this.data.feed.concat(next)
+          //feed: this.data.feed.concat(next)
+          feed: this.data.feed.concat(data.obj[this.data.index].studentEverydayAttendanceVOList)
         })
         console.log(this.data.feed)
       }).catch(err => {
