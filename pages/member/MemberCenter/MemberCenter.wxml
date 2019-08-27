@@ -76,7 +76,50 @@
 
 <view class='page' hidden='{{hidden}}'>
   <block wx:if='{{vo.UserInfo.userType=="教职工"||vo.UserInfo.userType=="门店管理员"}}'>
-  111
+    <view class='member'>    
+      <open-data class='userImage' type="userAvatarUrl"  class='memberpic'></open-data>
+
+      <view class="nickname">
+        <text style="font-weight: bold;">{{vo.UserInfo.name}}</text>
+        <text style="padding-left: 28rpx; font-size: 26rpx; ">{{vo.UserInfo.userType}}</text>
+      </view>
+
+      <view class="Loginname">
+        <text>{{vo.UserInfo.loginName}}</text>
+      </view>
+
+      <view class="switch" bindtap="switch">
+        <text>切换账号</text>
+      </view>
+    </view>
+
+    <view class="base-cells_after-title">
+      <navigator url="../Aboutus/Aboutus" class="address-cell">
+          <image src="/images/address.png" class="address"></image>
+          <view class="address-cell__bd">
+            <text>学情反馈</text>
+          </view>
+          <view class="detail">更新学情反馈</view>
+          <view class="base-cell__ft base-cell__ft_in-access"></view>
+      </navigator>
+      <navigator url="../Aboutus/Aboutus" class="base-cell base-cell_access">
+          <image src="/images/activity.png" class="icon"></image>
+          <view class="base-cell__bd">我的活动</view>
+          <view class="detail">查看孩子活动中表现</view>
+          <view class="base-cell__ft base-cell__ft_in-access"></view>
+      </navigator>
+      <navigator url="../myinfo/myinfo" class="base-cell base-cell_access">
+          <image src="/images/info.png" class="icon"></image>
+          <view class="base-cell__bd">我的资料</view>
+          <view class="detail">修改资料与手机号码</view>          
+          <view class="base-cell__ft base-cell__ft_in-access"></view>
+      </navigator>
+      <navigator url="../Aboutus/Aboutus" class="base-cell base-cell_access">
+          <image src="/images/contact_us.png" class="icon"></image>
+          <view class="base-cell__bd">联系我们</view>
+          <view class="base-cell__ft base-cell__ft_in-access"></view>
+      </navigator>
+    </view>
   </block>
 
   <block wx:elif='{{vo.UserInfo.userType=="家长"}}'> 
