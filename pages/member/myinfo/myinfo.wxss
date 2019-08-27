@@ -37,4 +37,30 @@
 .phone_prompt{
   margin-right: 40rpx;
 }
-
+.picker{
+  width: 400rpx;
+  height: 100rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon{
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+}
+.switch{
+  width: 120rpx;
+  height: 90rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26rpx;
+  color: #1296db;
+}
+.base-btn{
+	width: 670rpx;
+  background: #1296db;
+  color: #fff;
+  margin-top: 150rpx;
+}

@@ -94,9 +94,9 @@
     </view>
 
     <view class="base-cells_after-title">
-      <navigator url="../Aboutus/Aboutus" class="address-cell">
-          <image src="/images/address.png" class="address"></image>
-          <view class="address-cell__bd">
+      <navigator url="../Aboutus/Aboutus" class="base-cell base-cell_access">
+          <image src="/images/xqfk.png" class="icon"></image>
+          <view class="base-cell__bd">
             <text>学情反馈</text>
           </view>
           <view class="detail">更新学情反馈</view>
@@ -105,13 +105,13 @@
       <navigator url="../Aboutus/Aboutus" class="base-cell base-cell_access">
           <image src="/images/activity.png" class="icon"></image>
           <view class="base-cell__bd">我的活动</view>
-          <view class="detail">查看孩子活动中表现</view>
+          <view class="detail">编辑精彩瞬间</view>
           <view class="base-cell__ft base-cell__ft_in-access"></view>
       </navigator>
       <navigator url="../myinfo/myinfo" class="base-cell base-cell_access">
           <image src="/images/info.png" class="icon"></image>
           <view class="base-cell__bd">我的资料</view>
-          <view class="detail">修改资料与手机号码</view>          
+          <view class="detail">修改手机号码</view>          
           <view class="base-cell__ft base-cell__ft_in-access"></view>
       </navigator>
       <navigator url="../Aboutus/Aboutus" class="base-cell base-cell_access">

@@ -40,7 +40,9 @@
     "pages/member/worktime/worktime",
     "pages/member/photo/photo",
     "pages/answer/answer",
-    "pages/answerb/answerb"
+    "pages/answerb/answerb",
+    "pages/member/modifyphone/modifyphone",
+    "pages/member/newphone/newphone"
   ],
   "window": {
     "backgroundTextStyle": "light",

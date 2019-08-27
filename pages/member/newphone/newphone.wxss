@@ -1,0 +1,58 @@
+/* pages/member/newphone/newphone.wxss */
+.wryh-font{
+  font-size: 32rpx;
+  /*font-family: 微软雅黑;*/
+  color: #000;
+  font-weight: bold;
+  margin-left: 70rpx;
+  margin-top: 30rpx;
+  margin-bottom: 120rpx;
+}
+.input-phone{
+  width: 670rpx;
+  height: 80rpx;
+  font-size: 26rpx;
+  font-family: "黑体";
+  margin-left: 40rpx;
+  margin-top: 30rpx;
+  border-bottom: solid #C7C7C7 5rpx;
+  display:flex;
+  flex-direction: row;
+}
+.plus86{
+  width: 50rpx;
+  color: #000;
+  margin-left: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.input-newphone{
+  width: 350rpx;
+  height: 80rpx;
+  margin-left: 0rpx;
+}
+.input-code{
+  width: 350rpx;
+  height: 80rpx;
+  margin-left: 20rpx;
+}
+button::after{
+  border: none;
+}
+.input-submit{
+  height: 70rpx;
+  width: 300rxp;
+  margin-top: 5rpx;
+  margin-left: 110rpx;
+  color: #1296db;
+  font-size:26rpx;
+  background-color: white;
+  border-radius: 0rpx;
+}
+.base-btn{
+	width: 670rpx;
+  background: #1296db;
+  color: #fff;
+  margin-top: 150rpx;
+}

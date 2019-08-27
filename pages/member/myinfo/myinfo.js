@@ -6,7 +6,8 @@ new class extends we.Page {
 
       },
       vo:{
-        message:{}
+        message:{},
+        nowDate:"",
       },
       userType: '',
     }
@@ -23,11 +24,40 @@ new class extends we.Page {
     this.setData({
       'userType': this.$app.userType
     })
+
+    var date = new Date();
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    if (month < 10) {
+      month = "0" + month;
+    }
+    if (day < 10) {
+      day = "0" + day;
+    }
+    this.setData({
+      'vo.nowDate': year + "-" + month + "-" + day,
+    })
+
     if (this.$app.userType == '教职工') {
       this.loadTechInfo()
     } else {
       this.loadInfo()
     }
+  }
+
+  //修改生日
+  bindBirthChange(e) {
+    this.setData({
+      'vo.message.birthday': e.detail.value,
+    })
+  }
+
+  //修改手机号码
+  bindPhoneChange(e) {
+    wx.navigateTo({
+      url: '/pages/member/modifyphone/modifyphone',
+    })
   }
 
   loadTechInfo() {
@@ -44,6 +74,7 @@ new class extends we.Page {
       })
     })
   }
+  
   loadInfo() {
     this.$get('/v1/family/getInfo').then(data => {
       this.setData({
