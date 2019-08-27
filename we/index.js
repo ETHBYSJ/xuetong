@@ -142,6 +142,7 @@ let http = (method = 'GET') => {
             data: data,
             duration: 1,
         }).then(res => {
+            //console.log(res.data)
             if (typeof res.data == 'string') {
                 res.data = JSON.parse(res.data)
             }

@@ -1,13 +1,324 @@
 <view class="page">
-  <view wx:if="{{a1<4}}">\
-    222
+  <!--
+  <view bindtap="send">
+    <image src="https://xue.xuetong360.com/static/20190826/ee78852498974589942e2f6f1b3d890f.jpg"></image>
   </view>
-  <block wx:if="{{a1>=4}}">
-    <view wx:if="{{a1<8}}">
-      333
+  -->
+  <scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower" bindscroll = "bindScroll" scroll-top="{{scrolltop}}">
+    <!--今天-->
+    <view wx:if="{{!uploadtoday}}" class="homework_block">
+      <view class="line"></view>
+      <view class="homework_header">
+
+      </view>
+      <view class="homework_content">
+        <view class="name">
+          <view class="name_warning"></view>
+          <text>{{name}}</text>
+        </view> 
+        <view class="upload_icon" bindtap="upload">
+          <view class="upload_icon_1"></view>
+          <view class="upload_icon_2"></view>
+          <text class="upload_icon_text">(点击上传作业)</text>
+        </view>        
+        
+        <view class="date">
+          <view class="date_left"></view>
+          <view class="date_mid">
+            <text class="record_text">{{nowday}}</text>
+          </view>
+          <view class="date_right"></view>
+        </view>       
+      </view>
     </view>
-    <view wx:if="{{a1>=8}}">
-      444
+
+    <view class="homework_block" wx:for="{{feed}}">
+      <view class="line"></view>
+      <view class="homework_header">
+        
+      </view>
+      <view class="homework_content">
+        <view class="name">
+          <view wx:if="{{item.status == 2}}" class="name_normal"></view>
+          <view wx:elif="{{item.status == 0}}" class="name_warning"></view>
+          <view wx:elif="{{item.status == 1}}" class="name_warning"></view>
+          <text>{{name}}</text>
+        </view>
+        <view class="not_upload">
+          <button wx:if="{{item.status == 0}}" class="not_upload_btn">您未上传作业</button>
+        </view>
+        <block wx:if="{{item.imageList.length == 0}}">
+          <block wx:if="{{item.content}}">
+            <view class="homework_picture">
+              {{item.content}}
+            </view>
+          </block>
+        </block>
+        <block wx:else>
+          <view class="homework_picture">
+            {{item.content}}
+            <scroll-view scroll-x class='imagewrap'>
+              <view class='box' style='width:{{item.imageList.length*(216+26)}}rpx'>
+                <view wx:for="{{item.imageList}}" class="photos">
+                  <image mode="aspectFill" class="photo" src="{{imgBaseUrl}}{{item.photoPath}}" data-src="{{imgBaseUrl}}{{item.photoPath}}" bindtap="imgPreview"/>
+                </view>
+              </view>  
+            </scroll-view>
+          </view>
+        </block>
+        
+        <view class="date">
+          <view class="date_left"></view>
+          <view class="date_mid">
+            <text class="record_text">{{item.createdate}}</text>
+          </view>
+          <view class="date_right"></view>
+        </view>
+        <view class="homework_base_block">
+          <view class="homework_status">
+            <view class="prompt">
+              <text decode="{{true}}">语文&ensp;:&ensp;</text>
+            </view>            
+            <view class="status">
+              <block wx:if="{{item.chineseStatus == 0}}">
+                <!--无作业-->
+                <view class="status_item">
+                  <view class="circle"></view>
+                  <text class="text_unchecked" decode="{{true}}">&emsp;已完成&emsp;</text>
+                </view>
+                <view class="status_item">
+                  <view class="circle"></view>
+                  <text class="text_unchecked" decode="{{true}}">&emsp;未完成&emsp;</text>
+                </view>
+                <view class="status_item">
+                  <view class="circle_normal"></view>
+                  <text class="text_normal" decode="{{true}}">&emsp;无作业</text>
+                </view>              
+              </block>
+
+              <block wx:elif="{{item.chineseStatus == 1}}">
+                <!--未完成-->
+                <view class="status_item">
+                  <view class="circle"></view>
+                  <text class="text_unchecked" decode="{{true}}">&emsp;已完成&emsp;</text>
+                </view>
+                <view class="status_item">
+                  <view class="circle_warning"></view>
+                  <text class="text_warning" decode="{{true}}">&emsp;未完成&emsp;</text>
+                </view>
+                <view class="status_item">
+                  <view class="circle"></view>
+                  <text class="text_unchecked" decode="{{true}}">&emsp;无作业</text>
+                </view>              
+              </block>
+
+              <block wx:elif="{{item.chineseStatus == 2}}">
+                <!--已完成-->
+                <view class="status_item">
+                  <view class="circle_normal"></view>
+                  <text class="text_normal" decode="{{true}}">&emsp;已完成&emsp;</text>
+                </view>
+                <view class="status_item">
+                  <view class="circle"></view>
+                  <text class="text_unchecked" decode="{{true}}">&emsp;未完成&emsp;</text>
+                </view>
+                <view class="status_item">
+                  <view class="circle"></view>
+                  <text class="text_unchecked" decode="{{true}}">&emsp;无作业</text>
+                </view>              
+              </block>
+            </view>
+          </view>
+          <view class="homework_detail">            
+            <text wx:if="{{item.chineseStatus == 0}}" class="text">{{item.chineseFeedback}}</text>
+            <text wx:elif="{{item.chineseStatus == 1}}" class="text_warning">{{item.chineseFeedback}}</text>
+            <text wx:elif="{{item.chineseStatus == 2}}" class="text">{{item.chineseFeedback}}</text>
+          </view>
+        </view>
+        <view class="homework_base_block">
+          <view class="homework_status">
+            <view class="prompt">
+              <text decode="{{true}}">数学&ensp;:&ensp;</text>
+            </view>            
+            <view class="status">
+              <block wx:if="{{item.mathStatus == 0}}">
+                <!--无作业-->
+                <view class="status_item">
+                  <view class="circle"></view>
+                  <text class="text_unchecked" decode="{{true}}">&emsp;已完成&emsp;</text>
+                </view>
+                <view class="status_item">
+                  <view class="circle"></view>
+                  <text class="text_unchecked" decode="{{true}}">&emsp;未完成&emsp;</text>
+                </view>
+                <view class="status_item">
+                  <view class="circle_normal"></view>
+                  <text class="text_normal" decode="{{true}}">&emsp;无作业</text>
+                </view>              
+              </block>
+
+              <block wx:elif="{{item.mathStatus == 1}}">
+                <!--未完成-->
+                <view class="status_item">
+                  <view class="circle"></view>
+                  <text class="text_unchecked" decode="{{true}}">&emsp;已完成&emsp;</text>
+                </view>
+                <view class="status_item">
+                  <view class="circle_warning"></view>
+                  <text class="text_warning" decode="{{true}}">&emsp;未完成&emsp;</text>
+                </view>
+                <view class="status_item">
+                  <view class="circle"></view>
+                  <text class="text_unchecked" decode="{{true}}">&emsp;无作业</text>
+                </view>              
+              </block>
+
+              <block wx:elif="{{item.mathStatus == 2}}">
+                <!--已完成-->
+                <view class="status_item">
+                  <view class="circle_normal"></view>
+                  <text class="text_normal" decode="{{true}}">&emsp;已完成&emsp;</text>
+                </view>
+                <view class="status_item">
+                  <view class="circle"></view>
+                  <text class="text_unchecked" decode="{{true}}">&emsp;未完成&emsp;</text>
+                </view>
+                <view class="status_item">
+                  <view class="circle"></view>
+                  <text class="text_unchecked" decode="{{true}}">&emsp;无作业</text>
+                </view>              
+              </block>
+            </view>
+          </view>
+          <view class="homework_detail">
+            <text wx:if="{{item.mathStatus == 0}}" class="text">{{item.mathFeedback}}</text>
+            <text wx:elif="{{item.mathStatus == 1}}" class="text_warning">{{item.mathFeedback}}</text>
+            <text wx:elif="{{item.mathStatus == 2}}" class="text">{{item.mathFeedback}}</text>
+          </view>
+        </view>
+        <view class="homework_base_block">
+          <view class="homework_status">
+            <view class="prompt">
+              <text decode="{{true}}">英语&ensp;:&ensp;</text>
+            </view>            
+            <view class="status">
+              <block wx:if="{{item.englishStatus == 0}}">
+                <!--无作业-->
+                <view class="status_item">
+                  <view class="circle"></view>
+                  <text class="text_unchecked" decode="{{true}}">&emsp;已完成&emsp;</text>
+                </view>
+                <view class="status_item">
+                  <view class="circle"></view>
+                  <text class="text_unchecked" decode="{{true}}">&emsp;未完成&emsp;</text>
+                </view>
+                <view class="status_item">
+                  <view class="circle_normal"></view>
+                  <text class="text_normal" decode="{{true}}">&emsp;无作业</text>
+                </view>              
+              </block>
+
+              <block wx:elif="{{item.englishStatus == 1}}">
+                <!--未完成-->
+                <view class="status_item">
+                  <view class="circle"></view>
+                  <text class="text_unchecked" decode="{{true}}">&emsp;已完成&emsp;</text>
+                </view>
+                <view class="status_item">
+                  <view class="circle_warning"></view>
+                  <text class="text_warning" decode="{{true}}">&emsp;未完成&emsp;</text>
+                </view>
+                <view class="status_item">
+                  <view class="circle"></view>
+                  <text class="text_unchecked" decode="{{true}}">&emsp;无作业</text>
+                </view>              
+              </block>
+
+              <block wx:elif="{{item.englishStatus == 2}}">
+                <!--已完成-->
+                <view class="status_item">
+                  <view class="circle_normal"></view>
+                  <text class="text_normal" decode="{{true}}">&emsp;已完成&emsp;</text>
+                </view>
+                <view class="status_item">
+                  <view class="circle"></view>
+                  <text class="text_unchecked" decode="{{true}}">&emsp;未完成&emsp;</text>
+                </view>
+                <view class="status_item">
+                  <view class="circle"></view>
+                  <text class="text_unchecked" decode="{{true}}">&emsp;无作业</text>
+                </view>              
+              </block>
+            </view>
+          </view>
+          <view class="homework_detail">
+            <text wx:if="{{item.englishStatus == 0}}" class="text">{{item.englishFeedback}}</text>
+            <text wx:elif="{{item.englishStatus == 1}}" class="text_warning">{{item.englishFeedback}}</text>
+            <text wx:elif="{{item.englishStatus == 2}}" class="text">{{item.englishFeedback}}</text>
+          </view>
+        </view>
+        <view class="homework_base_block">
+          <view class="homework_status">
+            <view class="prompt">
+              <text decode="{{true}}">其它&ensp;:&ensp;</text>
+            </view>            
+            <view class="status">
+              <block wx:if="{{item.otherStatus == 0}}">
+                <!--无作业-->
+                <view class="status_item">
+                  <view class="circle"></view>
+                  <text class="text_unchecked" decode="{{true}}">&emsp;已完成&emsp;</text>
+                </view>
+                <view class="status_item">
+                  <view class="circle"></view>
+                  <text class="text_unchecked" decode="{{true}}">&emsp;未完成&emsp;</text>
+                </view>
+                <view class="status_item">
+                  <view class="circle_normal"></view>
+                  <text class="text_normal" decode="{{true}}">&emsp;无作业</text>
+                </view>              
+              </block>
+
+              <block wx:elif="{{item.otherStatus == 1}}">
+                <!--未完成-->
+                <view class="status_item">
+                  <view class="circle"></view>
+                  <text class="text_unchecked" decode="{{true}}">&emsp;已完成&emsp;</text>
+                </view>
+                <view class="status_item">
+                  <view class="circle_warning"></view>
+                  <text class="text_warning" decode="{{true}}">&emsp;未完成&emsp;</text>
+                </view>
+                <view class="status_item">
+                  <view class="circle"></view>
+                  <text class="text_unchecked" decode="{{true}}">&emsp;无作业</text>
+                </view>              
+              </block>
+
+              <block wx:elif="{{item.otherStatus == 2}}">
+                <!--已完成-->
+                <view class="status_item">
+                  <view class="circle_normal"></view>
+                  <text class="text_normal" decode="{{true}}">&emsp;已完成&emsp;</text>
+                </view>
+                <view class="status_item">
+                  <view class="circle"></view>
+                  <text class="text_unchecked" decode="{{true}}">&emsp;未完成&emsp;</text>
+                </view>
+                <view class="status_item">
+                  <view class="circle"></view>
+                  <text class="text_unchecked" decode="{{true}}">&emsp;无作业</text>
+                </view>              
+              </block>
+            </view>
+          </view>
+          <view class="homework_detail">
+            <text wx:if="{{item.otherStatus == 0}}" class="text">{{item.otherFeedback}}</text>
+            <text wx:elif="{{item.otherStatus == 1}}" class="text_warning">{{item.otherFeedback}}</text>
+            <text wx:elif="{{item.otherStatus == 2}}" class="text">{{item.otherFeedback}}</text>
+          </view>
+        </view>
+      </view>
     </view>
-  </block>
+  </scroll-view>
 </view>
