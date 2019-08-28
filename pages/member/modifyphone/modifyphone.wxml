@@ -1,0 +1,20 @@
+<!--pages/member/modifyphone/modifyphone.wxml-->
+<view>
+  <view  wx:if="{{vo.phone_display}}" >
+    <view class="wryh-font">您正在更换的手机号码为{{vo.phone_display}}</view>
+
+    <view class="input-phone">
+      <input class="input-content" bindinput='syncCode' type='number' maxlength='6' placeholder="请输入验证码" ></input>
+
+      <button class="input-submit" disabled='{{disabled}}' bindtap="bindGetYzm" >{{code}}</button>
+    </view>
+
+    <button class='base-btn' bindtap="bindNextPhone">下一步</button>
+  </view>
+
+  <view wx:else>
+    <text>您尚未绑定手机号，继续绑定请点击“下一步”</text>
+  </view>
+
+
+</view>
