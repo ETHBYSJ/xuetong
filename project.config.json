@@ -46,12 +46,19 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 1,
 			"list": [
 				{
 					"id": -1,
 					"name": "test",
-					"pathName": "pages/baby/CropPhoto/CropPhoto"
+					"pathName": "pages/baby/CropPhoto/CropPhoto",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "pages/baby/homework/upload/upload",
+					"pathName": "pages/baby/homework/upload/upload",
+					"scene": null
 				}
 			]
 		}

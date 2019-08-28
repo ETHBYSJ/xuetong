@@ -5,8 +5,8 @@
   </view>
   -->
   <scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower" bindscroll = "bindScroll" scroll-top="{{scrolltop}}">
-    <!--今天-->
-    <view wx:if="{{!uploadtoday}}" class="homework_block">
+    <!--今天-->    
+    <view wx:if="{{!uploadtoday}}" class="homework_block">   
       <view class="line"></view>
       <view class="homework_header">
 
@@ -60,7 +60,7 @@
             <scroll-view scroll-x class='imagewrap'>
               <view class='box' style='width:{{item.imageList.length*(216+26)}}rpx'>
                 <view wx:for="{{item.imageList}}" class="photos">
-                  <image mode="aspectFill" class="photo" src="{{imgBaseUrl}}{{item.photoPath}}" data-src="{{imgBaseUrl}}{{item.photoPath}}" bindtap="imgPreview"/>
+                  <image class="photo" src="{{imgBaseUrl}}{{item.photoPath}}" data-src="{{imgBaseUrl}}{{item.photoPath}}" bindtap="imgPreview"/>
                 </view>
               </view>  
             </scroll-view>
@@ -74,6 +74,12 @@
           </view>
           <view class="date_right"></view>
         </view>
+        <block wx:if="{{item.chineseStatus + item.mathStatus + item.englishStatus + item.otherStatus == -4}}">
+          <view class="end">
+            <button class="end_btn" bindtap="end">正在完成中……申请提前结束托管</button>
+          </view>
+        </block>
+        <block wx:else>
         <view class="homework_base_block">
           <view class="homework_status">
             <view class="prompt">
@@ -318,6 +324,7 @@
             <text wx:elif="{{item.otherStatus == 2}}" class="text">{{item.otherFeedback}}</text>
           </view>
         </view>
+        </block>
       </view>
     </view>
   </scroll-view>

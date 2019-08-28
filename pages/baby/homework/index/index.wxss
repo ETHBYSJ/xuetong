@@ -186,7 +186,19 @@
 }
 .photo {
   width: 216rpx;
+  height: 180rpx;
 }
 .imagewrap{
   height: 180rpx;
+}
+.end {
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+}
+.end_btn {
+  width: 690rpx;
+  color: #fff;
+  display: block;
+  background: #1296db;
+  font-size: 30rpx;
 }

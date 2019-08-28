@@ -152,24 +152,23 @@ new class extends we.Page {
   upload() {
     console.log("upload")
     wx.navigateTo({
-      url: "../upload/upload"
+      url: "../upload/upload?studentid=" + this.data.studentid + "&name=" + this.data.name + "&nowday=" + this.data.nowday,
     })
   }
-  //预览图片
-  imgPreview(e) {
-    let src = e.currentTarget.dataset.src;
-    //let index = e.currentTarget.dataset.index;
-    //let photos = this.data.vo.infor[index].photos;
-    //let imgList = [];
-    //console.log(photos)
-    /*
-    for (let i = 0; i < photos.length; i++) {
-      imgList.push(this.data.vo.imgBaseUrl + photos[i].photo_path);
-    }
-    */
-    wx.previewImage({
-      current: src,
-      urls: imgList
+  
+  end() {
+    wx.showModal({
+      title: '',
+      content: '拨打老师电话提前结束托管',
+      confirmText: '确定',
+      cancelText: '取消',
+      success(res) {
+        if (res.confirm) {
+          wx.makePhoneCall({
+            phoneNumber: '',
+          })
+        }
+      }
     })
   }
   /*
