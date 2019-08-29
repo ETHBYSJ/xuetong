@@ -26,12 +26,13 @@ new class extends we.Page {
     this.getData()
   }
   getData() {
-    this.$get('/v1/attendance/getStudentAttendanceById?studentid=' + this.data.studentid + '&page=1&size=' + this.data.size).then(data => {
+    this.$get('/v1/askforleave/getList?id=' + this.data.studentid + '&page=1&size=' + this.data.size).then(data => {
       console.log(data)
       this.setData({
         totalsize: Math.ceil(data.totalSize / this.data.size)
       })
       //console.log(this.data.totalsize)
+      /*
       var temp = []
       for(var i = 0; i < data.obj.length; i++) {
         if(data.obj[i].type == 2) {
@@ -43,9 +44,10 @@ new class extends we.Page {
         }
       }
       console.log(temp)
+      */
       this.setData({
         page: 1,
-        feed: temp,
+        feed: data.obj,
       })
     })
   }
@@ -75,8 +77,9 @@ new class extends we.Page {
       this.setData({
         page: page,
       })
-      this.$get('/v1/attendance/getStudentAttendanceById?studentid=' + this.data.studentid + '&page=' + this.data.page + '&size=' + this.data.size).then(data => {
+      this.$get('/v1/askforleave/getList?id=' + this.data.studentid + '&page=' + this.data.page + '&size=' + this.data.size).then(data => {
         console.log(data)
+        /*
         var next = []
         for (var i = 0; i < data.obj.length; i++) {
           if (data.obj[i].type == 2) {
@@ -88,8 +91,10 @@ new class extends we.Page {
           }
         }
         console.log(next)
+        */
         this.setData({
-          feed: this.data.feed.concat(next),
+          //feed: this.data.feed.concat(next),
+          feed: this.data.feed.concat(this.data.obj),
         })
       }).catch(err => {
         this.$showModal({

@@ -144,6 +144,7 @@ let http = (method = 'GET') => {
         }).then(res => {
             //console.log(res.data)
             if (typeof res.data == 'string') {
+              console.log(res.data)
                 res.data = JSON.parse(res.data)
             }
             if (res.data.code === 0) {

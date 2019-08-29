@@ -43,27 +43,51 @@
       </view>
 
       <view class="offwork_content_date">
-        <view class="date_block">
-          <view class="calendar">
-            <view class="cal_top">
-              <text class="month">{{item.year}}.{{item.month}}</text>
+        <view class="mid_wrapper">
+          <view class="mid_line"></view>
+          <view class="mid_circle"></view>
+          <text class="mid_text">至</text>
+        </view>
+        <view class="offwork_date_start">
+          <view class="date_block">
+            <view class="calendar">
+              <view class="cal_top">
+                <text class="month">{{item.startDate[0]+item.startDate[1]+item.startDate[2]+item.startDate[3]}}.{{item.startDate[5]+item.startDate[6]}}</text>
+              </view>
+              <view class="cal_bottom">
+                <text class="day">{{item.startDate[8]+item.startDate[9]}}</text>
+              </view>
             </view>
-            <view class="cal_bottom">
-              <text class="day">{{item.day}}</text>
+            <view class="date_text">
+              <text>请假日期</text>
             </view>
           </view>
-          <view class="date_text">
-            <text>请假日期</text>
+        </view>
+
+        <view class="offwork_date_end">
+          <view class="date_block">
+            <view class="calendar">
+              <view class="cal_top">
+                <text class="month">{{item.endDate[0]+item.endDate[1]+item.endDate[2]+item.endDate[3]}}.{{item.endDate[5]+item.endDate[6]}}</text>
+              </view>
+              <view class="cal_bottom">
+                <text class="day">{{item.endDate[8]+item.endDate[9]}}</text>
+              </view>
+            </view>
+            <view class="date_text">
+              <text>请假日期</text>
+            </view>
           </view>
         </view>
       </view>
 
       <view class="offwork_content_detail">
-        
+        {{item.content}}
       </view>
 
       <view class="offwork_content_btn">
-        <button class='base-btn'>已提交</button>
+        <button wx:if="{{item.confirm == 0}}" class='base-btn'>已提交</button>
+        <button wx:elif="{{item.confirm == 1}}" class="confirm-btn">老师已确认</button>
       </view>
     </view>
   </view>

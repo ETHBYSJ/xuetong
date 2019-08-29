@@ -38,13 +38,57 @@
 }
 
 .off_date {
-  border-top: 1rpx solid #d9d9d9;
-  height: 200rpx;
-  padding-top: 10rpx;
-  padding-bottom: 10rpx;
+  border-top: 1rpx solid #d9d9d9;  
+  height: 220rpx;
+  position: relative;
+}
+.off_date_start {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 200rpx;
+  width: 375rpx;
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
+  float: left;
+}
+.off_date_end {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200rpx;
+  width: 375rpx;
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
+  float: left;
+}
+.mid_wrapper {
+  position: absolute;
+  left: 375rpx;
+}
+.mid_line {
+  position: absolute;
+  width: 2rpx;
+  height: 220rpx;
+  background-color: #d9d9d9;
+}
+.mid_circle {
+  position: absolute;
+  width: 40rpx;
+  height: 40rpx;
+  left: -20rpx;
+  top: 90rpx;
+  border-radius: 50%;
+  border: 2rpx solid #d9d9d9;
+  background-color: white;
+}
+.mid_text {
+  position: absolute;
+  font-size: 28rpx;
+  color: rgb(146, 209, 79);
+  left: -14rpx;
+  line-height: 100%;
+  top: 96rpx;
 }
 .date_block {
   height: 200rpx;

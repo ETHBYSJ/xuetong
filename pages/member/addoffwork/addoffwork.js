@@ -2,13 +2,21 @@ let we = require('../../../we/index.js')
 new class extends we.Page {
   data() {
     return {
-      studentid: "",
+      //studentid: "",
       img: "",
       nowdate: null,
       height: "500rpx",
       name: "",
-      date: null,
-      msg: "",
+      //date: null,
+      //msg: "",
+      startDate: null,
+      endDate: null,
+      po: {
+        studentId: '',
+        startDate: '',
+        endDate: '',
+        content: '',
+      },
     }
   }
   onLoad(options) {
@@ -24,35 +32,53 @@ new class extends we.Page {
     }
     date = year + "-" + month + "-" + day
     this.setData({
-      studentid:options.studentid,
+      "po.studentId":options.studentid,
       img:options.img,
       name:options.name,
-      nowdate: {year: year, month: month, day: day, fulldate: date},
-      date: {year: year, month: month, day: day, fulldate: date},
+      nowDate: {year: year, month: month, day: day, fulldate: date},
+      startDate: {year: year, month: month, day: day, fulldate: date},
+      endDate: { year: year, month: month, day: day, fulldate: date },
+      "po.startDate": date,
+      "po.endDate": date,
       })
   }
   submit() {
     console.log("submit")    
-    this.$get('/v1/attendance/askForLeaveByStudentId?studentId='+this.data.studentid+'&date='+this.data.date.fulldate).then(data => {
+    console.log(this.data.po)
+    this.$post('/v1/askforleave/create', this.data.po).then(data => {
       console.log(data);
     }).catch(err => {
-      console.log("出错");
+      console.log(err);
     })   
   }
-  bindDateChange(e) {
+  bindStartDateChange(e) {
     console.log(e)
     var date = e.detail.value + ""
     var year = date.split("-")[0];
     var month = date.split("-")[1];
     var day = date.split("-")[2];
     this.setData({
-      date: { year: year, month: month, day: day, fulldate: year + "-" + month + "-" + day },
+      startDate: { year: year, month: month, day: day, fulldate: year + "-" + month + "-" + day },
+      "po.startDate": year + "-" + month + "-" + day,
     })
   }
+
+  bindEndDateChange(e) {
+    console.log(e)
+    var date = e.detail.value + ""
+    var year = date.split("-")[0];
+    var month = date.split("-")[1];
+    var day = date.split("-")[2];
+    this.setData({
+      endDate: { year: year, month: month, day: day, fulldate: year + "-" + month + "-" + day },
+      "po.endDate": year + "-" + month + "-" + day,
+    })
+  }
+
   bindInput(e) {
     //console.log(e);
     this.setData({
-      msg: e.detail.value,
+      "po.content": e.detail.value,
     })
   }
   confirm() {
