@@ -23,6 +23,10 @@ new class extends we.Page {
       currentTab:2,
       date:"",
       activityList: [null, null, null],
+      studentList: [],
+      height: "100vh", //swiper高度     
+      attendcnt: '',
+      notattendcnt: '', 
     }
   }
   onShow(){
@@ -127,7 +131,7 @@ new class extends we.Page {
   }
   onLoad() {
     /*
-    this.$get('/v1/student/datalist?gradeId=3&clazzId=2').then(data => {
+    this.$get('/v1/student/datalist?gradeId=3&clazzId=4').then(data => {
       console.log(data)
     })
     */
@@ -184,6 +188,7 @@ new class extends we.Page {
         clazzname: data.obj.webchatClazzList[this.data.index].clazzname,
       });
       this.loadTechAttend();
+      this.loadStudentInfo();
       this.cinemaDetail(data.obj.webchatClazzList[this.data.index].gradeid)
     //  this.loadCarousel(data.obj.webchatClazzList[this.data.index].gradeid)
     }).catch(err => {
@@ -281,6 +286,7 @@ new class extends we.Page {
     })
   }
   loadAttend() {
+    console.log('/v1/attendance/getStudentAttendanceEverydayList?student=' + this.data.studentid + '&date=' + this.data.vo.nowDay)
     this.$get('/v1/attendance/getStudentAttendanceEverydayList?student=' + this.data.studentid + '&date=' + this.data.vo.nowDay).then(data => {
       console.log(data.obj)
       this.setData({
@@ -325,18 +331,65 @@ new class extends we.Page {
       })
     })
   }
+  
+  loadStudentInfo() {
+    console.log("load studentinfo")
+    this.$get('/v1/student/datalist?gradeId=' + this.data.gradeid + '&clazzId=' + this.data.clazzid).then(data => {
+      console.log(data)
+      this.setData({
+        studentList: data.obj,
+        height: 800 + 201 * data.obj.length,
+      })
+      console.log(this.data.studentList.length)
+      let attendcnt = 0
+      let notattendcnt = 0
+      for(var i = 0; i < data.obj.length; i++) {
+        let temp = i
+        //出勤情况
+        this.$get('/v1/attendance/getStudentAttendanceEverydayList?student=' + data.obj[temp].id + '&date=' + this.data.date).then(data => {
+          //console.log(data.obj[0].studentEverydayAttendanceVOList[0].attendanceStudentList.length != 0)
+          //console.log(data)
+          //...
+          attendcnt += data.obj[0].studentEverydayAttendanceVOList[0].attendanceStudentList.length != 0 ? 1 : 0
+          notattendcnt = this.data.studentList.length - attendcnt
+          this.setData({
+            attendcnt: attendcnt,
+            notattendcnt: notattendcnt,
+          })
+          this.setData({
+            [`studentList[${temp}].attend`]: data.obj[0].studentEverydayAttendanceVOList[0].attendanceStudentList.length != 0,
+          })        
+          console.log(this.data.studentList)  
+        })
+        //作业完成情况 
+        //占位
+        this.setData({
+          [`studentList[${temp}].homework`]: false,
+        })
+        console.log(this.data.studentList) 
+        /*       
+        console.log('/v1/homework/getHomework?studentId=' + 3 + '&date=' + this.data.date)
+        this.$get('/v1/homework/getHomework?studentId=' + 2 + '&date=2019-08-28').then(data => {
+          console.log(data)          
+          this.setData({
+            [`studentList[${temp}].homework`]: data.obj.status != 0,
+          })          
+        })
+        */
+      }
+    })
+  }
 
-   
-   changeImg(){
-     wx.showActionSheet({
-       itemList: ['更换相册封面'],
-       success: function (res) {
-         wx.navigateTo({ url: `../CropPhoto/CropPhoto`})
-       },
-       fail: function (res) {
-         console.log(res.errMsg)
-       }
-     })  
+  changeImg(){
+    wx.showActionSheet({
+      itemList: ['更换相册封面'],
+      success: function (res) {
+        wx.navigateTo({ url: `../CropPhoto/CropPhoto`})
+      },
+      fail: function (res) {
+        console.log(res.errMsg)
+      }
+    })  
 
 
 
