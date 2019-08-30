@@ -10,6 +10,7 @@
     "pages/baby/homework/index/index",
     "pages/baby/homework/upload/upload",
     "pages/baby/CropPhoto/CropPhoto",
+    "pages/teacher/index/index",
     "pages/member/MemberCenter/MemberCenter",
     "pages/email/email",
     "pages/logs/logs",

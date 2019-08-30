@@ -1,191 +1,191 @@
 <view class='page'>
-  <swiper indicator-dots indicator-active-color='#1296db' class='baby-body' bindchange='onSlideChangeEnd'>
-    <swiper-item wx:for="{{userType=='家长'?vo.message.studentList:vo.message.webchatClazzList}}" wx:key="item.id" wx:for-item="item">
-      <view class='member'>
-        <image src='{{vo.imgBaseUrl}}{{vo.CarouselDetails}}' mode='aspectFill' class="member-bg"></image>
-        <view class="school-title">
-          <image src="{{vo.imgBaseUrl}}{{vo.cinemaDetails.photopath}}" class="school-icon"></image>
-          <view class="school-name">{{item.gradename}}</view>
-        </view>
+  <!--家长端-->
+  <block wx:if="{{userType=='家长'}}">
+    <swiper indicator-dots indicator-active-color='#1296db' class='baby-body' bindchange='onSlideChangeEnd'>
+      <swiper-item wx:for="{{vo.message.studentList}}" wx:key="item.id" wx:for-item="item">
+        <view class='member'>
+          <image src='{{vo.imgBaseUrl}}{{vo.CarouselDetails}}' mode='aspectFill' class="member-bg"></image>
+          <view class="school-title">
+            <image src="{{vo.imgBaseUrl}}{{vo.cinemaDetails.photopath}}" class="school-icon"></image>
+            <view class="school-name">{{item.gradename}}</view>
+          </view>
 
-        <!-- <image wx:if="{{vo.UserInfo.loginImage}}" src='{{vo.imgBaseUrl}}{{vo.UserInfo.loginImage}}' class='memberpic'></image> -->
-        <image hidden="{{userType=='教职工'||userType=='门店管理员'}}" src="{{item.photo?vo.imgBaseUrl+''+item.photo:'/assets/icon/loadImg.jpg'}}" class='memberpic' mode='aspectFit'></image>
-        <image hidden="{{userType=='家长'}}" src="{{vo.message.photo?vo.imgBaseUrl+''+vo.message.photo:'/assets/icon/loadImg_1.jpg'}}" class='memberpic' mode='aspectFit'></image>
-        <view class="nickname" hidden="{{userType=='教职工'||userType=='门店管理员'}}">
-          <view class="Loginname">
-            <view class="left-name">姓名:{{item.name}}</view>
-          </view>
-          <view class="Loginname">
-            <view class="left-name">学号:{{item.number}}</view>
-          </view>
-          <view class="Loginname">
-            <view class="left-clssname">班级:{{item.clazzname}}
+          <!-- <image wx:if="{{vo.UserInfo.loginImage}}" src='{{vo.imgBaseUrl}}{{vo.UserInfo.loginImage}}' class='memberpic'></image> -->
+          <image src="{{item.photo?vo.imgBaseUrl+''+item.photo:'/assets/icon/loadImg.jpg'}}" class='memberpic' mode='aspectFit'></image>          
+          <view class="nickname">
+            <view class="Loginname">
+              <view class="left-name">姓名:{{item.name}}</view>
+            </view>
+            <view class="Loginname">
+              <view class="left-name">学号:{{item.number}}</view>
+            </view>
+            <view class="Loginname">
+              <view class="left-clssname">班级:{{item.clazzname}}
+              </view>
             </view>
           </view>
         </view>
 
-        <view class="nickname" hidden="{{userType=='家长'}}">
-          <view class="Loginname">
-            <view class="left-name">姓名:{{vo.message.name}}</view>
-          </view>
-          <view class="Loginname" hidden="{{userType=='门店管理员'}}">
-            <view class="left-name">工号:{{vo.message.number}}</view>
-          </view>
-          <view class="Loginname">
-            <view class="left-clssname">班级:{{item.clazzname}}
-            </view>
-          </view>
-        </view>
-      </view>
-
-
-      <view class="check" hidden='{{userType=="教职工"||userType=="门店管理员"}}'>
-        <!--
-        <navigator class='navwarp' hidden='{{feed.studentEverydayAttendanceVOList[0].attendanceStudentList.length=="0"}}' url="/pages/answerb/answerb?studentid={{studentid}}&date={{vo.nowDay}}" open-type="navigate">
-        </navigator>
-        -->
-        <navigator class='navwarp' url="/pages/member/StudentAttendRecord/StudentAttendRecord?studentid={{studentid}}" open-type="navigate">
-
-        </navigator>
-        <view class="check-name">
-          <text>今日出勤({{vo.nowDate}})</text>
-        </view>
-        <view class="check-time">
-          <image class="s-bg" src="/assets/icon/s_bg.png"></image>
-          <view class="in-time">
-            <view class="in-time-title">到达</view>
-            <view class="in-time-text">{{feed.studentEverydayAttendanceVOList[0].attendanceStudentList[0].attendancetime}}
-            </view>
-            <image class="in-time-img" src="{{feed.studentEverydayAttendanceVOList[0].attendanceStudentList[0].photopath}}" mode='aspectFill'></image>
-          </view>
-          <view class="out-time">
-            <view class="in-time-title">离开</view>
-            <view class="in-time-text">{{feed.studentEverydayAttendanceVOList[0].attendanceStudentList[1].attendancetime}}</view>
-            <image class="in-time-img" src="{{feed.studentEverydayAttendanceVOList[0].attendanceStudentList[1].photopath}}" mode='aspectFill'></image>
-          </view>
-        </view>
-      </view>
-
-
-      <view class="check" hidden='{{userType=="家长"}}'>
-        <navigator class='navwarp' hidden='{{feed.teacherEverydayAttendanceVOList[0].attendanceTeacherList.length=="0"}}' url="/pages/answerb/answerb?clazzid={{clazzid}}&date={{vo.nowDay}}&gradename={{gradename}}" open-type="navigate">
-        </navigator>
-        <view class="check-name">
-          <text>今日出勤({{vo.nowDate}})</text>
-        </view>
-        <view class="check-time">
-          <image class="s-bg" src="/assets/icon/s_bg.png"></image>
-          <view class="in-time">
-            <view class="in-time-title">到达</view>
-            <view class="in-time-text">{{feed.teacherEverydayAttendanceVOList[0].attendanceTeacherList[0].attendancetime}}
-            </view>
-            <image class="in-time-img" src="{{feed.teacherEverydayAttendanceVOList[0].attendanceTeacherList[0].photopath}}" mode='aspectFill'></image>
-          </view>
-          <view class="out-time">
-            <view class="in-time-title">离开</view>
-            <view class="in-time-text">{{feed.teacherEverydayAttendanceVOList[0].attendanceTeacherList[1].attendancetime}}</view>
-            <image class="in-time-img" src="{{feed.teacherEverydayAttendanceVOList[0].attendanceTeacherList[1].photopath}}" mode='aspectFill'></image>
-          </view>
-        </view>
-        <!-- 日期下拉条 -->
-        <view class="class-date">
-          <picker mode="date" value="{{date}}" start="2000-01-01" end="2099-12-31" bindchange="bindDateChange">
-            <view class="picker">
-              汉阳2班（{{date}}）
-            </view>
-          </picker>
-        </view>
-
-        <!-- 全部 已签 未签-->
-        <view class="tap-wrp">
-          <view class="tab-list {{currentTab==2 ? 'on' : ''}}" data-current="2" bindtap="swichNav">全部</view>     
-          <view class="tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">已签</view>      
-          <view class="tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">未签</view>
-        </view>
-
-      </view>
-
-
-      <view class="footer"  hidden='{{userType=="教职工"||userType=="门店管理员"}}'>
-        <view>
-          <navigator url="/pages/baby/homework/index/index?studentid={{studentid}}&name={{item.name}}" open-type="navigate">
-            <image src="/assets/icon/ks.png"></image>
-            <text>作业</text>
-          </navigator>
-        </view>
-        <!-- <view><navigator url="/pages/member/MemberCenter/MemberCenter" open-type="switchTab"> -->
-        <!-- <image src="/assets/icon/bx.png"></image> -->
-        <!-- <text>预约接送</text> -->
-        <!-- </navigator></view>  -->
-        <!-- <view><navigator url="/pages/member/MemberCenter/MemberCenter" open-type="switchTab"> -->
-        <!-- <image src="/assets/icon/jy.png" class="core-item-icon"></image> -->
-        <!-- <text>作业上传</text> -->
-        <!-- </navigator></view> -->
-        <view>
+        <view class="check">
           <!--
-          <navigator url="/pages/member/photo/photo?clazzid={{clazzid}}&gradename={{gradename}}&clazzname={{clazzname}}" open-type="navigate">
+          <navigator class='navwarp' hidden='{{feed.studentEverydayAttendanceVOList[0].attendanceStudentList.length=="0"}}' url="/pages/answerb/answerb?studentid={{studentid}}&date={{vo.nowDay}}" open-type="navigate">
+          </navigator>
           -->
-          <navigator url="/pages/member/offwork/offwork?studentid={{studentid}}&img={{item.photo?vo.imgBaseUrl+''+item.photo:'/assets/icon/loadImg.jpg'}}&name={{item.name}}" open-type="navigate">
-            <image src="/assets/icon/xs.png"></image>
-            <text>请假</text>
+          <navigator class='navwarp' url="/pages/member/StudentAttendRecord/StudentAttendRecord?studentid={{studentid}}" open-type="navigate">
+
           </navigator>
+          <view class="check-name">
+            <text>今日出勤({{vo.nowDate}})</text>
+          </view>
+          <view class="check-time">
+            <image class="s-bg" src="/assets/icon/s_bg.png"></image>
+            <view class="in-time">
+              <view class="in-time-title">到达</view>
+              <view class="in-time-text">{{feed.studentEverydayAttendanceVOList[0].attendanceStudentList[0].attendancetime}}
+              </view>
+              <image class="in-time-img" src="{{feed.studentEverydayAttendanceVOList[0].attendanceStudentList[0].photopath}}" mode='aspectFill'></image>
+            </view>
+            <view class="out-time">
+              <view class="in-time-title">离开</view>
+              <view class="in-time-text">{{feed.studentEverydayAttendanceVOList[0].attendanceStudentList[1].attendancetime}}</view>
+              <image class="in-time-img" src="{{feed.studentEverydayAttendanceVOList[0].attendanceStudentList[1].photopath}}" mode='aspectFill'></image>
+            </view>
+          </view>
         </view>
 
-        <view>
-          <navigator url="/pages/email/email" open-type="switchTab">
-            <image src="/assets/icon/kb.png"></image>
-            <text>学勤</text>
-          </navigator>
-        </view>
+        <view class="footer">
+          <view>
+            <navigator url="/pages/baby/homework/index/index?studentid={{studentid}}&name={{item.name}}" open-type="navigate">
+              <image src="/assets/icon/ks.png"></image>
+              <text>作业</text>
+            </navigator>
+          </view>
+          <!-- <view><navigator url="/pages/member/MemberCenter/MemberCenter" open-type="switchTab"> -->
+          <!-- <image src="/assets/icon/bx.png"></image> -->
+          <!-- <text>预约接送</text> -->
+          <!-- </navigator></view>  -->
+          <!-- <view><navigator url="/pages/member/MemberCenter/MemberCenter" open-type="switchTab"> -->
+          <!-- <image src="/assets/icon/jy.png" class="core-item-icon"></image> -->
+          <!-- <text>作业上传</text> -->
+          <!-- </navigator></view> -->
+          <view>
+            <!--
+            <navigator url="/pages/member/photo/photo?clazzid={{clazzid}}&gradename={{gradename}}&clazzname={{clazzname}}" open-type="navigate">
+            -->
+            <navigator url="/pages/member/offwork/offwork?studentid={{studentid}}&img={{item.photo?vo.imgBaseUrl+''+item.photo:'/assets/icon/loadImg.jpg'}}&name={{item.name}}" open-type="navigate">
+              <image src="/assets/icon/xs.png"></image>
+              <text>请假</text>
+            </navigator>
+          </view>
 
-		    <view>
-          <navigator url="/pages/member/mySpending/mySpending" open-type="navigate">
-            <image src="/assets/icon/ykt.png"></image>
-            <text>缴费</text>
-          </navigator>
-        </view>
-      </view>
-    <!--
-	  <view class="footer_1"  hidden='{{userType=="教职工"||userType=="门店管理员"}}'>
-	    <view>
-	      <navigator url="/pages/member/photo/photo?clazzid={{clazzid}}&gradename={{gradename}}&clazzname={{clazzname}}" open-type="navigate">
-          <image src="/assets/icon/kjs.png"></image>
-          <text>班级相册</text>
-        </navigator>
-		  </view>
-	  </view>
-    -->
-    </swiper-item>
-  </swiper>
+          <view>
+            <navigator url="/pages/email/email" open-type="switchTab">
+              <image src="/assets/icon/kb.png"></image>
+              <text>学勤</text>
+            </navigator>
+          </view>
 
-  <!--家长端-最新活动-->
-  <view class="activity_list" hidden='{{userType=="教职工"||userType=="门店管理员"}}'>
-    <view class="activity_title">
-      ·最新活动·
-    </view>
-
-    <view class="activity_content">
-      <view class="activity_block" data-id="{{item.id}}" wx:for="{{activityList}}" bindtap="{{item?'jumpPage':''}}">
-        <image src='{{item.titlePhoto?vo.imgBaseUrl+""+item.titlePhoto:"/images/default.jpg"}}' ></image>
-        <view class="activity_name">
-          {{item.heading}}
+          <view>
+            <navigator url="/pages/member/mySpending/mySpending" open-type="navigate">
+              <image src="/assets/icon/ykt.png"></image>
+              <text>缴费</text>
+            </navigator>
+          </view>
         </view>
-        <view class="activity_detail">
-          剩余{{item.remains}}名额
-        </view>
-      </view>
       <!--
-      <view class="activity_block">
-        <image src="/images/default.jpg"></image>
-        <text class="activity_name"></text>
-        <text class="activity_detail"></text>
-      </view>
-      <view class="activity_block">
-        <image src="/images/default.jpg"></image>
-        <text class="activity_name"></text>
-        <text class="activity_detail"></text>
+      <view class="footer_1"  hidden='{{userType=="教职工"||userType=="门店管理员"}}'>
+        <view>
+          <navigator url="/pages/member/photo/photo?clazzid={{clazzid}}&gradename={{gradename}}&clazzname={{clazzname}}" open-type="navigate">
+            <image src="/assets/icon/kjs.png"></image>
+            <text>班级相册</text>
+          </navigator>
+        </view>
       </view>
       -->
+      </swiper-item>
+    </swiper>
+    
+    <!--家长端-最新活动-->
+    <view class="activity_list">
+      <view class="activity_title">
+        ·最新活动·
+      </view>
+      <view class="activity_content">
+        <view class="activity_block" data-id="{{item.id}}" wx:for="{{activityList}}" bindtap="{{item?'jumpPage':''}}">
+          <image src='{{item.titlePhoto?vo.imgBaseUrl+""+item.titlePhoto:"/images/default.jpg"}}' ></image>
+          <view class="activity_name">
+            {{item.heading}}
+          </view>
+          <view class="activity_detail">
+            剩余{{item.remains}}名额
+          </view>
+        </view>        
+      </view>
     </view>
-  </view>
+  </block>
+
+  <!--教职工-->
+  <block wx:elif="{{userType=='教职工'}}">
+    <swiper indicator-dots indicator-active-color='#1296db' class='teacher-body' bindchange='onSlideChangeEnd'>
+      <swiper-item wx:for="{{vo.message.webchatClazzList}}" wx:key="item.id" wx:for-item="item">
+        <view class='member'>
+          <image src='{{vo.imgBaseUrl}}{{vo.CarouselDetails}}' mode='aspectFill' class="member-bg"></image>
+          <view class="school-title">
+            <image src="{{vo.imgBaseUrl}}{{vo.cinemaDetails.photopath}}" class="school-icon"></image>
+            <view class="school-name">{{item.gradename}}</view>
+          </view>
+          <image src="{{vo.message.photo?vo.imgBaseUrl+''+vo.message.photo:'/assets/icon/loadImg_1.jpg'}}" class='memberpic' mode='aspectFit'></image>          
+          <view class="nickname">
+            <view class="Loginname">
+              <view class="left-name">姓名:{{vo.message.name}}</view>
+            </view>
+            <view class="Loginname">
+              <view class="left-name">工号:{{vo.message.number}}</view>
+            </view>
+            <view class="Loginname">
+              <view class="left-clssname">班级:{{item.clazzname}}
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view class="check">
+          <navigator class='navwarp' hidden='{{feed.teacherEverydayAttendanceVOList[0].attendanceTeacherList.length=="0"}}' url="/pages/answerb/answerb?clazzid={{clazzid}}&date={{vo.nowDay}}&gradename={{gradename}}" open-type="navigate">
+          </navigator>
+          <view class="check-name">
+            <text>今日出勤({{vo.nowDate}})</text>
+          </view>
+          <view class="check-time">
+            <image class="s-bg" src="/assets/icon/s_bg.png"></image>
+            <view class="in-time">
+              <view class="in-time-title">到达</view>
+              <view class="in-time-text">{{feed.teacherEverydayAttendanceVOList[0].attendanceTeacherList[0].attendancetime}}
+              </view>
+              <image class="in-time-img" src="{{feed.teacherEverydayAttendanceVOList[0].attendanceTeacherList[0].photopath}}" mode='aspectFill'></image>
+            </view>
+            <view class="out-time">
+              <view class="in-time-title">离开</view>
+              <view class="in-time-text">{{feed.teacherEverydayAttendanceVOList[0].attendanceTeacherList[1].attendancetime}}</view>
+              <image class="in-time-img" src="{{feed.teacherEverydayAttendanceVOList[0].attendanceTeacherList[1].photopath}}" mode='aspectFill'></image>
+            </view>
+          </view>
+          <!-- 日期下拉条 -->
+          <view class="class-date">
+            <picker mode="date" value="{{date}}" start="2000-01-01" end="2099-12-31" bindchange="bindDateChange">
+              <view class="picker">
+                汉阳2班（{{date}}）
+              </view>
+            </picker>
+          </view>
+
+          <!-- 全部 已签 未签-->
+          <view class="tap-wrp">
+            <view class="tab-list {{currentTab==2 ? 'on' : ''}}" data-current="2" bindtap="swichNav">全部</view>     
+            <view class="tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">已签</view>      
+            <view class="tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">未签</view>
+          </view>
+        </view>      
+      </swiper-item>
+    </swiper>
+  </block>
 </view>

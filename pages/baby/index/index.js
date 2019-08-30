@@ -74,10 +74,6 @@ new class extends we.Page {
 			  })
 		  }
 	  })
-
-    
-	
-    
   }
   //滑动页面处理函数
   onSlideChangeEnd(e) {
@@ -130,6 +126,11 @@ new class extends we.Page {
     });
   }
   onLoad() {
+    /*
+    this.$get('/v1/student/datalist?gradeId=3&clazzId=2').then(data => {
+      console.log(data)
+    })
+    */
     this.setData({
       'vo.imgBaseUrl': this.$app.imgBaseUrl
     })
