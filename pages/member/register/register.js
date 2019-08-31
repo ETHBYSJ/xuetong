@@ -125,6 +125,9 @@ new class extends we.Page {
       "password": this.data.po.password,
       "type": this.data.po.type,
     }).then(data => {
+
+     // console.log(this.data.po);
+
       if (data.obj == "SUCC"){
         this.getUserStatus()
       }else{
@@ -202,7 +205,7 @@ new class extends we.Page {
     });
     if (myreg.test(this.data.po.mobile)){
       this.$get('/v1/user/getUserTypeByMobile?mobile=' + this.data.po.mobile).then(data => {
-        console.log(data);
+        //console.log(data);
         if(data.obj.length == 1){
           this.setData({
             "po.type": data.obj[0].type,
