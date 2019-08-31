@@ -9,20 +9,20 @@
 
   <view class="base-cell base-cell_access">
     <view class="name_prompt">
-      <text decode="{{true}}">姓&emsp;&emsp;名</text>
+      <text decode="{{true}}">姓&emsp;&emsp;名&emsp;&emsp;</text>
     </view>
 
-    <text decode="{{true}}" class="picker">{{vo.message.name}}</text>
+    <input placeholder-class="center" class="picker" value="{{vo.message.name}}" bindinput="bindNameChange"> </input>
   </view>
 
   <view class="base-cell base-cell_access">
     <view class="sex_prompt">
       <text decode="{{true}}">性&emsp;&emsp;别</text>
     </view>
-    <radio-group bindchange="changeSex" class="picker">
+    <radio-group bindchange="bindSexChange" class="picker">
       <label class="radio" >
-        <radio value="男" color='#1296db' checked="{{vo.message.sex=='男'?'true':''}}"/><text decode="{{true}}">男&emsp;&ensp;</text>
-        <radio value="女" color='#1296db' checked="{{vo.message.sex=='女'?'true':''}}"/><text decode="{{true}}">女&emsp;&ensp;</text>
+        <radio value="Man" color='#1296db' checked="{{vo.message.sex=='Man'?'true':''}}"/><text decode="{{true}}">男&emsp;&ensp;</text>
+        <radio value="Woman" color='#1296db' checked="{{vo.message.sex=='Woman'?'true':''}}"/><text decode="{{true}}">女&emsp;&ensp;</text>
       </label>
     </radio-group>
   </view>
@@ -32,7 +32,7 @@
       <text decode="{{true}}">出生日期</text>
     </view>
 
-    <picker mode="date" value="{{vo.message.birthday}}" start="1900-01-01" end="{{vo.nowDate}}" bindchange="bindBirthChange">
+    <picker mode="date" value="{{po.message.birthday}}" start="1900-01-01" end="{{vo.nowDate}}" bindchange="bindBirthChange">
       
       <view class="picker" wx:if="{{vo.message.birthday}}">
         <image src="/images/rqxz.png" class="icon"></image>
@@ -56,6 +56,6 @@
     </view>
   </view>
 
-  <button class='base-btn'>保存</button>
+  <button class='base-btn' bindtap="toSave">保存</button>
 
 </view>

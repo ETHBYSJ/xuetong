@@ -8,6 +8,7 @@ new class extends we.Page {
         code: "",
         code1: "",
         phone: "",
+        name: "",
       },
       vo: {
         message: {},

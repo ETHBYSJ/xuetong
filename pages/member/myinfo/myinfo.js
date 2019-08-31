@@ -13,13 +13,7 @@ new class extends we.Page {
     }
   }
 
-  changeSex(e) {
-    console.log(e);
-    this.setData({
-      'vo.message.sex': e.detail.value,      
-    })
-  }
-
+  
   onShow() {
     this.setData({
       'userType': this.$app.userType
@@ -53,11 +47,77 @@ new class extends we.Page {
     })
   }
 
+  //修改性别
+  bindSexChange(e) {
+    console.log(e);
+    this.setData({
+      'vo.message.sex': e.detail.value,
+    })
+  }
+
   //修改手机号码
   bindPhoneChange(e) {
     wx.navigateTo({
       url: '/pages/member/modifyphone/modifyphone',
     })
+  }
+
+  //修改名字
+  bindNameChange(e) {
+    this.setData({
+      'vo.message.name': e.detail.value,
+    })
+  }
+
+  //保存修改
+  toSave() {
+    if(this.data.userType=='教职工') {
+      this.$post('/v1/teacher/updateInfo', {
+        'name': this.data.vo.message.name,
+        'sex': this.data.vo.message.sex,
+        'birthday': this.data.vo.message.birthday,
+      }).then(data => {
+        this.$navigateBack()
+      }).catch(err => {
+        if (err) {
+          this.data.vo.coderesult = err
+          this.$showModal({
+            title: '提示',
+            content: `${err.message}`,
+            showCancel: false
+          })
+        } else {
+          this.$showModal({
+            title: '提示',
+            content: err.msg,
+            showCancel: false
+          })
+        }
+      })
+    } else {
+      this.$post('/v1/family/updateInfo', {
+        'name': this.data.vo.message.name,
+        'sex': this.data.vo.message.sex,
+        'birthday': this.data.vo.message.birthday,
+      }).then(data => {
+        this.$navigateBack()
+      }).catch(err => {
+        if (err) {
+          this.data.vo.coderesult = err
+          this.$showModal({
+            title: '提示',
+            content: `${err.message}`,
+            showCancel: false
+          })
+        } else {
+          this.$showModal({
+            title: '提示',
+            content: err.msg,
+            showCancel: false
+          })
+        }
+      })
+    }
   }
 
   loadTechInfo() {
