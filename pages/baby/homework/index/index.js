@@ -47,11 +47,11 @@ new class extends we.Page {
     this.getData()
   }
   getData() {
-    this.$get('/v1/homework/getHomeworkList?page=1&size=' + this.data.size + '&studentId=' + this.data.studentid).then(data => {
+    this.$get('/v1/homework/getList?page=1&size=' + this.data.size + '&id=' + this.data.studentid).then(data => {
       console.log(data)      
       //console.log(data.obj)
       //检查今日是否上传
-      if(data.obj.length > 0 && data.obj[0].createdate == this.data.nowday) {
+      if(data.obj.length > 0 && data.obj[0].homeworkDate == this.data.nowday) {
         //今日作业已经上传
         this.setData({
           uploadtoday: true,
@@ -94,7 +94,7 @@ new class extends we.Page {
     })
     var page = this.data.page + 1
     console.log(page)
-    this.$get('/v1/homework/getHomeworkList?page=' + page + '&size=' + this.data.size + '&studentId=' + this.data.studentid).then(data => {
+    this.$get('/v1/homework/getList?page=' + page + '&size=' + this.data.size + '&id=' + this.data.studentid).then(data => {
       if(data.obj.length > 0) {
         this.setData({
           page: page,          

@@ -6,6 +6,7 @@
     "pages/activity/apply/apply",
     "pages/school/index/index",
     "pages/school/list/list",
+    "pages/baby/StudentDetailed/StudentDetailed",
     "pages/baby/index/index",
     "pages/baby/homework/index/index",
     "pages/baby/homework/upload/upload",

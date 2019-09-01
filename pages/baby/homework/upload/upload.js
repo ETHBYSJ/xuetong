@@ -9,7 +9,7 @@ new class extends we.Page {
       height: 0,      
       po: {
         imageList: [],
-        createdate: "",
+        createDate: "",
         studentId: "",
         content: "",
         status: 1,
@@ -21,6 +21,9 @@ new class extends we.Page {
         mathStatus: -1,
         englishStatus: -1,
         otherStatus: -1,
+        id: 2,
+        homeworkDate: "2019-09-01",
+        deleteTag: 1,
       },
     }
   }
@@ -31,7 +34,7 @@ new class extends we.Page {
       name: options.name,
       imgBaseUrl: this.$app.imgBaseUrl,
       nowday: options.nowday,
-      "po.createdate": options.nowday,
+      "po.createDate": options.nowday,
     })
     
     //console.log(this.data.imgBaseUrl)
@@ -72,7 +75,7 @@ new class extends we.Page {
       //that.data.po.imageList = JSON.stringify(that.data.po.imageList) 
       console.log(that.data.po)
       
-      that.$post('/v1/homework/familySendHomework', that.data.po).then(data => {
+      that.$post('/v1/homework/update', that.data.po).then(data => {
         console.log(data) 
         wx.navigateBack({
           delta: 1

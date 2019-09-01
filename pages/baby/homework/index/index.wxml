@@ -6,7 +6,10 @@
   -->
   <scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower" bindscroll = "bindScroll" scroll-top="{{scrolltop}}">
     <!--今天-->    
-    <view wx:if="{{!uploadtoday}}" class="homework_block">   
+    <!--
+    <view wx:if="{{!uploadtoday}}" class="homework_block">
+    -->
+    <view class="homework_block">   
       <view class="line"></view>
       <view class="homework_header">
 
@@ -70,7 +73,7 @@
         <view class="date">
           <view class="date_left"></view>
           <view class="date_mid">
-            <text class="record_text">{{item.createdate}}</text>
+            <text class="record_text">{{item.homeworkDate}}</text>
           </view>
           <view class="date_right"></view>
         </view>

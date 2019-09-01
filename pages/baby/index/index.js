@@ -23,10 +23,18 @@ new class extends we.Page {
       currentTab:2,
       date:"",
       activityList: [null, null, null],
+      //当前渲染列表
+      nowList: [],
+      //学生信息列表
       studentList: [],
+      //缓存，减少http请求次数
+      attendList: [],
+      notattendList: [],
       height: "100vh", //swiper高度     
+      //已签
       attendcnt: '',
-      notattendcnt: '', 
+      //未签
+      //notattendcnt: '', 
     }
   }
   onShow(){
@@ -119,15 +127,34 @@ new class extends we.Page {
     this.setData({
       date: e.detail.value
     })
+    //刷新学生数据
+    this.loadStudentInfo()
   }
 
   //导航事件处理函数
   swichNav(e) {
     var current = e.currentTarget.dataset.current;
+    console.log(current)
     this.setData({
       currentTab: current,
-
     });
+    if(current == 2) {
+      this.setData({
+        nowList: this.data.studentList,
+      })
+    }
+    else if(current == 1) {
+      this.setData({
+        nowList: this.data.attendList,
+      })
+    }
+    else {
+      //current == 0
+      this.setData({
+        nowList: this.data.notattendList,
+      })
+    }
+
   }
   onLoad() {
     /*
@@ -333,50 +360,80 @@ new class extends we.Page {
   }
   
   loadStudentInfo() {
-    console.log("load studentinfo")
+    console.log("load studentinfo")    
     this.$get('/v1/student/datalist?gradeId=' + this.data.gradeid + '&clazzId=' + this.data.clazzid).then(data => {
       console.log(data)
+      let studentList = data.obj
       this.setData({
-        studentList: data.obj,
+        //studentList: data.obj,
+        nowList: data.obj,
         height: 800 + 201 * data.obj.length,
       })
       console.log(this.data.studentList.length)
       let attendcnt = 0
-      let notattendcnt = 0
+      //let notattendcnt = 0
+      let attend_promises = []
+      let homework_promises = []
+      //缓存，减少http请求次数
+      let attendList = []
+      let notattendList = []
+      
+      //保存引用
+      let that = this
       for(var i = 0; i < data.obj.length; i++) {
         let temp = i
         //出勤情况
-        this.$get('/v1/attendance/getStudentAttendanceEverydayList?student=' + data.obj[temp].id + '&date=' + this.data.date).then(data => {
-          //console.log(data.obj[0].studentEverydayAttendanceVOList[0].attendanceStudentList.length != 0)
-          //console.log(data)
-          //...
-          attendcnt += data.obj[0].studentEverydayAttendanceVOList[0].attendanceStudentList.length != 0 ? 1 : 0
-          notattendcnt = this.data.studentList.length - attendcnt
+        //使用Promise包装，方便进行同步
+        attend_promises.push(this.$get('/v1/attendance/getStudentAttendanceEverydayList?student=' + data.obj[temp].id + '&date=' + this.data.date).then(data => {
+          let ifattend = data.obj[0].studentEverydayAttendanceVOList[0].attendanceStudentList.length != 0
+          attendcnt += ifattend ? 1 : 0   
+          studentList[temp].attend = ifattend
+          /*       
           this.setData({
-            attendcnt: attendcnt,
-            notattendcnt: notattendcnt,
+            [`studentList[${temp}].attend`]: ifattend,
           })
+          */
+          if (ifattend) {
+            attendList.push(studentList[temp])
+          }
+          else {
+            notattendList.push(studentList[temp])
+          }
+          return(data)
+        }))
+        homework_promises.push(this.$get('/v1/homework/getByStudentIdAndDate?id=' + data.obj[temp].id + '&date=' + this.data.date).then(data => {
+          /*
           this.setData({
-            [`studentList[${temp}].attend`]: data.obj[0].studentEverydayAttendanceVOList[0].attendanceStudentList.length != 0,
-          })        
-          console.log(this.data.studentList)  
-        })
-        //作业完成情况 
-        //占位
-        this.setData({
-          [`studentList[${temp}].homework`]: false,
-        })
-        console.log(this.data.studentList) 
-        /*       
-        console.log('/v1/homework/getHomework?studentId=' + 3 + '&date=' + this.data.date)
-        this.$get('/v1/homework/getHomework?studentId=' + 2 + '&date=2019-08-28').then(data => {
-          console.log(data)          
-          this.setData({
-            [`studentList[${temp}].homework`]: data.obj.status != 0,
-          })          
-        })
-        */
+            [`studentList[${temp}].homework`]: data.obj && data.obj.status != 0,
+          }) 
+          */
+          studentList[temp].homework = data.obj && data.obj.status != 0
+        }))
+        
       }
+      //同步
+      Promise.all(attend_promises).then(function(results) {           
+        that.setData({
+          attendcnt: attendcnt,
+          //notattendcnt: that.data.studentList.length - attendcnt,
+          attendList: attendList,
+          notattendList: notattendList,
+          studentList: studentList,
+          nowList: studentList,
+        })  
+        
+      })
+      Promise.all(homework_promises).then(function (results) {
+        that.setData({
+          attendcnt: attendcnt,
+          //notattendcnt: that.data.studentList.length - attendcnt,
+          attendList: attendList,
+          notattendList: notattendList,
+          studentList: studentList,
+          nowList: studentList,
+        })        
+      })
+           
     })
   }
 
@@ -416,6 +473,12 @@ new class extends we.Page {
     let item = e.currentTarget.dataset;
     wx.navigateTo({
       url: "/pages/activity/detail/detail?id=" + item.id
+    })
+  }
+  jumpToStudentDetailed(e) {
+    console.log(e)
+    wx.navigateTo({
+      url: "/pages/baby/StudentDetailed/StudentDetailed?studentid=" + e.currentTarget.dataset.id + "&name=" + e.currentTarget.dataset.name
     })
   }
 }

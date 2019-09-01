@@ -185,11 +185,11 @@
           <view class="tap-wrp">
             <view class="tab-list {{currentTab==2 ? 'on' : ''}}" data-current="2" bindtap="swichNav">全部({{studentList.length}})</view>     
             <view class="tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">已签({{attendcnt}})</view>      
-            <view class="tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">未签({{notattendcnt}})</view>
+            <view class="tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">未签({{studentList.length - attendcnt}})</view>
           </view>
 
           <view class="studentlist">
-            <view class="student_block" wx:for="{{studentList}}">
+            <view class="student_block" wx:for="{{nowList}}" bindtap="jumpToStudentDetailed" data-name="{{item.name}}" data-id="{{item.id}}">
               <view class="studentpic-wrp">
                 <image class="studentpic" src="{{item.photo?vo.imgBaseUrl+''+item.photo:'/assets/icon/loadImg_1.jpg'}}"></image>
               </view>
