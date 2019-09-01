@@ -1,0 +1,19 @@
+<!--pages/member/studentList/studentList.wxml-->
+<view class="studentList">
+  <!-- 左侧内容 -->
+  <scroll-view>
+  <view class="student_block" wx:for="{{stuList}}" data-name="{{item.name}}">
+    <view class="studentpic-wrp">
+      <image class="studentpic" src="{{item.photo?vo.imgBaseUrl+''+item.photo:'/assets/icon/loadImg_1.jpg'}}"></image>
+    </view>
+
+    <view class="student_baseinfo">
+      <text class="student_name">{{item.name}}</text>
+    </view>
+
+  </view>
+
+  </scroll-view>
+  <!-- 右侧字母 -->
+
+</view>
