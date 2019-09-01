@@ -114,8 +114,8 @@ new class extends we.Page {
         this.toTeachSave()
       }
     }
-
   }
+  
   loading() {
     this.$post('/v1/family/updateInfo', this.data.po).then(data => {
       this.$navigateBack()

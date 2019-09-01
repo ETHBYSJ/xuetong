@@ -54,11 +54,11 @@
         </view>
 
         
-             <radio-group class="radio-groups" bindchange="radioChanges" hidden='{{items.length <=1 }}'>
-  <label class="radios" wx:for="{{items}}">
-    <radio value="{{item.type}}" color='#1296db'/>{{item.name}}
-  </label>
-</radio-group>
+      <radio-group class="radio-groups" bindchange="radioChanges" hidden='{{items.length <=1 }}'>
+            <label class="radios" wx:for="{{items}}">
+              <radio value="{{item.type}}" color='#1296db'/>{{item.name}}
+            </label>
+      </radio-group>
         <view class="base-cell base-cell_input">
             <view class="base-cell__hd">
                 <view class="base-label">密　码</view>

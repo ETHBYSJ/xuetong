@@ -64,3 +64,8 @@
   color: #fff;
   margin-top: 150rpx;
 }
+.center{text-align: center;}
+
+radio {
+  transform:scale(0.8);
+}

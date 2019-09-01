@@ -6,6 +6,8 @@ new class extends we.Page {
       code: '获取验证码',
       po: {
         code:"",
+        //code1用于存储验证code
+        code1:"",
       },
       vo: {
         message: {},
@@ -60,13 +62,11 @@ new class extends we.Page {
     }, 1000)
 
     this.$get('/v1/user/fetchMsgCode?mobile=' + this.data.vo.message.phone).then(data => {
-      /*
-        this.$showModal({
-          title: '提示',
-          content: data.msg + " " + data.obj,
-          showCancel: false
-        })
-        */
+      this.setData({
+        'po.code1':data.obj,
+      })
+      //console.log('data: '+ JSON.stringify(data));
+      //console.log('po.code1: '+ this.data.po.code1);
     }).catch(err => {
       if (err) {
         this.data.vo.coderesult = err
@@ -93,9 +93,29 @@ new class extends we.Page {
 
   //第一次验证码的验证 跳转至新界面
   bindNextPhone(e){
-    wx.navigateTo({
-      url: '/pages/member/newphone/newphone',
-    })
+    //console.log('po.code: ' + this.data.po.code);
+    if(this.data.po.code==this.data.po.code1 && this.data.po.code!='') {
+      wx.navigateTo({
+        url: '/pages/member/newphone/newphone',
+      })
+    } else if(this.data.po.code==''){
+      wx.showToast({
+        title: '验证码不能为空',
+        image: '/images/kulian.png',
+        icon: 'loading',
+        duration: 1500,  
+      })
+      /*wx.navigateTo({
+        url: '/pages/member/newphone/newphone',
+      })*/
+    } else{
+      wx.showToast({
+        title: '验证码输错啦~',
+        image: '/images/kulian.png',
+        icon: 'loading',
+        duration: 1500,
+      })
+    }
   }
 
   loadTechInfo() {
@@ -104,9 +124,10 @@ new class extends we.Page {
         'vo.message': data.obj
       })
       if(data.obj.phone) {
+        //182****5585
         var tmp_phone = data.obj.phone;
         tmp_phone = tmp_phone.slice(0,3)+"****"+tmp_phone.slice(7);
-        console.log(tmp_phone);
+        //console.log(tmp_phone);
         this.setData({
           'vo.phone_display': tmp_phone,
         })
@@ -115,7 +136,7 @@ new class extends we.Page {
           'vo.phone_display': null,
         })
       }
-      console.log(data);
+      //console.log(data);
       
     }).catch(err => {
       this.$showModal({
