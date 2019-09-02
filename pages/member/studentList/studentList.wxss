@@ -1,0 +1,38 @@
+/* pages/member/studentsList/studentList.wxss */
+.studentlist {
+ font-size: 28rpx;
+  font-family: 微软雅黑;
+  color: #000;
+}
+
+.student_block {
+  position: relative;
+  height: 100rpx;
+  border-bottom: 1rpx solid #d9d9d9;
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
+  padding-left: 80rpx;
+  padding-right: 20rpx;
+}
+
+.studentpic-wrp {
+  float: left;
+  height: 100rpx;
+  display: flex;
+  align-items: center;
+}
+
+.studentpic {  
+  width: 80rpx;
+  height: 80rpx;
+  float: left;
+  border-radius: 50%;
+}
+
+.student_name {
+  
+  margin-top: 28rpx;
+  width: 200rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+}

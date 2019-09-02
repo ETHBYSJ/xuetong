@@ -360,7 +360,7 @@ new class extends we.Page {
   }
   
   loadStudentInfo() {
-    console.log("load studentinfo")    
+    //console.log("load studentinfo")    
     this.$get('/v1/student/datalist?gradeId=' + this.data.gradeid + '&clazzId=' + this.data.clazzid).then(data => {
       console.log(data)
       let studentList = data.obj

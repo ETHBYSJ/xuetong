@@ -25,6 +25,7 @@
     </navigator>
   </view>
   -->
+  
   <view class="base-cells_after-title">
       <navigator hidden='{{vo.UserInfo.userType=="教职工"||vo.UserInfo.userType=="门店管理员"}}' url="../myChildren/myChildren" class="base-cell base-cell_access">
           <view class="base-cell__bd">我的孩子</view>
@@ -94,7 +95,7 @@
     </view>
 
     <view class="base-cells_after-title">
-      <navigator url="../Aboutus/Aboutus" class="base-cell base-cell_access">
+      <navigator url="../studentList/studentList" class="base-cell base-cell_access">
           <image src="/images/xqfk.png" class="icon"></image>
           <view class="base-cell__bd">
             <text>学情反馈</text>

@@ -44,7 +44,8 @@
     "pages/answer/answer",
     "pages/answerb/answerb",
     "pages/member/modifyphone/modifyphone",
-    "pages/member/newphone/newphone"
+    "pages/member/newphone/newphone",
+    "pages/member/studentList/studentList"
   ],
   "window": {
     "backgroundTextStyle": "light",
