@@ -9,7 +9,7 @@ new class extends we.Page {
       height: 0,      
       po: {
         imageList: [],
-        createDate: "",
+        //createDate: "",
         studentId: "",
         content: "",
         status: 1,
@@ -17,26 +17,43 @@ new class extends we.Page {
         mathFeedback: "",
         englishFeedback: "",
         otherFeedback: "",
-        chineseStatus: -1,
-        mathStatus: -1,
-        englishStatus: -1,
-        otherStatus: -1,
-        id: 2,
-        homeworkDate: "2019-09-01",
+        //chineseStatus: -1,
+        //mathStatus: -1,
+        //englishStatus: -1,
+        //otherStatus: -1,
+        homeworkDate: "",
         deleteTag: 1,
       },
     }
   }
   onLoad(options) {
-    //console.log(options)
+    console.log(options)
     this.setData({
       "po.studentId": options.studentid,
       name: options.name,
       imgBaseUrl: this.$app.imgBaseUrl,
       nowday: options.nowday,
-      "po.createDate": options.nowday,
+      "po.homeworkDate": options.nowday,
     })
-    
+    //存在作业记录,必须设置id
+    if(options.id) {
+      this.setData({
+        "po.id": options.id,        
+      })
+    }
+    //没有作业记录,说明是第一次提交，设定默认初始值
+    else {
+      this.setData({
+        /*
+        "po.chineseStatus": -1,
+        "po.mathStatus": -1,
+        "po.englishStatus": -1,
+        "po.otherStatus": -1,
+        */
+        //正在完成中状态
+        "po.status": 3,
+      })
+    }    
     //console.log(this.data.imgBaseUrl)
   }
   fromAlbum() {

@@ -12,6 +12,8 @@ new class extends we.Page {
       totalsize: "",
       uploadtoday: false,
       nowday: "",
+      //作业id
+      id: "",
     }
   }
 
@@ -55,6 +57,7 @@ new class extends we.Page {
         //今日作业已经上传
         this.setData({
           uploadtoday: true,
+          id: data.obj[0].id,
         })
       }
       else {
@@ -152,7 +155,7 @@ new class extends we.Page {
   upload() {
     console.log("upload")
     wx.navigateTo({
-      url: "../upload/upload?studentid=" + this.data.studentid + "&name=" + this.data.name + "&nowday=" + this.data.nowday,
+      url: "../upload/upload?studentid=" + this.data.studentid + "&name=" + this.data.name + "&nowday=" + this.data.nowday + "&id=" + this.data.id,
     })
   }
   

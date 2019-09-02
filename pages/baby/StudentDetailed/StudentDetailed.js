@@ -22,12 +22,72 @@ new class extends we.Page {
       //今天作业是否上传
       uploadtoday: false,
       nowday: "",
+      //是否已提交反馈
+      submit: false,
+      //教师反馈
+      po: {
+        chineseFeedback: "",
+        chineseStatus: 0,
+        mathFeedback: "",
+        mathStatus: 0,
+        englishFeedback: "",
+        englishStatus: 0,
+        otherFeedback: "",
+        otherStatus: 0,
+        homeworkDate: "", 
+        studentId: "",             
+      },
+      
+      Items: [
+        {
+          name: "语文",
+          radioItem: [
+            { value: "已完成", checked: false, id: 2 },
+            { value: "未完成", checked: false, id: 1 },
+            { value: "无作业", checked: false, id: 0 },
+          ],
+          index: 0, 
+          pick: "",
+        },
+        
+        {
+          name: "数学",
+          radioItem: [
+            { value: "已完成", checked: false, id: 2 },
+            { value: "未完成", checked: false, id: 1 },
+            { value: "无作业", checked: false, id: 0 },
+          ],
+          index: 1,
+          pick: "",
+        },
+        {
+          name: "英语",
+          radioItem: [
+            { value: "已完成", checked: false, id: 2 },
+            { value: "未完成", checked: false, id: 1 },
+            { value: "无作业", checked: false, id: 0 },
+          ],
+          index: 2,
+          pick: "",
+        },
+        {
+          name: "其它",
+          radioItem: [
+            { value: "已完成", checked: false, id: 2 },
+            { value: "未完成", checked: false, id: 1 },
+            { value: "无作业", checked: false, id: 0 },
+          ],
+          index: 3,
+          pick: "",
+        },        
+      ]
     }
   }
   onLoad(options) {
     this.setData({
       name: options.name,
       studentid: options.studentid,
+      "po.studentId": options.studentid,
     })
   }
   onShow() {
@@ -45,6 +105,7 @@ new class extends we.Page {
     today = year + "-" + month + "-" + day
     this.setData({
       nowday: today,
+      "po.homeworkDate": today,
     })
     //考勤数据
     this.getAttend()
@@ -53,34 +114,29 @@ new class extends we.Page {
   }
   //考勤数据
   getAttend() {
-    this.$get('/v1/attendance/getStudentAttendanceEverydayList?page=1&size=' + this.data.attendsize).then(data => {
-      console.log(data)
-      if (this.data.index == "") {
-        for (var i = 0; i < data.obj.length; i++) {
-          if (this.data.studentid == data.obj[i].id) {
-            this.setData({
-              index: i,
-            })
-            break
-          }
-        }
+    this.$get('/v1/attendance/getListByStudentId?page=1&size=' + this.data.attendsize + '&id=' + this.data.studentid).then(data => {
+      console.log(data)     
+      if(data.obj != null) {
+        this.setData({
+          attendpage: 1,
+          attend: data.obj.studentEverydayAttendanceVOList,
+          totalattendsize: data.totalPage,
+        })
       }
-      this.setData({
-        attendpage: 1,
-        attend: data.obj[this.data.index].studentEverydayAttendanceVOList,
-        //feed: temp,
-        totalattendsize: data.obj[this.data.index].totalPage,
-      })
+      else {
+        this.setData({
+          attendpage: 1,
+          attend: data.obj.studentEverydayAttendanceVOList,
+          totalattendsize: data.totalPage,
+        })
+      }
+      
+      
     })
   }
 
   //作业数据
   getHomework() {
-    /*
-    this.$get('/v1/attendance/getTeacherAttendanceEverydayList?page=1&size=4&clazzid=4').then(data => {
-      console.log(data)
-    })
-    */
     this.$get('/v1/homework/getList?page=1&size=' + this.data.homeworksize + '&id=' + this.data.studentid).then(data => {
       console.log(data)
       //console.log(data.obj)
@@ -160,7 +216,7 @@ new class extends we.Page {
     }
     else {
       //this.data.currentTab == 0
-      if (this.data.attendpage != this.data.totalattendsize) {
+      if (this.data.attendpage <= this.data.totalattendsize) {
         console.log("...")
         wx.showToast({
           title: '加载中',
@@ -172,19 +228,11 @@ new class extends we.Page {
         this.setData({
           attendpage: attendpage,
         })
-        this.$get('/v1/attendance/getStudentAttendanceEverydayList?page=' + this.data.attendpage + '&size=' + this.data.attendsize).then(data => {
-          console.log(data)
-          /*
-          var next = []
-          for (var i = 0; i < data.obj[this.data.index].studentEverydayAttendanceVOList.length; i++) {
-            if (data.obj[this.data.index].studentEverydayAttendanceVOList[i].attendanceStudentList[0].type == 0) {
-              next.push(data.obj[this.data.index].studentEverydayAttendanceVOList[i])
-            }
-          }
-          */
+        this.$get('/v1/attendance/getListByStudentId?page=' + this.data.attendpage + '&size=' + this.data.attendsize + '&id=' + this.data.studentid).then(data => {
+          console.log(data)         
           this.setData({
             //feed: this.data.feed.concat(next)
-            attend: this.data.attend.concat(data.obj[this.data.index].studentEverydayAttendanceVOList)
+            attend: this.data.attend.concat(data.obj.studentEverydayAttendanceVOList)
           })
           console.log(this.data.attend)
         }).catch(err => {
@@ -211,5 +259,179 @@ new class extends we.Page {
     this.setData({
       currentTab: current,
     });
+  }
+  radioChange(e) {
+    console.log(e)
+    let index = e.currentTarget.dataset.index
+    if(e.detail.value == "已完成") {
+      this.setData({
+        [`Items[${index}].radioItem[0].checked`]: true,
+        [`Items[${index}].radioItem[1].checked`]: false,
+        [`Items[${index}].radioItem[2].checked`]: false,
+        [`Items[${index}].pick`]: 0,
+      })      
+    }
+    else if(e.detail.value == "未完成") {
+      this.setData({
+        [`Items[${index}].radioItem[1].checked`]: true,
+        [`Items[${index}].radioItem[0].checked`]: false,
+        [`Items[${index}].radioItem[2].checked`]: false,
+        [`Items[${index}].pick`]: 1,
+      }) 
+    }
+    else {
+      //无作业
+      this.setData({
+        [`Items[${index}].radioItem[2].checked`]: true,
+        [`Items[${index}].radioItem[0].checked`]: false,
+        [`Items[${index}].radioItem[1].checked`]: false,
+        [`Items[${index}].pick`]: 2,
+      }) 
+    }
+    console.log(this.data.Items)
+  }
+  feedback() {    
+    let that = this
+    wx.showModal({
+      title: '',
+      content: '确定反馈作业情况',
+      confirmText: '确定',
+      cancelText: '取消',
+      success(res) {
+        if(res.confirm) {
+          wx.showToast({
+            title: '正在上传...',
+            icon: 'loading',
+            mask: true,
+            duration: 10000
+          })
+          that.dofeedback()
+        }
+      }
+    })
+  }
+  dofeedback() {
+    //将作业情况反馈给家长
+    this.setData({
+      submit: true,
+    })
+    
+    //丑 
+    let finish = true   
+    //语文
+    if(this.data.Items[0].radioItem[0].checked) {
+      this.setData({
+        "po.chineseStatus": 2,        
+      })
+    }
+    else if (this.data.Items[0].radioItem[1].checked) {
+      this.setData({
+        "po.chineseStatus": 1,
+      })
+      finish = false
+    }
+    else if (this.data.Items[0].radioItem[2].checked) {
+      this.setData({
+        "po.chineseStatus": 0,
+      })
+    }
+    //数学
+    if (this.data.Items[1].radioItem[0].checked) {
+      this.setData({
+        "po.mathStatus": 2,
+      })
+    }
+    else if (this.data.Items[1].radioItem[1].checked) {
+      this.setData({
+        "po.mathStatus": 1,
+      })
+      finish = false
+    }
+    else if (this.data.Items[1].radioItem[2].checked) {
+      this.setData({
+        "po.mathStatus": 0,
+      })
+    }
+    //英语
+    if (this.data.Items[2].radioItem[0].checked) {
+      this.setData({
+        "po.englishStatus": 2,
+      })
+    }
+    else if (this.data.Items[2].radioItem[1].checked) {
+      this.setData({
+        "po.englishStatus": 1,
+      })
+      finish = false
+    }
+    else if (this.data.Items[2].radioItem[2].checked) {
+      this.setData({
+        "po.englishStatus": 0,
+      })
+    }
+    //其它
+    if (this.data.Items[3].radioItem[0].checked) {
+      this.setData({
+        "po.otherStatus": 2,
+      })
+    }
+    else if (this.data.Items[3].radioItem[1].checked) {
+      this.setData({
+        "po.otherStatus": 1,
+      })
+      finish = false
+    }
+    else if (this.data.Items[3].radioItem[2].checked) {
+      this.setData({
+        "po.otherStatus": 0,
+      })
+    }
+    if (this.data.homeworktoday) {
+      //必须设置id字段，表示更新
+      console.log(this.data.homeworktoday.status)
+      this.setData({
+        "po.id": this.data.homeworktoday.id,   
+        //有作业记录，说明作业已经提交        
+        "po.status": finish ? 2 : 1,     
+      })           
+    }
+    else {
+      //设置status字段
+      this.setData({
+        //没有作业记录，说明没有提交作业
+        "po.status": finish ? 2 : 0,
+      })
+    }
+    this.$post("/v1/homework/update", this.data.po).then(data => {
+      console.log(data)
+    })
+  }
+  feedbackinput(e) {
+    console.log(e)
+    let index = e.currentTarget.dataset.index
+    if(index == 0) {
+      //语文反馈
+      this.setData({
+        "po.chineseFeedback": e.detail.value,
+      })
+    }
+    else if(index == 1) {
+      //数学反馈
+      this.setData({
+        "po.mathFeedback": e.detail.value,
+      })
+    }
+    else if(index == 2) {
+      //英语反馈
+      this.setData({
+        "po.englishFeedback": e.detail.value,
+      })
+    }
+    else {
+      //其它反馈
+      this.setData({
+        "po.otherFeedback": e.detail.value,
+      })
+    }
   }
 }

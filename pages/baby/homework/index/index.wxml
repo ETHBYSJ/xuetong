@@ -77,7 +77,8 @@
           </view>
           <view class="date_right"></view>
         </view>
-        <block wx:if="{{item.chineseStatus + item.mathStatus + item.englishStatus + item.otherStatus == -4}}">
+        <!--用status=3表示完成中状态-->
+        <block wx:if="{{item.status == 3}}">
           <view class="end">
             <button class="end_btn" bindtap="end">正在完成中……申请提前结束托管</button>
           </view>
