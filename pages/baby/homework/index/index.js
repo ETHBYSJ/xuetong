@@ -70,6 +70,12 @@ new class extends we.Page {
         feed: data.obj,
         page: 1,
       })
+    }).catch(err => {
+      this.$showModal({
+        title: '出错',
+        content: err.msg,
+        showCancel: false
+      })
     })
   }
 
@@ -101,21 +107,7 @@ new class extends we.Page {
       if(data.obj.length > 0) {
         this.setData({
           page: page,          
-        })
-        //按日期排序
-        /*
-        data.obj.sort(function (a, b) {
-          if (a.createdate == b.createdate) {
-            return 0
-          }
-          else if (a.createdate < b.createdate) {
-            return 1
-          }
-          else {
-            return -1
-          }
-        })
-        */
+        })        
         this.setData({
           feed: this.data.feed.concat(data.obj)
         })
@@ -128,6 +120,12 @@ new class extends we.Page {
           })
         }, 500)
       }
+    }).catch(err => {
+      this.$showModal({
+        title: '出错',
+        content: err.msg,
+        showCancel: false
+      })
     })
     
   }

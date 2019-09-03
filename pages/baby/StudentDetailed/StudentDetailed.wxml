@@ -16,8 +16,8 @@
 
           </view>
           <view class="homework_content">
-            <view class="name">
-              <view class="name_warning"></view>
+            <view class="hw_name">
+              <view class="hw_name_warning"></view>
               <text>{{name}}</text>
             </view>
             <!--功能待开发-->
@@ -100,8 +100,8 @@
           <view class="line"></view>
           <view class="homework_header"></view>
           <view class="homework_content">
-            <view class="name">
-              <view class="name_warning"></view>
+            <view class="hw_name">
+              <view class="hw_name_warning"></view>
               <text>{{name}}</text>
             </view>
             <view class="date">
@@ -153,8 +153,8 @@
             <view class="line"></view>
             <view class="homework_header"></view>
             <view class="homework_content">
-              <view class="name">
-                <view class="name_warning"></view>
+              <view class="hw_name">
+                <view class="hw_name_warning"></view>
                 <text>{{name}}</text>
               </view>
               <view class="date">
@@ -241,11 +241,11 @@
             <view class="line"></view>
             <view class="homework_header"></view>
             <view class="homework_content">
-              <view class="name">
+              <view class="hw_name">
                 <!--已完成-->
-                <view wx:if="{{homeworktoday.status == 2}}" class="name_normal"></view>
+                <view wx:if="{{homeworktoday.status == 2}}" class="hw_name_normal"></view>
                 <!--未完成-->
-                <view wx:else class="name_warning"></view>
+                <view wx:else class="hw_name_warning"></view>
                 <text>{{name}}</text>
               </view>
               <view class="date">
@@ -308,11 +308,11 @@
         <view class="line"></view>
         <view class="homework_header"></view>
         <view class="homework_content">
-          <view class="name">
+          <view class="hw_name">
             <!--已完成-->
-            <view wx:if="{{homeworktoday.status == 2}}" class="name_normal"></view>
+            <view wx:if="{{homeworktoday.status == 2}}" class="hw_name_normal"></view>
             <!--未完成-->
-            <view wx:else class="name_warning"></view>
+            <view wx:else class="hw_name_warning"></view>
             <text>{{name}}</text>
           </view>
           <view class="date">

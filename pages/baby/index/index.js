@@ -157,11 +157,6 @@ new class extends we.Page {
 
   }
   onLoad() {
-    /*
-    this.$get('/v1/student/datalist?gradeId=3&clazzId=4').then(data => {
-      console.log(data)
-    })
-    */
     this.setData({
       'vo.imgBaseUrl': this.$app.imgBaseUrl
     })
@@ -329,8 +324,7 @@ new class extends we.Page {
   }
 
   loadActivity() {
-    this.$get('/v1/activity/getActivityList?page=1&size=10&status=0&keyword=&address=').then(data => {
-      
+    this.$get('/v1/activity/getActivityList?page=1&size=10&status=0&keyword=&address=').then(data => {      
       for(var i = 0; i < data.obj.length; i++) {
         if(i == 3) break
         //console.log(i)
@@ -340,6 +334,12 @@ new class extends we.Page {
         })
       }
       console.log(this.data.activityList)
+    }).catch(err => {
+      this.$showModal({
+        title: '出错',
+        content: err.msg,
+        showCancel: false
+      })
     })
   }
 
@@ -349,7 +349,6 @@ new class extends we.Page {
       this.setData({
         feed: data.obj[0],
       })
-
     }).catch(err => {
       this.$showModal({
         title: '获取信息错误',
@@ -400,6 +399,12 @@ new class extends we.Page {
             notattendList.push(studentList[temp])
           }
           return(data)
+        }).catch(err => {
+          this.$showModal({
+            title: '出错',
+            content: err.msg,
+            showCancel: false
+          })
         }))
         homework_promises.push(this.$get('/v1/homework/getByStudentIdAndDate?id=' + data.obj[temp].id + '&date=' + this.data.date).then(data => {
           /*
@@ -408,6 +413,12 @@ new class extends we.Page {
           }) 
           */
           studentList[temp].homework = data.obj && data.obj.status != 0
+        }).catch(err => {
+          this.$showModal({
+            title: '出错',
+            content: err.msg,
+            showCancel: false
+          })
         }))
         
       }
@@ -420,8 +431,14 @@ new class extends we.Page {
           notattendList: notattendList,
           studentList: studentList,
           nowList: studentList,
-        })  
+        })
         
+      }).catch(err => {
+        this.$showModal({
+          title: '出错',
+          content: err.msg,
+          showCancel: false
+        })
       })
       Promise.all(homework_promises).then(function (results) {
         that.setData({
@@ -432,6 +449,12 @@ new class extends we.Page {
           studentList: studentList,
           nowList: studentList,
         })        
+      }).catch(err => {
+        this.$showModal({
+          title: '出错',
+          content: err.msg,
+          showCancel: false
+        })
       })
            
     })

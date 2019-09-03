@@ -55,6 +55,12 @@ new class extends we.Page {
         totalsize: data.obj[this.data.index].totalPage,
       })
       //console.log(this.data.totalsize)
+    }).catch(err => {
+      this.$showModal({
+        title: '出错',
+        content: err.msg,
+        showCancel: false
+      })
     })
   }
   upper() {

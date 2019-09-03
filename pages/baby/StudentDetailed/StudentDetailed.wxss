@@ -102,7 +102,7 @@
   padding-top: 100rpx;
   position: relative;
 }
-.name {
+.hw_name {
   position: absolute;
   top: 30rpx;
   left: 10rpx;
@@ -111,12 +111,12 @@
   -webkit-align-items: center;
   align-items: center;
 }
-.name text {
+.hw_name text {
   font-size: 30rpx;
   padding-left: 10rpx;
   font-weight: bold;
 }
-.name_warning {
+.hw_name_warning {
   width: 20rpx;
   height: 20rpx;
   background-color: red;
@@ -125,7 +125,7 @@
   float: left;
   z-index: 999;
 }
-.name_normal {
+.hw_name_normal {
   width: 20rpx;
   height: 20rpx;
   background-color: #1296db;

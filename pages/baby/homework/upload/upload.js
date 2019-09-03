@@ -98,6 +98,12 @@ new class extends we.Page {
           delta: 1
         })       
         return;
+      }).catch(err => {
+        this.$showModal({
+          title: '出错',
+          content: err.msg,
+          showCancel: false
+        })
       })
       
       return;

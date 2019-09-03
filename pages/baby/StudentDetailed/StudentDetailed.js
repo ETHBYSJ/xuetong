@@ -140,6 +140,12 @@ new class extends we.Page {
           totalattendsize: data.totalPage,
         })
       }     
+    }).catch(err => {
+      this.$showModal({
+        title: '出错',
+        content: err.msg,
+        showCancel: false
+      })
     })
   }
 
@@ -191,6 +197,12 @@ new class extends we.Page {
       }
       console.log(this.data.homeworkrest)
       console.log(this.data.homeworktoday)      
+    }).catch(err => {
+      this.$showModal({
+        title: '出错',
+        content: err.msg,
+        showCancel: false
+      })
     })
   }
 
@@ -241,6 +253,12 @@ new class extends we.Page {
             })
           }, 500)
         }
+      }).catch(err => {
+        this.$showModal({
+          title: '出错',
+          content: err.msg,
+          showCancel: false
+        })
       })
     }
     else {
@@ -433,6 +451,12 @@ new class extends we.Page {
     }
     this.$post("/v1/homework/update", this.data.po).then(data => {
       console.log(data)
+    }).catch(err => {
+      this.$showModal({
+        title: '出错',
+        content: err.msg,
+        showCancel: false
+      })
     })
   }
   feedbackinput(e) {
