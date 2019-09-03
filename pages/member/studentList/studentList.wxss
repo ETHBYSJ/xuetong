@@ -1,38 +1,75 @@
 /* pages/member/studentsList/studentList.wxss */
+
+.study_header {
+  height: 80rpx;
+  background-color: #d9d9d9;
+  border-bottom: 1rpx solid #d9d9d9;
+}
+/*554x125*/
+.header_pic {
+  width: 332.4rpx;
+  height: 75rpx;
+  margin-left: 208.8rpx;
+}
 .studentlist {
- font-size: 28rpx;
+  font-size: 28rpx;
   font-family: 微软雅黑;
   color: #000;
 }
-
 .student_block {
   position: relative;
   height: 100rpx;
   border-bottom: 1rpx solid #d9d9d9;
-  padding-top: 10rpx;
-  padding-bottom: 10rpx;
-  padding-left: 80rpx;
-  padding-right: 20rpx;
+  padding-top: 5rpx;
+  padding-bottom: 5rpx;
 }
-
 .studentpic-wrp {
   float: left;
   height: 100rpx;
   display: flex;
   align-items: center;
 }
-
 .studentpic {  
   width: 80rpx;
   height: 80rpx;
   float: left;
   border-radius: 50%;
+  margin-left: 80rpx;
 }
-
 .student_name {
-  
-  margin-top: 28rpx;
+  margin-left:180rpx;
+  margin-top: 30rpx;
   width: 200rpx;
   font-size: 28rpx;
   font-weight: bold;
+}
+.orientation_region {
+  padding: 10rpx 0rpx; 
+  width: 45rpx;
+  font-size: 20rpx;
+  position: fixed;top: 50%;
+  right: 0rpx;
+  transform:translate(0,-50%);
+  /*background: rgb(199, 198, 198);*/
+  border-radius: 10px
+} 
+.orientation_city {
+  font-family: '微软雅黑';
+  font-size: 20rpx;
+  font-weight: bold; 
+  height: 44rpx; 
+  line-height: 44rpx;
+  color: rgb(88, 87, 87);
+  text-align: center;
+  border-radius: 22rpx
+}
+.active {
+  color: #fff;
+  background: rgb(11,196,72);
+}
+.navigator_student {
+  position: absolute;
+  height: 100rpx;
+  width: 750rpx;
+  display: inline-block;
 }

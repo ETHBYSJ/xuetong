@@ -1,0 +1,4 @@
+<!--pages/member/studentStudy/studentStudy.wxml-->
+<view bindtap="bindNewStudy">
+{{student_name}}
+</view>
