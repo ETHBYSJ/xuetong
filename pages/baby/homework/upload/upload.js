@@ -12,7 +12,7 @@ new class extends we.Page {
         //createDate: "",
         studentId: "",
         content: "",
-        status: 1,
+        //status: 1,
         chineseFeedback: "",
         mathFeedback: "",
         englishFeedback: "",

@@ -4,6 +4,7 @@ let we = require('../../../we/index.js')
 new class extends we.Page {
   data() {
     return {
+      imgBaseUrl: "",
       currentTab: 1,
       attend: [],
       //每页数据量(考勤)
@@ -48,6 +49,8 @@ new class extends we.Page {
           ],
           index: 0, 
           pick: "",
+          feedback: "",
+          value: "chinese",
         },
         
         {
@@ -59,6 +62,8 @@ new class extends we.Page {
           ],
           index: 1,
           pick: "",
+          feedback: "",
+          value: "math",
         },
         {
           name: "英语",
@@ -69,6 +74,8 @@ new class extends we.Page {
           ],
           index: 2,
           pick: "",
+          feedback: "",
+          value: "english",
         },
         {
           name: "其它",
@@ -79,6 +86,8 @@ new class extends we.Page {
           ],
           index: 3,
           pick: "",
+          feedback: "",
+          value: "other",
         },        
       ]
     }
@@ -88,6 +97,7 @@ new class extends we.Page {
       name: options.name,
       studentid: options.studentid,
       "po.studentId": options.studentid,
+      imgBaseUrl: this.$app.imgBaseUrl,
     })
   }
   onShow() {
@@ -129,9 +139,7 @@ new class extends we.Page {
           attend: data.obj.studentEverydayAttendanceVOList,
           totalattendsize: data.totalPage,
         })
-      }
-      
-      
+      }     
     })
   }
 
@@ -145,12 +153,33 @@ new class extends we.Page {
         homeworkpage: 1,
       })
       if (data.obj.length > 0 && data.obj[0].homeworkDate == this.data.nowday) {
+        //console.log(data.obj)
         //今日作业已经上传
         this.setData({
           uploadtoday: true,
           homeworktoday: data.obj.shift(),
           homeworkrest: data.obj,
         })
+        //
+        if(this.data.homeworktoday.status != 3) {
+          //载入反馈信息
+          let homeworktoday = this.data.homeworktoday
+          this.setData({
+            "Items[0].pick": homeworktoday.chineseStatus,
+            [`Items[0].radioItem[${homeworktoday.chineseStatus}].checked`]: true,
+            "Items[0].feedback": homeworktoday.chineseFeedback,
+            "Items[1].pick": homeworktoday.mathStatus,
+            [`Items[1].radioItem[${homeworktoday.mathStatus}].checked`]: true,
+            "Items[1].feedback": homeworktoday.mathFeedback,
+            "Items[2].pick": homeworktoday.englishStatus,
+            [`Items[2].radioItem[${homeworktoday.englishStatus}].checked`]: true,
+            "Items[2].feedback": homeworktoday.englishFeedback,
+            "Items[3].pick": homeworktoday.otherStatus,
+            [`Items[3].radioItem[${homeworktoday.otherStatus}].checked`]: true,
+            "Items[3].feedback": homeworktoday.otherFeedback,
+          })
+          console.log(this.data.Items)
+        }
       }
       else {
         //今日未上传作业
@@ -433,5 +462,19 @@ new class extends we.Page {
         "po.otherFeedback": e.detail.value,
       })
     }
+  }
+  imgPreview(e) {
+    let that = this
+    let src = e.currentTarget.dataset.src;
+    let imglist = e.currentTarget.dataset.list;  
+    for(var i = 0; i < imglist.length; i++) {
+      imglist[i] = this.data.imgBaseUrl + imglist[i].photoPath
+    }  
+    //console.log(e)    
+    wx.previewImage({
+      current: src,
+      urls: imglist,
+    })
+    
   }
 }

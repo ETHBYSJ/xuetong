@@ -171,6 +171,13 @@
   padding-bottom: 6rpx;
   height: 40rpx;
 }
+.homework_picture {
+  padding: 20rpx 20rpx 20rpx 20rpx;
+  border: 3rpx solid #d9d9d9;
+  font-size: 26rpx;
+  margin-left: 80rpx;
+  margin-right: 110rpx;
+}
 .prompt {
   display: inline-block;
   color: #1296db;
@@ -206,4 +213,15 @@
   display: block;
   background: #d9d9d9;
   font-size: 30rpx;
+}
+.photos {
+  float: left;
+  margin-left: 26rpx;
+}
+.photo {
+  width: 216rpx;
+  height: 180rpx;
+}
+.imagewrap{
+  height: 180rpx;
 }
