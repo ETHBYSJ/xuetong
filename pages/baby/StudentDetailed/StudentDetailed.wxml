@@ -111,6 +111,19 @@
               </view>
               <view class="date_right"></view>
             </view>
+            <!--显示作业内容-->
+            <block wx:if="{{homeworktoday.imageList || homeworktoday.content}}">
+              <view class="homework_picture">
+                {{homeworktoday.content}}
+                <scroll-view scroll-x class='imagewrap'>
+                  <view class='box' style='width:{{homeworktoday.imageList.length*(216+26)}}rpx'>
+                    <view wx:for="{{homeworktoday.imageList}}" class="photos">
+                      <image class="photo" src="{{imgBaseUrl}}{{item.photoPath}}" data-src="{{imgBaseUrl}}{{item.photoPath}}" bindtap="imgPreview" data-list="{{homeworktoday.imageList}}" />
+                    </view>
+                  </view>  
+                </scroll-view>
+              </view>
+            </block>
             <!--使用列表渲染显示-->
             <view class="homework_base_block" wx:for="{{Items}}">
               <!--单选框区域-->

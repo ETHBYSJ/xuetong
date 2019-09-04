@@ -6,17 +6,18 @@ new class extends we.Page {
       imgBaseUrl: "",
       nowday: "",
       postList: [],
-      height: 0,      
+      height: 0,     
+      content: "",
       po: {
         imageList: [],
         //createDate: "",
         studentId: "",
-        content: "",
+        //content: "",
         //status: 1,
-        chineseFeedback: "",
-        mathFeedback: "",
-        englishFeedback: "",
-        otherFeedback: "",
+        //chineseFeedback: "",
+        //mathFeedback: "",
+        //englishFeedback: "",
+        //otherFeedback: "",
         //chineseStatus: -1,
         //mathStatus: -1,
         //englishStatus: -1,
@@ -86,12 +87,13 @@ new class extends we.Page {
   }
   //递归上传
   executeUpload(url, index, that) {
-    if(index == that.data.postList.length) {     
-      console.log(that.data.po.imageList)
-      console.log(that.data.po.imageList.length)      
-      //that.data.po.imageList = JSON.stringify(that.data.po.imageList) 
-      console.log(that.data.po)
-      
+    if(index == that.data.postList.length) {    
+      if(that.data.content != "") {
+        that.setData({
+          "po.content": that.data.content,
+        })
+      }
+      console.log(that.data.po)      
       that.$post('/v1/homework/update', that.data.po).then(data => {
         console.log(data) 
         wx.navigateBack({
@@ -104,8 +106,7 @@ new class extends we.Page {
           content: err.msg,
           showCancel: false
         })
-      })
-      
+      })      
       return;
     }
     wx.uploadFile({
@@ -156,7 +157,8 @@ new class extends we.Page {
   }
   bindInput(e) {
     this.setData({
-      "po.content": e.detail.value,
+      //"po.content": e.detail.value,
+      content: e.detail.value,
     })
   }
   //预览图片
