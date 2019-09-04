@@ -1,7 +1,7 @@
 /* pages/member/studentsList/studentList.wxss */
 
 .study_header {
-  height: 80rpx;
+  height: 70rpx;
   background-color: #d9d9d9;
   border-bottom: 1rpx solid #d9d9d9;
 }
@@ -10,16 +10,17 @@
   width: 332.4rpx;
   height: 75rpx;
   margin-left: 208.8rpx;
+  margin-top: 40rpx;
 }
 .studentlist {
-  font-size: 28rpx;
+  font-size: 22rpx;
   font-family: 微软雅黑;
   color: #000;
 }
 .student_block {
   position: relative;
   height: 100rpx;
-  border-bottom: 1rpx solid #d9d9d9;
+  /*border-bottom: 1rpx solid #d9d9d9;*/
   padding-top: 5rpx;
   padding-bottom: 5rpx;
 }
@@ -34,10 +35,10 @@
   height: 80rpx;
   float: left;
   border-radius: 50%;
-  margin-left: 80rpx;
+  margin-left: 40rpx;
 }
 .student_name {
-  margin-left:180rpx;
+  margin-left:130rpx;
   margin-top: 30rpx;
   width: 200rpx;
   font-size: 28rpx;
@@ -73,3 +74,11 @@
   width: 750rpx;
   display: inline-block;
 }
+.address_top{
+  height: 56rpx;
+  line-height: 56rpx; 
+  color: #EBEBEB;
+  background: #999999;
+  font-size: 20rpx;
+  padding: 0 20rpx;
+} 
