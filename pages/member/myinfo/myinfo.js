@@ -77,7 +77,15 @@ new class extends we.Page {
         'sex': this.data.vo.message.sex,
         'birthday': this.data.vo.message.birthday,
       }).then(data => {
-        this.$navigateBack()
+        wx.showToast({
+          title: '修改成功！',
+          icon: 'success',
+          duration: 1500
+        })
+
+        setTimeout(function () {
+          wx.navigateBack()
+        },1500);
       }).catch(err => {
         if (err) {
           this.data.vo.coderesult = err
@@ -100,7 +108,14 @@ new class extends we.Page {
         'sex': this.data.vo.message.sex,
         'birthday': this.data.vo.message.birthday,
       }).then(data => {
-        this.$navigateBack()
+        wx.showToast({
+          title: '修改成功！',
+          icon: 'success',
+          duration: 1500
+        })
+        setTimeout(function () {
+          wx.navigateBack()
+        }, 1500);
       }).catch(err => {
         if (err) {
           this.data.vo.coderesult = err

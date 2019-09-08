@@ -20,7 +20,6 @@ new class extends we.Page {
         //email:"",
         mobile:"",
         //name:"",
-        password:"18217235585",
         type: "",
       },
       userType: '',
@@ -192,10 +191,7 @@ new class extends we.Page {
 
       this.$post('/v1/user/modifyMobile', {
         'code': this.data.args.code,
-        'email': '981904597@qq.com',
-        'name': '尹猛',
         'mobile': this.data.args.mobile,
-        'password': this.data.args.password,
         'type': this.data.args.type,
       }).then(data => {
         console.log(this.data.args);
