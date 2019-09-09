@@ -215,11 +215,46 @@ new class extends we.Page {
               content: `验证码错误或已失效，请重新获取`,
               showCancel: false
             })
-          } else {
-            console.log(data.obj);
+          } else if (data.obj == "PASSWORD_ERROR") {
+            //console.log(data.obj);
             this.$showModal({
               title: '提示',
               content: `密码错误，登录失败`,
+              showCancel: false
+            })
+          } else if (data.obj == "ERROR") {
+            //console.log(data.obj);
+            this.$showModal({
+              title: '提示',
+              content: `请求失败，请重试`,
+              showCancel: false
+            })
+          } else if (data.obj == "WORD_BLANK") {
+            //console.log(data.obj);
+            this.$showModal({
+              title: '提示',
+              content: `请求参数为空，请求失败`,
+              showCancel: false
+            })
+          } else if (data.obj == "MOBILE_EXIST") {
+            //console.log(data.obj);
+            this.$showModal({
+              title: '提示',
+              content: `手机号已被其他账户绑定，请更换`,
+              showCancel: false
+            })
+          } else if (data.obj == "USER_INFO_FAIL") {
+            //console.log(data.obj);
+            this.$showModal({
+              title: '提示',
+              content: `用户信息错误`,
+              showCancel: false
+            })
+          } else if (data.obj == "USER_CHANGE_FAIL") {
+            //console.log(data.obj);
+            this.$showModal({
+              title: '提示',
+              content: `用户信息修改失败`,
               showCancel: false
             })
           }

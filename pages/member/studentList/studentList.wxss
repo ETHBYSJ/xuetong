@@ -2,8 +2,8 @@
 
 .study_header {
   height: 70rpx;
-  background-color: #d9d9d9;
-  border-bottom: 1rpx solid #d9d9d9;
+  background-color: rgb(242, 242, 242);
+  border-bottom: 1rpx solid rgb(242, 242, 242);
 }
 /*554x125*/
 .header_pic {
@@ -13,16 +13,16 @@
   margin-top: 40rpx;
 }
 .studentlist {
-  font-size: 22rpx;
-  font-family: 微软雅黑;
+  font-size: 20rpx;
+  font-family: "微软雅黑";
   color: #000;
 }
 .student_block {
   position: relative;
   height: 100rpx;
   /*border-bottom: 1rpx solid #d9d9d9;*/
-  padding-top: 5rpx;
-  padding-bottom: 5rpx;
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
 }
 .studentpic-wrp {
   float: left;
@@ -35,14 +35,14 @@
   height: 80rpx;
   float: left;
   border-radius: 50%;
-  margin-left: 40rpx;
+  margin-left: 24rpx;
 }
 .student_name {
-  margin-left:130rpx;
-  margin-top: 30rpx;
-  width: 200rpx;
-  font-size: 28rpx;
-  font-weight: bold;
+  margin-left:10rpx;
+  /*margin-top: 30rpx;*/
+  font-size: 25rpx;
+  display:inline;
+  line-height: 100rpx;
 }
 .orientation_region {
   padding: 10rpx 0rpx; 
@@ -52,17 +52,18 @@
   right: 0rpx;
   transform:translate(0,-50%);
   /*background: rgb(199, 198, 198);*/
-  border-radius: 10px
+  border-radius: 10px;
 } 
 .orientation_city {
   font-family: '微软雅黑';
   font-size: 20rpx;
   font-weight: bold; 
-  height: 44rpx; 
-  line-height: 44rpx;
-  color: rgb(88, 87, 87);
+  height: 36rpx; 
+  width: 36rpx;
+  line-height: 36rpx;
+  color: rgb(88, 87, 87);  
   text-align: center;
-  border-radius: 22rpx
+  border-radius: 18rpx;
 }
 .active {
   color: #fff;
@@ -77,8 +78,32 @@
 .address_top{
   height: 56rpx;
   line-height: 56rpx; 
-  color: #EBEBEB;
-  background: #999999;
+  color: #fff;
+  background: rgb(204, 204, 204);
   font-size: 20rpx;
   padding: 0 20rpx;
 } 
+.base-cell{
+  padding-top: 0;
+  padding-bottom: 0;
+  height: 100rpx;
+  /*border-top: 1rpx solid #d9d9d9;*/
+}
+.update_text {
+  position: absolute;
+  margin-left: 275rpx; 
+  color: rgb(0, 176, 240);
+  line-height: 100rpx;
+}
+.update_date {
+  line-height: 100rpx;
+  position: absolute;
+  margin-left: 380rpx; 
+}
+.student_baseinfo {
+  line-height: 100rpx;
+}
+.base-cell__ft_in-access {
+  position: absolute;
+  margin-left: 650rpx; 
+}

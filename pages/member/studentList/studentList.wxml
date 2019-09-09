@@ -11,13 +11,17 @@
   <view class="student_group" wx:for="{{sortList}}" wx:for-item="group" wx:key="{{group.id}}" wx:if="{{group.active}}" data-id='{{group.id}}'>
     <view class="address_top" >{{group.region}}</view> 
     <view class="student_block" wx:for="{{group.items}}" wx:for-item="item">
-      <navigator class="navigator_student" url='/pages/member/studentStudy/studentStudy?id={{item.id}}&name={{item.name}}'>
+      <navigator class="navigator_student" url='/pages/member/newStudy/newStudy?id={{item.id}}&name={{item.name}}' class="base-cell base-cell_access">
         <view class="studentpic-wrp">
           <image class="studentpic" src="{{item.photo?vo.imgBaseUrl+''+item.photo:'/assets/icon/loadImg_1.jpg'}}"></image>
         </view>
-        <view class="student_baseinfo">
-          <view class="student_name">{{item.name}}</view>
-        </view>
+        
+        <view class="student_name">{{item.name}}</view>
+        <view class="student_name update_text">更新至</view>
+        <view class="student_name update_date">2019.09.04-2019.09.09</view>
+        
+
+        <view class="base-cell__ft base-cell__ft_in-access"></view>
       </navigator>
     </view>
   </view>
@@ -29,7 +33,7 @@
   <!-- 右侧字母 -->
   <view class="orientation_region">
     <block wx:for="{{sortList}}" wx:key='{{item.id}}' wx:if="{{item.active==true}}"> 
-      <view class="orientation_city {{isActive==item.id ? 'active':'' }}" bindtap="scrollToViewFn" data-id="{{item.id}}" >{{item.region}}</view>
+      <view class="orientation_city {{isActive==item.id ? 'active':'' }}" bindtap="scrollToViewFn" data-id="{{item.id}}" data-region="{{item.region}}">{{item.region}}</view>
     </block>
   </view>
 </view>
