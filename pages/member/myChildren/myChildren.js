@@ -2,18 +2,13 @@ let we = require('../../../we/index.js')
 
 new class extends we.Page {
   data() {
-    return {
-      my_array: ['男', '女'],
-      my_index:-1,
-      vo: {
-        message: {}
-      },
+    return {   
+      imgBaseUrl: "",   
+      childrenList: [],     
       po: {
-        "id": "",
         "name": "",
-        "phone": "",
-        "qq": "",
-        "sex": ""
+        "sex": "",
+        "birthday": "",
       }
     }
   }
@@ -21,13 +16,14 @@ new class extends we.Page {
   onLoad() {
     this.loadInfo()
     this.setData({
-      'vo.imgBaseUrl': this.$app.imgBaseUrl
+      imgBaseUrl: this.$app.imgBaseUrl
     })
   }
   loadInfo() {
     this.$get('/v1/family/getInfo').then(data => {
+      console.log(data.obj)
       this.setData({
-        'vo.message': data.obj
+        childrenList: data.obj.studentList,
       })
     }).catch(err => {
       this.$showModal({
@@ -37,6 +33,14 @@ new class extends we.Page {
       })
     })
   }
+  
+  childInfo(e) {
+    console.log(e)
+    wx.navigateTo({
+      url: '/pages/member/childInfo/childInfo?id=' + e.currentTarget.dataset.id,
+    })
+  }
+  /*
   bindPickerChange(e){
     this.setData({
         my_index: e.detail.value
@@ -66,6 +70,6 @@ new class extends we.Page {
        })
     })
   }
-
+  */
 
 }

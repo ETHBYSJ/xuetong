@@ -81,7 +81,7 @@
           <view class="detail">管理家庭住址</view>
           <view class="base-cell__ft base-cell__ft_in-access"></view>
       </navigator>
-      <navigator url="../Aboutus/Aboutus" class="base-cell base-cell_access">
+      <navigator url="../myChildren/myChildren" class="base-cell base-cell_access">
           <image src="/images/children.png" class="icon"></image>
           <view class="base-cell__bd">孩子管理</view>
           <view class="detail">添加和管理孩子信息</view>

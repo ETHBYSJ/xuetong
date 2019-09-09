@@ -1,0 +1,41 @@
+<view class="page">
+  <navigator url="" class="first base-cell base-cell_access">
+    <view>孩子头像</view>
+    <image class="child_headerpic" src="{{vo.photo? vo.imgBaseUrl + vo.photo: '/assets/icon/loadImg_1.jpg'}}"></image>
+    <view class="child_ft">用于考勤，请上传近照</view>
+  </navigator>
+  <view class="base-cell base-cell_access">
+    <view>孩子姓名</view>
+    <input placeholder-class="center" class="child_base" value="{{vo.name}}" bindinput="bindNameChange"> </input>
+  </view>
+  <view class="base-cell base-cell_access">
+    <view>孩子性别</view>
+    <radio-group bindchange="bindSexChange" class="child_base">
+      <label class="radio" >
+        <radio value="Man" color='#1296db' checked="{{vo.sex=='Man'?'true':''}}"/><text decode="{{true}}">男&emsp;&ensp;</text>
+        <radio value="Woman" color='#1296db' checked="{{vo.sex=='Woman'?'true':''}}"/><text decode="{{true}}">女&emsp;&ensp;</text>
+      </label>
+    </radio-group>
+  </view>
+  <view class="base-cell base-cell_access">
+    <view>出生日期</view>
+    <picker mode="date" value="{{vo.birthday}}" start="1900-01-01" bindchange="bindBirthChange">      
+      <view class="child_base" wx:if="{{vo.birthday}}">
+        <image src="/images/rqxz.png" class="icon"></image>
+        {{vo.birthday}}
+      </view>
+      <view class="child_base" wx:else> 点击设置 </view>
+    </picker>
+  </view>
+  <view class="base-cell base-cell_access">
+    <view>所在学校</view>
+    <view class="child_base">{{vo.clazz.grade.name}}</view>
+  </view>
+  <view class="base-cell base-cell_access">
+    <view>所在班级</view>
+    <view class="child_base">{{vo.clazz.name}}</view>
+  </view>
+  <view class="child_footer">
+    <button class="save_btn" bindtap="saveInfo">保存</button>
+  </view>
+</view>

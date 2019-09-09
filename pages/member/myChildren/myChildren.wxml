@@ -1,75 +1,14 @@
-<view class='page'>
-<swiper indicator-dots indicator-active-color='#1296db'>
- <swiper-item wx:for="{{vo.message.studentList}}" wx:key="item.id" wx:for-item="item">
-  <view class='member'>
-    <!-- <image wx:if="{{vo.UserInfo.loginImage}}" src='{{vo.imgBaseUrl}}{{vo.UserInfo.loginImage}}' class='memberpic'></image> -->
-      <image class='userImage' src="{{item.photo?vo.imgBaseUrl+''+item.photo:'/assets/icon/loadImg.jpg'}}"  class='memberpic'></image>
-   <view class="nickname">  
-    <view class="Loginname">
-    <view class="greadtitle">姓名:</view>
-      <view class="left">
-      {{item.name}}
+<view class="page">
+  <view class="child_block" wx:for="{{childrenList}}" bindtap="childInfo" data-id="{{item.id}}">
+    <view class="child_block_top">
+      <view class="img_wrapper">
+        <image src="{{item.photo? imgBaseUrl + '' + item.photo: '/assets/icon/loadImg_1.jpg'}}"></image>
       </view>
-      <view class="greadtitle">学号:</view>
-      <view class="right">
-        {{item.number}}
-      </view>
+      <view class="child_name">{{item.name}}</view>
+      <view class="child_birthday">出生日期 : {{item.birthday}}</view>
     </view>
-    <view class="Loginname">
-    <view class="greadtitle">机构:</view>
-      <view class="left">
-     {{item.gradename}}
-      </view>
-      <view class="greadtitle">班级:</view>
-      <view class="right">
-     {{item.clazzname}}
-      </view>
+    <view class="child_block_bottom">
+      {{item.gradename}}
     </view>
-   </view>
-
-  </view> 
-   <view class="title">修改孩子资料</view>
-   <form bindsubmit="formMod">
-   <view class="base-cells_after-title">
-       <view class="base-cell base-cell_input base-cell_vcode">
-          <view class="base-cell__hd">
-              <view class="base-label">姓名</view>
-          </view>
-          <view class="base-cell__bd">
-              <input class="base-input" name="name" placeholder="请输入修改姓名" type='number' maxlength='6' bindinput='userCode' value='{{item.name}}' />
-          </view>
-        </view>
-        <input type='number' name="id" value='{{item.id}}' style='display:none'  />
-      
-       <view class="base-cell base-cell_input base-cell_vcode">
-          <view class="base-cell__hd">
-              <view class="base-label">性别</view>
-          </view>
-           <view class="base-cell__bd">
-             <picker name='sex' bindchange="bindPickerChange" value="{{item.sex=='男'?0:1}}" range="{{my_array}}">
-              <view class="picker">{{my_index == -1?item.sex:my_array[my_index]}}</view>
-             </picker>
-            </view> 
-        </view> 
-      <view class="base-cell base-cell_input">
-          <view class="base-cell__hd">
-              <view class="base-label">电话</view>
-          </view>
-          <view class="base-cell__bd">
-              <input class="base-input" name='phone' type='number' placeholder="请输入电话号码" bindinput='voteTitle' value='{{item.phone}}' />
-          </view>
-      </view>
-      <view class="base-cell base-cell_input">
-          <view class="base-cell__hd">
-              <view class="base-label">QQ</view>
-          </view>
-          <view class="base-cell__bd">
-              <input class="base-input" name='qq' type='number' placeholder="请输入QQ号码" bindinput='voteTitle' value='{{item.qq}}' />
-          </view>
-      </view>
   </view>
-   <button class='base-btn'formType="submit" bindtap='confirm'>确认</button>
-   </form>
-   </swiper-item>
-  </swiper>
 </view>

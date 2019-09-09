@@ -79,9 +79,9 @@
           </view>
 
           <view>
-            <navigator url="/pages/email/email" open-type="switchTab">
+            <navigator url="/pages/baby/feedback/feedback?studentid={{studentid}}&img={{item.photo?vo.imgBaseUrl+''+item.photo:'/assets/icon/loadImg.jpg'}}&name={{item.name}}" open-type="navigate">
               <image src="/assets/icon/kb.png"></image>
-              <text>学勤</text>
+              <text>学情</text>
             </navigator>
           </view>
 

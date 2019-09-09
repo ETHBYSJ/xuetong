@@ -4,13 +4,12 @@ new class extends we.Page {
   data() {
     return {
       studentid: "",
-      record: [],
       img: '',
       name: "",
       feed: [],
       page: 1,
       totalsize: "",
-      size: 4,
+      size: 5,
       hiddenScrollTop: true,
     }
   }
@@ -31,20 +30,7 @@ new class extends we.Page {
       this.setData({
         totalsize: Math.ceil(data.totalSize / this.data.size)
       })
-      //console.log(this.data.totalsize)
-      /*
-      var temp = []
-      for(var i = 0; i < data.obj.length; i++) {
-        if(data.obj[i].type == 2) {
-          var recorddate = data.obj[i].recorddate.split("-")
-          data.obj[i].year = recorddate[0]
-          data.obj[i].month = recorddate[1]
-          data.obj[i].day = recorddate[2].substr(0, 2)
-          temp.push(data.obj[i])
-        }
-      }
-      console.log(temp)
-      */
+      
       this.setData({
         page: 1,
         feed: data.obj,
@@ -78,20 +64,7 @@ new class extends we.Page {
         page: page,
       })
       this.$get('/v1/askforleave/getList?id=' + this.data.studentid + '&page=' + this.data.page + '&size=' + this.data.size).then(data => {
-        console.log(data)
-        /*
-        var next = []
-        for (var i = 0; i < data.obj.length; i++) {
-          if (data.obj[i].type == 2) {
-            var nextrecorddate = data.obj[i].recorddate.split("-")
-            data.obj[i].year = nextrecorddate[0]
-            data.obj[i].month = nextrecorddate[1]
-            data.obj[i].day = nextrecorddate[2].substr(0, 2)
-            next.push(data.obj[i])
-          }
-        }
-        console.log(next)
-        */
+        console.log(data)        
         this.setData({
           //feed: this.data.feed.concat(next),
           feed: this.data.feed.concat(this.data.obj),

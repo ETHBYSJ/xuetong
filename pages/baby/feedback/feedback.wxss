@@ -1,0 +1,134 @@
+.page {
+  background-color: #d9d9d9;
+}
+.container {
+  height: 100vh;
+}
+.feedback_wrapper {
+  position: relative;
+}
+.feedback_header {
+  height: 60rpx;
+  background-color: #d9d9d9;
+}
+.feedback_content {
+  background-color: white;
+  padding-bottom: 50rpx;
+  padding-top: 50rpx;
+  position: relative;
+}
+.feedback_content_header {
+  height: 150rpx;
+  border-bottom: 2rpx solid #d9d9d9;
+  position: relative;
+}
+.img_wrapper {
+  float: left;
+  width: 150rpx;
+  height: 150rpx;
+  padding-left: 20rpx;
+}
+.img_wrapper image {
+  width: 120rpx;
+  height: 120rpx; 
+}
+.student_info {
+  float: left;
+  height: 150rpx;
+  width: 500rpx;
+  padding-left: 20rpx;
+  position: relative;
+}
+.student_name {
+  font-size: 32rpx;
+  font-weight: bold;
+  position: absolute;
+  top: 18rpx;
+}
+.student_time {
+  font-size: 26rpx;
+  position: absolute;
+  bottom: 30rpx;
+}
+.feedback_block {
+  height: 150rpx;
+  border-bottom: 2rpx solid #d9d9d9;
+  position: relative;  
+}
+.feedback_index {
+  height: 150rpx;
+  width: 100rpx;
+  float: left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  color: #1296db;
+  padding-left: 20rpx;
+  font-weight: bold;
+}
+.feedback_date {
+  float: left;
+  height: 150rpx;
+  position: realative;
+  padding-left: 20rpx;
+}
+.feedback_date_wrapper {
+  width: 220rpx;
+  height: 60rpx;
+  border: 4rpx solid rgb(146, 209, 79);
+  border-radius: 30rpx;
+  text-align: center;
+  font-size: 30rpx;
+  line-height: 60rpx;
+}
+.feedback_date_start {  
+  width: 250rpx;
+  height: 150rpx;
+  float: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.feedback_date_mid {
+  width: 50rpx;
+  height: 150rpx;
+  float: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.circle {
+  width: 35rpx;
+  height: 35rpx;
+  border-radius: 50%;
+  border: 1rpx solid #d9d9d9;
+  color: rgb(146, 209, 79);  
+  text-align: center;
+}
+.circle text {
+  line-height: 33rpx;
+  font-size: 26rpx;
+}
+.feedback_date_end {
+  width: 250rpx;
+  height: 150rpx;
+  float: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.feedback_block::after {
+  content: " ";
+  display: inline-block;
+  height: 13rpx;
+  width: 13rpx;
+  border-width: 4rpx 4rpx 0 0;
+  border-color: #8d8d8d;
+  border-style: solid;
+  -webkit-transform: matrix(.71, .71, -.71, .71, 0, 0);
+  transform: matrix(.71, .71, -.71, .71, 0, 0);
+  position: relative;
+  top: 70rpx;
+  left: 30rpx;
+}
