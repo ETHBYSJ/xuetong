@@ -112,7 +112,7 @@
               <view class="date_right"></view>
             </view>
             <!--显示作业内容-->
-            <block wx:if="{{homeworktoday.imageList || homeworktoday.content}}">
+            <block wx:if="{{homeworktoday.imageList.length != 0 || homeworktoday.content}}">
               <view class="homework_picture">
                 {{homeworktoday.content}}
                 <scroll-view scroll-x class='imagewrap'>
@@ -323,7 +323,7 @@
         <view class="homework_content">
           <view class="hw_name">
             <!--已完成-->
-            <view wx:if="{{homeworktoday.status == 2}}" class="hw_name_normal"></view>
+            <view wx:if="{{hw.status == 2}}" class="hw_name_normal"></view>
             <!--未完成-->
             <view wx:else class="hw_name_warning"></view>
             <text>{{name}}</text>
@@ -336,16 +336,18 @@
             <view class="date_right"></view>
           </view>
           <!--显示作业内容-->
-          <view class="homework_picture">
-            {{hw.content}}
-            <scroll-view scroll-x class='imagewrap'>
-              <view class='box' style='width:{{hw.imageList.length*(216+26)}}rpx'>
-                <view wx:for="{{hw.imageList}}" class="photos">
-                  <image class="photo" src="{{imgBaseUrl}}{{item.photoPath}}" data-src="{{imgBaseUrl}}{{item.photoPath}}" bindtap="imgPreview" data-list="{{hw.imageList}}" />
-                </view>
-              </view>  
-            </scroll-view>
-          </view>
+          <block wx:if="{{hw.imageList.length != 0 || hw.content}}">
+            <view class="homework_picture">
+              {{hw.content}}
+              <scroll-view scroll-x class='imagewrap'>
+                <view class='box' style='width:{{hw.imageList.length*(216+26)}}rpx'>
+                  <view wx:for="{{hw.imageList}}" class="photos">
+                    <image class="photo" src="{{imgBaseUrl}}{{item.photoPath}}" data-src="{{imgBaseUrl}}{{item.photoPath}}" bindtap="imgPreview" data-list="{{hw.imageList}}" />
+                  </view>
+                </view>  
+              </scroll-view>
+            </view>
+          </block>
           <!--使用列表渲染显示-->
           <view class="homework_base_block" wx:for="{{Items}}" wx:for-item="base">
             <!--{{hw[base.value +'Status']}}-->

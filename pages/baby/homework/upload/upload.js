@@ -53,6 +53,7 @@ new class extends we.Page {
         */
         //正在完成中状态
         "po.status": 3,
+        "po.content": "",
       })
     }    
     //console.log(this.data.imgBaseUrl)
@@ -68,16 +69,10 @@ new class extends we.Page {
           postList: tempFilePaths,
           height: Math.ceil(tempFilePaths.length / 3), 
         })
-        //console.log(that.data.postList)
-        //that.complaint()
       }
     })
   }
   deleteImg(e) {
-    /*
-    console.log("delete")
-    console.log(e)
-    */
     let delIndex = e.currentTarget.dataset.index
     this.data.postList.splice(delIndex, 1)
     this.setData({
@@ -89,13 +84,40 @@ new class extends we.Page {
   executeUpload(url, index, that) {
     if(index == that.data.postList.length) {    
       if(that.data.content != "") {
+        //输入内容不为空
         that.setData({
           "po.content": that.data.content,
         })
       }
+      /*
+      else {
+        //输入内容为空
+        if(!this.po.id) {
+          //没有作业记录
+          that.setData({
+            "po.content": "",
+          })
+        }
+      }
+      */
       console.log(that.data.po)      
       that.$post('/v1/homework/update', that.data.po).then(data => {
         console.log(data) 
+        if(data.msg == "SUCC") {
+          wx.showToast({
+            title: '上传成功',
+            icon: 'success',
+            duration: 1500,
+          })
+        }
+        else {
+          wx.showToast({
+            title: '上传失败',
+            image: '/images/kulian.png',
+            icon: 'loading',
+            duration: 1500,
+          })
+        }
         wx.navigateBack({
           delta: 1
         })       
@@ -133,6 +155,15 @@ new class extends we.Page {
 
   postConfirm() {
     var that = this
+    if(that.data.postList.length == 0 && !that.data.content) {
+      wx.showToast({
+        title: '内容不能为空',
+        image: '/images/kulian.png',
+        icon: 'loading',
+        duration: 1500,
+      })
+      return
+    }
     wx.showModal({
       title: '',
       content: '确定上传作业',
@@ -146,18 +177,19 @@ new class extends we.Page {
             mask: true,
             duration: 10000
           })
-
+          /*
           that.setData({
             "po.imageList": [],
           })
+          */
           that.executeUpload(that.data.imgBaseUrl + '/v1/homework/upload', 0, that)
         }        
       }
     })    
   }
   bindInput(e) {
-    this.setData({
-      //"po.content": e.detail.value,
+    //console.log(e.detail.value)
+    this.setData({      
       content: e.detail.value,
     })
   }

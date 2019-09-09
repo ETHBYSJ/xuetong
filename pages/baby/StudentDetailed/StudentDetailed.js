@@ -361,8 +361,7 @@ new class extends we.Page {
     //将作业情况反馈给家长
     this.setData({
       submit: true,
-    })
-    
+    })    
     //丑 
     let finish = true   
     //语文
@@ -447,6 +446,7 @@ new class extends we.Page {
       this.setData({
         //没有作业记录，说明没有提交作业
         "po.status": finish ? 2 : 0,
+        "po.content": "",
       })
     }
     this.$post("/v1/homework/update", this.data.po).then(data => {
