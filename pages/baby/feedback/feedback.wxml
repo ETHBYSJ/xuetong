@@ -1,0 +1,53 @@
+<view class="page">
+  <scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower" bindscroll = "bindScroll" scroll-top="{{scrolltop}}">
+  <view class="feedback_wrapper">
+    <view class="feedback_header"></view>
+    <view class="feedback_content">
+      <view class="date">
+        <view class="date_left"></view>
+        <view class="date_mid">
+          <text class="record_text">学情反馈</text>
+        </view>
+        <view class="date_right"></view>
+      </view>
+      <view class="feedback_content_header">
+        <view class="img_wrapper">
+          <image src="{{img}}"></image>
+        </view>
+        <view class="student_info">
+          <text class="student_name">{{name}}</text>          
+          <!--<text class="student_time">目前可托管至2019-03-31</text>-->          
+        </view>
+      </view>
+
+      <view class="feedback_block">
+        <view class="feedback_index">
+          <text>1</text>
+        </view>
+        <view class="feedback_date">
+          <view class="feedback_date_start">
+            <view class="feedback_date_wrapper">
+              <text>2019.03.25</text>
+            </view>
+          </view>
+          <view class="feedback_date_mid">
+            <view class="circle">
+              <text>至</text>
+            </view>
+          </view>
+          <view class="feedback_date_end">
+            <view class="feedback_date_wrapper">
+              <text>2019.03.29</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!--
+      <block>
+
+      </block>
+      -->
+    </view>
+  </view>
+  </scroll-view>
+</view>

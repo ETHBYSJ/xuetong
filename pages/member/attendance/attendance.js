@@ -1,6 +1,4 @@
 let we = require('../../../we/index.js')
-var util = require('../../../utils/utilb.js')
-
 
 new class extends we.Page {
   data() {
