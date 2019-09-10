@@ -48,7 +48,8 @@
     "pages/member/newphone/newphone",
     "pages/member/studentList/studentList",
     "pages/member/studentStudy/studentStudy",
-    "pages/member/createStudy/createStudy"
+    "pages/member/createStudy/createStudy",
+    "pages/member/newStudy/newStudy"
   ],
   "window": {
     "backgroundTextStyle": "light",

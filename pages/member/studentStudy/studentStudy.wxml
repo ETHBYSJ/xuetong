@@ -1,4 +1,67 @@
 <!--pages/member/studentStudy/studentStudy.wxml-->
-<view bindtap="bindNewStudy">
-{{student_name}}
+<view class="page">
+  <view class="study_header">
+    <image class="header_pic" src="/images/xqfkls.png"></image>
+  </view>
+
+  <view class="student_info">
+    <image class="student_pic" src="/images/study_tx.png"></image>
+  
+    <view class="student_text">
+      <view class="student_name">王重阳</view>
+      <view class="student_date">
+        <view class="date_sides">2019.09.04</view>
+        <view class="date_middle">至</view>
+        <view class="date_sides">2019.09.09</view>
+      </view>
+    </view>
+
+  </view>
+
+  <view class="grade">
+    <view class="grade-content">
+      <view class="grade-introduction">基础知识</view>
+      <view class="grade-star">666</view>
+    </view>
+    <view class="grade-content">
+      <view class="grade-introduction">学习态度</view>
+      <view class="grade-star">666</view>
+    </view>
+    <view class="grade-content">
+      <view class="grade-introduction">学习习惯</view>
+      <view class="grade-star">666</view>
+    </view>
+    <view class="grade-content">
+      <view class="grade-introduction">意志品质</view>
+      <view class="grade-star">666</view>
+    </view>
+    <view class="grade-content">
+      <view class="grade-introduction">身体素质</view>
+      <view class="grade-star">666</view>
+    </view>
+  </view>
+
+  <view class="teacher-comment">
+    <view class="teacher-comment-content">1、基础知识：</view>
+    <view class="teacher-comment-content">2、学习态度：王重阳王重阳王重阳王重阳王重阳王重阳王重阳王重阳王重阳王重阳王重阳王重阳王重阳王重阳王重阳王重阳</view>
+    <view class="teacher-comment-content">3、学习习惯：</view>
+    <view class="teacher-comment-content">4、意志品质：</view>
+    <view class="teacher-comment-content">5、身体素质：</view>
+    <view class="teacher-comment-content">本周进步：</view>
+    <view class="teacher-comment-content">学习优势：</view>
+    <view class="teacher-comment-content">学习劣势：</view>
+    
+    <view class="teacher-comment-details">发布于2019.09.09 22:30</view>
+    <view class="teacher-comment-details">发布人：李老师</view>
+  </view>
+
+  <view class="fjx"></view>
+
+  <view class="parent-comment">
+    <view class="parent-comment-header">家长回复：</view>
+    <view class="parent-comment-content">谢谢老师，打一顿就好了</view>
+  </view>
+  
+  <view class="end_page"> </view>
 </view>
+  

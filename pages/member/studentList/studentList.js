@@ -13,6 +13,7 @@ new class extends we.Page {
       stuList: [],
       sortList: [],
       isActive: null,
+      fixedTitle: null,
     }
   }
 
@@ -30,16 +31,18 @@ new class extends we.Page {
   }
 
   //点击学生转到新页面
+  /*
   bindStudy(e) {
     wx.navigateTo({
-      url: '/pages/member/studentStudy/studentStudy?id=' + e.target.dataset.id + '&name=' + e.target.dataset.name,
+      url: '/pages/member/newStudy/newStudy?id=' + e.target.dataset.id + '&name=' + e.target.dataset.name,
     })
-  }
+  }*/
 
   //点击右边导航字母
   scrollToViewFn(e) {
     this.setData({
       'isActive': e.target.dataset.id,
+      'fixedTitle': e.target.dataset.region,
     });
   }
   
