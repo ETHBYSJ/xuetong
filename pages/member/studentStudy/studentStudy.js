@@ -9,23 +9,26 @@ new class extends we.Page {
       },
       vo: {
         message: {},
-        
+        feedback: {}
       },
       userType: '',
+      feedback_id: '',
       student_name: '',
-      student_id: '',
+      student_id: null,
     }
   }
 
   onLoad(options) {
     this.setData({
+      'feedback_id': options.id,
+      'student_id' : options.studentid,
       'student_name': options.name,
-      'student_id'  : options.id,
     });
-
   }
 
   onShow() {
+    this.loadFeedInfo();
+
     this.setData({
       'userType': this.$app.userType
     })
@@ -35,14 +38,20 @@ new class extends we.Page {
     } else {
       this.loadInfo()
     }
-
-
   }
 
   //创建新的学情反馈
   bindNewStudy() {
     wx.navigateTo({
       url: '/pages/member/createStudy/createStudy',
+    })
+  }
+
+  loadFeedInfo() {
+    this.$get('/v1/weeklyreport/get?id='+this.data.feedback_id).then(data => {
+      this.setData({
+        'vo.feedback': data.obj,
+      })   
     })
   }
 

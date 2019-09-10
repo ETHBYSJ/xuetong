@@ -13,9 +13,9 @@ new class extends we.Page {
     }
   }
   onLoad(options) {
-    console.log(options)
+    //console.log(options)
     this.setData({
-      studentid: options.studentid,
+      studentid: studentid,
       img: options.img,
       name: options.name,
     })
@@ -26,6 +26,8 @@ new class extends we.Page {
   getData() {
     //得到学情列表
   }
+
+
   
   upper() {
     wx.showNavigationBarLoading()

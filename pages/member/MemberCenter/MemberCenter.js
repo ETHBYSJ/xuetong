@@ -16,8 +16,7 @@ new class extends we.Page {
   }
 
   onLoad(options) {
-   
-    console.log(options)
+  
     if (options.noticeid){
       this.setData({
         noticeid: options.noticeid
@@ -59,7 +58,6 @@ new class extends we.Page {
     })
   }
   getUserStatusByLogin() {
-    console.log(this.data.userdtatus)
     if(this.data.userdtatus !=103){
       wx.reLaunch({ url: `/pages/member/register/register` })
 

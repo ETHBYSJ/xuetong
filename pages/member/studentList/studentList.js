@@ -30,15 +30,6 @@ new class extends we.Page {
     }
   }
 
-  //点击学生转到新页面
-  /*
-  bindStudy(e) {
-    wx.navigateTo({
-      url: '/pages/member/newStudy/newStudy?id=' + e.target.dataset.id + '&name=' + e.target.dataset.name,
-    })
-  }*/
-
-  //点击右边导航字母
   scrollToViewFn(e) {
     this.setData({
       'isActive': e.target.dataset.id,
@@ -76,7 +67,26 @@ new class extends we.Page {
 
         return Promise.resolve(stuList);
 
-      }).then(stuList => { //初始化排序队列
+      })/*.then(stuList => {
+        let stuList_date = stuList;
+        for (let i=0; i<stuList.length; ++i) {
+          this.$get('/v1/weeklyreport/getList?id='+stuList_date[i].id).then(data => {
+            
+            if (data.obj!=undefined && data.obj!=null && data.obj.length>0) {
+              
+              stuList_date[i].start_date = data.obj[0].startDate;
+              stuList_date[i].end_date = data.obj[0].endDate;
+            } else {
+              stuList_date[i].start_date = "0000-00-00";
+              stuList_date[i].end_date = "0000-00-00";
+            }
+          });
+        }
+        return Promise.resolve(stuList_date);
+        
+      })*/
+      .then(stuList => { //初始化排序队列
+        /*console.log(stuList_date);*/
         let tmp = stuList;
         let sor = [];
         for (let i = 0; i < 27; ++i) {
@@ -107,13 +117,13 @@ new class extends we.Page {
             sor[ascii - 65].active = true;
           }
         });
-
         return Promise.resolve(sor);
+
       }).then(sor => {
         this.setData({
           'sortList': sor,
         });
-        console.log(sor);
+        //console.log(this.data.sortList);
       }).catch(err => {
         this.$showModal({
           title: '获取信息错误',

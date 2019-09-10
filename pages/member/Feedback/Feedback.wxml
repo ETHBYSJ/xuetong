@@ -1,14 +1,54 @@
-<view class='page'>
- <view class="feedback_header">
- 建议类型<view class="picker_type">{{array[index]}}</view>
-  <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
-    <view class="picker">
-     建议类型{{array[index]}}
+<view class="page">
+  <scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower" bindscroll = "bindScroll" scroll-top="{{scrolltop}}">
+  <view class="feedback_wrapper">
+    <view class="feedback_header">
+      <image class="header_pic" src="/images/xqfkls.png"></image>
     </view>
-  </picker> 
+
+    <view class="feedback_content">
+      
+      <view class="feedback_content_header">
+        <view class="img_wrapper">
+          <image src="{{img}}"></image>
+        </view>
+        <view class="student_info">
+          <text class="student_name">{{name}}</text>          
+          <!--<text class="student_time">目前可托管至2019-03-31</text>-->          
+        </view>
+      </view>
+
+      <view class="add-study">
+        <button class="add-btn" bindtap="bindToNew">点击添加</button>
+      </view>
+
+      <view class="feedback_block" wx:for="{{feed}}" wx:for-index="idx" bindtap="showDetails" data-id="{{item.id}}">
+        <view class="feedback_index">
+          <text>{{idx+1}}</text>
+        </view>
+        <view class="feedback_date">
+          <view class="feedback_date_start">
+            <view class="feedback_date_wrapper">
+              <text>{{item.startDate}}</text>
+            </view>
+          </view>
+          <view class="feedback_date_mid">
+            <view class="circle">
+              <text>至</text>
+            </view>
+          </view>
+          <view class="feedback_date_end">
+            <view class="feedback_date_wrapper">
+              <text>{{item.endDate}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!--
+      <block>
+
+      </block>
+      -->
+    </view>
   </view>
-  <view class="textarea-wrp">
-      <textarea maxlength="-1"/>
-    </view>
-  <button class='base-btn' bindtap='confirm'>确认</button>
+  </scroll-view>
 </view>
