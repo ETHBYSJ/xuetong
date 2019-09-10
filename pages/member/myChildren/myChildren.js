@@ -14,10 +14,13 @@ new class extends we.Page {
   }
 
   onLoad() {
-    this.loadInfo()
+    //this.loadInfo()
     this.setData({
       imgBaseUrl: this.$app.imgBaseUrl
     })
+  }
+  onShow() {
+    this.loadInfo()
   }
   loadInfo() {
     this.$get('/v1/family/getInfo').then(data => {

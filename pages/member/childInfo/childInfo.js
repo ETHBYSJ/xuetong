@@ -51,10 +51,10 @@ new class extends we.Page {
   }
   //修改名字
   bindNameChange(e) {
-    //console.log(e)
+    console.log(e)
     this.setData({
       'po.name': e.detail.value,
-      'vo.name': e.detail.name,
+      'vo.name': e.detail.value,
     })
   }
   //修改性别
@@ -74,9 +74,36 @@ new class extends we.Page {
   }
   //保存修改
   saveInfo() {
+    let that = this
     console.log(this.data.po)
-    this.$post('/v1/student/updateInfo', this.data.po).then(data => {
-      console.log(data)
+    wx.showModal({
+      title: '',
+      content: '确定修改信息',
+      confirmText: '确定',
+      cancelText: '取消',
+      success(res) {
+        if (res.confirm) {
+          wx.showToast({
+            title: '正在提交...',
+            icon: 'loading',
+            mask: true,
+            duration: 10000
+          })
+          that.$post('/v1/student/updateInfo', that.data.po).then(data => {
+            console.log(data)
+            wx.navigateBack({
+              delta: 1
+            })
+          }).catch(err => {
+            this.$showModal({
+              title: '获取信息错误',
+              content: err.msg,
+              showCancel: false
+            })
+          })
+        }
+      }
     })
+
   }
 }
