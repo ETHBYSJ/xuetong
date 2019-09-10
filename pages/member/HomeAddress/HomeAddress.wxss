@@ -1,0 +1,130 @@
+.page {
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+}
+.explain {
+  color: #8d8d8d;
+  font-size: 30rpx;
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
+  /*line-height: 110%;*/
+}
+.search_bar {
+  margin-top: 10rpx;
+  margin-bottom: 10rpx;
+  border: 2rpx solid #d9d9d9;
+  border-radius: 10rpx;
+  padding-right: 10rpx;
+  /*height: 46rpx;*/
+  position: relative;
+}
+.search_bar_input {
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
+  padding-left: 20rpx;
+  font-size: 26rpx;
+  /*line-height: 26rpx;*/
+  color: black;
+  width: 600rpx;
+  /*
+  float: left;  
+  height: 26rpx;
+  */
+}
+.place-holder {
+  font-size: 26rpx;
+  color: #d9d9d9;
+}
+.search_icon {
+  float: right;
+  width: 45rpx;
+  height: 50rpx;
+  position: absolute;
+  right: 5rpx;
+  top: 10rpx;
+}
+.search_icon image {
+  width: 45rpx;
+  height: 50rpx;
+}
+.map_wrapper {
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+}
+.map_wrapper map {
+  width: 100%;
+  height: 600rpx;
+}
+.detailed_address {
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
+}
+.detailed_address_input {
+  border: 2rpx solid #d9d9d9;
+  border-radius: 10rpx;
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
+  padding-left: 20rpx;
+  padding-right: 10rpx;
+  font-size: 26rpx;
+}
+.detailed_address_prompt {
+  color: #8d8d8d;
+  font-size: 26rpx;
+}
+.address_footer {
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+}
+.save_btn {
+  width: 670rpx;
+  background: #1296db;
+  color: #fff;
+}
+.search_res {
+  position: absolute;
+  /*padding-top: 20rpx;*/
+  /*padding-bottom: 20rpx;*/
+  background-color: white;
+  z-index: 999;
+  left: -2rpx;
+  border: 2rpx solid #d9d9d9;
+  width: 620rpx;
+}
+.base_search_res {
+  width: 600rpx;
+  text-align: center;
+  font-size: 26rpx;
+  border-bottom: 2rpx solid #d9d9d9;  
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+  padding-left: 10rpx;
+  padding-right: 10rpx;
+  /*border-top: 2rpx solid #d9d9d9;*/
+}
+.pull_wrapper {
+  position: relative;
+  height: 30rpx;
+}
+.pullup {
+  position: absolute;
+  width: 0rpx;
+  height: 0rpx;
+  border-width: 20rpx;
+  border-style: solid;
+  border-color: transparent transparent #8d8d8d transparent;
+  margin: 0 auto;
+  left: 280rpx;
+  top: -10rpx;
+}
+.pulldown {
+  position: absolute;
+  width: 0rpx;
+  height: 0rpx;
+  border-width: 20rpx;
+  border-style: solid;
+  border-color: #8d8d8d transparent transparent transparent;
+  margin: 0 auto;
+  left: 280rpx;
+  top: 6rpx;
+}

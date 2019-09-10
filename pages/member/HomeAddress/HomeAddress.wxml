@@ -1,0 +1,36 @@
+<view class="page">
+  <view class="explain">
+    添加或修改您的家庭住址，建议尽量详细，以方便老师可以通过上门联系。
+  </view>
+  <!--搜索框-->
+  <view class="search_bar">
+    <input placeholder="{{oldaddress}}" value="{{searchaddress}}" bindinput="enterAddress" class="search_bar_input" placeholder-class="place-holder">
+    </input>
+    <view class="search_icon" bindtap="doSearch">
+      <image src="/assets/icon/searchloc.png"></image>
+    </view>
+    <!--显示搜索结果-->
+    <view class="search_res" hidden="{{hiddenall}}">
+      <view class="base_search_res" wx:for="{{searchlist}}" bindtap="chooseAddress" data-address="{{item.address}}" data-lat="{{item.location.lat}}" data-lng="{{item.location.lng}}" hidden="{{hiddenres}}">
+        {{item.title}} {{item.address}}
+      </view> 
+      
+      <view class="pull_wrapper">
+        <view class="{{pullstatus==0? 'pullup': 'pulldown'}}" hidden="{{hiddenpull}}" bindtap="pull"></view> 
+      </view>    
+    </view>    
+  </view>
+  
+  <!--地图-->
+  <view class="map_wrapper">
+    <map latitude="{{latitude}}" longitude="{{longitude}}"></map>
+  </view>
+  <!--详细地址:(选填)-->
+  <view class="detailed_address">
+    <view class="detailed_address_prompt">详细地址 : (选填)</view>
+    <input value="{{detailedaddress}}" bindinput="enterDetailed" class="detailed_address_input"></input>
+  </view>
+  <view class="address_footer">
+    <button class="save_btn" bindtap="saveAddress">保存</button>
+  </view>
+</view>
