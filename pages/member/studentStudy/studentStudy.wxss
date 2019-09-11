@@ -155,7 +155,7 @@
   /*width: 80%;*/
   text-align: right;
   font-family: "微软雅黑";
-  font-size: 20rpx;
+  font-size: 22rpx;
   color: rgb(197,197,197);
   font-weight: normal;
 }

@@ -35,16 +35,12 @@ new class extends we.Page {
 
   scrollToViewFn(e) {
     //console.log(e.target.dataset.id);
-    var _id = e.target.dataset.id;
-    for (var i = 0; i < 27; ++i) {
-      if (this.data.sorList[i].id === _id) {
-        this.setData({
-          'isActive': _id,
-          'toView': 'inToView' + _id,
-        })
-        break;
-      }
-    }
+    var id = e.target.dataset.id;
+    this.setData({
+      'isActive': id,
+      'toView': 'inToView' + id,
+    })
+    console.log(this.data.toView)
   }
   
   onPageScroll(e) {

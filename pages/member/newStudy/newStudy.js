@@ -142,7 +142,7 @@ new class extends we.Page {
         showCancel: false,
       })
     } else {
-      wx.showModal({
+      /*wx.showModal({
         title: '提示',
         content: '确认提交学情反馈吗？',
         cancelText: '返回修改',
@@ -150,7 +150,8 @@ new class extends we.Page {
         success(res) {
           if(res.cancel) {
 
-          } else if (res.confirm) {
+          } 
+          else if (res.confirm) {*/
             let args = {
               'knowledge': this.data.po.basis,
               'knowledgeRate': this.data.po.basis_star,
@@ -192,9 +193,9 @@ new class extends we.Page {
                 })
               }
             })
-          }
-        }
-      })
+          //}
+        //}
+      //})
     }
   }
 

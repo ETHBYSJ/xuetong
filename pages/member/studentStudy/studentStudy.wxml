@@ -77,7 +77,7 @@
     <view class="teacher-comment-content">学习劣势：{{vo.feedback.inferiority}}</view>
     
     <view class="teacher-comment-details">发布于{{vo.feedback.createDate}}</view>
-    <view class="teacher-comment-details">发布人：李老师</view>
+    <view class="teacher-comment-details">发布人：{{vo.feedback.userName}}</view>
   </view>
 
   <view class="fjx"></view>

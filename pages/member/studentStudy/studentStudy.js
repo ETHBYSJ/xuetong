@@ -125,8 +125,8 @@ new class extends we.Page {
         'rates4': rates4,
         'rates5': rates5,
       })   
-      console.log(tmp);
-      console.log(this.data.rates5);
+      //console.log(tmp);
+      //console.log(this.data.rates5);
     })
   }
 

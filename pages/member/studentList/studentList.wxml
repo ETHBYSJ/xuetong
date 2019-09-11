@@ -1,7 +1,7 @@
 <!--pages/member/studentList/studentList.wxml-->
 <view class="studentList">
   <!-- 左侧内容 -->
-  <scroll-view bindscroll="onPageScroll" scroll-y="true" scroll-into-view="{{toView}}">
+  <scroll-view class="content" bindscroll="onPageScroll" enable-back-to-top scroll-into-view="{{toView}}" scroll-y scroll-with-animation="true">
 
     <view class="study_header" id="page_header">
       <image class="header_pic" src="/images/xqfkls.png"></image>
