@@ -13,7 +13,10 @@ new class extends we.Page {
       stuList: [],
       sortList: [],
       isActive: null,
-      fixedTitle: null,
+      fixedTitle: '',
+      scroolHeight: 0,
+      oHeight: [],
+      toView: 'page_header'
     }
   }
 
@@ -31,12 +34,47 @@ new class extends we.Page {
   }
 
   scrollToViewFn(e) {
-    this.setData({
-      'isActive': e.target.dataset.id,
-      'fixedTitle': e.target.dataset.region,
-    });
+    //console.log(e.target.dataset.id);
+    var _id = e.target.dataset.id;
+    for (var i = 0; i < 27; ++i) {
+      if (this.data.sorList[i].id === _id) {
+        this.setData({
+          'isActive': _id,
+          'toView': 'inToView' + _id,
+        })
+        break;
+      }
+    }
   }
   
+  onPageScroll(e) {
+    //console.log(e)
+    this.setData({
+      'scroolHeight': e.scrollTop,
+    })
+    if (e.scrollTop < 35) {
+      for (let i in this.data.sortList) {
+        if (this.data.sortList[i].active==true) {
+          this.setData({
+            'isActive': this.data.sortList[i].id,
+          })
+          break;
+        }
+      }
+    } else {
+      for (let i in this.data.oHeight) {
+        if (e.scrollTop < this.data.oHeight[i].height) {
+          this.setData({
+            'isActive': this.data.oHeight[i].key,
+            'fixedTitle': this.data.oHeight[i].name,
+          });
+          return false;
+        }
+      }
+    }
+    
+  }
+
   loadTechInfo() {
     var ps1 = this.$get('/v1/teacher/getInfo').then(data => {
       this.setData({
@@ -67,24 +105,7 @@ new class extends we.Page {
 
         return Promise.resolve(stuList);
 
-      })/*.then(stuList => {
-        let stuList_date = stuList;
-        for (let i=0; i<stuList.length; ++i) {
-          this.$get('/v1/weeklyreport/getList?id='+stuList_date[i].id).then(data => {
-            
-            if (data.obj!=undefined && data.obj!=null && data.obj.length>0) {
-              
-              stuList_date[i].start_date = data.obj[0].startDate;
-              stuList_date[i].end_date = data.obj[0].endDate;
-            } else {
-              stuList_date[i].start_date = "0000-00-00";
-              stuList_date[i].end_date = "0000-00-00";
-            }
-          });
-        }
-        return Promise.resolve(stuList_date);
-        
-      })*/
+      })
       .then(stuList => { //初始化排序队列
         /*console.log(stuList_date);*/
         let tmp = stuList;
@@ -99,6 +120,7 @@ new class extends we.Page {
             })
           } else {
             sor.push({
+              'id': i, 
               'active': false,
               'region': "#",
               'items': [],
@@ -120,10 +142,19 @@ new class extends we.Page {
         return Promise.resolve(sor);
 
       }).then(sor => {
+        var number = 35;
+        for (let i = 0; i < sor.length; ++i) {
+          number = sor[i].items.length * 60 + number + (sor[i].items.length==0 ? 0 : 30);
+          var newArr = [{ 'height': number, 'key': sor[i].id, 'name': sor[i].region}];
+          this.setData({
+            'oHeight': this.data.oHeight.concat(newArr),
+          })
+        }
+        //console.log(this.data.oHeight);
         this.setData({
           'sortList': sor,
         });
-        //console.log(this.data.sortList);
+        //console.log(sor);
       }).catch(err => {
         this.$showModal({
           title: '获取信息错误',

@@ -142,48 +142,59 @@ new class extends we.Page {
         showCancel: false,
       })
     } else {
-      
-      let args = {
-        'knowledge': this.data.po.basis,
-        'knowledgeRate': this.data.po.basis_star,
-        'attitude': this.data.po.attitude,
-        'attitudeRate': this.data.po.atti_star,
-        'habits': this.data.po.habit,
-        'habitsRate': this.data.po.habit_star,
-        'willpower': this.data.po.character,          
-        'willpowerRate': this.data.po.char_star,
-        'physique': this.data.po.body,
-        'physiqueRate': this.data.po.body_star,
-        'improve': this.data.po.progress,
-        'strengths': this.data.po.strength,
-        'inferiority': this.data.po.weakness,
-        'startDate': this.data.po.start_date,
-        'endDate': this.data.po.end_date,
-        'studentId': parseInt(this.data.student_id),  
-      }
-      this.$post('/v1/weeklyreport/update', args).then(data => {
-        if(data.obj=='SUCC') {
-          wx.showModal({
-            title: '提示',
-            content: '学情反馈提交成功',
-            showCancel: false,
-            success(res) {
-            if(res.confirm) {
-              wx.navigateBack({
-                delta: 1,
-              });
+      wx.showModal({
+        title: '提示',
+        content: '确认提交学情反馈吗？',
+        cancelText: '返回修改',
+        confirmText: '确认提交',
+        success(res) {
+          if(res.cancel) {
+
+          } else if (res.confirm) {
+            let args = {
+              'knowledge': this.data.po.basis,
+              'knowledgeRate': this.data.po.basis_star,
+              'attitude': this.data.po.attitude,
+              'attitudeRate': this.data.po.atti_star,
+              'habits': this.data.po.habit,
+              'habitsRate': this.data.po.habit_star,
+              'willpower': this.data.po.character,
+              'willpowerRate': this.data.po.char_star,
+              'physique': this.data.po.body,
+              'physiqueRate': this.data.po.body_star,
+              'improve': this.data.po.progress,
+              'strengths': this.data.po.strength,
+              'inferiority': this.data.po.weakness,
+              'startDate': this.data.po.start_date,
+              'endDate': this.data.po.end_date,
+              'studentId': parseInt(this.data.student_id),
             }
-            }
-          })
-        } else {
-          wx.showModal({
-            title: '提示',
-            content: '提交失败，未知错误',
-            showCancel: false,            
-          })
+            this.$post('/v1/weeklyreport/update', args).then(data => {
+              console.log(args);
+              if (data.obj == 'SUCC') {
+                wx.showModal({
+                  title: '提示',
+                  content: '学情反馈提交成功',
+                  showCancel: false,
+                  success(res) {
+                    if (res.confirm) {
+                      wx.navigateBack({
+                        delta: 1,
+                      });
+                    }
+                  }
+                })
+              } else {
+                wx.showModal({
+                  title: '提示',
+                  content: '提交失败，未知错误',
+                  showCancel: false,
+                })
+              }
+            })
+          }
         }
       })
-      
     }
   }
 

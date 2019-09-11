@@ -3,14 +3,13 @@
 .study_header {
   height: 70rpx;
   background-color: rgb(242, 242, 242);
-  border-bottom: 1rpx solid rgb(242, 242, 242);
 }
 /*554x125*/
 .header_pic {
   width: 332.4rpx;
   height: 75rpx;
   margin-left: 208.8rpx;
-  margin-top: 40rpx;
+  margin-top: 38rpx;
 }
 .studentlist {
   font-size: 20rpx;
@@ -35,7 +34,6 @@
   height: 80rpx;
   float: left;
   border-radius: 50%;
-  margin-left: 24rpx;
 }
 .student_name {
   margin-left:10rpx;
@@ -76,13 +74,30 @@
   display: inline-block;
 }
 .address_top{
-  height: 56rpx;
-  line-height: 56rpx; 
+  height: 60rpx;
+  line-height: 60rpx; 
   color: #fff;
   background: rgb(204, 204, 204);
   font-size: 20rpx;
   padding: 0 20rpx;
 } 
+
+.list-fixed {
+  position: fixed;
+  width: 100%;
+  z-index: 999; 
+  height: 60rpx;
+  line-height: 60rpx; 
+  color: #fff;
+  background: rgb(204, 204, 204);
+  font-size: 20rpx;
+  padding: 0 20rpx;
+}
+
+.fixed-title {
+  color: #2cc1d1;
+  background: rgb(204, 204, 204);
+}
 .base-cell{
   padding-top: 0;
   padding-bottom: 0;
@@ -91,14 +106,14 @@
 }
 .update_text {
   position: absolute;
-  margin-left: 275rpx; 
+  margin-left: 240rpx; 
   color: rgb(0, 176, 240);
   line-height: 100rpx;
 }
 .update_date {
   line-height: 100rpx;
   position: absolute;
-  margin-left: 380rpx; 
+  margin-left: 350rpx; 
 }
 .student_baseinfo {
   line-height: 100rpx;
@@ -106,4 +121,5 @@
 .base-cell__ft_in-access {
   position: absolute;
   margin-left: 650rpx; 
+  line-height: 100rpx;
 }

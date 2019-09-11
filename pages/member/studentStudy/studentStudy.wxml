@@ -5,7 +5,7 @@
   </view>
 
   <view class="student_info">
-    <image class="student_pic" src="/images/study_tx.png"></image>
+    <image class="student_pic" src="{{student_img}}"></image>
   
     <view class="student_text">
       <view class="student_name">{{student_name}}</view>
@@ -21,35 +21,60 @@
   <view class="grade">
     <view class="grade-content">
       <view class="grade-introduction">基础知识</view>
-      <view class="grade-star">666</view>
+      <view class="star-group">
+        <view class="star-pic" wx:for="{{rates1}}">
+          <image class="star-checked" wx:if="{{item==1}}" src="/images/starb.png"></image>
+          <image class="star-unchecked" wx:else src="/images/destarb.png"></image>
+        </view>
+      </view>
     </view>
     <view class="grade-content">
       <view class="grade-introduction">学习态度</view>
-      <view class="grade-star">666</view>
+      <view class="star-group">
+        <view class="star-pic" wx:for="{{rates2}}">
+          <image class="star-checked" wx:if="{{item==1}}" src="/images/starb.png"></image>
+          <image class="star-unchecked" wx:else src="/images/destarb.png"></image>
+        </view>
+      </view>
     </view>
     <view class="grade-content">
       <view class="grade-introduction">学习习惯</view>
-      <view class="grade-star">666</view>
+      <view class="star-group">
+        <view class="star-pic" wx:for="{{rates3}}">
+          <image class="star-checked" wx:if="{{item==1}}" src="/images/starb.png"></image>
+          <image class="star-unchecked" wx:else src="/images/destarb.png"></image>
+        </view>
+      </view>
     </view>
     <view class="grade-content">
       <view class="grade-introduction">意志品质</view>
-      <view class="grade-star">666</view>
+      <view class="star-group">
+        <view class="star-pic" wx:for="{{rates4}}">
+          <image class="star-checked" wx:if="{{item==1}}" src="/images/starb.png"></image>
+          <image class="star-unchecked" wx:else src="/images/destarb.png"></image>
+        </view>
+      </view>
     </view>
     <view class="grade-content">
       <view class="grade-introduction">身体素质</view>
-      <view class="grade-star">666</view>
+      <view class="star-group">
+        <view class="star-pic" wx:for="{{rates5}}">
+          <image class="star-checked" wx:if="{{item==1}}" src="/images/starb.png"></image>
+          <image class="star-unchecked" wx:else src="/images/destarb.png"></image>
+        </view>
+      </view>
     </view>
   </view>
 
   <view class="teacher-comment">
-    <view class="teacher-comment-content">1、基础知识：</view>
-    <view class="teacher-comment-content">2、学习态度：王重阳王重阳王重阳王重阳王重阳王重阳王重阳王重阳王重阳王重阳王重阳王重阳王重阳王重阳王重阳王重阳</view>
-    <view class="teacher-comment-content">3、学习习惯：</view>
-    <view class="teacher-comment-content">4、意志品质：</view>
-    <view class="teacher-comment-content">5、身体素质：</view>
-    <view class="teacher-comment-content">本周进步：</view>
-    <view class="teacher-comment-content">学习优势：</view>
-    <view class="teacher-comment-content">学习劣势：</view>
+    <view class="teacher-comment-content">1、基础知识：{{vo.feedback.knowledge}}</view>
+    <view class="teacher-comment-content">2、学习态度：{{vo.feedback.attitude}}</view>
+    <view class="teacher-comment-content">3、学习习惯：{{vo.feedback.habits}}</view>
+    <view class="teacher-comment-content">4、意志品质：{{vo.feedback.willpower}}</view>
+    <view class="teacher-comment-content">5、身体素质：{{vo.feedback.physique}}</view>
+    <view class="teacher-comment-content">本周进步：{{vo.feedback.improve}}</view>
+    <view class="teacher-comment-content">学习优势：{{vo.feedback.strengths}}</view>
+    <view class="teacher-comment-content">学习劣势：{{vo.feedback.inferiority}}</view>
     
     <view class="teacher-comment-details">发布于{{vo.feedback.createDate}}</view>
     <view class="teacher-comment-details">发布人：李老师</view>
@@ -58,8 +83,13 @@
   <view class="fjx"></view>
 
   <view class="parent-comment">
-    <view class="parent-comment-header">家长回复：</view>
-    <view class="parent-comment-content">谢谢老师，打一顿就好了</view>
+    <view wx:if="{{vo.feedback.reply}}">
+      <view class="parent-comment-header">家长回复：</view>
+      <view class="parent-comment-content">{{vo.feedback.reply}}</view>
+    </view>
+    <view wx:else>
+      <view class="parent-comment-header">家长尚未回复</view>
+    </view>
   </view>
   
   <view class="end_page"> </view>

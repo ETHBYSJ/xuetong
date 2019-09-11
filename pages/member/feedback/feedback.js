@@ -26,7 +26,8 @@ new class extends we.Page {
   }
 
   showDetails(e) {
-    let url="/pages/member/studentStudy/studentStudy?id="+e.target.dataset.id+"&studentid="+this.data.studentid+"&name="+this.data.name;
+    let url="/pages/member/studentStudy/studentStudy?id="+e.currentTarget.dataset.feedid+"&studentid="+this.data.studentid+"&name="+this.data.name+"&img="+this.data.img;
+    //console.log(e)
     wx.navigateTo({
       url: url,
     })
@@ -41,6 +42,7 @@ new class extends we.Page {
           'totalsize': data.totalSize,
           'feed': data.obj,
         })
+        //console.log(data.obj)
       } else {
         wx.showModal({
           title: '提示',

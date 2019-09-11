@@ -21,7 +21,9 @@
         <button class="add-btn" bindtap="bindToNew">点击添加</button>
       </view>
 
-      <view class="feedback_block" wx:for="{{feed}}" wx:for-index="idx" bindtap="showDetails" data-id="{{item.id}}">
+      <view class="feedback_block" wx:for="{{feed}}" wx:for-index="idx">
+        <view bindtap="showDetails" data-feedid="{{item.id}}">
+        
         <view class="feedback_index">
           <text>{{idx+1}}</text>
         </view>
@@ -42,6 +44,9 @@
             </view>
           </view>
         </view>
+
+        </view>
+        
       </view>
       <!--
       <block>

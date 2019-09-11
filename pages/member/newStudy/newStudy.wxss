@@ -205,13 +205,21 @@
   margin-left: 120rpx;
   background: rgb(236, 236, 236);
 }
-.endpage {
-  height: 1rpx;
+.page-bottom {
+  height: 160rpx;
+  padding-top: 40rpx;
+  padding-bottom: 40rpx;
 }
 .base-btn{
 	width: 670rpx;
+  height: 80rpx;
+  line-height: 80rpx;
   background: #1296db;
   color: #fff;
-  margin-top: 50rpx;
 }
-
+.without-number {
+  width: 160rpx;
+}
+.no-number {
+  width: 510rpx;
+}

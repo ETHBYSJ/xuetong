@@ -121,27 +121,30 @@
     </view>
     <view class="teacher-comment-content">
       <view class="teacher-comment-introduction">4、意志品质：</view>
-      <input class="teacher-comment-input" bindinput=" syncCharacter"></input>
+      <input class="teacher-comment-input" bindinput="syncCharacter"></input>
     </view>
     <view class="teacher-comment-content">
       <view class="teacher-comment-introduction">5、身体素质：</view>
       <input class="teacher-comment-input" bindinput="syncBody"></input>
     </view>
     <view class="teacher-comment-content">
-      <view class="teacher-comment-introduction">本周进步：</view>
-      <input class="teacher-comment-input" bindinput="syncProgress"></input>
+      <view class="teacher-comment-introduction without-number">本周进步：</view>
+      <input class="teacher-comment-input no-number" bindinput="syncProgress"></input>
     </view>
     <view class="teacher-comment-content">
-      <view class="teacher-comment-introduction">学习优势：</view>
-      <input class="teacher-comment-input" bindinput="syncStrength"></input>
+      <view class="teacher-comment-introduction without-number">学习优势：</view>
+      <input class="teacher-comment-input no-number" bindinput="syncStrength"></input>
     </view>
     <view class="teacher-comment-content">
-      <view class="teacher-comment-introduction">学习劣势：</view>
-      <input class="teacher-comment-input" bindinput="syncWeakness"></input>
+      <view class="teacher-comment-introduction without-number">学习劣势：</view>
+      <input class="teacher-comment-input no-number" bindinput="syncWeakness"></input>
     </view>
   </view>
 
-  <button class='base-btn' bindtap="toSave">确认提交</button>
+  <view class="page-bottom">
+    <button class='base-btn' bindtap="toSave">确认提交</button>
+  </view>
+  
   
   <view class="end_page"> </view>
 </view>
