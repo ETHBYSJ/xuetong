@@ -126,10 +126,11 @@ new class extends we.Page {
   }
 
   bindCallParent(e) {
+    console.log(e)
     let that = this
-    if (e.currentTarget.dataset.phonelist.length != 0 && e.currentTarget.dataset.phonelist[e.detail.value].phone) {
+    if (this.data.parent_phones.length != 0 && this.data.parent_phones[e.detail.value].phone) {
       wx.makePhoneCall({
-        phoneNumber: e.currentTarget.dataset.phonelist[e.detail.value].phone,
+        phoneNumber: this.data.parent_phones[e.detail.value].phone,
         success: function () {
           console.log("拨打电话成功！")
         },
@@ -522,7 +523,14 @@ new class extends we.Page {
 
   getStudentInfo() {
     this.$get('/v1/student/getInfo?id=' + this.data.studentid).then(res => {
-      console.log(res.obj);
+      let phonelist = res.obj.webchatFamilyInfoList
+      for(var i = 0; i < phonelist.length; i++) {
+        phonelist[i].key = phonelist[i].name + phonelist[i].phone
+      }
+      this.setData({
+        parent_phones: phonelist,
+      })
+      console.log(this.data.parent_phones)
     }).catch(err => {
       this.$showModal({
         title: '出错',
