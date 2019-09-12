@@ -29,7 +29,7 @@
 }
 .student_text {
   float: left;
-  padding-left: 15rpx;
+  padding-left: 35rpx;
   /*line-height: 180rpx;*/
 }
 .student_name {
@@ -79,7 +79,7 @@
 }
 .start-date {
   float: left;
-  margin: 5rpx 0 10rpx 37rpx;
+  margin: 5rpx 0 10rpx 57rpx;
   width: 140rpx;
   height: 30rpx;
   line-height: 30rpx;
@@ -120,7 +120,7 @@
   font-size: 28rpx;
   text-align: center;
 }
-.grade-star {
+.star-group {
   margin-left: 10rpx;
   line-height: 50rpx;
   float: left;
@@ -128,6 +128,19 @@
   width: 500rpx;
   font-size: 26rpx;
 }
+.star-checked {
+  margin: 5rpx 5rpx 0;
+  float: left;
+  width: 40rpx;
+  height: 40rpx;
+}
+.star-unchecked {
+  margin: 5rpx 5rpx 0;
+  float: left;
+  width:40rpx;
+  height: 40rpx;
+}
+
 .teacher-comment {
   width: 725rpx;
   padding-top: 15rpx;
@@ -192,12 +205,21 @@
   margin-left: 120rpx;
   background: rgb(236, 236, 236);
 }
-.endpage {
-  height: 1rpx;
+.page-bottom {
+  height: 160rpx;
+  padding-top: 40rpx;
+  padding-bottom: 40rpx;
 }
 .base-btn{
 	width: 670rpx;
+  height: 80rpx;
+  line-height: 80rpx;
   background: #1296db;
   color: #fff;
-  margin-top: 150rpx;
+}
+.without-number {
+  width: 160rpx;
+}
+.no-number {
+  width: 510rpx;
 }

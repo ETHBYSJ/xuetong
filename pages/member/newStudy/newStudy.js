@@ -15,13 +15,24 @@ new class extends we.Page {
         weakness: '',
         start_date: null,
         end_date: null,
+        basis_star: 0,
+        atti_star: 0,
+        habit_star: 0,
+        char_star: 0,
+        body_star: 0,
       },
       vo: {
         message: {},
+        ten_array1: [],
+        ten_array2: [],
+        ten_array3: [],
+        ten_array4: [],
+        ten_array5: [],
       },
       userType: '',
       student_name: '',
       student_id: '',
+      student_img: '',
       nowDate: '',
     }
   }
@@ -30,6 +41,7 @@ new class extends we.Page {
     this.setData({
       'student_name': options.name,
       'student_id': options.id,
+      'student_img': options.img,
     });
   }
 
@@ -50,7 +62,22 @@ new class extends we.Page {
     }
     this.setData({
       'nowDate': year + "-" + month + "-" + day,
-    })
+    });
+
+    let tmp=[];
+    for(let i=0; i<10; ++i) {
+      tmp.push({
+        'value': i+1,
+        'checked': false,
+      })
+    }
+    this.setData({
+      'vo.ten_array1': tmp,
+      'vo.ten_array2': tmp,
+      'vo.ten_array3': tmp,
+      'vo.ten_array4': tmp,
+      'vo.ten_array5': tmp,
+    });
 
     if (this.$app.userType == '教职工') {
       this.loadTechInfo()
@@ -108,10 +135,139 @@ new class extends we.Page {
   }
   
   toSave() {
+    if(this.data.po.start_date==null || this.data.po.end_date==null) {
+      wx.showModal({
+        title: '提示',
+        content: '请输入正确起始和终止时间',
+        showCancel: false,
+      })
+    } else {
+      /*wx.showModal({
+        title: '提示',
+        content: '确认提交学情反馈吗？',
+        cancelText: '返回修改',
+        confirmText: '确认提交',
+        success(res) {
+          if(res.cancel) {
 
+          } 
+          else if (res.confirm) {*/
+            let args = {
+              'knowledge': this.data.po.basis,
+              'knowledgeRate': this.data.po.basis_star,
+              'attitude': this.data.po.attitude,
+              'attitudeRate': this.data.po.atti_star,
+              'habits': this.data.po.habit,
+              'habitsRate': this.data.po.habit_star,
+              'willpower': this.data.po.character,
+              'willpowerRate': this.data.po.char_star,
+              'physique': this.data.po.body,
+              'physiqueRate': this.data.po.body_star,
+              'improve': this.data.po.progress,
+              'strengths': this.data.po.strength,
+              'inferiority': this.data.po.weakness,
+              'startDate': this.data.po.start_date,
+              'endDate': this.data.po.end_date,
+              'studentId': parseInt(this.data.student_id),
+            }
+            this.$post('/v1/weeklyreport/update', args).then(data => {
+              console.log(args);
+              if (data.obj == 'SUCC') {
+                wx.showModal({
+                  title: '提示',
+                  content: '学情反馈提交成功',
+                  showCancel: false,
+                  success(res) {
+                    if (res.confirm) {
+                      wx.navigateBack({
+                        delta: 1,
+                      });
+                    }
+                  }
+                })
+              } else {
+                wx.showModal({
+                  title: '提示',
+                  content: '提交失败，未知错误',
+                  showCancel: false,
+                })
+              }
+            })
+          //}
+        //}
+      //})
+    }
   }
 
+  bindBasisChange(e) {
+    let tmp = this.data.vo.ten_array1;
+    for(let i=0; i<e.detail.value; ++i) {
+      tmp[i].checked = true;
+    }
+    for(let i=e.detail.value; i<10; ++i) {
+      tmp[i].checked = false;
+    }
+    this.setData({
+      'vo.ten_array1': tmp,
+      'po.basis_star': e.detail.value,
+    })
+  }
 
+  bindAttiChange(e) {
+    let tmp = this.data.vo.ten_array2;
+    for (let i = 0; i < e.detail.value; ++i) {
+      tmp[i].checked = true;
+    }
+    for (let i = e.detail.value; i < 10; ++i) {
+      tmp[i].checked = false;
+    }
+    this.setData({
+      'vo.ten_array2': tmp,
+      'po.atti_star': e.detail.value,
+    })
+  }
+
+  bindHabitChange(e) {
+    let tmp = this.data.vo.ten_array3;
+    for (let i = 0; i < e.detail.value; ++i) {
+      tmp[i].checked = true;
+    }
+    for (let i = e.detail.value; i < 10; ++i) {
+      tmp[i].checked = false;
+    }
+    this.setData({
+      'vo.ten_array3': tmp,
+      'po.habit_star': e.detail.value,
+    })
+  }
+
+  bindCharChange(e) {
+    let tmp = this.data.vo.ten_array4;
+    for (let i = 0; i < e.detail.value; ++i) {
+      tmp[i].checked = true;
+    }
+    for (let i = e.detail.value; i < 10; ++i) {
+      tmp[i].checked = false;
+    }
+    this.setData({
+      'vo.ten_array4': tmp,
+      'po.char_star': e.detail.value,
+    })
+  }
+
+  bindBodyChange(e) {
+    let tmp = this.data.vo.ten_array5;
+    for (let i = 0; i < e.detail.value; ++i) {
+      tmp[i].checked = true;
+    }
+    for (let i = e.detail.value; i < 10; ++i) {
+      tmp[i].checked = false;
+    }
+    this.setData({
+      'vo.ten_array5': tmp,
+      'po.body_star': e.detail.value,
+    })
+  }
 
   bindStartDateChange(e) {
     this.setData({

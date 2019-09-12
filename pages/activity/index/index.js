@@ -27,7 +27,7 @@ new class extends we.Page {
     }
 
     onShow() {
-        //console.log(option)
+        
         this.setData({
             page_Type: this.$app.pageType || ""
         })
@@ -55,8 +55,7 @@ new class extends we.Page {
       currentTab: current,
       page: 1,
     });
-    console.log(this.data.currentTab)
-     this.init()
+    this.init()
 
   }  
 
@@ -73,12 +72,8 @@ new class extends we.Page {
 
 
     init() {
-        let that = this
-      console.log(this.data.inputVal=="")
-      console.log(this.data.selectaddress=="")
-      console.log('/v1/activity/getActivityList?page=1&size=10&status=' + this.data.currentTab + '&keyword=' + this.data.inputVal + '&address=' + this.data.selectaddress)
+      let that = this;
       this.$get('/v1/activity/getActivityList?page=1&size=10&status=' + this.data.currentTab + '&keyword=' + this.data.inputVal +'&address='+this.data.selectaddress).then(data => {
-      console.log(data);
       if (data.totalSize % data.pageSize != 0) {
         var totalsize = Math.ceil(data.totalSize / data.pageSize);
       } else {
@@ -97,7 +92,6 @@ new class extends we.Page {
     })
     }
     load(option) {
-        console.log(option)
         if (option && option.url) {
             let str = "";
             option.data = JSON.parse(option.data)
@@ -146,7 +140,7 @@ new class extends we.Page {
                 success: function() {
                     wx.openSetting({
                         success: function(res) {
-                            console.log(res)
+            
                             let userLocation = res.authSetting["scope.userLocation"]
                             that.setData({
                                 userLocation: userLocation ? userLocation : false
@@ -161,7 +155,7 @@ new class extends we.Page {
 
     loadBg() {
       return this.$get("/v1/activity/getActivityCarousel").then(data => {
-            console.log(data)
+           
             this.setData({
                 'vo.imgUrls': data.obj.content
             })
@@ -252,7 +246,7 @@ new class extends we.Page {
     let index = e.currentTarget.dataset.index;
     let photos = this.data.vo.infor[index].photos;
     let imgList=[];
-    console.log(photos)
+    
     for(let i=0;i<photos.length;i++){
      imgList.push(this.data.vo.imgBaseUrl + photos[i].photo_path);
     }
