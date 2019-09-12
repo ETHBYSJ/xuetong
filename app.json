@@ -49,7 +49,8 @@
     "pages/member/studentList/studentList",
     "pages/member/studentStudy/studentStudy",
     "pages/member/newStudy/newStudy",
-    "pages/member/feedback/feedback"
+    "pages/member/feedback/feedback",
+    "pages/member/TeacherAttendRecord/TeacherAttendRecord"
   ],
   "window": {
     "backgroundTextStyle": "light",

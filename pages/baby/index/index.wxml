@@ -148,9 +148,9 @@
             </view>
           </view>
         </view>
-
+        
         <view class="check">
-          <navigator class='navwarp' hidden='{{feed.teacherEverydayAttendanceVOList[0].attendanceTeacherList.length=="0"}}' url="/pages/answerb/answerb?clazzid={{clazzid}}&date={{vo.nowDay}}&gradename={{gradename}}" open-type="navigate">
+          <navigator class='navwarp'  url="/pages/member/TeacherAttendRecord/TeacherAttendRecord?clazzid={{clazzid}}&" open-type="navigate">
           </navigator>
           <view class="check-name">
             <text>今日出勤({{vo.nowDate}})</text>

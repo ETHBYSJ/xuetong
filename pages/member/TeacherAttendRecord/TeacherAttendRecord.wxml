@@ -1,0 +1,63 @@
+<view class="page">
+<scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower" >
+  <view class="record_block" wx:for="{{feed}}" wx:for-item="item">
+    <view class="record_header">
+
+    </view>
+    <view class="record_content">
+      <view class="record_content_top"> 
+        <view class="date">          
+          <view class="date_left"></view>
+          <view class="date_mid">
+            <text class="date_text">{{item.attendancedate}}</text>
+            <view class="text_wrapper">            
+              
+            </view>
+          </view>
+          <view class="date_right"></view>
+        </view>
+
+        <block wx:if="{{item.attendanceTeacherList[0].type == 2}}">
+          <text class="record_time">20:30</text>
+          <view class="circle_warning"></view>
+          <text class="detail_warning">今日未到达托管中心</text>
+        </block>  
+
+        <block wx:if="{{item.attendanceStudentList[0].type == 0}}">  
+          <text class="record_time">{{item.attendanceStudentList[0].attendancetime}}</text>
+          <view class="circle" wx:if="{{item.attendanceStudentList[0].attendancetime <= '17:30:00'}}"></view>
+        <view class="circle_warning" wx:if="{{item.attendanceStudentList[0].attendancetime > '17:30:00'}}"></view>
+        <text class="detail" wx:if="{{item.attendanceStudentList[0].attendancetime <= '17:30:00'}}">已安全到达托管中心</text>
+        <text class="detail_warning" wx:if="{{item.attendanceStudentList[0].attendancetime > '17:30:00'}}">晚于14:00到达托管中心</text>
+        </block>       
+        <text class="name">{{name}}</text>                   
+        <view class="line"></view>        
+        
+      </view>
+
+      <view class="record_content_bottom">
+        <block wx:if="{{item.attendanceStudentList[0].type == 0}}">
+          <block wx:if="{{item.attendanceStudentList[1].attendancetime}}">
+            <text class="record_time">{{item.attendanceStudentList[1].attendancetime}}</text>
+            <text class="detail" wx:if="{{item.attendanceStudentList[1].attendancetime < '17:30:00'}}">早于20:00离开托管中心</text>
+            <text class="detail" wx:if="{{item.attendanceStudentList[1].attendancetime >= '17:30:00'}}">已安全离开托管中心</text>
+            <view class="circle" wx:if="{{item.attendanceStudentList[1].attendancetime >= '17:30:00'}}"></view>
+            <view class="circle_warning" wx:if="{{item.attendanceStudentList[1].attendancetime < '17:30:00'}}"></view>
+          </block>
+          <block wx:else>
+            <text class="record_time">---</text>
+          </block>                   
+        </block>
+
+        <block wx:if="{{item.attendanceStudentList[0].type == 2}}">
+          <text class="record_time">20:30</text>
+          <view class="circle_warning"></view>
+          <text class="detail_warning">今日未到达托管中心</text>
+        </block> 
+        <text class="name">{{name}}</text>       
+      </view>
+    </view>
+  </view> 
+
+  </scroll-view>
+</view>
