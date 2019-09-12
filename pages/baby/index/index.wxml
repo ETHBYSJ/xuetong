@@ -126,8 +126,8 @@
 
   <!--教职工-->
   <block wx:elif="{{userType=='教职工'}}">
-    <swiper indicator-dots indicator-active-color='#1296db' class='teacher-body' bindchange='onSlideChangeEnd' style="height:{{height}}rpx">
-      <swiper-item wx:for="{{vo.message.webchatClazzList}}" wx:key="item.id" wx:for-item="item">
+    <swiper indicator-dots indicator-active-color='#1296db' class='teacher-body' bindchange='onSlideChangeEnd' style='height:{{height}}rpx'>
+      <swiper-item wx:for="{{vo.message.webchatClazzList}}" wx:key="item.id" wx:for-item="item">      
         <view class='member'>
           <image src='{{vo.imgBaseUrl}}{{vo.CarouselDetails}}' mode='aspectFill' class="member-bg"></image>
           <view class="school-title">
@@ -187,45 +187,59 @@
             <view class="tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">已签({{attendcnt}})</view>      
             <view class="tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">未签({{studentList.length - attendcnt}})</view>
           </view>
-
-          <view class="studentlist">
-            <view class="student_block" wx:for="{{nowList}}" bindtap="jumpToStudentDetailed" data-name="{{item.name}}" data-id="{{item.id}}">
-              <view class="studentpic-wrp">
-                <image class="studentpic" src="{{item.photo?vo.imgBaseUrl+''+item.photo:'/assets/icon/loadImg_1.jpg'}}"></image>
+          <!--
+          <scroll-view scroll-y='true' style="height:700rpx;white-space:nowrap;" class="studentlist">
+          -->         
+            <block wx:for="{{nowList}}" wx:for-index="idx" data-name="{{item.name}}" data-id="{{item.id}}">
+              <view class="student_block" data-name="{{item.name}}" data-id="{{item.id}}">
+              <view bindtap="jumpToStudentDetailed">
+                <view class="studentpic-wrp">
+                  <image class="studentpic" src="{{item.photo?vo.imgBaseUrl+''+item.photo:'/assets/icon/loadImg_1.jpg'}}"></image>
+                </view>
+                <view class="student_baseinfo">
+                  <text class="student_name">{{item.name}}</text>
+                  <text wx:if="{{item.homework}}" class="student_hw_normal">作业已上传</text>
+                  <text wx:else class="student_hw_warning">作业未上传</text>
+                </view>
+                <view class="student_attend">
+                  <block wx:if="{{item.attend}}">
+                    <view class="circle_normal"></view>
+                    <text class="student_attend_status">已到</text>
+                  </block>
+                  <block wx:else >
+                    <view class="circle_warning"></view>
+                    <text class="student_attend_status">未到</text>
+                  </block>
+                </view>
               </view>
-              <view class="student_baseinfo">
-                <text class="student_name">{{item.name}}</text>
-                <text wx:if="{{item.homework}}" class="student_hw_normal">作业已上传</text>
-                <text wx:else class="student_hw_warning">作业未上传</text>
+                <!--手动修改签到-->              
+                <image class="change_status" src="/assets/icon/logs_2.png" catchtap="changeStatus" data-name="{{item.name}}" data-id="{{item.id}}" hidden="{{item.attend}}"></image>              
+                <!--一键通知家长--> 
+                <!--             
+                <image class="phone_call" src="/assets/icon/logs_1.png"  catchtap="powerDrawer" data-status="open" data-index="{{idx}}"></image>
+                -->  
+                <picker range="{{item.webchatFamilyInfoList}}" range-key="key" bindchange="bindChangeIndex" data-phonelist="{{item.webchatFamilyInfoList}}">
+                  <view>
+                    <image class="phone_call" src="/assets/icon/logs_1.png"></image>
+                  </view>
+                </picker>
               </view>
-              <view class="student_attend">
-                <block wx:if="{{item.attend}}">
-                  <view class="circle_normal"></view>
-                  <text class="student_attend_status">已到</text>
-                </block>
-                <block wx:else class="">
-                  <view class="circle_warning"></view>
-                  <text class="student_attend_status">未到</text>
-                </block>
-              </view>
-            </view>
-            <!--
-            <view class="student_block">
-              <view class="studentpic-wrp">
-                <image class="studentpic" src="/images/address.png"></image>
-              </view>
-              <view class="student_baseinfo">
-                <text class="student_name">测试学生2</text>
-                <text class="student_hw_normal">作业已上传</text>
-              </view>
-              <view class="student_attend">
-                <view class="circle_warning"></view>
-                <text class="student_attend_status">未到</text>
-              </view>
-            </view>
-            -->
-          </view>
-        </view>    
+              <!--电话号码-->   
+              <!--                     
+              <view class="drawer_screen" catchtap="powerDrawer" data-index="{{idx}}" data-status="close" wx:if="{{showModalStatus&&item.webchatFamilyInfoList.length>0&&idx==currentIndex}}" style="top:{{scrolltop}}px">             
+                <view animation="{{animationData}}" class="drawer_attr_box" wx:if="{{showModalStatus&&item.webchatFamilyInfoList.length>0&&idx==currentIndex}}" style="top:{{scrolltop}}px">
+                  
+                  <view class="drawer_content">
+                    <view class="drawer_title line" wx:for="{{item.webchatFamilyInfoList}}" wx:for-item="familyitem" data-phone="{{familyitem.phone}}" catchtap="phoneCall" data-item="{{item}}">
+                      {{familyitem.name}} {{familyitem.phone}} 
+                    </view>
+                  </view>
+                </view>
+              </view>  
+              -->    
+            </block>           
+        </view>
+      
       </swiper-item>
     </swiper>
   </block>

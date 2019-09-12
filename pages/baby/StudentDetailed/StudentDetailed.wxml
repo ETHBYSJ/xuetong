@@ -11,7 +11,7 @@
       <view class="homework_block">
         <!--今天无任何记录-->
         <block wx:if="{{homeworktoday == null}}">
-          <view class="line"></view>
+          <view class="line_left"></view>
           <view class="homework_header">
 
           </view>
@@ -97,7 +97,7 @@
         </block>
         <!--今天有记录,但并未上传,说明老师已反馈,只要显示反馈情况即可-->
         <block wx:elif="{{homeworktoday.status == 0}}">
-          <view class="line"></view>
+          <view class="line_left"></view>
           <view class="homework_header"></view>
           <view class="homework_content">
             <view class="hw_name">
@@ -163,7 +163,7 @@
         <block wx:else>
           <!--老师未反馈-->
           <block wx:if="{{homeworktoday.status == 3}}">
-            <view class="line"></view>
+            <view class="line_left"></view>
             <view class="homework_header"></view>
             <view class="homework_content">
               <view class="hw_name">
@@ -251,7 +251,7 @@
           </block>
           <!--老师已反馈,只要显示反馈情况即可-->
           <block wx:else>
-            <view class="line"></view>
+            <view class="line_left"></view>
             <view class="homework_header"></view>
             <view class="homework_content">
               <view class="hw_name">
@@ -318,7 +318,7 @@
       </view>
       <!--除了今天-->
       <view class="homework_block" wx:for="{{homeworkrest}}" wx:for-item="hw">
-        <view class="line"></view>
+        <view class="line_left"></view>
         <view class="homework_header"></view>
         <view class="homework_content">
           <view class="hw_name">

@@ -35,7 +35,30 @@ new class extends we.Page {
       attendcnt: '',
       //未签
       //notattendcnt: '', 
+      //是否显示电话号码
+      showModalStatus: false,
+      //现在查看的电话
+      currentIndex: "",
+      scrolltop: "",
+      phoneindex: 0,
     }
+  }
+  bindChangeIndex(e) {
+    this.setData({
+      phoneindex: e.detail.value,
+    })
+    let that = this
+    if (e.currentTarget.dataset.phonelist.length != 0 && e.currentTarget.dataset.phonelist[e.detail.value].phone) {
+      wx.makePhoneCall({
+        phoneNumber: e.currentTarget.dataset.phonelist[e.detail.value].phone,
+        success: function () {
+          console.log("拨打电话成功！")
+        },
+        fail: function () {
+          console.log("拨打电话失败！")
+        }
+      })
+    }    
   }
   onShow(){
 	  this.$get('/v1/member').then(data => {
@@ -56,7 +79,6 @@ new class extends we.Page {
 				  }
 			  })
 		  } else {
-        console.log("---------------")
 			  this.$app.userType = data.obj.userType;
 			  this.setData({
 				  'userType': this.$app.userType
@@ -98,7 +120,6 @@ new class extends we.Page {
         gradename: this.data.vo.message.webchatClazzList[e.detail.current].gradename,
       })
       this.loadTechInfo();
-      console.log(this.data.clazzid)
     } else if (this.$app.userType == '门店管理员'){
       this.setData({
         index: e.detail.current,
@@ -123,7 +144,6 @@ new class extends we.Page {
   }
   //日期选择处理函数
   bindDateChange(e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       date: e.detail.value
     })
@@ -134,7 +154,6 @@ new class extends we.Page {
   //导航事件处理函数
   swichNav(e) {
     var current = e.currentTarget.dataset.current;
-    console.log(current)
     this.setData({
       currentTab: current,
     });
@@ -178,7 +197,6 @@ new class extends we.Page {
   }
   loadgradeInfo() {
     this.$get('/v1/grade/getInfo').then(data => {
-      console.log(data.obj.webchatClazzList)
       this.setData({
         'vo.message': data.obj,
         gradeid: data.obj.webchatClazzList[this.data.index].gradeid,
@@ -200,7 +218,6 @@ new class extends we.Page {
   }
   loadTechInfo() {
     this.$get('/v1/teacher/getInfo').then(data => {
-      console.log(data.obj.webchatClazzList)
       this.setData({
         'vo.message': data.obj,
         gradeid: data.obj.webchatClazzList[this.data.index].gradeid,
@@ -308,9 +325,7 @@ new class extends we.Page {
     })
   }
   loadAttend() {
-    console.log('/v1/attendance/getStudentAttendanceEverydayList?student=' + this.data.studentid + '&date=' + this.data.vo.nowDay)
     this.$get('/v1/attendance/getStudentAttendanceEverydayList?student=' + this.data.studentid + '&date=' + this.data.vo.nowDay).then(data => {
-      console.log(data.obj)
       this.setData({
         feed: data.obj[0],
       })
@@ -327,13 +342,11 @@ new class extends we.Page {
     this.$get('/v1/activity/getActivityList?page=1&size=10&status=0&keyword=&address=').then(data => {      
       for(var i = 0; i < data.obj.length; i++) {
         if(i == 3) break
-        //console.log(i)
         var activity_ele = "activityList[" + i + "]"
         this.setData({
           [activity_ele]: data.obj[i],
         })
       }
-      console.log(this.data.activityList)
     }).catch(err => {
       this.$showModal({
         title: '出错',
@@ -345,7 +358,6 @@ new class extends we.Page {
 
   loadTechAttend() {
     this.$get('/v1/attendance/getTeacherAttendanceEverydayList?clazzid=' + this.data.clazzid + '&date=' + this.data.vo.nowDay).then(data => {
-      console.log(data.obj)
       this.setData({
         feed: data.obj[0],
       })
@@ -358,17 +370,13 @@ new class extends we.Page {
     })
   }
   
-  loadStudentInfo() {
-    //console.log("load studentinfo")    
+  loadStudentInfo() { 
     this.$get('/v1/student/datalist?gradeId=' + this.data.gradeid + '&clazzId=' + this.data.clazzid).then(data => {
-      console.log(data)
       let studentList = data.obj
       this.setData({
-        //studentList: data.obj,
         nowList: data.obj,
         height: 800 + 201 * data.obj.length,
       })
-      console.log(this.data.studentList.length)
       let attendcnt = 0
       //let notattendcnt = 0
       let attend_promises = []
@@ -381,17 +389,15 @@ new class extends we.Page {
       let that = this
       for(var i = 0; i < data.obj.length; i++) {
         let temp = i
+        for (var j = 0; j < studentList[temp].webchatFamilyInfoList.length; j++) {
+          studentList[temp].webchatFamilyInfoList[j].key = studentList[temp].webchatFamilyInfoList[j].name + ' ' + studentList[temp].webchatFamilyInfoList[j].phone
+        }        
         //出勤情况
         //使用Promise包装，方便进行同步
         attend_promises.push(this.$get('/v1/attendance/getStudentAttendanceEverydayList?student=' + data.obj[temp].id + '&date=' + this.data.date).then(data => {
           let ifattend = data.obj[0].studentEverydayAttendanceVOList[0].attendanceStudentList.length != 0
           attendcnt += ifattend ? 1 : 0   
           studentList[temp].attend = ifattend
-          /*       
-          this.setData({
-            [`studentList[${temp}].attend`]: ifattend,
-          })
-          */
           if (ifattend) {
             attendList.push(studentList[temp])
           }
@@ -492,16 +498,50 @@ new class extends we.Page {
 
   }
   jumpPage(e) {
-    console.log(e)
     let item = e.currentTarget.dataset;
     wx.navigateTo({
       url: "/pages/activity/detail/detail?id=" + item.id
     })
   }
   jumpToStudentDetailed(e) {
-    console.log(e)
     wx.navigateTo({
       url: "/pages/baby/StudentDetailed/StudentDetailed?studentid=" + e.currentTarget.dataset.id + "&name=" + e.currentTarget.dataset.name
     })
   }
+  changeStatus(e) {
+    let name = e.currentTarget.dataset.name
+    let id = e.currentTarget.dataset.id
+    let that = this
+    wx.showModal({
+      title: '提示',
+      content: '是否将学生  ' + name + '  改签为已到 ？',
+      success(res) {
+        if(res.confirm) {
+          that.$get('/v1/attendance/changeReachStatusByStudentId?studentId=' + id).then(data => {
+            wx.showModal({
+              title: '提示',
+              content: '已将学生' + name + '改签为已到!',
+              showCancel: false,
+            })
+            that.loadStudentInfo()
+          }).catch(err => {
+            if (err) {
+              that.$showModal({
+                title: '提示',
+                content: `${err.message}`,
+                showCancel: false
+              })
+            } else {
+              that.$showModal({
+                title: '提示',
+                content: err.msg,
+                showCancel: false
+              })
+            }
+          })
+        }
+      }
+    })
+  }
+
 }

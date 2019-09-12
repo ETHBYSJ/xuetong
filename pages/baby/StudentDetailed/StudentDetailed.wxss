@@ -152,7 +152,7 @@
   background: rgb(146, 208, 80);
   font-size: 30rpx;
 }
-.line {
+.line_left {
   width: 4rpx;
   height: 100vh;
   left: 19rpx;
