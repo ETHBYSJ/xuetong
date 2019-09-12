@@ -373,6 +373,7 @@ new class extends we.Page {
   loadStudentInfo() { 
     this.$get('/v1/student/datalist?gradeId=' + this.data.gradeid + '&clazzId=' + this.data.clazzid).then(data => {
       let studentList = data.obj
+      console.log(studentList)
       this.setData({
         nowList: data.obj,
         height: 800 + 201 * data.obj.length,
