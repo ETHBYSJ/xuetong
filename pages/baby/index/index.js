@@ -511,6 +511,7 @@ new class extends we.Page {
   changeStatus(e) {
     let name = e.currentTarget.dataset.name
     let id = e.currentTarget.dataset.id
+    console.log(id)
     let that = this
     wx.showModal({
       title: '提示',

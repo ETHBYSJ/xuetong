@@ -192,7 +192,7 @@
           -->         
             <block wx:for="{{nowList}}" wx:for-index="idx" data-name="{{item.name}}" data-id="{{item.id}}">
               <view class="student_block" data-name="{{item.name}}" data-id="{{item.id}}">
-              <view bindtap="jumpToStudentDetailed">
+              <view bindtap="jumpToStudentDetailed" data-name="{{item.name}}" data-id="{{item.id}}">
                 <view class="studentpic-wrp">
                   <image class="studentpic" src="{{item.photo?vo.imgBaseUrl+''+item.photo:'/assets/icon/loadImg_1.jpg'}}"></image>
                 </view>
