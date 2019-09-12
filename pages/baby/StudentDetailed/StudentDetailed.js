@@ -151,6 +151,7 @@ new class extends we.Page {
 
   //作业数据
   getHomework() {
+    console.log(this.data.studentid)
     this.$get('/v1/homework/getList?page=1&size=' + this.data.homeworksize + '&id=' + this.data.studentid).then(data => {
       console.log(data)
       //console.log(data.obj)
