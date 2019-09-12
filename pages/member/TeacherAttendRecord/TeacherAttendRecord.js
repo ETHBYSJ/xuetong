@@ -5,6 +5,7 @@ new class extends we.Page {
     return {
       clazzid: "",
       name: "",
+      img: "",
       page: 1,
       totalsize: "",
       size: 4,
@@ -34,9 +35,14 @@ new class extends we.Page {
         }
       }
       */
-      if(this.data.name == "") {
+      if (this.data.name == "") {
         this.setData({
           name: data.obj[0].name,
+        })
+      }
+      if (this.data.img == "") {
+        this.setData({
+          img: data.obj[0].photo,
         })
       }
       this.setData({

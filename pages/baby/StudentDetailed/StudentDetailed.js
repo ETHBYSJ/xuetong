@@ -20,6 +20,7 @@ new class extends we.Page {
       totalhomeworksize: "",
       attendpage: "",
       homeworkpage: "",
+      parent_phones: [],
       //今天作业是否上传
       uploadtoday: false,
       nowday: "",
@@ -118,9 +119,25 @@ new class extends we.Page {
       "po.homeworkDate": today,
     })
     //考勤数据
-    this.getAttend()
+    this.getAttend();
     //作业数据
-    this.getHomework()
+    this.getHomework();
+    this.getStudentInfo();
+  }
+
+  bindCallParent(e) {
+    let that = this
+    if (e.currentTarget.dataset.phonelist.length != 0 && e.currentTarget.dataset.phonelist[e.detail.value].phone) {
+      wx.makePhoneCall({
+        phoneNumber: e.currentTarget.dataset.phonelist[e.detail.value].phone,
+        success: function () {
+          console.log("拨打电话成功！")
+        },
+        fail: function () {
+          console.log("拨打电话失败！")
+        }
+      })
+    } 
   }
   //考勤数据
   getAttend() {
@@ -501,5 +518,17 @@ new class extends we.Page {
       urls: imglist,
     })
     
+  }
+
+  getStudentInfo() {
+    this.$get('/v1/student/getInfo?id=' + this.data.studentid).then(res => {
+      console.log(res.obj);
+    }).catch(err => {
+      this.$showModal({
+        title: '出错',
+        content: '出错',
+        showCancel: false
+      })
+    })
   }
 }

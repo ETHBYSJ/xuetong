@@ -287,7 +287,7 @@
 }
 .student_attend {
   height: 160rpx;
-  width: 200rpx;
+  width: 150rpx;
   float: left;
   display: flex;
   align-items: center;
@@ -401,19 +401,19 @@
   color: red;
 }
 .change_status {
-  width: 70rpx;
-  height: 70rpx;
+  width: 60rpx;
+  height: 60rpx;
   position: absolute;
-  right: 100rpx;
-  top: 70rpx;
+  right: 110rpx;
+  top: 75rpx;
 }
 
 .phone_call {
-  width: 70rpx;
-  height: 70rpx;
+  width: 60rpx;
+  height: 60rpx;
   position: absolute;
-  right: 0rpx;
-  top: 70rpx;
+  right: 20rpx;
+  top: 75rpx;
 }
 .drawer_screen {
   width: 750rpx;

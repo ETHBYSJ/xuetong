@@ -11,7 +11,7 @@
 }
 .record_header {
   height: 60rpx;
-  background-color: #d9d9d9;
+  background-color: rgb(242,242,242);
 }
 .record_content {
   height: 302rpx;
@@ -52,14 +52,14 @@
 }
 .detail {
   color: #8a8a8a;
-  font-size: 26rpx;
+  font-size: 22rpx;
   position: absolute;
-  top: 90rpx;
+  top: 95rpx;
   left: 220rpx;
 }
 .detail_warning {
   color: red;
-  font-size: 26rpx;
+  font-size: 22rpx;
   position: absolute;
   top: 90rpx;
   left: 220rpx;
@@ -67,14 +67,22 @@
 .name {
   position: absolute;
   color: black;
-  font-size: 34rpx;
+  font-size: 30rpx;
   left: 220rpx;
-  top: 34rpx;
+  top: 35rpx;
+}
+.student_pic {
+  position: absolute;
+  height: 90rpx;
+  width: 90rpx;
+  left: 580rpx;
+  top: 30rpx;
+  border-radius: 45rpx;
 }
 .record_time {
   position: absolute;
   color: black;
-  font-size: 34rpx;
+  font-size: 30rpx;
   left: 20rpx;
   top: 34rpx;
 }
@@ -127,5 +135,6 @@
   position: absolute;
 }
 .date_text {
-  top: 6rpx;
+  /*top: 6rpx;*/
+  line-height: 60rpx;
 }
