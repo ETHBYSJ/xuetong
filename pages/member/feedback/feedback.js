@@ -3,6 +3,10 @@ let we = require('../../../we/index.js')
 new class extends we.Page {
   data() {
     return {
+      vo: {
+        message: {},
+        
+      },
       studentid: "",
       img: "",
       name: "",
@@ -10,6 +14,7 @@ new class extends we.Page {
       page: 1,
       totalsize: "",
       size: 6,
+      userType: '',
     }
   }
   onLoad(options) {
@@ -22,6 +27,9 @@ new class extends we.Page {
   }
 
   onShow() {
+    this.setData({
+      'userType': this.$app.userType
+    })
     this.getData()
   }
 
@@ -50,6 +58,12 @@ new class extends we.Page {
           showCancel: false
         })
       }
+    }).catch(err => {
+      this.$showModal({
+        title: '获取信息错误',
+        content: err.msg,
+        showCancel: false
+      })
     })
   }
 
@@ -77,5 +91,45 @@ new class extends we.Page {
   //继续加载效果
   nextLoad() {
 
+  }
+
+  loadTechInfo() {
+    this.$get('/v1/teacher/getInfo').then(data => {
+      this.setData({
+        'vo.message': data.obj
+      })
+    }).catch(err => {
+      this.$showModal({
+        title: '获取信息错误',
+        content: err.msg,
+        showCancel: false
+      })
+    })
+  }
+
+  loadInfo() {
+    this.$get('/v1/family/getInfo').then(data => {
+      this.setData({
+        'vo.message': data.obj
+      })
+      if (data.obj.phone) {
+        var tmp_phone = data.obj.phone;
+        tmp_phone = tmp_phone.slice(0, 3) + "****" + tmp_phone.slice(7);
+        this.setData({
+          'vo.phone_display': tmp_phone,
+        })
+      } else {
+        this.setData({
+          'vo.phone_display': null,
+        })
+      }
+      console.log(data);
+    }).catch(err => {
+      this.$showModal({
+        title: '获取信息错误',
+        content: err.msg,
+        showCancel: false
+      })
+    })
   }
 }

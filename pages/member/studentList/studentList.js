@@ -40,15 +40,15 @@ new class extends we.Page {
       'isActive': id,
       'toView': 'inToView' + id,
     })
-    console.log(this.data.toView)
+    //console.log(this.data.toView)
   }
   
   onPageScroll(e) {
     //console.log(e)
     this.setData({
-      'scroolHeight': e.scrollTop,
+      'scroolHeight': e.detail.scrollTop,
     })
-    if (e.scrollTop < 35) {
+    if (e.detail.scrollTop < 35) {
       for (let i in this.data.sortList) {
         if (this.data.sortList[i].active==true) {
           this.setData({
@@ -59,7 +59,8 @@ new class extends we.Page {
       }
     } else {
       for (let i in this.data.oHeight) {
-        if (e.scrollTop < this.data.oHeight[i].height) {
+        console.log('Go to ' + this.data.oHeight[i].name);
+        if (e.detail.scrollTop < this.data.oHeight[i].height) {
           this.setData({
             'isActive': this.data.oHeight[i].key,
             'fixedTitle': this.data.oHeight[i].name,
@@ -72,6 +73,9 @@ new class extends we.Page {
   }
 
   loadTechInfo() {
+    wx.showLoading({
+      title: '加载中',
+    })
     var ps1 = this.$get('/v1/teacher/getInfo').then(data => {
       this.setData({
         'vo.message': data.obj
@@ -150,6 +154,8 @@ new class extends we.Page {
         this.setData({
           'sortList': sor,
         });
+
+        wx.hideLoading();
         //console.log(sor);
       }).catch(err => {
         this.$showModal({

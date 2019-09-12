@@ -192,6 +192,12 @@ new class extends we.Page {
                   showCancel: false,
                 })
               }
+            }).catch(err => {
+              this.$showModal({
+                title: '获取信息错误',
+                content: err.msg,
+                showCancel: false
+              })
             })
           //}
         //}

@@ -90,7 +90,7 @@ new class extends we.Page {
             duration: 10000
           })
           that.$post('/v1/student/updateInfo', that.data.po).then(data => {
-            console.log(data)
+            //console.log(data)
             wx.navigateBack({
               delta: 1
             })

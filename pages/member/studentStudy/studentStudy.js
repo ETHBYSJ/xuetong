@@ -15,6 +15,7 @@ new class extends we.Page {
       feedback_id: '',
       student_name: '',
       student_id: null,
+      parent_comment: '',
       rates1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       rates2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       rates3: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -50,6 +51,63 @@ new class extends we.Page {
   bindNewStudy() {
     wx.navigateTo({
       url: '/pages/member/createStudy/createStudy',
+    })
+  }
+
+  bindSend() {
+    var that = this;
+    wx.showModal({
+      title: '提示',
+      content: '发送评论后老师可见，请确认发送',
+      confirmText: '确认',
+      cancelText: '取消',
+      success(res) {
+        var args = {
+          'id': parseInt(that.data.feedback_id), 
+          'reply': that.data.parent_comment,
+          'startDate': that.data.vo.feedback.startDate,
+          'endDate': that.data.vo.feedback.endDate,
+          'student_id': parseInt(that.data.student_id),
+        }
+        console.log(args);
+        if (res.confirm) {
+          that.$post('/v1/weeklyreport/update', args).then(res => {
+            
+            if (res.obj == 'SUCC') {
+              wx.showToast({
+                title: '提交成功',
+                icon: 'success',
+                mask: true,
+                duration: 1000
+              });
+              setTimeout(function() {
+                that.$navigateBack({
+                  'delta': 1,
+                }) 
+              },1000);
+            } else {
+              wx.showModal({
+                title: '提示',
+                content: '发生错误,错误代码' + res.obj,
+                showCancel: false,
+              })
+            }
+          }).catch(err => {
+            console.log(err);
+            that.$showModal({
+              title: '提示',
+              content: '获取信息错误',
+              showCancel: false
+            })
+          })
+        }
+      }
+    })
+  }
+
+  syncParentComment(e) {
+    this.setData({
+      'parent_comment': e.detail.value,
     })
   }
 
@@ -116,6 +174,16 @@ new class extends we.Page {
       for (let i = 0; i < tmp.physiqueRate; ++i) {
         rates5[i] = 1;
       }
+      /*
+      if (tmp.reply == null || tmp.reply == undefined) {
+        this.setData({
+          'parent_comment': '',
+        })
+      } else {
+        this.setData({
+          'parent_comment': tmp.reply,
+        })
+      }*/
 
       this.setData({
         'vo.feedback': tmp,
@@ -125,8 +193,15 @@ new class extends we.Page {
         'rates4': rates4,
         'rates5': rates5,
       })   
+
       //console.log(tmp);
       //console.log(this.data.rates5);
+    }).catch(err => {
+      this.$showModal({
+        title: '获取信息错误',
+        content: err.msg,
+        showCancel: false
+      })
     })
   }
 
@@ -149,6 +224,46 @@ new class extends we.Page {
       this.setData({
         'vo.message': data.obj
       })
+    }).catch(err => {
+      this.$showModal({
+        title: '获取信息错误',
+        content: err.msg,
+        showCancel: false
+      })
+    })
+  }
+
+  loadTechInfo() {
+    this.$get('/v1/teacher/getInfo').then(data => {
+      this.setData({
+        'vo.message': data.obj
+      })
+    }).catch(err => {
+      this.$showModal({
+        title: '获取信息错误',
+        content: err.msg,
+        showCancel: false
+      })
+    })
+  }
+
+  loadInfo() {
+    this.$get('/v1/family/getInfo').then(data => {
+      this.setData({
+        'vo.message': data.obj
+      })
+      if (data.obj.phone) {
+        var tmp_phone = data.obj.phone;
+        tmp_phone = tmp_phone.slice(0, 3) + "****" + tmp_phone.slice(7);
+        this.setData({
+          'vo.phone_display': tmp_phone,
+        })
+      } else {
+        this.setData({
+          'vo.phone_display': null,
+        })
+      }
+      console.log(data);
     }).catch(err => {
       this.$showModal({
         title: '获取信息错误',
