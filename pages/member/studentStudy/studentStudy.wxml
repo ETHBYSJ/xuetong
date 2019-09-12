@@ -82,7 +82,7 @@
 
   <view class="fjx"></view>
 
-  <view class="parent-comment">
+  <view class="parent-comment" wx:if="{{userType=='教职工'}}">
     <view wx:if="{{vo.feedback.reply}}">
       <view class="parent-comment-header">家长回复：</view>
       <view class="parent-comment-content">{{vo.feedback.reply}}</view>
@@ -90,6 +90,15 @@
     <view wx:else>
       <view class="parent-comment-header">家长尚未回复</view>
     </view>
+  </view>
+
+  <view class="parent-comment" wx:if="{{userType=='家长'}}">
+    <view class="parent-comment-header">回复：</view>
+    <textarea class="parent-comment-input" bindinput="syncParentComment" value="{{(vo.feedback.reply==null || vo.feedback.reply==undefined) ? '' : vo.feedback.reply}}" confirm-type='done' placeholder="{{(vo.feedback.reply==null || vo.feedback.reply==undefined) ? '请输入回复~' : ''}}"></textarea>
+    <view class="send-wapper">
+      <button class="send-btn" bindtap="bindSend">确定</button>
+    </view>
+    
   </view>
   
   <view class="end_page"> </view>

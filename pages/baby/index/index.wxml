@@ -79,7 +79,7 @@
           </view>
 
           <view>
-            <navigator url="/pages/baby/feedback/feedback?studentid={{studentid}}&img={{item.photo?vo.imgBaseUrl+''+item.photo:'/assets/icon/loadImg.jpg'}}&name={{item.name}}" open-type="navigate">
+            <navigator url="/pages/member/feedback/feedback?studentid={{studentid}}&img={{item.photo?vo.imgBaseUrl+''+item.photo:'/assets/icon/loadImg.jpg'}}&name={{item.name}}" open-type="navigate">
               <image src="/assets/icon/kb.png"></image>
               <text>学情</text>
             </navigator>

@@ -17,7 +17,7 @@
         </view>
       </view>
 
-      <view class="add-study">
+      <view class="add-study" wx:if="{{userType=='教职工'}}">
         <button class="add-btn" bindtap="bindToNew">点击添加</button>
       </view>
 

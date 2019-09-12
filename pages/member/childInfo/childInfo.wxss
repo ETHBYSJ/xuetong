@@ -1,3 +1,6 @@
+.page {
+  font-size: 28rpx;
+}
 .base-cell{
   padding-top: 0;
   padding-bottom: 0;
