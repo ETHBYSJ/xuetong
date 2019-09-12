@@ -22,7 +22,7 @@ new class extends we.Page {
     this.getData()
   }
   getData() {
-    this.$get('/v1/attendance/getTeacherAttendanceEverydayList?&page=1&size=' + this.data.size).then(data => {
+    this.$get('/v1/attendance/getTeacherAttendanceEverydayList?clazzid='+this.data.clazzid+'&page=1&size=' + this.data.size).then(data => {
       console.log(data)
       /*
       for(var i = 0; i < data.obj.length; i++) {
