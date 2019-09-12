@@ -10,12 +10,14 @@ new class extends we.Page {
       feed: [],
       index: "",
       name: "",
+      img: "",
     }
   }
   onLoad(options) {
     console.log(options.studentid)
     this.setData({
       studentid: options.studentid,
+      img: options.img,
     })
   }
   onShow() {
@@ -23,7 +25,7 @@ new class extends we.Page {
   }
   getData() {
     this.$get('/v1/attendance/getStudentAttendanceEverydayList?page=1&size=' + this.data.size).then(data => {
-      console.log(data)      
+      //console.log(data)      
       if(this.data.index == "") {
         for (var i = 0; i < data.obj.length; i++) {
           if(this.data.studentid == data.obj[i].id) {
@@ -54,7 +56,7 @@ new class extends we.Page {
         //feed: temp,
         totalsize: data.obj[this.data.index].totalPage,
       })
-      //console.log(this.data.totalsize)
+      console.log(this.data.feed)
     }).catch(err => {
       this.$showModal({
         title: '出错',
@@ -111,13 +113,6 @@ new class extends we.Page {
           showCancel: false
         })
       })
-      setTimeout(function () {
-        wx.showToast({
-          title: '加载成功',
-          icon: 'success',
-          duration: 2000
-        })
-      }, 500)
     }
   }
 }
