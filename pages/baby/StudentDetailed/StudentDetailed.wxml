@@ -17,7 +17,7 @@
           </view>
           <view class="homework_content">
             <picker class="callParent" range="{{parent_phones}}" bindchange="bindCallParent" range-key="key">
-              <image class="callParentImg" src="/assets/icon/logs_1.png"> </image>
+              <image class="callParentImg" src="/images/phonecall.png"> </image>
             </picker>
             <view class="hw_name">
               <view class="hw_name_warning"></view>
