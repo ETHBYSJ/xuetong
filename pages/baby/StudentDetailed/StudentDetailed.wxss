@@ -176,7 +176,7 @@
 }
 .homework_base_block {
   padding-left: 80rpx;
-  padding-right: 110rpx;
+
 }
 .homework_status {
   font-size: 26rpx;
@@ -203,12 +203,14 @@
   border: 3rpx solid #d9d9d9;
   font-size: 26rpx;
   color: black;
+  width: 540rpx;
 }
 .homework_detail-warning {
   padding: 10rpx 20rpx 10rpx 20rpx;
   border: 3rpx solid #d9d9d9;
   font-size: 26rpx;
   color: red;
+  width: 540rpx;
 }
 .feedback {
   padding-top: 20rpx;
