@@ -154,7 +154,7 @@ new class extends we.Page {
       else {
         this.setData({
           attendpage: 1,
-          attend: data.obj.studentEverydayAttendanceVOList,
+          attend: [],
           totalattendsize: data.totalPage,
         })
       }     
