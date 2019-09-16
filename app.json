@@ -31,7 +31,6 @@
     "pages/member/attendance/attendance",
     "pages/member/contacter/contacter",
     "pages/member/contactphone/contactphone",
-    
     "pages/member/name/name",
     "pages/member/phone/phone",
     "pages/member/watchword/watchword",
@@ -45,7 +44,8 @@
     "pages/member/studentStudy/studentStudy",
     "pages/member/newStudy/newStudy",
     "pages/member/feedback/feedback",
-    "pages/member/TeacherAttendRecord/TeacherAttendRecord"
+    "pages/member/TeacherAttendRecord/TeacherAttendRecord",
+    "pages/baby/payment/payment"
   ],
   "window": {
     "backgroundTextStyle": "light",

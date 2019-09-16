@@ -86,7 +86,7 @@
           </view>
 
           <view>
-            <navigator url="/pages/member/mySpending/mySpending" open-type="navigate">
+            <navigator url="/pages/baby/payment/payment?studentid={{studentid}}&name={{item.name}}&img={{item.photo?vo.imgBaseUrl+''+item.photo:'/assets/icon/loadImg.jpg'}}" open-type="navigate">
               <image src="/assets/icon/ykt.png"></image>
               <text>缴费</text>
             </navigator>

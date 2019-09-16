@@ -1,0 +1,128 @@
+<view>
+  <view class="tap-wrp">
+    <view class="tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">托管班</view>     
+    <view class="tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">活动课</view>      
+  </view>
+  <!--托管班-->
+  <block wx:if="{{currentTab == 0}}">
+    <!--搜索框-->
+    <view class="search_bar">
+      <view class="location">
+        <view class="location_text">闵行区</view>
+        <view class="location_icon"></view>
+      </view>
+      <view class="search_form">
+        <input class="search_form_input" placeholder="请输入关键字" placeholder-style="font-size:30rpx;color:#d9d9d9;" bindinput="inputKeyword" value="{{keyword}}"></input>
+        <view class="search_icon" bindtap="searchActivity">
+          <image class="search_icon_image" src="/assets/icon/searchloc.png"></image>
+        </view>
+      </view>
+    </view>
+    <!--基本信息-->
+    <view class="payment_content">
+      <view class="payment_name">
+        <view class="img_wrapper">
+          <image src="{{img}}"></image>
+        </view>
+        <view class="student_info">
+          <text class="student_name">{{name}}</text>
+          <text class="student_date">目前可托管至2019.03.31</text>
+        </view>
+      </view>
+      <view class="payment_date">
+        <view class="mid_wrapper">
+          <view class="mid_line"></view>
+          <view class="mid_circle"></view>
+          <text class="mid_text">至</text>
+        </view>
+        <view class="payment_date_start">
+          <view class="date_block">
+            <picker mode="date" value="{{startDate.fulldate}}" start="{{startDate.fulldate}}" bindchange="bindStartDateChange">
+              <view class="calendar">
+                <view class="cal_top">
+                  <text class="month">{{startDate.year}}.{{startDate.month}}</text>
+                </view>
+                <view class="cal_bottom">
+                  <text class="day">{{startDate.day}}</text>
+                </view>
+              </view>
+              <view class="date_text">
+                <text>选择开始日期</text>
+              </view>
+            </picker>
+          </view>
+        </view>
+
+        <view class="payment_date_end">          
+          <view class="date_block">
+            <picker mode="date" value="{{endDate.fulldate}}" start="{{startDate.fulldate}}" bindchange="bindEndDateChange">
+              <view class="calendar">
+                <view class="cal_top">
+                  <text class="month">{{endDate.year}}.{{endDate.month}}</text>
+                </view>
+                <view class="cal_bottom">
+                  <text class="day">{{endDate.day}}</text>
+                </view>
+              </view>
+              <view class="date_text">
+                <text>选择截止日期</text>
+              </view>
+            </picker>
+          </view>
+        </view>
+      </view>
+      <view class="payment_prompt">
+        注意 : 托管时间至少选择1个月，期末结束多退少补。.
+      </view>
+      <!--信息-->
+      <view class="payment_info">
+        <text class="info_header">已选择\n</text>
+        <text>托管地址 : <text>\n</text></text>
+        <text>托管时间 : <text>\n</text></text>
+        <text>应付</text>
+        <text class="pay_amount">￥960.00元</text>
+      </view>
+      <!--支付-->
+      <view class="pay">
+        <button class="pay_btn">立即支付</button>
+      </view>
+      <!--咨询电话-->
+      <view class="consult">
+        <button class="consult_btn">咨询电话</button>
+      </view>
+    </view>
+  </block>
+  <!--活动课-->
+  <block wx:else>
+    <!--搜索框-->
+    <view class="search_bar">
+      <view class="location">
+        <view class="location_text">闵行区</view>
+        <view class="location_icon"></view>
+      </view>
+      <view class="search_form">
+        <input class="search_form_input" placeholder="请输入关键字" placeholder-style="font-size:30rpx;color:#d9d9d9;" bindinput="inputKeyword" value="{{keyword}}"></input>
+        <view class="search_icon" bindtap="searchActivity">
+          <image class="search_icon_image" src="/assets/icon/searchloc.png"></image>
+        </view>
+      </view>
+    </view>
+    <!--活动列表-->
+    <scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower">
+      <view class="activity_block" wx:for="{{activitylist}}" wx:key="{{item.id}}" bindtap="jumpPage" data-id="{{item.id}}">
+        <view class="activity_img_container">
+          <image class="activity_img" src='{{item.titlePhoto?imgBaseUrl+""+item.titlePhoto:"/images/icon8.jpg"}}'></image>
+        </view>
+        <view class="activity_info">
+          <view class="activity_info_header">
+            {{item.heading}}
+          </view>
+          <view class="activity_info_bottom">
+            <text style="color:#1296db;">活动报名中</text>
+            <text style="padding-left:130rpx;">剩余<text style='color:red'>{{item.remains}}</text>个名额</text>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </block>
+</view>
