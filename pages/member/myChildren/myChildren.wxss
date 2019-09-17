@@ -1,6 +1,6 @@
 .child_block {
   position: relative;
-  margin: 10rpx;
+  margin: 30rpx;
   margin-bottom: 40rpx;
   border: 1rpx solid #d9d9d9;
   border-radius: 20rpx;

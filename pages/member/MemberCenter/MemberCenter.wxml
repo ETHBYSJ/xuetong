@@ -122,7 +122,7 @@
           <view class="base-cell__ft base-cell__ft_in-access"></view>
       </navigator>
       -->
-      <navigator url="../mySpending/mySpending" class="base-cell base-cell_access">
+      <navigator url="../myOrder/myOrder" class="base-cell base-cell_access">
           <image src="/images/record.png" class="icon"></image>
           <view class="base-cell__bd">缴费记录</view>
           <view class="base-cell__ft base-cell__ft_in-access"></view>

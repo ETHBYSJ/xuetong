@@ -14,6 +14,7 @@ new class extends we.Page {
   }
   onLoad() {
    this.$get('/v1/order/getOrderList?page='+this.data.page+'&size='+this.data.size+'&status=全部').then(data => {
+      console.log(data.obj.content)
       this.setData({
         'vo.infor': data.obj.content
       })

@@ -1,0 +1,17 @@
+/* pages/member/myOrder/myOrder.wxss */
+.header_pic {
+  width: 332.4rpx;
+  height: 75rpx;
+  margin-left: 208.8rpx;
+  margin-top: 30rpx;
+}
+.container {
+  height: 100vh;
+}
+.order_wrapper {
+  position: relative;
+}
+.order_header {
+  height: 70rpx;
+  background-color:rgb(242,242,242);
+}

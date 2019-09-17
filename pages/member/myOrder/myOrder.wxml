@@ -1,0 +1,13 @@
+<view class="page">
+
+  <scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower" bindscroll = "bindScroll" scroll-top="{{scrolltop}}">
+    <view class="order_wrapper">
+      <view class="order_header">
+        <image class="header_pic" src="/images/jfjlls.png"></image>
+      </view>
+
+      <view class="order_content"> 
+      </view>
+    </view>
+  </scroll-view>
+</view>
