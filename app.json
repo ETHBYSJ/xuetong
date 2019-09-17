@@ -47,7 +47,11 @@
     "pages/baby/payment/payment",
     "pages/member/myAction/myAction",
     "pages/member/myEnroll/myEnroll",
+<<<<<<< HEAD
     "pages/activity/detailFinished/detailFinished"
+=======
+    "pages/member/myOrder/myOrder"
+>>>>>>> 32ab978158f37c445aa40598bde35299e78b024b
   ],
   "window": {
     "backgroundTextStyle": "light",
