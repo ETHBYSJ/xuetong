@@ -44,9 +44,10 @@
     "pages/member/studentStudy/studentStudy",
     "pages/member/newStudy/newStudy",
     "pages/member/feedback/feedback",
-	  "pages/baby/payment/payment",	
+    "pages/baby/payment/payment",
     "pages/member/myAction/myAction",
-    "pages/member/myEnroll/myEnroll"  
+    "pages/member/myEnroll/myEnroll",
+    "pages/activity/detailFinished/detailFinished"
   ],
   "window": {
     "backgroundTextStyle": "light",

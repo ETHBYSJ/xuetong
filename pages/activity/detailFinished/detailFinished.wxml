@@ -1,0 +1,71 @@
+<!--answer.wxml-->
+<import src="/wxParse/wxParse.wxml"/>
+<view class="container">
+  <view class="question">
+      <text class="question-title">{{feed.heading}}</text>
+  </view>
+  <view class="answerer-wrp">
+      <view class="answerer flex-wrp">
+          <view class="answerer-info flex-item">
+              <text class="answerer-des">{{feed.createdate}}</text>
+              <button open-type='share' class='answerer-share'>分享</button>
+              <text class='answerer-text'>分享</text>
+              <image  class='answerer-image' src="/images/share.png"></image>
+          </view>
+      </view>
+  </view>
+    
+  <view class="answer-content">
+      <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+  </view>
+  <!--活动时间,活动地点-->
+  <view class="activity_info">
+
+  </view>
+  <!--精彩瞬间-->
+  <view class="moment">
+    <!--上方文字-->
+    <view class="moment_text" wx:if="{{item.photos.length}}">
+      <text>精彩瞬间</text>
+    </view>
+    <!--精彩瞬间-->
+    <view class="moment_swiper_wrp">
+      <block wx:if="{{item.photos.length}}">
+        
+        <!--向左滑动按钮-->
+        <view class="to_left" catchtap="toLeft" data-length="{{item.photos.length}}">
+          <image src="/assets/icon/toleft.png"></image>
+        </view>
+        <!--向右滑动按钮-->
+        <view class="to_right" catchtap="toRight" data-length="{{item.photos.length}}">
+          <image src="/assets/icon/toright.png"></image>
+        </view>
+      </block>
+      <swiper wx:if="{{item.photos.length}}" class="moment" style='height:220rpx' indicator-dots="{{false}}" circular='{{true}}' previous-margin="{{leftMargin}}" next-margin="{{rightMargin}}" bindchange="handleChange" current="{{currentIndex}}">            
+        <block wx:for="{{item.photos}}" wx:for-index="moment_idx" wx:for-item="moment_item" wx:if="{{moment_item.photo_path}}">
+          <swiper-item class="moment_wrp">
+            <!--条件判断-->
+            <image src="{{vo.imgBaseUrl}}{{moment_item.photo_path}}" wx:if="{{(currentImage + item.photos.length - 1) % item.photos.length == moment_idx}}" class="moment_image_prev"></image>
+            <image src="{{vo.imgBaseUrl}}{{moment_item.photo_path}}" wx:if="{{currentImage == moment_idx}}" class="moment_image" bindtap="imgPreview" data-src="{{moment_item.photo_path}}"></image>
+            <image src="{{vo.imgBaseUrl}}{{moment_item.photo_path}}" wx:if="{{(currentImage + 1) % item.photos.length == moment_idx}}" class="moment_image_next" ></image>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+  </view>
+  <!--活动评论-->
+  <view>
+
+  </view>
+
+</view>
+<view class="btn-wrp">
+ <view class='base-btn'>
+   <view hidden='{{feed.familyEnable != 0 }}'>成人￥{{feed.familyPrice}}元/人</view>
+   <view style='line-height:{{feed.familyEnable != 0?"100rpx":"50rpx"}}'>儿童￥{{feed.studentPrice}}元/人</view>
+ </view>
+ <view class='{{feed.remains == 0?"base-btn-no":"base-btn-ok"}}'>活动已结束</view>
+ 
+</view>
+
+

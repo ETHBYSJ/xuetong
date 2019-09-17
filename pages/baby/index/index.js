@@ -42,6 +42,7 @@ new class extends we.Page {
       currentIndex: "",
       scrolltop: "",
       phoneindex: 0,
+      
     }
   }
   bindChangeIndex(e) {
@@ -511,6 +512,7 @@ new class extends we.Page {
       url: "/pages/baby/StudentDetailed/StudentDetailed?studentid=" + e.currentTarget.dataset.id + "&name=" + e.currentTarget.dataset.name
     })
   }
+  
   changeStatus(e) {
     let name = e.currentTarget.dataset.name
     let id = e.currentTarget.dataset.id

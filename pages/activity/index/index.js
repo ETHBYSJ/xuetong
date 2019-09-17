@@ -23,11 +23,14 @@ new class extends we.Page {
             'widthFix',
           ],
           totalsize:"",
+          leftMargin: '225rpx',
+          rightMargin: '225rpx',
+          currentImage: 0,
+          currentIndex: 0,
         }
     }
 
-    onShow() {
-        
+    onShow() {        
         this.setData({
             page_Type: this.$app.pageType || ""
         })
@@ -63,10 +66,15 @@ new class extends we.Page {
     let item = e.currentTarget.dataset;
       wx.navigateTo({
         url: "../detail/detail?id=" + item.id
-      })
-    
+      })    
   }
-
+  //跳转到已结束的活动页面
+  jumpFinished(e) {
+    let item = e.currentTarget.dataset;
+    wx.navigateTo({
+      url: "../detailFinished/detailFinished?id=" + item.id
+    })  
+  }
    
 
 
@@ -79,6 +87,12 @@ new class extends we.Page {
         var totalsize = Math.ceil(data.totalSize / data.pageSize);
       } else {
         var totalsize = data.totalSize / data.pageSize;
+      }
+      //轮播图测试
+      if(this.data.currentTab == 1) {
+        for(var i = 0; i < data.obj.length; i++) {
+          data.obj[i].photos = data.obj[i].photos.concat(data.obj[i].photos)
+        }
       }
       this.setData({
         'vo.infor': data.obj,
@@ -241,7 +255,8 @@ new class extends we.Page {
             this.Cinemalist(true)
         }
     }
-    //浏览图片
+  //浏览图片
+  /*
   imgYu(e) {
     let src = e.currentTarget.dataset.src;
     let index = e.currentTarget.dataset.index;
@@ -256,7 +271,36 @@ new class extends we.Page {
       urls: imgList
     })
   }
-  change(e) {
+  */
+  //预览图片
+  imgPreview(e) {
+    let src = e.currentTarget.dataset.src
+    console.log(src)
+    //暂时只允许浏览当前一张图片
+    wx.previewImage({
+      current: src,
+      urls: [this.data.vo.imgBaseUrl + src],
+    })
+    
+  }
+  handleChange(e) {
     //console.log(e)
+    this.setData({
+      currentImage: e.detail.current,
+    })
+  }
+  toLeft(e) {
+    //console.log(e)
+    let length = e.currentTarget.dataset.length
+    this.setData({
+      currentIndex: (this.data.currentImage + length - 1) % length,
+    })
+  }
+  toRight(e) {
+    //console.log(e)
+    let length = e.currentTarget.dataset.length
+    this.setData({
+      currentIndex: (this.data.currentImage + length + 1) % length,
+    })
   }
 }

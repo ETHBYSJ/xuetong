@@ -1,0 +1,285 @@
+/**detail.wxss**/
+@import "/wxParse/wxParse.wxss";
+
+.container {
+    padding: 0;
+    font-size: 14rpx;
+    color: #000;
+    margin-bottom: 100rpx;
+}
+
+.question {
+    position: relative;
+    width: 650rpx;
+    padding: 40rpx 50rpx 30rpx;
+    font-size: 38rpx;
+    line-height: 48rpx;
+}
+
+.answerer-wrp {
+    position: relative;
+    width: 750rpx;
+    height: 60rpx;
+    background: #fff;
+}
+
+.answerer-wrp .bg-half {
+    position: absolute;
+    top: 0;
+    width: 750rpx;
+    height: 75rpx;
+    background: #298de5;
+}
+
+.answerer {
+    position: relative;
+    margin: 0 auto;
+    width: 660rpx;
+    height: 90rpx;
+    background: #fff;
+    border-radius: 3px;
+}
+
+.answerer-share {
+    position: absolute;
+    top: -19rpx;
+    left: 68%;
+    font-size: 30rpx;
+    color: #298de5;
+    border: 0;
+    background: #fff;
+    opacity: 0;
+    width: 180rpx;
+    height: 80rpx;
+    z-index: 99;
+}
+
+.answerer-text {
+    position: absolute;
+    top: 14rpx;
+    left: 80%;
+    font-size: 30rpx;
+    color: #1296db;
+}
+
+.answerer-image {
+    position: absolute;
+    width: 30rpx;
+    height: 30rpx;
+    left: 74%;
+    top: 18rpx;
+}
+
+.answerer .avatar {
+    flex: 1;
+    width: 90rpx;
+    height: 90rpx;
+}
+
+.answerer .avatar image {
+    display: inline-block;
+    width: 90rpx;
+    height: 90rpx;
+    border-radius: 90rpx;
+}
+
+.answerer .answerer-info {
+    flex: 5;
+    text-align: left;
+    line-height: 38rpx;
+}
+
+.answerer .answerer-info text {
+    display: block;
+}
+
+.answerer .answerer-info .answerer-name {
+    font-size: 32rpx;
+}
+
+.answerer .answerer-info .answerer-des {
+    font-size: 24rpx;
+    color: #808080;
+    line-height: 64rpx;
+}
+
+.answerer .follow {
+    flex: 2;
+    padding: 15rpx 0;
+    font-size: 22rpx;
+}
+
+.answerer .follow text {
+    display: inline-block;
+    padding: 15rpx 20rpx;
+    color: #40bcd0;
+    border: solid 2px #40bcd0;
+    border-radius: 6rpx;
+}
+
+.answer-content {
+    padding: 30rpx 40rpx;
+    background: #fff;
+    width: 670rpx;
+}
+
+.answer-content text {
+    font-size: 30rpx;
+    color: #000;
+}
+
+.content_img {
+    width: 100%;
+    margin: 20rpx 0;
+}
+
+.answer-footer {
+    position: fixed;
+    bottom: 0;
+    height: 70rpx;
+    border-top: solid 1px #ebebeb;
+    background: #fff;
+    width: 670rpx;
+    padding: 20rpx 40rpx;
+}
+
+.answer-footer .good {
+    flex: 1;
+    /*display: inline-block;*/
+    height: 40rpx;
+    border: solid 1px #d1d1d1;
+    border-radius: 3px;
+    padding: 10rpx 8rpx;
+    margin: 10rpx 0;
+}
+
+.answer-footer .good .good-bad {
+    display: inline-block;
+}
+
+.answer-footer .good image {
+    display: inline-block;
+    width: 38rpx;
+    height: 38rpx;
+    vertical-align: middle;
+}
+
+.answer-footer .good .good-num {
+    display: inline-block;
+    padding: 10rpx 4rpx;
+    /*font-size: 24rpx;*/
+}
+
+.answer-footer .operation-wrp {
+    flex: 5;
+}
+
+.answer-footer .operation {
+    justify-content: space-between;
+    padding: 0 0 0 60rpx;
+}
+
+.answer-footer .operation-btn {
+    flex: 1;
+    text-align: center;
+}
+
+.answer-footer .operation image {
+    display: block;
+    margin: 0 auto;
+    width: 50rpx;
+    height: 50rpx;
+}
+
+.answer-footer .operation-btn text {
+    display: block;
+    font-size: 14rpx;
+    color: #bebebe;
+}
+
+.attechment {
+    width: 100%;
+    font-size: 22rpx;
+    color: red;
+    margin-top: 20rpx;
+}
+
+.attechment_icon {
+    display: inline-block;
+    width: 40rpx;
+    height: 40rpx;
+    vertical-align: middle;
+}
+
+.wxParse-p {
+    font-size: 30rpx;
+}
+
+.WxEmojiView {
+    font-size: 30rpx;
+}
+
+.answerer-header {
+    width: 750rpx;
+    background: #fff;
+    font-size: 30rpx;
+}
+
+.text-heading {
+    font-size: 30rpx;
+    color: #000;
+    float: left;
+    width: 23%;
+}
+
+.text-body {
+    float: left;
+    width: 75%;
+    font-size: 30rpx;
+    color: #000;
+}
+
+.btn-wrp {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    width: 100%;
+    height: 100rpx;
+    border: 1rpx solid #d9d9d9;
+    text-align: center;
+    line-height: 100rpx;
+}
+
+.base-btn {
+  flex: 1;
+  border-right: 1rpx solid #d9d9d9;
+  font-size: 22rpx;
+  color: #d9d9d9;
+  height: 100rpx;
+  line-height: 100rpx;
+  background: #fff;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	text-align: top;
+}
+
+.base-btn view {
+  flex: 1;
+  height: 50rpx;
+  line-height: 50rpx;
+}
+
+.base-btn-ok {
+    flex: 1;
+    background: #d9d9d9;
+    color: #fff;
+}
+
+.base-btn-no {
+    flex: 1;
+    background: #bebebe;
+    color: #fff;
+}
+

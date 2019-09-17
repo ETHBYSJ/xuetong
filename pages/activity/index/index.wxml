@@ -83,6 +83,52 @@
       </view>
       <view class="base-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
     </view>
+    <!--活动信息-->
+    <view scroll-y class='base-nav_contant'>
+      <view data-id="{{item.id}}" wx:for="{{vo.infor}}" wx:for-index="ind" wx:key="infor" >
+        <view class="activity_header">
+          <text>No.{{ind + 1}}</text>
+        </view>
+        <view class="border_wrp">
+        <view class='base-nav_contant_list clearfix' bindtap="jumpFinished" data-id="{{item.id}}">
+          <image src='{{item.titlePhoto?vo.imgBaseUrl+""+item.titlePhoto:"/images/icon8.jpg"}}' mode='scaleToFill' id="{{item.id}}" class='base-nav_contant_list-img'></image>
+          <view class='base-nav_contant_list_cen' id="{{item.id}}">
+            <view class='base-nav_contant_list_txt' id="{{item.id}}">{{item.heading}}</view>
+            <view class='active_warp' id="">
+              <text style='color:#1296db'>活动结束</text>
+            </view>
+          </view>
+        </view>
+        <!--上方文字-->
+        <view class="moment_text" wx:if="{{item.photos.length}}">
+          <text>精彩瞬间</text>
+        </view>
+        <!--精彩瞬间-->
+        <view wx:if="{{item.photos.length}}" class="moment_swiper_wrp">
+          <block wx:if="{{item.photos.length}}">            
+            <!--向左滑动按钮-->
+            <view class="to_left" catchtap="toLeft" data-length="{{item.photos.length}}">
+              <image src="/assets/icon/toleft.png"></image>
+            </view>
+            <!--向右滑动按钮-->
+            <view class="to_right" catchtap="toRight" data-length="{{item.photos.length}}">
+              <image src="/assets/icon/toright.png"></image>
+            </view>
+          </block>
+          <swiper wx:if="{{item.photos.length}}" class="moment" style='height:220rpx' indicator-dots="{{false}}" circular='{{true}}' previous-margin="{{leftMargin}}" next-margin="{{rightMargin}}" bindchange="handleChange" current="{{currentIndex}}">            
+            <block wx:for="{{item.photos}}" wx:for-index="moment_idx" wx:for-item="moment_item" wx:if="{{moment_item.photo_path}}">
+              <swiper-item class="moment_wrp">
+                <!--条件判断-->
+                <image src="{{vo.imgBaseUrl}}{{moment_item.photo_path}}" wx:if="{{(currentImage + item.photos.length - 1) % item.photos.length == moment_idx}}" class="moment_image_prev"></image>
+                <image src="{{vo.imgBaseUrl}}{{moment_item.photo_path}}" wx:if="{{currentImage == moment_idx}}" class="moment_image" bindtap="imgPreview" data-src="{{moment_item.photo_path}}"></image>
+                <image src="{{vo.imgBaseUrl}}{{moment_item.photo_path}}" wx:if="{{(currentImage + 1) % item.photos.length == moment_idx}}" class="moment_image_next" ></image>
+              </swiper-item>
+            </block>
+          </swiper>
+        </view>
+        </view>
+      </view>
+    </view>
   </block>
 
 </view>
