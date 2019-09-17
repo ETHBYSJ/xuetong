@@ -1,4 +1,4 @@
-// pages/member/ contacter/ contacter.js
+// pages/member/myAction/myAction.js
 Page({
 
   /**

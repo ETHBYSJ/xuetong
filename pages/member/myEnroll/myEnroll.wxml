@@ -1,0 +1,30 @@
+<!--pages/member/myEnroll/myEnroll.wxml-->
+<view class="page">
+  <scroll-view class="container" scroll-y="true" lower-threshold="5" bindscrolltolower="lower" scroll-top="{{scrolltop}}">
+    <view class="order-block" wx:for="{{orderList}}">
+      <view class="order-header">
+        <image class="header-pic" wx:if="{{item.status=='待支付'}}" src="/images/enroll0.png"></image>
+        <image class="header-pic" wx:if="{{item.status=='已支付'}}" src="/images/enroll1.png"></image>
+        <image class="header-pic" wx:if="{{item.status=='已完成'}}" src="/images/enroll2.png"></image>
+      </view>
+
+      <view class="order-content">
+        <view class="order-intro">
+          <image class="order-intro-pic" src="/images/icon1.jpeg"></image>
+          <!--view class="order-intro-text">【{{item.heading==null? '' : item.heading}}】{{item.note==null ? '':item.note}}</view-->
+          <view class="order-intro-text">【碎碎碎碎】即可参加恐龙当家是数据库里的水就</view>
+          <view class="enroll-status">报名停止</view>
+          <view class="number-sides">剩余</view>
+          <view class="number-mid">50</view>
+          <view class="number-sides">名额</view>
+        </view>
+        <view class="order-details">
+          <view class="order-number">订单号:{{item.orderSn}}</view>
+          <view class="order-price-warning" wx:if="{{item.status=='待支付'}}">待支付 ￥{{item.payAmount}}</view>
+          <view class="order-price" wx:if="{{item.status=='已支付'}}">已支付 ￥{{item.payAmount}}</view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+</view>

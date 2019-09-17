@@ -26,7 +26,7 @@
 
 .member{
   width: 100%;
-  height: 250rpx;
+  height: 200rpx;
   margin: 15rpx auto;
   position: relative;
 }
@@ -88,10 +88,9 @@
 }
 .address-cell__bd{
   font-size: 30rpx;
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-  flex: 1;  
+  width: 300rpx;
   margin-left: 10rpx;
+  flex: 1;
 }
 .base-cell__bd{
   margin-left: 10rpx;
@@ -106,11 +105,18 @@
   height: 100rpx;
   margin-right: 10rpx;
 }
+.detail_address {
+  color: #8a8a8a;
+  margin-right: 20rpx;
+  font-weight: normal;
+  text-align: right;
+}
 .detail{
   /*float: right;*/
   color: #8a8a8a;
   margin-right: 20rpx;
   font-weight: normal;
+  /*flex: 1;*/
 }
 .Loginname .left{
   float: left;
@@ -140,4 +146,41 @@
 }
 .access_button{
   width:100%
+}
+.myenroll {
+  height: 150rpx;
+  width: 700rpx;
+  margin: 10rpx 0rpx 15rpx 20rpx;
+  border: 2rpx solid rgb(245,245,245);
+  border-radius: 10rpx;
+  float: left;
+}
+.enroll-cell {
+  color: rgb(166,166,166);
+  font-size: 22rpx;
+  font-family: "微软雅黑";
+  /*font-weight: bold;*/
+  float: left;
+  width: 75rpx;
+  height: 110rpx;
+  padding: 35rpx 50rpx 0;
+}
+.enrollpic {
+  height: 60rpx;
+  width: 60rpx;
+  margin-left: 7.5rpx;
+}
+.enrollintro {
+  text-align: center;
+}
+.home-header {
+  color: #8a8a8a;
+  /*float:right;*/
+  font-weight: normal;
+}
+.home-detail {
+  color: #8a8a8a;
+  /*float:right;*/
+  font-size: 24rpx;
+  font-weight: normal;
 }

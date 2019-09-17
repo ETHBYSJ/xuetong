@@ -11,10 +11,6 @@ new class extends we.Page {
       searchaddress: "",
       //详细地址(选填)
       detailedaddress: "",
-      //纬度
-      latitude: "",
-      //经度
-      longitude: "",
       //搜索返回列表
       searchlist: [],
       //是否隐藏搜索结果
@@ -25,25 +21,43 @@ new class extends we.Page {
       hiddenall: true,
       po: {
         address: "",
+        //纬度
+        latitude: "",
+        //经度
+        longitude: "",
       },
     }
   }
   onShow() {
     let that = this  
     this.$get('/v1/family/getInfo').then(data => {
+      var tmp = data.obj.address.split('#');
       this.setData({
-        oldaddress: data.obj.address,
+        'oldaddress_head': tmp[0],
+        'oldaddress_tail': tmp[1],
       })
+      if (data.obj.latitude != null && data.obj.longitude != null) {
+        this.setData({
+          'po.latitude': data.obj.latitude,
+          'po.longitude': data.obj.longitude,
+        })
+      } else {
+        this.getLocationInfo();
+      }
     })  
+  }
+
+  getLocationInfo() {
+    var that = this;
     wx.getLocation({
-      success: function(res) {
-        console.log(res)
+      success: function (res) {
+        //console.log(res)
         that.setData({
-          latitude: res.latitude,
-          longitude: res.longitude,
-        })        
+          'po.latitude': res.latitude,
+          'po.longitude': res.longitude,
+        })
       },
-    })    
+    })
   }
   enterAddress(e) {
     //console.log(e)
@@ -67,9 +81,11 @@ new class extends we.Page {
   chooseAddress(e) {    
     this.setData({
       searchaddress: e.currentTarget.dataset.address,
-      latitude: e.currentTarget.dataset.lat,
-      longitude: e.currentTarget.dataset.lng,
+      'po.latitude': e.currentTarget.dataset.lat,
+      'po.longitude': e.currentTarget.dataset.lng,
+      hiddenall: true,
     })
+
   }
   pull() {
     this.setData({
@@ -100,15 +116,37 @@ new class extends we.Page {
   }
   doSaveAddress() {
     this.setData({
-      "po.address": this.data.searchaddress + this.data.detailedaddress,
+      "po.address": this.data.searchaddress +'#'+ this.data.detailedaddress,
     })
+    //console.log(this.data.po.address)
     console.log(this.data.po)
     this.$post('/v1/family/updateInfo', this.data.po).then(data => {
-      console.log(data)
-      this.setData({
-        oldaddress: this.data.po.address,
+      //console.log(data)
+      if (data.obj == 'SUCC') {
+        wx.showToast({
+          title: '修改成功！',
+          icon: 'success',
+          duration: 1000,
+        })
+        setTimeout(function(){
+          wx.navigateBack({
+            delta: 1,
+          })
+        }, 1000);
+      } else {
+        wx.showModal({
+          title: '提示',
+          content: '修改错误，请重试',
+          showCancel: false,
+        })
+      }
+    }).catch(err => {
+      wx.showModal({
+        title: '提示',
+        content: '发生错误',
+        showCancel: false,
       })
-    }) 
+    })
   }
   //搜索地址
   doSearch(e) {

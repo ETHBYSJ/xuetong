@@ -122,13 +122,13 @@ new class extends we.Page {
 			  this.data.vo.coderesult = err
 			  this.$showModal({
 				  title: '提示',
-				  content: `${err.message}`,
+				  content: '您尚未登录或获取信息失败',
 				  showCancel: false
 			  })
 		  } else {
 			  this.$showModal({
 				  title: '提示',
-				  content: err.msg,
+          content: '您尚未登录或获取信息失败',
 				  showCancel: false
 			  })
 		  }

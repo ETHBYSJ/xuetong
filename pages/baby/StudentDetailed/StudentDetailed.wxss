@@ -100,7 +100,7 @@
 .homework_content {
   background-color: white;
   padding-bottom: 50rpx;
-  padding-top: 100rpx;
+  padding-top: 110rpx;
   position: relative;
 }
 .hw_name {
@@ -117,7 +117,7 @@
   width: 60rpx;
   height: 60rpx;
   position: absolute;
-  top: 30rpx;
+  top: 40rpx;
   right: 90rpx;
 }
 .callParentImg {
@@ -149,15 +149,18 @@
   z-index: 999;
 }
 .email_upload {
-  padding-top: 20rpx;
-  padding-bottom: 20rpx;
+  position: absolute;
+  top: 40rpx;
+  left: 250rpx;
 }
 .email_btn {
   width: 250rpx;
+  height: 65rpx;
   color: #fff;
   display: block;
   background: #8d8d8d;
   font-size: 30rpx;
+  line-height: 65rpx;
 }
 .not_email_btn {
   width: 250rpx;
@@ -165,6 +168,8 @@
   display: block;
   background: rgb(146, 208, 80);
   font-size: 30rpx;
+  height: 65rpx;
+  line-height: 65rpx;
 }
 .line_left {
   width: 4rpx;
@@ -217,14 +222,14 @@
   padding-bottom: 20rpx;
 }
 .feedback_btn {
-  width: 690rpx;
+  width: 670rpx;
   color: #fff;
   display: block;
   background: #1296db;
   font-size: 30rpx;
 }
 .feedback_btn_done {
-  width: 690rpx;
+  width: 670rpx;
   color: #fff;
   display: block;
   background: #d9d9d9;

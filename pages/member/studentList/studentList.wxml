@@ -1,44 +1,52 @@
 <!--pages/member/studentList/studentList.wxml-->
 <view class="studentList">
-  <!-- 左侧内容 -->
-  <scroll-view class="content" bindscroll="onPageScroll" enable-back-to-top scroll-into-view="{{toView}}" scroll-y scroll-with-animation="true">
 
-    <view class="study_header" id="page_header">
-      <image class="header_pic" src="/images/xqfkls.png"></image>
-    </view>
+  <swiper indicator-dots indicator-active-color='#1296db' bindchange='onSlideChangeEnd' class='stulist'>
+    <swiper-item wx:for="{{vo.message.webchatClazzList}}" wx:for-item="swiper" wx:key="swiper.clazzid">
 
-    <view class="student_group" wx:for="{{sortList}}" wx:for-item="group" wx:key="{{group.id}}" id="{{'inToView'+group.id}}" wx:if="{{group.active}}" data-id='{{group.id}}'>
-      <view class="address_top" >{{group.region}}</view> 
-      <view class="student_block" wx:for="{{group.items}}" wx:for-item="item" wx:key="{{item.id}}">
-        <navigator class="navigator_student" url="/pages/member/feedback/feedback?studentid={{item.id}}&img={{item.photo?vo.imgBaseUrl+''+item.photo:'/assets/icon/loadImg_1.jpg'}}&name={{item.name}}" class="base-cell base-cell_access">
-          <view class="studentpic-wrp">
-            <image class="studentpic" src="{{item.photo?vo.imgBaseUrl+''+item.photo:'/assets/icon/loadImg_1.jpg'}}"></image>
+      <!-- 左侧内容 -->
+      <scroll-view class="content" bindscroll="onPageScroll" enable-back-to-top scroll-into-view="{{toView}}" scroll-y scroll-with-animation="true">
+
+        <view class="study_header" id="page_header">
+          <view class="grade_intro">门店：{{swiper.gradename}}</view>
+          <view class="class_intro">班级：{{swiper.clazzname}}</view>
+          <image class="header_pic" src="/images/xqfkls.png"></image>
+        </view>
+
+        <view class="student_group" wx:for="{{sortList}}" wx:for-item="group" wx:key="{{group.id}}" id="{{'inToView'+group.id}}" wx:if="{{group.active}}" data-id='{{group.id}}'>
+          <view class="address_top" >{{group.region}}</view> 
+          <view class="student_block" wx:for="{{group.items}}" wx:for-item="item" wx:key="{{item.id}}">
+            <navigator class="navigator_student" url="/pages/member/feedback/feedback?studentid={{item.id}}&img={{item.photo?vo.imgBaseUrl+''+item.photo:'/assets/icon/loadImg_1.jpg'}}&name={{item.name}}" class="base-cell base-cell_access">
+              <view class="studentpic-wrp">
+                <image class="studentpic" src="{{item.photo?vo.imgBaseUrl+''+item.photo:'/assets/icon/loadImg_1.jpg'}}"></image>
+              </view>
+              
+              <view class="student_name">{{item.name}}</view>
+              <view class="student_name update_text">更新至</view>
+              <view class="student_name update_date" wx:if="{{item.startDate!=null && item.endDate!=null}}">{{item.startDate}}至{{item.endDate}}</view>
+              
+
+              <view class="base-cell__ft base-cell__ft_in-access"></view>
+            </navigator>
           </view>
-          
-          <view class="student_name">{{item.name}}</view>
-          <view class="student_name update_text">更新至</view>
-          <view class="student_name update_date" wx:if="{{item.startDate!=null && item.endDate!=null}}">{{item.startDate}}至{{item.endDate}}</view>
-          
+        </view>
+      </scroll-view>
 
-          <view class="base-cell__ft base-cell__ft_in-access"></view>
-        </navigator>
+      <!-- 顶部分类 -->
+      <view class="list-fixed" hidden="{{fixedTitle==null || fixedTitle==''}}" style="transform:translate3d(0,{{fixedTop}}px,0);">
+        <view class="fixed-title">
+        {{fixedTitle}}
+        </view>
       </view>
-    </view>
-  </scroll-view>
-
-  <!-- 顶部分类 -->
-  <view class="list-fixed {{(fixedTitle==null || fixedTitle=='') ? 'hide':''}}" style="transform:translate3d(0,{{fixedTop}}px,0);">
-    <view class="fixed-title">
-    {{fixedTitle}}
-    </view>
-  </view>
 
 
 
-  <!-- 右侧字母 -->
-  <view class="orientation_region">
-    <block wx:for="{{sortList}}" wx:key='{{item.id}}' wx:if="{{item.active==true}}"> 
-      <view class="orientation_city {{isActive==item.id ? 'active':'' }}" bindtap="scrollToViewFn" data-id="{{item.id}}" data-region="{{item.region}}">{{item.region}}</view>
-    </block>
-  </view>
+      <!-- 右侧字母 -->
+      <view class="orientation_region">
+        <block wx:for="{{sortList}}" wx:key='{{item.id}}' wx:if="{{item.active==true}}"> 
+          <view class="orientation_city {{isActive==item.id ? 'active':'' }}" bindtap="scrollToViewFn" data-id="{{item.id}}" data-region="{{item.region}}">{{item.region}}</view>
+        </block>
+      </view>
+    </swiper-item>
+  </swiper>
 </view>

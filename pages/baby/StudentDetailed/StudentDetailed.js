@@ -26,6 +26,7 @@ new class extends we.Page {
       nowday: "",
       //是否已提交反馈
       submit: false,
+      notice: false,
       //教师反馈
       po: {
         chineseFeedback: "",
@@ -125,17 +126,44 @@ new class extends we.Page {
     this.getStudentInfo();
   }
 
+  bindEmail(e) {
+    this.$get('/v1/homework/noticeFamily?id='+this.data.studentid+'&date='+this.data.nowday).then(res => {
+      if (res.obj=='SUCC') {
+        wx.showToast({
+          title: '通知成功',
+          icon: 'success',
+          duration: 1000,
+        })
+        this.setData({
+          'notice': true,
+        })
+      } else {
+        wx.showModal({
+          title: '提示',
+          content: '通知错误',
+          showCancel: false,
+        })
+      }
+    }).catch(err => {
+      wx.showModal({
+        title: '提示',
+        content: '出现错误',
+        showCancel: false,
+      })
+    })
+  }
+
   bindCallParent(e) {
-    console.log(e)
+    //console.log(e)
     let that = this
     if (this.data.parent_phones.length != 0 && this.data.parent_phones[e.detail.value].phone) {
       wx.makePhoneCall({
         phoneNumber: this.data.parent_phones[e.detail.value].phone,
         success: function () {
-          console.log("拨打电话成功！")
+          //console.log("拨打电话成功！")
         },
         fail: function () {
-          console.log("拨打电话失败！")
+         // console.log("拨打电话失败！")
         }
       })
     } 
@@ -143,7 +171,7 @@ new class extends we.Page {
   //考勤数据
   getAttend() {
     this.$get('/v1/attendance/getListByStudentId?page=1&size=' + this.data.attendsize + '&id=' + this.data.studentid).then(data => {
-      console.log(data)     
+      //console.log(data)     
       if(data.obj != null) {
         this.setData({
           attendpage: 1,
@@ -169,9 +197,9 @@ new class extends we.Page {
 
   //作业数据
   getHomework() {
-    console.log(this.data.studentid)
+    //console.log(this.data.studentid)
     this.$get('/v1/homework/getList?page=1&size=' + this.data.homeworksize + '&id=' + this.data.studentid).then(data => {
-      console.log(data)
+     // console.log(data)
       //console.log(data.obj)
       //检查今日是否上传
       this.setData({
@@ -203,7 +231,7 @@ new class extends we.Page {
             [`Items[3].radioItem[${homeworktoday.otherStatus}].checked`]: true,
             "Items[3].feedback": homeworktoday.otherFeedback,
           })
-          console.log(this.data.Items)
+          //console.log(this.data.Items)
         }
       }
       else {
@@ -214,8 +242,8 @@ new class extends we.Page {
           homeworktoday: null,
         })
       }
-      console.log(this.data.homeworkrest)
-      console.log(this.data.homeworktoday)      
+      //console.log(this.data.homeworkrest)
+      //console.log(this.data.homeworktoday)      
     }).catch(err => {
       this.$showModal({
         title: '出错',
@@ -234,27 +262,27 @@ new class extends we.Page {
       //this.data.currentTab == 0
       this.getAttend()
     }
-    console.log("upper")
+    //console.log("upper")
     setTimeout(function () { wx.hideNavigationBarLoading(); wx.stopPullDownRefresh(); }, 2000);
   }
   lower(e) {
     wx.showNavigationBarLoading()
     var that = this;
     setTimeout(function () { wx.hideNavigationBarLoading(); that.nextLoad(); }, 1000);
-    console.log("lower")
+    //console.log("lower")
   }
 
   //继续加载效果
   nextLoad() {
     if(this.data.currentTab == 1) {
-      console.log("...")
+      //console.log("...")
       wx.showToast({
         title: '加载中',
         icon: 'loading',
         duration: 4000
       })
       var homeworkpage = this.data.homeworkpage + 1
-      console.log(homeworkpage)
+      //console.log(homeworkpage)
       this.$get('/v1/homework/getList?page=' + homeworkpage + '&size=' + this.data.homeworksize + '&id=' + this.data.studentid).then(data => {
         if (data.obj.length > 0) {
           this.setData({
@@ -263,7 +291,7 @@ new class extends we.Page {
           this.setData({
             homeworkrest: this.data.homeworkrest.concat(data.obj)
           })
-          console.log(this.data.homework)
+          //console.log(this.data.homework)
           setTimeout(function () {
             wx.showToast({
               title: '加载成功',
@@ -283,24 +311,24 @@ new class extends we.Page {
     else {
       //this.data.currentTab == 0
       if (this.data.attendpage <= this.data.totalattendsize) {
-        console.log("...")
+        //console.log("...")
         wx.showToast({
           title: '加载中',
           icon: 'loading',
           duration: 4000
         })
         var attendpage = this.data.attendpage + 1;
-        console.log(attendpage);
+        //console.log(attendpage);
         this.setData({
           attendpage: attendpage,
         })
         this.$get('/v1/attendance/getListByStudentId?page=' + this.data.attendpage + '&size=' + this.data.attendsize + '&id=' + this.data.studentid).then(data => {
-          console.log(data)         
+          //console.log(data)         
           this.setData({
             //feed: this.data.feed.concat(next)
             attend: this.data.attend.concat(data.obj.studentEverydayAttendanceVOList)
           })
-          console.log(this.data.attend)
+          //console.log(this.data.attend)
         }).catch(err => {
           this.$showModal({
             title: '获取信息错误',
@@ -321,13 +349,13 @@ new class extends we.Page {
 
   swichNav(e) {
     var current = e.currentTarget.dataset.current;
-    console.log(current)
+    //console.log(current)
     this.setData({
       currentTab: current,
     });
   }
   radioChange(e) {
-    console.log(e)
+    //console.log(e)
     let index = e.currentTarget.dataset.index
     if(e.detail.value == "已完成") {
       this.setData({
@@ -354,7 +382,7 @@ new class extends we.Page {
         [`Items[${index}].pick`]: 2,
       }) 
     }
-    console.log(this.data.Items)
+    //console.log(this.data.Items)
   }
   feedback() {    
     let that = this
@@ -453,7 +481,7 @@ new class extends we.Page {
     }
     if (this.data.homeworktoday) {
       //必须设置id字段，表示更新
-      console.log(this.data.homeworktoday.status)
+      //console.log(this.data.homeworktoday.status)
       this.setData({
         "po.id": this.data.homeworktoday.id,   
         //有作业记录，说明作业已经提交        
@@ -469,7 +497,7 @@ new class extends we.Page {
       })
     }
     this.$post("/v1/homework/update", this.data.po).then(data => {
-      console.log(data)
+      //console.log(data)
     }).catch(err => {
       this.$showModal({
         title: '出错',
@@ -479,7 +507,7 @@ new class extends we.Page {
     })
   }
   feedbackinput(e) {
-    console.log(e)
+    //console.log(e)
     let index = e.currentTarget.dataset.index
     if(index == 0) {
       //语文反馈
@@ -530,7 +558,7 @@ new class extends we.Page {
       this.setData({
         parent_phones: phonelist,
       })
-      console.log(this.data.parent_phones)
+      //console.log(this.data.parent_phones)
     }).catch(err => {
       this.$showModal({
         title: '出错',

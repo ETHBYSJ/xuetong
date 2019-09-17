@@ -74,6 +74,7 @@ new class extends we.Page {
     init() {
       let that = this;
       this.$get('/v1/activity/getActivityList?page=1&size=10&status=' + this.data.currentTab + '&keyword=' + this.data.inputVal +'&address='+this.data.selectaddress).then(data => {
+      console.log(data)
       if (data.totalSize % data.pageSize != 0) {
         var totalsize = Math.ceil(data.totalSize / data.pageSize);
       } else {
@@ -155,7 +156,7 @@ new class extends we.Page {
 
     loadBg() {
       return this.$get("/v1/activity/getActivityCarousel").then(data => {
-           
+           console.log(data)
             this.setData({
                 'vo.imgUrls': data.obj.content
             })
@@ -254,5 +255,8 @@ new class extends we.Page {
       current: src,
       urls: imgList
     })
+  }
+  change(e) {
+    //console.log(e)
   }
 }

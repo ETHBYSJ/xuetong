@@ -1,0 +1,103 @@
+/* pages/member/myEnroll/myEnroll.wxss */
+.page {
+  font-family: "微软雅黑";
+}
+.container {
+  height: 100vh;
+}
+.order-block {
+  width: 740rpx;
+  height: 380rpx;
+}
+.order-header {
+  height: 60rpx;
+  background: rgb(242,242,242);
+}
+.header-pic {
+  height: 75rpx;
+  width: 333rpx;
+  margin: 28rpx 205rpx 0;
+}
+.order-content {
+  height: 320rpx;
+  width: 100%;
+}
+.order-intro {
+  height: 198rpx;
+  width: 700rpx;
+  margin: 50rpx 20rpx 0;
+  float: left;
+  border: 2rpx solid rgb(242,242,242);
+  border-radius: 10rpx;
+}
+.order-intro-pic {
+  margin: 25rpx 20rpx 0;
+  float: left;
+  width: 150rpx;
+  height: 150rpx;
+}
+.order-intro-text {
+  margin-left: 20rpx;
+  margin-top: 40rpx; 
+  font-size: 32rpx;
+  font-weight: bold;
+  float: left;
+  width: 450rpx;
+  height: 90rpx;
+  line-height: 40rpx;
+}
+.enroll-status {
+  margin-left: 20rpx;
+  float: left;
+  color: rgb(0, 112, 192);
+  font-size: 24rpx;
+  width: 335rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+}
+.number-sides {
+  height: 40rpx;
+  line-height: 40rpx;
+  float: left;
+  color: black;
+  font-size: 24rpx;
+}
+.number-mid {
+  height: 40rpx;
+  line-height: 40rpx;
+  float: left;
+  color: red;
+  font-size: 24rpx;
+}
+.order-details {
+  width: 100%;
+  height: 70rpx;
+  float: left;
+  position: relative;
+}
+.order-number {
+  font-size: 28rpx;
+  color: rgb(0, 176, 240);
+  height: 70rpx;
+  line-height: 70rpx;
+  position: absolute;
+  left: 25rpx;
+}
+.order-price {
+  font-size: 34rpx;
+  font-weight: bold;
+  height: 70rpx;
+  line-height: 70rpx;
+  color: black;
+  position: absolute;
+  right: 50rpx;
+}
+.order-price-warning {
+  font-size: 34rpx;
+  font-weight: bold;
+  height: 50rpx;
+  line-height: 70rpx;
+  color: red;
+  position: absolute;
+  right: 50rpx;
+}

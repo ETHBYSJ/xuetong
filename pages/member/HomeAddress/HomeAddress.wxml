@@ -4,7 +4,7 @@
   </view>
   <!--搜索框-->
   <view class="search_bar">
-    <input placeholder="{{oldaddress}}" value="{{searchaddress}}" bindinput="enterAddress" class="search_bar_input" placeholder-class="place-holder">
+    <input placeholder="{{oldaddress_head}}" value="{{searchaddress}}" bindinput="enterAddress" class="search_bar_input" placeholder-class="place-holder">
     </input>
     <view class="search_icon" bindtap="doSearch">
       <image src="/assets/icon/searchloc.png"></image>
@@ -12,7 +12,7 @@
     <!--显示搜索结果-->
     <view class="search_res" hidden="{{hiddenall}}">
       <view class="base_search_res" wx:for="{{searchlist}}" bindtap="chooseAddress" data-address="{{item.address}}" data-lat="{{item.location.lat}}" data-lng="{{item.location.lng}}" hidden="{{hiddenres}}">
-        {{item.title}} {{item.address}}
+        <text>{{item.title}}\n{{item.address}}</text>
       </view> 
       
       <view class="pull_wrapper">
@@ -23,12 +23,15 @@
   
   <!--地图-->
   <view class="map_wrapper">
-    <map latitude="{{latitude}}" longitude="{{longitude}}"></map>
+    <map latitude="{{po.latitude}}" longitude="{{po.longitude}}"></map>
+    <cover-view class="dingwei-wapper" bindtap="getLocationInfo">
+      <cover-image class="dingwei-pic" src="/images/dingwei.png"></cover-image>
+    </cover-view>
   </view>
   <!--详细地址:(选填)-->
   <view class="detailed_address">
     <view class="detailed_address_prompt">详细地址 : (选填)</view>
-    <input value="{{detailedaddress}}" bindinput="enterDetailed" class="detailed_address_input"></input>
+    <input placeholder="{{oldaddress_tail}}" value="{{detailedaddress}}" bindinput="enterDetailed" class="detailed_address_input"></input>
   </view>
   <view class="address_footer">
     <button class="save_btn" bindtap="saveAddress">保存</button>

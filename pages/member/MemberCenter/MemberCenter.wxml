@@ -4,7 +4,7 @@
       <open-data class='userImage' type="userAvatarUrl"  class='memberpic'></open-data>
 
       <view class="nickname">
-        <text style="font-weight: bold;">{{vo.UserInfo.name}}</text>
+        <text style="font-weight: bold; font-size:32rpx;">{{vo.UserInfo.name}}</text>
         <text style="padding-left: 28rpx; font-size: 26rpx; ">{{vo.UserInfo.userType}}</text>
       </view>
 
@@ -63,13 +63,36 @@
         <text>切换账号</text>
       </view>
       
+    </view>
+
+    <view class="myenroll" wx:if='{{vo.UserInfo.userType=="家长"}}'> 
       <view class="bm">
         <text>我的报名</text>
       </view>
-    </view>
-    
-    <view class="enroll">
 
+      <view class="enroll-cell" bindtap="bindToUnpaid">
+        <image class="enrollpic" src="/images/unpaid.png"></image>
+
+        <view class="enrollintro">未支付</view>
+      </view>
+
+      <view class="enroll-cell" bindtap="bindToDoing">
+        <image class="enrollpic" src="/images/doing.png"></image>
+
+        <view class="enrollintro">进行中</view>
+      </view>
+
+      <view class="enroll-cell" bindtap="bindToFinished">
+        <image class="enrollpic" src="/images/finished.png"></image>
+
+        <view class="enrollintro">已完成</view>
+      </view>
+
+      <view class="enroll-cell" bindtap="bindToTotal">
+        <image class="enrollpic" src="/images/total.png"></image>
+
+        <view class="enrollintro">全部</view>
+      </view>
     </view>
 
     <view class="base-cells_after-title">
@@ -78,7 +101,11 @@
           <view class="address-cell__bd">
             <text>家庭\n住址</text>
           </view>
-          <view class="detail">管理家庭住址</view>
+
+          <view class="detail_address">
+            <text class="home-header">{{head_address}}\n</text>
+            <text class="home-detail">{{tail_address}}</text>
+          </view>        
           <view class="base-cell__ft base-cell__ft_in-access"></view>
       </navigator>
       <navigator url="../myChildren/myChildren" class="base-cell base-cell_access">
@@ -95,12 +122,12 @@
           <view class="base-cell__ft base-cell__ft_in-access"></view>
       </navigator>
       -->
-      <navigator url="../Aboutus/Aboutus" class="base-cell base-cell_access">
+      <navigator url="../mySpending/mySpending" class="base-cell base-cell_access">
           <image src="/images/record.png" class="icon"></image>
           <view class="base-cell__bd">缴费记录</view>
           <view class="base-cell__ft base-cell__ft_in-access"></view>
       </navigator>
-      <navigator url="../Aboutus/Aboutus" class="base-cell base-cell_access">
+      <navigator url="../myAction/myAction" class="base-cell base-cell_access">
           <image src="/images/activity.png" class="icon"></image>
           <view class="base-cell__bd">我的活动</view>
           <view class="detail">查看孩子活动中表现</view>

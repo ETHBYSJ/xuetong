@@ -24,12 +24,13 @@
               <text>{{name}}</text>
             </view>
             <!--功能待开发-->
-            <!--
+            
             <view class="email_upload">
-              <button wx:if="{{!submit}}" class="not_email_btn">一键通知上传</button>
-              <button wx:else class="email_btn">已通知上传</button>
+              <button wx:if="{{!submit && !notice}}" class="not_email_btn" bindtap="bindEmail">一键通知上传</button>
+              <button wx:if="{{!submit &&  notice}}" class="email_btn">已通知上传</button>
+              <button wx:else class="email_btn">作业已上传</button>
             </view>
-            -->
+            
             <view class="date">
               <view class="date_left"></view>
               <view class="date_mid">

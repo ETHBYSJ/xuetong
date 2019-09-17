@@ -11,7 +11,10 @@ new class extends we.Page {
       vo: {
         UserInfo: {},
         unreadCount:0,
-      }
+        message: {},
+      },
+      head_address: '点击可以设置您的地址',
+      tail_address: '未填写详细地址',
     }
   }
 
@@ -41,6 +44,29 @@ new class extends we.Page {
     this.getUserStatusByLogin();
   }
   
+  bindToUnpaid() {
+    this.$navigateTo({
+      url: '/pages/member/myEnroll/myEnroll?status=待支付',
+    })
+  }
+
+  bindToDoing() {
+    this.$navigateTo({
+      url: '/pages/member/myEnroll/myEnroll?status=已支付&action=0',
+    })
+  } //进行中
+
+  bindToFinished() {
+    this.$navigateTo({
+      url: '/pages/member/myEnroll/myEnroll?status=已支付&action=1',
+    })
+  } //已完成
+
+  bindToTotal() {
+    this.$navigateTo({
+      url: '/pages/member/myEnroll/myEnroll?status=全部',
+    })
+  }
 
 
   /*获取用户未读信息*/
@@ -88,7 +114,12 @@ new class extends we.Page {
       this.setData({
         'vo.UserInfo': data.obj,
       })
+      //console.log(data.obj);
      this.$app.userType = data.obj.userType;
+
+     if (data.obj.userType == '家长') {
+       this.loadInfo()
+     } 
     }).catch(err => {
       if (err) {
         this.data.vo.coderesult = err
@@ -104,6 +135,29 @@ new class extends we.Page {
           showCancel: false
         })
       }
+    })
+  }
+
+
+  loadInfo() {
+    this.$get('/v1/family/getInfo').then(data => {
+      this.setData({
+        'vo.message': data.obj
+      })
+      console.log(data.obj)
+      if (data.obj.address != null && data.obj.address != undefined) {
+        var tmp = data.obj.address.split('#');
+        this.setData({
+          'head_address': tmp[0],
+          'tail_address': tmp[1],
+        })
+      }
+    }).catch(err => {
+      this.$showModal({
+        title: '获取信息错误',
+        content: err.msg,
+        showCancel: false
+      })
     })
   }
 }
