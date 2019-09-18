@@ -1,13 +1,17 @@
-<!--answer.wxml-->
+
 <import src="/wxParse/wxParse.wxml"/>
 <view class="container">
+  <scroll-view scroll-y="true" style="height:100vh;" scroll-into-view="{{toView}}">
   <view class="question">
       <text class="question-title">{{feed.heading}}</text>
   </view>
   <view class="answerer-wrp">
       <view class="answerer flex-wrp">
           <view class="answerer-info flex-item">
-              <text class="answerer-des">{{feed.createdate}}</text>
+              <text class="answerer-des">{{feed.createdate}}</text>              
+              <image class="moment_icon" src="/assets/icon/moment.png"></image>
+              <text class="moment-text">精彩瞬间</text>
+              <view class="moment_icon_wrp" bindtap="momentJump"></view>
               <button open-type='share' class='answerer-share'>分享</button>
               <text class='answerer-text'>分享</text>
               <image  class='answerer-image' src="/images/share.png"></image>
@@ -19,45 +23,74 @@
       <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
   </view>
   <!--活动时间,活动地点-->
-  <view class="activity_info">
-
+  <view class="activity_info" id="jump">
+    <view class="header_time">
+      <text>活动时间 : </text>
+    </view>
+    <view class="activity_time">
+      <text>{{feed.startdate}}——{{feed.enddate}}</text>
+    </view>
+    <view class="header_address">
+      <text>活动地点 : </text>
+    </view>
+    <view class="activity_address">
+      <text>{{feed.address}}</text>
+    </view>
   </view>
   <!--精彩瞬间-->
-  <view class="moment">
+  <view class="moments">
     <!--上方文字-->
-    <view class="moment_text" wx:if="{{item.photos.length}}">
+    <view class="moment_text" wx:if="{{imageList.length}}">
       <text>精彩瞬间</text>
     </view>
     <!--精彩瞬间-->
     <view class="moment_swiper_wrp">
-      <block wx:if="{{item.photos.length}}">
-        
+      <block wx:if="{{imageList.length}}">        
         <!--向左滑动按钮-->
-        <view class="to_left" catchtap="toLeft" data-length="{{item.photos.length}}">
+        <view class="to_left" catchtap="toLeft" data-length="{{imageList.length}}">
           <image src="/assets/icon/toleft.png"></image>
         </view>
         <!--向右滑动按钮-->
-        <view class="to_right" catchtap="toRight" data-length="{{item.photos.length}}">
+        <view class="to_right" catchtap="toRight" data-length="{{imageList.length}}">
           <image src="/assets/icon/toright.png"></image>
         </view>
       </block>
-      <swiper wx:if="{{item.photos.length}}" class="moment" style='height:220rpx' indicator-dots="{{false}}" circular='{{true}}' previous-margin="{{leftMargin}}" next-margin="{{rightMargin}}" bindchange="handleChange" current="{{currentIndex}}">            
-        <block wx:for="{{item.photos}}" wx:for-index="moment_idx" wx:for-item="moment_item" wx:if="{{moment_item.photo_path}}">
+      <swiper wx:if="{{imageList.length}}" class="moment" style='height:220rpx' indicator-dots="{{false}}" circular='{{true}}' previous-margin="{{leftMargin}}" next-margin="{{rightMargin}}" bindchange="handleChange" current="{{currentIndex}}">            
+        <block wx:for="{{imageList}}" wx:for-index="moment_idx" wx:for-item="moment_item" wx:if="{{moment_item.photo_path}}">
           <swiper-item class="moment_wrp">
             <!--条件判断-->
-            <image src="{{vo.imgBaseUrl}}{{moment_item.photo_path}}" wx:if="{{(currentImage + item.photos.length - 1) % item.photos.length == moment_idx}}" class="moment_image_prev"></image>
-            <image src="{{vo.imgBaseUrl}}{{moment_item.photo_path}}" wx:if="{{currentImage == moment_idx}}" class="moment_image" bindtap="imgPreview" data-src="{{moment_item.photo_path}}"></image>
-            <image src="{{vo.imgBaseUrl}}{{moment_item.photo_path}}" wx:if="{{(currentImage + 1) % item.photos.length == moment_idx}}" class="moment_image_next" ></image>
+            <image src="{{imgBaseUrl}}{{moment_item.photo_path}}" wx:if="{{(currentImage + imageList.length - 1) % imageList.length == moment_idx}}" class="moment_image_prev"></image>
+            <image src="{{imgBaseUrl}}{{moment_item.photo_path}}" wx:if="{{currentImage == moment_idx}}" class="moment_image" bindtap="imgPreview" data-src="{{moment_item.photo_path}}"></image>
+            <image src="{{imgBaseUrl}}{{moment_item.photo_path}}" wx:if="{{(currentImage + 1) % imageList.length == moment_idx}}" class="moment_image_next" ></image>
           </swiper-item>
         </block>
       </swiper>
     </view>
   </view>
   <!--活动评论-->
-  <view>
-
+  <view class="activity_comment">
+    <view class="activity_comment_icon">
+      <image src="/assets/icon/comment.png"></image>
+      <text>评论({{commentList.length}})</text>
+    </view>
+    <!--评论输入框-->
+    <view class="activity_comment_textarea">
+      <textarea style="height:200rpx;width:680rpx;" placeholder="请输入您的评论" placeholder-style="font-size:26rpx;color:#d9d9d9" value="{{po.content}}" bindinput="inputComment">
+      </textarea>
+    </view>
+    <!--发表评论按钮-->
+    <view class="comment_btn_wrp">
+      <view class="comment_btn" bindtap="postComment">发表评论</view>
+    </view>
+    <!--评论列表-->
+    <view wx:for="{{commentList}}" wx:for-item="comment">
+      <view class="single_comment">
+        <text style="font-size:26rpx;font-weight:bold;">{{comment.user.name}} : </text>
+        <text style="font-size:26rpx;color:#d9d9d9;">{{comment.content}}</text>
+      </view>
+    </view>
   </view>
-
+  </scroll-view>
 </view>
 <view class="btn-wrp">
  <view class='base-btn'>

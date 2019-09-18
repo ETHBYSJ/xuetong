@@ -84,7 +84,7 @@
       </view>
       <!--支付-->
       <view class="pay">
-        <button class="pay_btn">立即支付</button>
+        <button class="pay_btn" bindtap="pay">立即支付</button>
       </view>
       <!--咨询电话-->
       <view class="consult">

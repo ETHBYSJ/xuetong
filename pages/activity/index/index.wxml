@@ -44,7 +44,7 @@
       <view class="base-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
     </view>
     <!--活动信息-->
-    <view scroll-y class='base-nav_contant'>
+    <scroll-view scroll-y="true" class='base-nav_contant' bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower">
       <view bindtap="jumpPage" data-id="{{item.id}}" wx:for="{{vo.infor}}" wx:for-index="ind" wx:key="infor">
         <view class='base-nav_contant_list clearfix'>
           <image src='{{item.titlePhoto?vo.imgBaseUrl+""+item.titlePhoto:"/images/icon8.jpg"}}' mode='scaleToFill' id="{{item.id}}" class='base-nav_contant_list-img'></image>
@@ -57,7 +57,7 @@
           </view>
         </view>
       </view>
-    </view>
+    </scroll-view>
   </block>
   <!--精彩瞬间-->
   <block wx:else>

@@ -20,6 +20,13 @@ new class extends we.Page {
       startDate: "",
       //托管截止日期
       endDate: "",
+      //托管费每月
+      price: "",
+      //班级id
+      clazzId: "",
+      //订单号
+      orderId: "",
+
     }
   }
   onLoad(options) {
@@ -43,9 +50,19 @@ new class extends we.Page {
       startDate: { year: year, month: month, day: day, fulldate: date },
       endDate: { year: year, month: month, day: day, fulldate: date },
     })
+    console.log(this.data.startDate)
+    console.log(this.data.endDate)
   }
   onShow() {
     this.init()
+    //为了获得托管班的托管费,需要先得到学生信息
+    this.$get('/v1/student/getInfo?id=' + this.data.studentid).then(data => {
+      console.log(data)
+      this.setData({
+        price: data.obj.clazz.price,
+        clazzId: data.obj.clazz.id,
+      })
+    })
   }
   //加载默认活动列表
   init() {
@@ -146,6 +163,65 @@ new class extends we.Page {
     let day = date.split("-")[2];
     this.setData({
       endDate: { year: year, month: month, day: day, fulldate: year + "-" + month + "-" + day },
+    })
+  }
+  //支付接口
+  pay() {
+    console.log("pay")
+    
+    let po = {
+      clazzId: this.data.clazzId,
+      startDate: this.data.startDate.fulldate,
+      endDate: this.data.endDate.fulldate,
+      studentName: this.data.name,
+      studentId: this.data.studentid,
+      payAmount: 0.01,
+      name: '家长王重阳',
+    }
+    console.log(po)
+    this.$post('/v1/student/enroll', po).then(data => {
+      console.log(data)
+      po.orderId = data.obj.orderId
+      let that = this
+      if(data.obj) {
+        wx.requestPayment({
+          'timeStamp': data.obj.data.timeStamp,
+          'nonceStr': data.obj.data.nonceStr,
+          'package': data.obj.data.package,
+          'signType': data.obj.data.signType,
+          'paySign': data.obj.data.paySign,
+          'success': function(res) {
+            //支付成功，调用学生报名成功接口    
+            console.log(po)        
+            that.$post('/v1/student/enrollSucessful', po).then(data => {
+              console.log(data)
+              wx.switchTab({
+                url: '../index/index',
+              })
+            })            
+          },
+          'fail': function (res) {
+            console.log(res)
+            that.$showModal({
+              title: '错误',
+              content: '支付失败',
+              showCancel: false
+            })
+          },
+          'complete': function (res) { },
+        })
+        //订单号
+        this.setData({
+          orderId: data.obj.orderId,
+        })
+      }
+      else {
+        that.$showModal({
+          title: '错误',
+          content: '报名失败',
+          showCancel: false
+        })
+      }
     })
   }
 }

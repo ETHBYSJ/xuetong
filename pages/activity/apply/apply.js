@@ -84,36 +84,32 @@ new class extends we.Page {
             })
         })*/
        this.$get('/v1/activity/findStudentOfUser').then(data => {
-            this.setData({
-                ofuser: data.obj
-            })
-            if (data.obj.phone) {
-                this.setData({
-					"po.phone": data.obj.phone
-                })
-            }
-			
-			
-			if (data.obj.students.length!=0){
-				this.setData({
-					"po.students":data.obj.students,
-					"totalPrice":this.data.feed.studentPrice * this.data.po.students.length + this.data.feed.familyPrice * this.data.po.familys.length
-				})
-				var totalPrice = this.data.feed.studentPrice * this.data.po.students.length + this.data.feed.familyPrice * this.data.po.familys.length;
-				this.setData({
-					"totalPrice": totalPrice,
-					showChildtext: true,
-				})
-				
-			}
-
-        }).catch(err => {
-            this.$showModal({
-                title: '获取信息错误',
-                content: err.msg,
-                showCancel: false
-            })
+        this.setData({
+            ofuser: data.obj
         })
+        if (data.obj.phone) {
+          this.setData({
+            "po.phone": data.obj.phone
+          })
+        }	
+        if (data.obj.students.length!=0){
+          this.setData({
+            "po.students":data.obj.students,
+            "totalPrice":this.data.feed.studentPrice * this.data.po.students.length + this.data.feed.familyPrice * this.data.po.familys.length
+          })
+          var totalPrice = this.data.feed.studentPrice * this.data.po.students.length + this.data.feed.familyPrice * this.data.po.familys.length;
+          this.setData({
+            "totalPrice": totalPrice,
+            showChildtext: true,
+          })				
+        }
+      }).catch(err => {
+          this.$showModal({
+              title: '获取信息错误',
+              content: err.msg,
+              showCancel: false
+          })
+      })
     }
     bindStudentname(e) {
 
@@ -222,6 +218,13 @@ new class extends we.Page {
                 showCancel: false
               })
             }else{
+              console.log({
+                'timeStamp': data.obj.data.timeStamp,
+                'nonceStr': data.obj.data.nonceStr,
+                'package': data.obj.data.package,
+                'signType': data.obj.data.signType,
+                'paySign': data.obj.data.paySign,
+              })
               wx.requestPayment({
                 'timeStamp': data.obj.data.timeStamp,
                 'nonceStr': data.obj.data.nonceStr,
@@ -314,6 +317,7 @@ new class extends we.Page {
     }
 
 	closeChild(){
+    let that = this
 		this.setData({
 			dialog: false,
 			showChild: false,
@@ -324,7 +328,6 @@ new class extends we.Page {
 			that.setData({
 				showChildtext: false,
 			})
-
 		}
 	}
 

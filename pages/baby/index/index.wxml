@@ -27,10 +27,6 @@
         </view>
 
         <view class="check">
-          <!--
-          <navigator class='navwarp' hidden='{{feed.studentEverydayAttendanceVOList[0].attendanceStudentList.length=="0"}}' url="/pages/answerb/answerb?studentid={{studentid}}&date={{vo.nowDay}}" open-type="navigate">
-          </navigator>
-          -->
           <navigator class='navwarp' url="/pages/member/StudentAttendRecord/StudentAttendRecord?studentid={{studentid}}&img={{studentimg?vo.imgBaseUrl+''+studentimg:'/assets/icon/loadImg.jpg'}}" open-type="navigate">
 
           </navigator>

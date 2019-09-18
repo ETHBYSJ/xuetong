@@ -28,16 +28,13 @@
     "pages/member/Bindingphone/Bindingphone",
     "pages/member/resetPasswords/resetPasswords",
     "pages/member/mySpending/mySpending",
-    "pages/member/attendance/attendance",
     "pages/member/contacter/contacter",
     "pages/member/contactphone/contactphone",
     "pages/member/name/name",
     "pages/member/phone/phone",
     "pages/member/watchword/watchword",
-    "pages/member/worktime/worktime",
     "pages/member/photo/photo",
     "pages/answer/answer",
-    "pages/answerb/answerb",
     "pages/member/modifyphone/modifyphone",
     "pages/member/newphone/newphone",
     "pages/member/studentList/studentList",
@@ -47,7 +44,7 @@
     "pages/baby/payment/payment",
     "pages/member/myAction/myAction",
     "pages/member/myEnroll/myEnroll",
-    "pages/activity/detailFinished/detailFinished"
+    "pages/activity/detailFinished/detailFinished",
     "pages/member/myOrder/myOrder"
   ],
   "window": {

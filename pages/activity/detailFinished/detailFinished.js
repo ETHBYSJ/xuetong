@@ -7,7 +7,23 @@ new class extends we.Page {
       feed: [],
       order: [],
       imgBaseUrl: "",
-      id: ""
+      id: "",
+      imgList: [],
+      leftMargin: '205rpx',
+      rightMargin: '205rpx',
+      currentImage: 0,
+      currentIndex: 0,
+      //评论数量
+      commentNum: "",
+      //评论列表
+      commentList: [], 
+      po: {
+        //输入的评论
+        content: "",
+        activityId: "",
+      },
+      //跳转位置
+      toView: "",
     }
   }
   //事件处理函数
@@ -15,7 +31,8 @@ new class extends we.Page {
     var noticeid = options.id;
     this.setData({
       imgBaseUrl: this.$app.imgBaseUrl,
-      id: noticeid
+      id: noticeid,
+      "po.activityId": noticeid,
     })
     this.$get('/v1/activity/' + noticeid).then(data => {
       console.log(data)
@@ -23,18 +40,34 @@ new class extends we.Page {
       WxParse.wxParse('article', 'html', article, this, 5);
       this.setData({
         feed: data.obj,
+        imageList: data.obj.imageList,
       })
-
     }).catch(err => {
       this.$showModal({
         title: '获取信息错误',
-        content: err.msg,
+        content: '获取活动信息出错',
         showCancel: false
       })
     })
   }
-
-
+  onShow() {
+    //加载评论列表
+    this.getCommentList()
+  }
+  getCommentList() {
+    this.$get('/v1/activity/getCommentList?id=' + this.data.id).then(data => {
+      console.log(data)
+      this.setData({
+        commentList: data.obj,
+      })
+    }).catch(err => {
+      this.$showModal({
+        title: '获取信息错误',
+        content: '获取评论出错',
+        showCancel: false
+      })
+    })
+  }
 
 
 
@@ -72,6 +105,62 @@ new class extends we.Page {
     let that = this;
     wx.navigateTo({
       url: "../apply/apply?id=" + this.data.id + "&titlePhoto=" + this.data.feed.titlePhoto + "&heading=" + this.data.feed.heading + "&remains=" + this.data.feed.remains + "&familyPrice=" + this.data.feed.familyPrice + "&studentPrice=" + this.data.feed.studentPrice + "&familyEnable=" + this.data.feed.familyEnable + "&phone=" + this.data.feed.phone
+    })
+  }
+  toLeft(e) {
+    //console.log(e)
+    let length = e.currentTarget.dataset.length
+    this.setData({
+      currentIndex: (this.data.currentImage + length - 1) % length,
+    })
+  }
+  toRight(e) {
+    //console.log(e)
+    let length = e.currentTarget.dataset.length
+    this.setData({
+      currentIndex: (this.data.currentImage + length + 1) % length,
+    })
+  }
+  handleChange(e) {
+    //console.log(e)
+    this.setData({
+      currentImage: e.detail.current,
+    })
+  }
+  //预览图片
+  imgPreview(e) {
+    let src = e.currentTarget.dataset.src
+    console.log(src)
+    //暂时只允许浏览当前一张图片
+    wx.previewImage({
+      current: src,
+      urls: [this.data.imgBaseUrl + src],
+    })
+  }
+  inputComment(e) {
+    //console.log(e)
+    this.setData({
+      "po.content": e.detail.value,
+    })
+  }
+  //发表评论
+  postComment() {
+    //console.log(this.data.po)
+    this.$post('/v1/activity/comment', this.data.po).then(data => {
+      //console.log(data)
+      this.getCommentList()
+    }).catch(err => {
+      this.$showModal({
+        title: '获取信息错误',
+        content: '获取评论出错',
+        showCancel: false
+      })
+    })
+  }
+  momentJump(e) {
+    console.log(e)
+    this.setData({
+      toView: "jump",
     })
   }
 }
