@@ -47,7 +47,7 @@
     "pages/baby/payment/payment",
     "pages/member/myAction/myAction",
     "pages/member/myEnroll/myEnroll",
-    "pages/activity/detailFinished/detailFinished"
+    "pages/activity/detailFinished/detailFinished",
     "pages/member/myOrder/myOrder"
   ],
   "window": {

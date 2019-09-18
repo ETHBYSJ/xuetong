@@ -1,12 +1,55 @@
 <view class="page">
 
-  <scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower" bindscroll = "bindScroll" scroll-top="{{scrolltop}}">
-    <view class="order_wrapper">
-      <view class="order_header">
-        <image class="header_pic" src="/images/jfjlls.png"></image>
+  <scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower" scroll-top="{{scrolltop}}">
+    <view class="order-wrapper">
+      <view class="order-header">
+        <image class="header-pic" src="/images/jfjlls.png"></image>
       </view>
 
-      <view class="order_content"> 
+      <view class="guodu"></view>
+
+      <view class="order-content"> 
+        <view class="order-block" wx:for="{{orderList}}" wx:for-index="idx" wx:key="{{item.id}}">
+          <view class="order-brief {{item.showDetail? 'pulldown-block':''}}">
+            <view class="order-brief-index">{{idx+1}}</view>
+            <view class="order-brief-name">{{item.orderType==1?item.activityStudent:item.studentName}}</view>
+            <view class="order-brief-price">
+            <text class="order-brief-price-number">￥{{item.payAmount}}</text>
+            </view>
+            <view class="order-brief-pulldown" bindtap="bindShowDetails" data-idx="{{idx}}">
+              <image class="order-brief-pulldown-image {{item.showDetail? 'pulldown-image':''}}" src="/images/pulldown.png"></image>
+            </view>
+          </view>
+          <view class="order-detail-activity" hidden="{{!item.showDetail}}" wx:if="{{item.orderType==1}}">
+            <view class="order-intro">
+              <image class="order-intro-pic" src="{{item.activityTitlePhoto ? imgBaseUrl + '' + item.activityTitlePhoto: '/assets/icon/loadImg_1.jpg'}}"></image>
+              <!--view class="order-intro-text">【{{item.heading==null? '' : item.heading}}】{{item.note==null ? '':item.note}}</view-->
+              <view class="order-intro-text">{{item.activityTitle=='' ? item.activityHeading : '【'+item.activityHeading+'】'}}{{item.activityTitle}}</view>
+              <view class="enroll-status">{{(item.activityRemains==0 || item.activityStatus==1) ? '报名停止' : '报名进行中'}}</view>
+              <view class="number-sides">剩余</view>
+              <view class="number-mid">{{item.activityRemains}}</view>
+              <view class="number-sides">名额</view>
+            </view>
+            <view class="order-detail">
+              <view class="order-date">{{item.createTime}}</view>
+              <view class="baomingfei">报名费</view>
+              <view class="baomingfei-number">￥{{item.payAmount}}</view>
+              <view class="show-detail">查看订单</view>
+            </view>
+          </view>
+
+          <view class="order-detail-others" hidden="{{!item.showDetail}}" wx:else>
+            <view class="order-others-intro">
+              【{{item.heading}}】{{item.note}}
+            </view>
+            <view class="order-detail">
+              <view class="order-date">{{item.createTime}}</view>
+              <view class="baomingfei">报名费</view>
+              <view class="baomingfei-number">￥{{item.payAmount}}</view>
+              <view class="show-detail">查看订单</view>
+            </view>
+          </view>
+        </view>
       </view>
     </view>
   </scroll-view>

@@ -1,17 +1,186 @@
 /* pages/member/myOrder/myOrder.wxss */
-.header_pic {
+.page {
+  font-family: '微软雅黑';
+}
+.header-pic {
   width: 332.4rpx;
   height: 75rpx;
   margin-left: 208.8rpx;
-  margin-top: 30rpx;
+  margin-top: 27rpx;
 }
 .container {
   height: 100vh;
 }
-.order_wrapper {
+.order-wrapper {
   position: relative;
 }
-.order_header {
-  height: 70rpx;
+.order-header {
+  height: 60rpx;
   background-color:rgb(242,242,242);
+}
+.guodu {
+  height: 40rpx;
+  border-bottom: 1rpx solid rgb(242,242,242);
+}
+.order-brief {
+  height: 100rpx;
+  border-bottom: 1rpx solid rgb(242,242,242);
+  background: white;
+}
+.order-brief-index {
+  float: left;
+  /*margin-left: 20rpx;*/
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 30rpx;
+  color: rgb(0, 176, 240);
+  width: 70rpx;
+  text-align: center;
+}
+.order-brief-name {
+  float: left;
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 28rpx;
+  /*font-weight: bold;*/
+  width: 380rpx;
+}
+.order-brief-price {
+  float: left;
+  margin-top: 25rpx;
+  background: rgb(85,212,108);
+  box-shadow: 0 0 5rpx 0 rgb(204, 212, 198);
+  width: 180rpx;
+  height: 50rpx;
+  border-radius: 50rpx;
+  line-height: 50rpx;
+  margin-left: 10rpx;
+  /*text-align: center;*/
+}
+.order-brief-price-number {
+  font-size: 23rpx;
+  color: white;
+  margin-left: 50rpx;
+}
+.order-brief-pulldown {
+  float: left;
+  height: 100rpx;
+  width: 80rpx;
+}
+.order-brief-pulldown-image {
+  height: 20rpx;
+  width: 30rpx;
+  margin-top: 45rpx;
+  margin-left: 40rpx;
+}
+.pulldown-block { 
+  background: rgb(242,242,242);
+}
+.pulldown-image {
+  transform: rotate(180deg);
+}
+.order-detail-activity {
+  height: 280rpx;
+  width: 100%;
+  border-bottom: 1rpx solid rgb(242,242,242);
+}
+.order-intro {
+  height: 198rpx;
+  width: 710rpx;
+  margin: 20rpx 15rpx 0rpx;
+  float: left;
+  border: 2rpx solid rgb(242,242,242);
+  border-radius: 10rpx;
+}
+.order-intro-pic {
+  margin: 25rpx 20rpx 0;
+  float: left;
+  width: 150rpx;
+  height: 150rpx;
+}
+.order-intro-text {
+  margin-left: 20rpx;
+  margin-top: 40rpx; 
+  font-size: 32rpx;
+  font-weight: bold;
+  float: left;
+  width: 450rpx;
+  height: 90rpx;
+  line-height: 40rpx;
+}
+.enroll-status {
+  margin-left: 20rpx;
+  float: left;
+  color: rgb(0, 112, 192);
+  font-size: 24rpx;
+  width: 335rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+}
+.number-sides {
+  height: 40rpx;
+  line-height: 40rpx;
+  float: left;
+  color: black;
+  font-size: 24rpx;
+}
+.number-mid {
+  height: 40rpx;
+  line-height: 40rpx;
+  float: left;
+  color: red;
+  font-size: 24rpx;
+}
+.order-detail {
+  height: 60rpx;
+  float: left;
+}
+.order-date {
+  float: left;
+  color: rgb(127,127,127);
+  font-size: 26rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  width: 240rpx;
+  text-align: center;
+}
+.baomingfei {
+  float: left;
+  color: rgb(127,127,127);
+  font-size: 28rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  width: 90rpx;
+  margin-left: 50rpx;
+}
+.baomingfei-number {
+  float: left;
+  color: black;
+  font-size: 26rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  width: 180rpx;
+}
+.show-detail {
+  float: left;
+  margin-top: 10rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  border: 1rpx dashed rgb(0,176,240);
+  color: rgb(0,176,240);
+  width: 160rpx;
+  font-size: 28rpx;
+  text-align: center;
+}
+.order-detail-others {
+  height: 260rpx;
+}
+.order-others-intro {
+  height: 160rpx;
+  width: 710rpx;
+  margin: 20rpx 0 0 15rpx;
+  padding-bottom: 20rpx;
+  border: 1prx solid rgb(242,242,242);
+  font-size: 28rpx;
+  line-height: 40rpx; 
 }

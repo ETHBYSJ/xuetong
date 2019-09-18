@@ -181,7 +181,7 @@ new class extends we.Page {
           }
 
           wx.hideLoading();
-          //console.log(sor);
+          console.log(sor);
         }).catch(err => {
           this.$showModal({
             title: '获取信息错误',
