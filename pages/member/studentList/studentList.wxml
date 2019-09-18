@@ -23,7 +23,7 @@
               
               <view class="student_name">{{item.name}}</view>
               <view class="student_name update_text">更新至</view>
-              <view class="student_name update_date" wx:if="{{item.startDate!=null && item.endDate!=null}}">{{item.startDate}}至{{item.endDate}}</view>
+              <view class="student_name update_date" wx:if="{{item.studyStartDate!=null && item.studyEndDate!=null}}">{{item.studyStartDate}}至{{item.studyEndDate}}</view>
               
 
               <view class="base-cell__ft base-cell__ft_in-access"></view>

@@ -19,7 +19,7 @@ new class extends we.Page {
   onLoad(options) {
     this.setData({ 
       status: options.status,
-      action: options.action,
+      action: options.action==undefined ? null : options.action,
     })
     this.setData({
       imgBaseUrl: this.$app.imgBaseUrl
@@ -41,12 +41,12 @@ new class extends we.Page {
     if (this.data.nextload == true) {
       var page = this.data.pageNo + 1;
       this.$get('/v1/order/getOrderList?page=' + page).then(data => {
-        //console.log(data)
+        console.log(data)
         if (data.msg == 'SUCC') {
           //判断能否继续加载
           this.setData({
             'totalSize': data.totalSize,
-            'page': page,
+            'pageNo': page,
           })
           if (this.data.pageNo * 10 >= this.data.totalSize) {
             this.setData({
@@ -56,19 +56,20 @@ new class extends we.Page {
           //数据处理
           var tmp = [];
           if (this.data.status == '全部') {
-            for (let i in data.obj.content) {
-              if (data.obj.content[i].orderType == 1) {
-                var title = data.obj.content[i].activityHeading == null ? ['', ''] : data.obj.content[i].activityHeading.split('|',2);
+            for (let i in data.obj) {
+              if (data.obj[i].orderType == 1) {
+                var title = data.obj[i].activityHeading == null ? ['', ''] : data.obj[i].activityHeading.split('|',2);
                 tmp.push({
                   'activityHeading': title[0],
                   'activityTitle': (title[1] == undefined ? '' : title[1]),
-                  'activityQuota': data.obj.content[i].activityQuota,
-                  'activityTitlePhoto': data.obj.content[i].activityTitlePhoto,
-                  'activityStatus': data.obj.content[i].activityStatus,
-                  'activityRemains': data.obj.content[i].activityRemains,
-                  'orderSn': data.obj.content[i].orderSn,
-                  'status': data.obj.content[i].status,
-                  'payAmount': data.obj.content[i].payAmount,
+                  'activityQuota': data.obj[i].activityQuota,
+                  'activityTitlePhoto': data.obj[i].activityTitlePhoto,
+                  'activityStatus': data.obj[i].activityStatus,
+                  'activityRemains': data.obj[i].activityRemains,
+                  'activityId': data.obj[i].activityId,
+                  'orderSn': data.obj[i].orderSn,
+                  'status': data.obj[i].status,
+                  'payAmount': data.obj[i].payAmount,
                 });
               }
             }
@@ -79,37 +80,39 @@ new class extends we.Page {
           } else if (this.data.status != null) { //
             if(this.data.action != null && this.data.action != undefined) { //已支付
               var tmp = [];
-              for (let i in data.obj.content) {
-                if (data.obj.content[i].status == this.data.status && data.obj.content[i].orderType == 1 && data.obj.content[i].activityStatus == this.data.action) {
-                  var title = data.obj.content[i].activityHeading == null ? ['', ''] : data.obj.content[i].activityHeading.split('|', 2);
+              for (let i in data.obj) {
+                if (data.obj[i].status == this.data.status && data.obj[i].orderType == 1 && data.obj[i].activityStatus == this.data.action) {
+                  var title = data.obj[i].activityHeading == null ? ['', ''] : data.obj[i].activityHeading.split('|', 2);
                   tmp.push({
                     'activityHeading': title[0],
                     'activityTitle': (title[1] == undefined ? '' : title[1]),
-                    'activityQuota': data.obj.content[i].activityQuota,
-                    'activityTitlePhoto': data.obj.content[i].activityTitlePhoto,
-                    'activityStatus': data.obj.content[i].activityStatus,
-                    'activityRemains': data.obj.content[i].activityRemains,
-                    'orderSn': data.obj.content[i].orderSn,
-                    'status': data.obj.content[i].status,
-                    'payAmount': data.obj.content[i].payAmount,
+                    'activityQuota': data.obj[i].activityQuota,
+                    'activityTitlePhoto': data.obj[i].activityTitlePhoto,
+                    'activityStatus': data.obj[i].activityStatus,
+                    'activityRemains': data.obj[i].activityRemains,
+                    'activityId': data.obj[i].activityId,
+                    'orderSn': data.obj[i].orderSn,
+                    'status': data.obj[i].status,
+                    'payAmount': data.obj[i].payAmount,
                   });
                 } 
               } 
             } else { //未支付
               var tmp = [];
-              for (let i in data.obj.content) {
-                if (data.obj.content[i].status == this.data.status && data.obj.content[i].orderType == 1) {
-                  var title = data.obj.content[i].activityHeading == null ? ['', ''] : data.obj.content[i].activityHeading.split('|', 2);
+              for (let i in data.obj) {
+                if (data.obj[i].status == this.data.status && data.obj[i].orderType == 1) {
+                  var title = data.obj[i].activityHeading == null ? ['', ''] : data.obj[i].activityHeading.split('|', 2);
                   tmp.push({
                     'activityHeading': title[0],
                     'activityTitle': (title[1]==undefined ? '' : title[1]),
-                    'activityQuota': data.obj.content[i].activityQuota,
-                    'activityTitlePhoto': data.obj.content[i].activityTitlePhoto,
-                    'activityStatus': data.obj.content[i].activityStatus,
-                    'activityRemains': data.obj.content[i].activityRemains,
-                    'orderSn': data.obj.content[i].orderSn,
-                    'status': data.obj.content[i].status,
-                    'payAmount': data.obj.content[i].payAmount,
+                    'activityQuota': data.obj[i].activityQuota,
+                    'activityTitlePhoto': data.obj[i].activityTitlePhoto,
+                    'activityStatus': data.obj[i].activityStatus,
+                    'activityRemains': data.obj[i].activityRemains,
+                    'activityId': data.obj[i].activityId,
+                    'orderSn': data.obj[i].orderSn,
+                    'status': data.obj[i].status,
+                    'payAmount': data.obj[i].payAmount,
                   });
                 }
               } 

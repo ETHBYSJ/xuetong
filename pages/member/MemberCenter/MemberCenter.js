@@ -144,7 +144,7 @@ new class extends we.Page {
       this.setData({
         'vo.message': data.obj
       })
-      console.log(data.obj)
+      //console.log(data.obj)
       if (data.obj.address != null && data.obj.address != undefined) {
         var tmp = data.obj.address.split('#');
         this.setData({
