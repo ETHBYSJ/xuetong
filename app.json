@@ -45,7 +45,10 @@
     "pages/member/myAction/myAction",
     "pages/member/myEnroll/myEnroll",
     "pages/activity/detailFinished/detailFinished",
-    "pages/member/myOrder/myOrder"
+    "pages/member/myOrder/myOrder",
+    "pages/baby/payment/success/success",
+    "pages/baby/payment/fail/fail",
+    "pages/baby/payment/paymentDetailed/paymentDetailed"
   ],
   "window": {
     "backgroundTextStyle": "light",

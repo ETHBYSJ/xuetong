@@ -1,0 +1,44 @@
+@import "/pages/baby/payment/payment.wxss";
+.contact {
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+}
+.contact_btn {
+  background-color: #d9d9d9;
+  color: white;
+  width: 690rpx;
+}
+.toindex {
+  padding-top: 10rpx;
+}
+.toindex_btn {
+  background-color: white;
+  color: #00b848;
+  width: 690rpx;
+  border: 2rpx solid #00b848;
+}
+.orderid {
+  color: aqua;
+  font-size: 26rpx;
+}
+.amount_header {
+  font-size: 32rpx;
+  color: #d9d9d9;
+  line-height: 50rpx;
+  text-align: center;
+}
+.amount_text {
+  font-size: 34rpx;
+  line-height: 50rpx;
+  color: black;
+}
+.amount_wrp {
+  height: 50rpx;
+  padding-top: 10rpx;
+}
+.detailed {
+  font-size: 26rpx;
+  color: #d9d9d9;
+  text-align: center;
+  margin-bottom: 20rpx;
+}

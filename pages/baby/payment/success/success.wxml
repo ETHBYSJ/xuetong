@@ -1,0 +1,19 @@
+<!--支付成功跳转页面-->
+<view class="page">
+  <view class="success_wrp">
+    <view class="success_icon_wrp">
+      <image class="success_icon" src="/assets/icon/paySuccess.png"></image>
+    </view>
+    <view class="success_text_wrp">
+      支付成功
+    </view>
+  </view>
+  <!--查看报名详情-->
+  <view class="detail">
+    <button class="detail_btn" bindtap="detail">查看报名详情</button>
+  </view>
+  <!--返回首页-->
+  <view class="toindex">
+    <button class="toindex_btn" bindtap="toIndex">返回首页</button>
+  </view>
+</view>

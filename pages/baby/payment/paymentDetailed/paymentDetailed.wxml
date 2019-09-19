@@ -1,0 +1,68 @@
+<!--报名详情页面-->
+<view class="page">
+  <!--基本信息-->
+  <view class="payment_content">
+    <view class="payment_name">
+      <view class="img_wrapper">
+        <image src="{{img}}"></image>
+      </view>
+      <view class="student_info">
+        <text class="student_name">{{name}}</text>
+        <text class="student_date">目前可托管至{{endDate.fulldate}}</text>
+      </view>
+    </view>
+    <view class="payment_date">
+      <view class="mid_wrapper">
+        <view class="mid_line"></view>
+        <view class="mid_circle"></view>
+        <text class="mid_text">至</text>
+      </view>
+      <view class="payment_date_start">
+        <view class="date_block">
+          <view class="calendar">
+            <view class="cal_top">
+              <text class="month">{{startDate.year}}.{{startDate.month}}</text>
+            </view>
+            <view class="cal_bottom">
+              <text class="day">{{startDate.day}}日</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="payment_date_end">          
+        <view class="date_block">
+          <view class="calendar">
+            <view class="cal_top">
+              <text class="month">{{endDate.year}}.{{endDate.month}}</text>
+            </view>
+            <view class="cal_bottom">
+              <text class="day">{{endDate.day}}日</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!--信息-->
+    <view class="payment_info">
+      <text class="info_header">已报名\n</text>
+      <text>托管地址 : <text>{{gradeAddress}}\n</text></text>
+      <text>托管时间 : <text>{{gradeTime}}\n</text></text>
+      <text class="orderid">订单号 : {{orderId}}</text>
+      <view class="amount_wrp">
+        <view class="amount_header">报名费<text class="amount_text">￥{{payAmount}}</text></view>
+      </view>
+      <view class="detailed">
+        如需修改报名信息或取消活动，请联系客服。
+      </view>
+    </view>
+    <!--支付-->
+    <view class="contact">
+      <button class="contact_btn" bindtap="contact">联系客服</button>
+    </view>
+    <!--咨询电话-->
+    <view class="toindex">
+      <button class="toindex_btn" bindtap="toIndex">返回首页</button>
+    </view>
+  </view>
+</view>

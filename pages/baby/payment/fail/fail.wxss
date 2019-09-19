@@ -1,0 +1,38 @@
+.fail_wrp {
+  padding-top: 150rpx;
+}
+.fail_icon_wrp {
+  height: 120rpx;
+}
+.fail_icon {
+  position: absolute;
+  left: 325rpx;
+  width: 100rpx;
+  height: 100rpx;
+}
+.fail_text_wrp {
+  padding-top: 20rpx;
+  height: 50rpx;
+  font-weight: bold;
+  font-size: 40rpx;
+  text-align: center;
+  line-height: 50rpx;
+}
+.repay {
+  padding-top: 150rpx;
+  padding-bottom: 10rpx;
+}
+.repay_btn {
+  background-color: #00b848;
+  color: white;
+  width: 690rpx;
+}
+.toindex {
+  padding-top: 10rpx;
+}
+.toindex_btn {
+  background-color: white;
+  color: #00b848;
+  width: 690rpx;
+}
+
