@@ -1,7 +1,7 @@
 <!--pages/member/myEnroll/myEnroll.wxml-->
 <view class="page">
   <scroll-view class="container" scroll-y="true" lower-threshold="5" bindscrolltolower="lower" scroll-top="{{scrolltop}}">
-    <view class="order-block" wx:for="{{orderList}}">
+    <view class="order-block" wx:for="{{vo.orderList}}">
       <view class="order-header">
         <image class="header-pic" wx:if="{{item.status=='待支付'}}" src="/images/enroll0.png"></image>
         <image class="header-pic" wx:if="{{item.status=='已支付' && item.activityStatus==0}}" src="/images/enroll1.png"></image>

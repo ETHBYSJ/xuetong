@@ -26,6 +26,7 @@
   height: 100rpx;
   border-bottom: 1rpx solid rgb(242,242,242);
   background: white;
+  position: relative;
 }
 .order-brief-index {
   float: left;
@@ -63,15 +64,15 @@
   margin-left: 50rpx;
 }
 .order-brief-pulldown {
-  float: left;
   height: 100rpx;
-  width: 80rpx;
+  width: 100%;
+  position: absolute;
 }
 .order-brief-pulldown-image {
   height: 20rpx;
   width: 30rpx;
   margin-top: 45rpx;
-  margin-left: 40rpx;
+  margin-left: 680rpx;
 }
 .pulldown-block { 
   background: rgb(242,242,242);
@@ -134,6 +135,7 @@
 .order-detail {
   height: 60rpx;
   float: left;
+  border-bottom: 1rpx solid rgb(242,242,242);
 }
 .order-date {
   float: left;
@@ -163,24 +165,24 @@
 }
 .show-detail {
   float: left;
-  margin-top: 10rpx;
-  height: 40rpx;
-  line-height: 40rpx;
+  margin-top: 7.5rpx;
+  height: 45rpx;
+  line-height: 45rpx;
   border: 1rpx dashed rgb(0,176,240);
   color: rgb(0,176,240);
   width: 160rpx;
-  font-size: 28rpx;
+  font-size: 26rpx;
   text-align: center;
 }
 .order-detail-others {
-  height: 260rpx;
+  height: 300rpx;
 }
 .order-others-intro {
-  height: 160rpx;
-  width: 710rpx;
-  margin: 20rpx 0 0 15rpx;
-  padding-bottom: 20rpx;
-  border: 1prx solid rgb(242,242,242);
+  height: 210rpx;
+  width: 690rpx;
+  margin: 10rpx 0 0 15rpx;
+  padding: 10rpx 10rpx;
+  border: 1rpx solid rgb(242,242,242);
   font-size: 28rpx;
   line-height: 40rpx; 
 }

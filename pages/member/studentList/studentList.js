@@ -18,6 +18,7 @@ new class extends we.Page {
       oHeight: [],
       toView: 'page_header',
       classList: [],
+      index: 0,
     }
   }
 
@@ -107,6 +108,7 @@ new class extends we.Page {
     this.loadStuList(this.data.vo.message.webchatClazzList[e.detail.current].clazzid, this.data.vo.message.webchatClazzList[e.detail.current].gradeid);
     this.setData({
       'toView': 'page_header',
+      'index': e.detail.current,
     });
   }
 
@@ -207,7 +209,7 @@ new class extends we.Page {
         'vo.message': data.obj,
       });
       if (data.obj.webchatClazzList!=null && data.obj.webchatClazzList.length>0) {
-        this.loadStuList(data.obj.webchatClazzList[0].clazzid, data.obj.webchatClazzList[0].gradeid);
+        this.loadStuList(data.obj.webchatClazzList[this.data.index].clazzid, data.obj.webchatClazzList[this.data.index].gradeid);
       } else {
         this.setData({
           stuList: [],

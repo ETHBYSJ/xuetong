@@ -8,8 +8,9 @@ new class extends we.Page {
     currentTab: 2,
     page:1,
     totalsize: "",
-    size: 6,
+    size: 10,
     keyword:"",
+    imgBaseUrl: "",
     }
   }
   //input框事件处理
@@ -44,18 +45,31 @@ new class extends we.Page {
 
   //事件处理函数
   bindItemTap(e) {
-    console.log(e);
-    var noticeid=e.currentTarget.dataset.type;
-    var index = e.currentTarget.dataset.idx;
-    var data = this.data.feed;
-    console.log(index)
-    data[index].x = true;
-    this.setData({
-      feed: data
-    })
+    //console.log(e);
+    //console.log(this.data.feed)
+    if (this.data.feed[e.currentTarget.dataset.idx].notice.noticetype == "ntHomework") {
+      wx.navigateTo({
+        url: '../baby/homework/index/index?studentid=' + this.data.feed[e.currentTarget.dataset.idx].obj.studentId + '&name=' + this.data.feed[e.currentTarget.dataset.idx].obj.studentName,
+      })
+    } else if (this.data.feed[e.currentTarget.dataset.idx].notice.noticetype == "ntWeeklyReport") {
+      wx.navigateTo({
+        url: '../member/studentStudy/studentStudy?id=' + this.data.feed[e.currentTarget.dataset.idx].obj.reportId + '&studentid=' + this.data.feed[e.currentTarget.dataset.idx].obj.studentId + '&name=' + this.data.feed[e.currentTarget.dataset.idx].obj.studentName + '&img=' + this.data.imgBaseUrl + this.data.feed[e.currentTarget.dataset.idx].obj.studentPhoto,
+      })
+    } /*else if (this.data.feed[e.currentTarget.dataset.idx].notice.noticetype == "ntHomework") {
+      
+    }*/ else {
+      var noticeid = e.currentTarget.dataset.type;
+      var index = e.currentTarget.dataset.idx;
+      var data = this.data.feed;
+      //console.log(index)
+      data[index].x = true;
+      this.setData({
+        feed: data
+      })
       wx.navigateTo({
         url: '../answer/answer?noticeid=' + noticeid,
       })
+    }
     }
 
   //导航事件处理函数
@@ -77,9 +91,9 @@ new class extends we.Page {
         totalsize: totalsize,
       })
     }).catch(err => {
-      this.$showModal({
+      wx.showModal({
         title: '获取信息错误',
-        content: err.msg,
+        content: '',
         showCancel: false
       })
     })
@@ -94,6 +108,7 @@ new class extends we.Page {
   onShow() {
     this.setData({
       keyword:"",
+      imgBaseUrl: this.$app.imgBaseUrl,
     })
 
 	  this.$get('/v1/member').then(data => {
@@ -133,25 +148,18 @@ new class extends we.Page {
 			  })
 		  }
 	  })
-
-
-
-
-
-
-   
   }
   upper() {
     wx.showNavigationBarLoading()
     this.refresh();
-    console.log("upper");
+    //console.log("upper");
     setTimeout(function () { wx.hideNavigationBarLoading(); wx.stopPullDownRefresh(); }, 1000);
   }
   lower(e) {
     wx.showNavigationBarLoading();
     var that = this;
     setTimeout(function () { wx.hideNavigationBarLoading(); that.nextLoad(); }, 1000);
-    console.log("lower")
+    //console.log("lower")
   }
   //scroll: function (e) {
   //  console.log("scroll")
@@ -166,6 +174,7 @@ new class extends we.Page {
       feed: feed_data,
       feed_length: feed_data.length
     });*/
+    //console.log('/v1/notice/getUserNotice?page=' + this.data.page + '&size=' + this.data.size + '&status=' + this.data.currentTab)
     this.$get('/v1/notice/getUserNotice?page='+this.data.page+'&size=' + this.data.size + '&status='+this.data.currentTab).then(data => {
       console.log(data);
       if (data.totalSize % data.pageSize!=0){

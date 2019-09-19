@@ -12,8 +12,8 @@
   <view class="off_date">
     <view class="mid_wrapper">
       <view class="mid_line"></view>
-      <view class="mid_circle"></view>
-      <text class="mid_text">至</text>
+      <view class="mid_circle">至</view>
+      
     </view>
     <view class="off_date_start">    
       <view class="date_block">

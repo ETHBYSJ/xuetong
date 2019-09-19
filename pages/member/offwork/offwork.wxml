@@ -35,7 +35,7 @@
 
         <view class="base_block">
           <text class="title">请假人</text>
-          <image src="{{img}}" class="memberpic" mode="aspectFit">
+          <image src="{{img}}" class="memberpic">
 
           </image>
           <text class="name">{{name}}</text>
@@ -45,8 +45,7 @@
       <view class="offwork_content_date">
         <view class="mid_wrapper">
           <view class="mid_line"></view>
-          <view class="mid_circle"></view>
-          <text class="mid_text">至</text>
+          <view class="mid_circle">至</view>
         </view>
         <view class="offwork_date_start">
           <view class="date_block">

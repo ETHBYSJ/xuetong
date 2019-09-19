@@ -27,7 +27,7 @@
             
             <view class="email_upload">
               <button wx:if="{{!submit && !notice}}" class="not_email_btn" bindtap="bindEmail">一键通知上传</button>
-              <button wx:if="{{!submit &&  notice}}" class="email_btn">已通知上传</button>
+              <button wx:elif="{{!submit &&  notice}}" class="email_btn">已通知上传</button>
               <button wx:else class="email_btn">作业已上传</button>
             </view>
             

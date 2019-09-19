@@ -29,9 +29,13 @@ new class extends we.Page {
 
   onShow() {
     this.setData({
-      'userType': this.$app.userType
+      'userType': this.$app.userType,
+      'page': 0,
+      'nextload': true,
+      'feed': [],
     })
-    this.getData()
+    console.log('show feed')
+    this.getData();
   }
 
   showDetails(e) {

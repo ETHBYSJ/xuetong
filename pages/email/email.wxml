@@ -1,53 +1,48 @@
 <!--index.wxml-->
 <scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower"  scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
-   <view class="tap-wrp">
-     <view class="tab-list {{currentTab==2 ? 'on' : ''}}" data-current="2" bindtap="swichNav">全部</view>     
-     <view class="tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">已读</view>      
-     <view class="tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">未读</view>
-   </view>
-   
-   <view class="search flex-wrp">
-      <view class="search-left">
-          <image src="../../images/search.png"></image>
-          <input placeholder="请搜索关键字" value='{{keyword}}' placeholder-class="search-placeholder" bindinput='bindKeyword'/>
-      </view>
-      <view class="search-right" bindtap="searchEmail">
-          <image src="../../images/lighting.png"></image>
-      </view>
-   </view>   
+  <view class="tap-wrp">
+    <view class="tab-list {{currentTab==2 ? 'on' : ''}}" data-current="2" bindtap="swichNav">全部</view>     
+    <view class="tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">已读</view>      
+    <view class="tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">未读</view>
+  </view>
+  
+  <view class="search flex-wrp">
+    <view class="search-left">
+      <image src="../../images/search.png"></image>
+      <input placeholder="请搜索关键字" value='{{keyword}}' placeholder-class="search-placeholder" bindinput='bindKeyword'/>
+    </view>
+    <view class="search-right" bindtap="searchEmail">
+      <image src="../../images/lighting.png"></image>
+    </view>
+  </view>   
 
-    <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
-        <view class="feed-item" bindtap="bindItemTap" data-type="{{item.notice.id}}" data-idx="{{idx}}">
-            <view class="feed-source">
-              
+  <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
+    <view class="feed-item" bindtap="bindItemTap" data-type="{{item.notice.id}}" data-idx="{{idx}}">
+      <view class="feed-source">
+        <a class="">
+          <view class="avatar">
+            <image src="../../images/ring_focus.png" hidden='{{item.x?item.x:item.obj.status}}'></image>   
+            <image src="../../images/ring.png" hidden='{{item.x?!item.x:!item.obj.status}}'></image>
+          </view>
+          <text>{{item.notice.heading}}</text>
+        </a>
+        <image class="item-more" mode="aspectFit" src="../../images/more.png"></image>
+      </view>
 
-                <a class="">
-                    <view class="avatar">
-                        <image src="../../images/ring_focus.png" hidden='{{item.x?item.x:item.noticeobject.status}}'></image>
-                        {{item.noticeObject.status}}
-                         <image src="../../images/ring.png" hidden='{{item.x?!item.x:!item.noticeobject.status}}'></image>
-                    </view>
-                    <text>{{item.sendername}}</text>
-                </a>
-                <image class="item-more" mode="aspectFit" src="../../images/more.png"></image>
-            </view>
-            <view class="feed-content">
-                <view class="question" qid="{{question_id}}">
-                    <a class="question-link">
-                        <text>{{item.notice.heading}}</text>
-                    </a>
-                </view>
-                <view class="answer-body">
-                    <!-- <view> -->
-                        <!-- <text class="answer-txt" aid="{{answer_id}}">{{item.notice.content}}</text> -->
-                    <!-- </view> -->
-                    <view class="answer-actions">
-                        <view class="like dot">
-                            <a>{{item.notice.createdate}}</a>
-                        </view>
-                    </view>
-                </view>
-            </view>
+      <view class="feed-content">
+        <view class="question" qid="{{question_id}}">
+          <a class="question-link">
+            <text class="notice-content">{{item.notice.content}}</text>
+          </a>
         </view>
-    </block>
+        <view class="answer-body">
+          <view class="answer-actions">
+            <view class="like dot">
+              <a>{{item.notice.createdate}}</a>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
 </scroll-view>

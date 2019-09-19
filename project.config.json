@@ -23,7 +23,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.3.2",
-  "appid": "wx14f8407b5c50ca85",
+	"appid": "wx14f8407b5c50ca85",
 	"projectname": "xuetong",
 	"isGameTourist": false,
 	"simulatorType": "wechat",
