@@ -1,0 +1,39 @@
+.success_wrp {
+  padding-top: 150rpx;
+}
+.success_icon_wrp {
+  height: 120rpx;
+}
+.success_icon {
+  position: absolute;
+  left: 325rpx;
+  width: 100rpx;
+  height: 100rpx;
+}
+.success_text_wrp {
+  padding-top: 20rpx;
+  height: 50rpx;
+  font-weight: bold;
+  font-size: 40rpx;
+  text-align: center;
+  line-height: 50rpx;
+}
+.detail {
+  padding-top: 150rpx;
+  padding-bottom: 10rpx;
+}
+.detail_btn {
+  background-color: #00b848;
+  color: white;
+  width: 690rpx;
+}
+.toindex {
+  padding-top: 10rpx;
+}
+.toindex_btn {
+  background-color: white;
+  color: #00b848;
+  width: 690rpx;
+  border: 2rpx solid #00b848;
+}
+

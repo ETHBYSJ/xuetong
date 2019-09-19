@@ -26,7 +26,7 @@
         </view>
         <view class="student_info">
           <text class="student_name">{{name}}</text>
-          <text class="student_date">目前可托管至2019.03.31</text>
+          <text class="student_date">目前可托管至{{endDateLatest}}</text>
         </view>
       </view>
       <view class="payment_date">
@@ -43,7 +43,7 @@
                   <text class="month">{{startDate.year}}.{{startDate.month}}</text>
                 </view>
                 <view class="cal_bottom">
-                  <text class="day">{{startDate.day}}</text>
+                  <text class="day">{{startDate.day}}日</text>
                 </view>
               </view>
               <view class="date_text">
@@ -61,7 +61,7 @@
                   <text class="month">{{endDate.year}}.{{endDate.month}}</text>
                 </view>
                 <view class="cal_bottom">
-                  <text class="day">{{endDate.day}}</text>
+                  <text class="day">{{endDate.day}}日</text>
                 </view>
               </view>
               <view class="date_text">
@@ -77,10 +77,10 @@
       <!--信息-->
       <view class="payment_info">
         <text class="info_header">已选择\n</text>
-        <text>托管地址 : <text>\n</text></text>
-        <text>托管时间 : <text>\n</text></text>
+        <text>托管地址 : <text>{{gradeAddress}}\n</text></text>
+        <text>托管时间 : <text>{{gradeTime}}\n</text></text>
         <text>应付</text>
-        <text class="pay_amount">￥960.00元</text>
+        <text class="pay_amount">￥{{payAmount}}元</text>
       </view>
       <!--支付-->
       <view class="pay">
@@ -88,7 +88,7 @@
       </view>
       <!--咨询电话-->
       <view class="consult">
-        <button class="consult_btn">咨询电话</button>
+        <button class="consult_btn" bindtap="consult">咨询电话</button>
       </view>
     </view>
   </block>
