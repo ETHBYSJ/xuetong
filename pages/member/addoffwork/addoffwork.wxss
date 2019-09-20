@@ -143,10 +143,13 @@
   display: block;
   margin-top: 60rpx;
 }
-.textarea {
-  height: 500rpx;
+.offwork_textarea {
+  /*height: 500rpx;*/
   border-top: 1rpx solid #d9d9d9;
+  font-size: 26rpx;
+  padding: 10rpx 10rpx 10rpx 10rpx;
 }
+/*
 textarea {
   width: 700rpx;
   height: 500rpx;
@@ -155,6 +158,7 @@ textarea {
   margin-top: 10rpx;
   margin-bottom: 10rpx;
 }
+*/
 .bottom {
   border-top: 1rpx solid #d9d9d9;
   padding-top: 20rpx;

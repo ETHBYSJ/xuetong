@@ -50,8 +50,8 @@
       </view>      
     </view>
   </view>
-  <view class="textarea">
-    <textarea class="textarea-bg" fixed="true" maxlength="300" style="height: {{height}}" bindinput="bindInput" auto-height />
+  <view class="offwork_textarea">
+    <textarea style="height:200rpx;width:730rpx;" maxlength="300" bindinput="bindInput" focus="true"/>
   </view>
 
   <view class="bottom">

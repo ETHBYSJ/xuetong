@@ -48,7 +48,8 @@
     "pages/member/myOrder/myOrder",
     "pages/baby/payment/success/success",
     "pages/baby/payment/fail/fail",
-    "pages/baby/payment/paymentDetailed/paymentDetailed"
+    "pages/baby/payment/paymentDetailed/paymentDetailed",
+    "pages/activity/payment/payment"
   ],
   "window": {
     "backgroundTextStyle": "light",
