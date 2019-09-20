@@ -1,0 +1,44 @@
+@import "../apply/apply.wxss";
+base-nav_contant_list {
+  border: 2rpx solid #d9d9d9;
+}
+.consult_wrp {
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
+}
+.consult_btn {
+  width: 690rpx;
+  background-color: #d9d9d9;
+  color: white;
+}
+.toindex_wrp {
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
+}
+.toindex_btn {
+  background-color: white;
+  color: #00b848;
+  width: 690rpx;
+  border: 2rpx solid #00b848;
+}
+.orderid {
+  padding-left: 20rpx;
+  color: aqua;
+  font-size: 24rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+}
+.explain {
+  text-align: center;
+  color: #d9d9d9;
+  font-size: 24rpx;
+  padding-bottom: 20rpx;
+}
+.base-btn {
+  color: #d9d9d9;
+}
+.name-list {
+  border-bottom: 1px solid #d9d9d9;
+  margin: 0 30rpx;
+  padding: 0 16rpx;
+}

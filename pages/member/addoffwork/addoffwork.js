@@ -5,7 +5,6 @@ new class extends we.Page {
       //studentid: "",
       img: "",
       nowdate: null,
-      height: "500rpx",
       name: "",
       //date: null,
       //msg: "",

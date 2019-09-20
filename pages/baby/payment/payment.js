@@ -365,7 +365,7 @@ new class extends we.Page {
             //支付成功，调用学生报名成功接口    
             console.log(po)        
             that.$post('/v1/student/enrollSucessful', po).then(data => {
-              console.log(that.data)
+              console.log(data)
               wx.navigateTo({
                 url: './success/success?gradeAddress=' + that.data.gradeAddress + '&gradeTime=' + that.data.gradeTime + '&orderId=' + that.data.orderId + '&payAmount=' + that.data.payAmount + '&startDate=' + that.data.startDate.fulldate + '&endDate=' + that.data.endDate.fulldate + '&name=' + that.data.name + '&img=' + that.data.img,
               })

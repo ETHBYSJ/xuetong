@@ -82,10 +82,19 @@
           </view>
 
           <view>
+            <!--测试-->
+            
             <navigator url="/pages/baby/payment/payment?studentid={{studentid}}&name={{item.name}}&img={{item.photo?vo.imgBaseUrl+''+item.photo:'/assets/icon/loadImg.jpg'}}" open-type="navigate">
               <image src="/assets/icon/ykt.png"></image>
               <text>缴费</text>
             </navigator>
+            
+            <!--
+            <navigator url="/pages/activity/payment/payment" open-type="navigate">
+              <image src="/assets/icon/ykt.png"></image>
+              <text>缴费</text>
+            </navigator>
+            -->
           </view>
         </view>
       <!--

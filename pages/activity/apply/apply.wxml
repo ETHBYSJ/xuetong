@@ -1,106 +1,110 @@
 <view class="home">
-    <view class="gap">
+  <view class="gap">
 
+  </view>
+  <view class="header">
+    <view class="header-text">
+        报名信息
     </view>
-    <view class="header">
-        <view class="header-text">
-            报名信息
+  </view>
+  <view class="contain">
+    <view class='base-nav_contant_list clearfix'>
+      <image src='{{feed.titlePhoto?imgBaseUrl+""+feed.titlePhoto:"/images/icon8.jpg"}}' mode='scaleToFill' class='base-nav_contant_list-img'></image>
+      <view class='base-nav_contant_list_cen'>
+        <view class='base-nav_contant_list_txt'>{{feed.heading}}</view>
+        <view class='active_warp' id="">
+          <text style='color:#1296db'>{{currentTab == 1 ?'活动结束':'活动报名中'}}</text>
+          <text hidden="{{currentTab== 1}}" style="padding-left:130rpx;">剩余<text style='color:red'>{{feed.remains}}</text>个名额</text>
         </view>
+      </view>
     </view>
-    <view class="contain">
-        <view class='base-nav_contant_list clearfix'>
-            <image src='{{feed.titlePhoto?imgBaseUrl+""+feed.titlePhoto:"/images/icon8.jpg"}}' mode='scaleToFill' class='base-nav_contant_list-img'></image>
-            <view class='base-nav_contant_list_cen'>
-                <view class='base-nav_contant_list_txt'>{{feed.heading}}</view>
-                <view class='active_warp' id="">
-                    <text style='color:#1296db'>{{currentTab == 1 ?'活动结束':'活动报名中'}}</text>
-                    <text hidden="{{currentTab== 1}}" style="padding-left:130rpx;">剩余<text style='color:red'>{{feed.remains}}</text>个名额</text>
-                </view>
-            </view>
-        </view>
-        <view class="input-info">
-            <view class="name-list">
-                <image class="child-info" src="/images/person.png"></image>
-                <view class="child-list">
-				    <view hidden='{{showChildtext}}' style='color:red'>请您添加孩子</view>
-                    <view class='child-item' hidden='{{!showChildtext}}' wx:for='{{po.students}}' wx:key='{{students}}' wx:for-item="item" wx:for-index="ind">
-                        <text data-index='{{ind}}' data-name='{{item.name}}' data-birthday='{{item.birthday}}' bindtap='selectChild'>{{item.name}}</text>
-                        <image src='/images/delete.png' class='child-delete' data-index='{{ind}}' bindtap='deledeteChild'></image>
-                    </view>
-                </view>
-                <image class="child-add" src="/images/add.png" bindtap='addChild'></image>
-            </view>
-            <view class="name-list" hidden='{{feed.familyEnable != 0}}'>
-                <image class="parent-info" src="/images/person.png"></image>
-                <view class="parent-list">
-                    <view hidden='{{showParenttext}}' style='color:red'>请您添加家长</view>
-                    <view class='child-item' hidden='{{!showParenttext}}' wx:for='{{po.familys}}' wx:key='{{familys}}' wx:for-item="item" wx:for-index="ind">
-                        <text data-index='{{ind}}' data-name='{{item.name}}' bindtap='selectParent'>{{item.name}}</text>
-                        <image src='/images/delete.png' class='child-delete' data-index='{{ind}}' bindtap='deledeteParent'></image>
-                    </view>
-                </view>
-                <image class="parent-add" src="/images/add.png" bindtap='addParent'></image>
-            </view>
-            <view class="name-list">
-                <image class="parent-info" src="/images/phone.png"></image>
-                <view class="parent-list">
-                    <input placeholder="请输入手机号码" value='{{po.phone}}' placeholder-style='color:#ccc' bindinput='bindPhone' />
-                </view>
-            </view>
-        </view>
-<view class="btn-wrp">
- <view class='base-btn'>
-   <view hidden='{{feed.familyEnable != 0 }}'>成人￥{{feed.familyPrice}}元/人</view>
-   <view style='line-height:{{feed.familyEnable != 0?"100rpx":"50rpx"}}'>儿童￥{{feed.studentPrice}}元/人</view>
- </view>
- <view class='base-btn-ok'>合计：￥{{totalPrice}}元</view>
- 
-</view>
 
-        <view class="pay btn" bindtap='Landcode'>立即支付</view>
-        <view class="consult btn" bindtap='calling'>咨询电话</view>
+    <view class="input-info">
+      <view class="name-list">
+        <image class="child-info" src="/images/person.png"></image>
+        <view class="child-list">
+          <view hidden='{{showChildtext}}' style='color:red'>请您添加孩子</view>
+          <view class='child-item' hidden='{{!showChildtext}}' wx:for='{{po.students}}' wx:key='{{students}}' wx:for-item="item" wx:for-index="ind">
+            <text data-index='{{ind}}' data-name='{{item.name}}' data-birthday='{{item.birthday}}' bindtap='selectChild'>{{item.name}}</text>
+            <image src='/images/delete.png' class='child-delete' data-index='{{ind}}' bindtap='deledeteChild'></image>
+          </view>
+        </view>
+        <image class="child-add" src="/images/add.png" bindtap='addChild'></image>
+      </view>
+
+      <view class="name-list" hidden='{{feed.familyEnable != 0}}'>
+        <image class="parent-info" src="/images/person.png"></image>
+        <view class="parent-list">
+          <view hidden='{{showParenttext}}' style='color:red'>请您添加家长</view>
+          <view class='child-item' hidden='{{!showParenttext}}' wx:for='{{po.familys}}' wx:key='{{familys}}' wx:for-item="item" wx:for-index="ind">
+            <text data-index='{{ind}}' data-name='{{item.name}}' bindtap='selectParent'>{{item.name}}</text>
+            <image src='/images/delete.png' class='child-delete' data-index='{{ind}}' bindtap='deledeteParent'></image>
+          </view>
+        </view>
+        <image class="parent-add" src="/images/add.png" bindtap='addParent'></image>
+      </view>
+
+      <view class="name-list">
+        <image class="parent-info" src="/images/phone.png"></image>
+        <view class="parent-list">
+          <input placeholder="请输入手机号码" value='{{po.phone}}' placeholder-style='color:#ccc' bindinput='bindPhone' />
+        </view>
+      </view>
     </view>
+
+    <view class="btn-wrp">
+      <view class='base-btn'>
+        <view hidden='{{feed.familyEnable != 0 }}'>成人￥{{feed.familyPrice}}元/人</view>
+        <view style='line-height:{{feed.familyEnable != 0?"100rpx":"50rpx"}}'>儿童￥{{feed.studentPrice}}元/人</view>
+      </view>
+      <view class='base-btn-ok'>合计：￥{{totalPrice}}元</view>
+    </view>
+
+    <view class="pay btn" bindtap='Landcode'>立即支付</view>
+    <view class="consult btn" bindtap='calling'>咨询电话</view>
+  </view>
    
-    <view class='promptBox' style='display:{{promptDisplay}}'>
-        <icon type='info' color='#fff' size='30'></icon>
-        <view>{{promptTxt}}</view>
-    </view>
+  <view class='promptBox' style='display:{{promptDisplay}}'>
+    <icon type='info' color='#fff' size='30'></icon>
+    <view>{{promptTxt}}</view>
+  </view>
 </view>
 
- <view class="bottom-dialog {{dialog?'active-bottom-dialog':''}}">
-        <view class="child-select-list" hidden='{{!showChild}}'>
-            <view class="child-select-item">
-                <view class="child-select-item-info">
-                    <image class="select-child-img" src='/images/boy.png'></image>
-                   <text class='name'>姓名:</text> <input placeholder="请输入孩子姓名" placeholder-style='color:#ccc' bindinput='bindStudentname' value='{{childValue}}' cursor-spacing="140px"/>
-                  
-					<text class='brithay'> 生日:</text><picker mode="date" value="{{birthday}}" start="1990-01-01" end="2019-12-31" bindchange="bindDateChange" class="select-child-date" data-index='{{ind}}'>
-    <view class="select-child-date">
-    {{birthday}}
+<view class="bottom-dialog {{dialog?'active-bottom-dialog':''}}">
+  <view class="child-select-list" hidden='{{!showChild}}'>
+    <view class="child-select-item">
+      <view class="child-select-item-info">
+        <image class="select-child-img" src='/images/boy.png'></image>
+        <text class='name'>姓名:</text> 
+        <input placeholder="请输入孩子姓名" placeholder-style='color:#ccc' bindinput='bindStudentname' value='{{childValue}}' cursor-spacing="140px"/>        
+				<text class='brithay'> 生日:</text>
+        <picker mode="date" value="{{birthday}}" start="1990-01-01" end="2019-12-31" bindchange="bindDateChange" class="select-child-date" data-index='{{ind}}'>
+          <view class="select-child-date">
+          {{birthday}}
+          </view>
+        </picker>  
+      </view>
     </view>
-  </picker>
-  
-                </view>
-            </view>
-        </view>
-        <view class="parent-select-list" hidden='{{!showParent}}'>
-            <view class="parent-select-item">
-                <view class="child-select-item-info">
-                    <image class="select-child-img" src='/images/boy.png'></image>
-					<text class='_name'>姓名:</text>    <input placeholder="请输入家长姓名" placeholder-style='color:#ccc' bindinput='bindFamilyname' value='{{parentValue}}' cursor-spacing="140px" style='margin-left:80rpx;'/>
-                    <view class="parent-info-right">
-                        <!-- <view class="select-child-date">18316489163</view> -->
-                    </view>
-                </view>
-               
-            </view>
-        </view>
-        <view hidden='{{!showChild}}' class="sure-wrapper" >
-		    <view bindtap='enterChild' class="sure-select">确定</view>
-			 <view class="sure-select" bindtap='closeChild'>取消</view>
-        </view>
-        <view hidden='{{!showParent}}' class="sure-wrapper">
-           <view bindtap='enterParent' class="sure-select">确定</view>
-			 <view class="sure-select" bindtap='closeParent'>取消</view>
-        </view>
+  </view>
+
+  <view class="parent-select-list" hidden='{{!showParent}}'>
+    <view class="parent-select-item">
+      <view class="child-select-item-info">
+        <image class="select-child-img" src='/images/boy.png'></image>
+				<text class='_name'>姓名:</text>    
+        <input placeholder="请输入家长姓名" placeholder-style='color:#ccc' bindinput='bindFamilyname' value='{{parentValue}}' cursor-spacing="140px" style='margin-left:80rpx;'/>
+        <view class="parent-info-right"></view>
+      </view>               
     </view>
+  </view>
+
+  <view hidden='{{!showChild}}' class="sure-wrapper" >
+    <view bindtap='enterChild' class="sure-select">确定</view>
+    <view class="sure-select" bindtap='closeChild'>取消</view>
+  </view>
+
+  <view hidden='{{!showParent}}' class="sure-wrapper">
+    <view bindtap='enterParent' class="sure-select">确定</view>
+    <view class="sure-select" bindtap='closeParent'>取消</view>
+  </view>
+</view>

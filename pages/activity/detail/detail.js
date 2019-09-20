@@ -18,6 +18,7 @@ new class extends we.Page {
       id: noticeid 
     })
     this.$get('/v1/activity/' + noticeid).then(data => {
+      console.log(data.obj)
       var article = data.obj.content;
       WxParse.wxParse('article', 'html', article, this, 5);
       this.setData({
@@ -31,28 +32,7 @@ new class extends we.Page {
         showCancel: false
       })
     })
-  }
-
- 
- 
-
-
-    /*     wx.requestPayment(
-           {
-             'timeStamp': '',
-             'nonceStr': '',
-             'package': '',
-             'signType': 'MD5',
-             'paySign': '',
-             'success': function (res) { },
-             'fail': function (res) { },
-             'complete': function (res) { }
-           })*/
-
-
-
-
-  
+  } 
   //分享给朋友
   onShareAppMessage(res) {
     return {

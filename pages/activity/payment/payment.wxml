@@ -1,0 +1,70 @@
+<view class="home">
+  <view class="gap">
+
+  </view>
+  <view class="header">
+    <view class="header-text">
+        报名详情
+    </view>
+  </view>
+  <view class="contain">
+    <view class='base-nav_contant_list clearfix'>
+      <image src='{{feed.titlePhoto?imgBaseUrl+""+feed.titlePhoto:"/images/icon8.jpg"}}' mode='scaleToFill' class='base-nav_contant_list-img'></image>
+      <view class='base-nav_contant_list_cen'>
+        <view class='base-nav_contant_list_txt'>{{feed.heading}}</view>
+        <view class='active_warp' id="">
+          <text style='color:#1296db'>{{currentTab == 1 ?'活动结束':'活动报名中'}}</text>
+          <text hidden="{{currentTab== 1}}" style="padding-left:130rpx;">剩余<text style='color:red'>{{feed.remains}}</text>个名额</text>
+        </view>
+      </view>
+    </view>
+    <!--订单号-->
+    <view class="orderid">
+      订单号 : 1234567890
+    </view>
+    <view class="input-info">
+      <view class="name-list">
+        <image class="child-info" src="/images/person.png"></image>
+        <view class="child-list">
+          <view class='child-item' wx:for='{{po.students}}' wx:key='{{students}}' wx:for-item="item" wx:for-index="ind">
+            <text data-index='{{ind}}' data-name='{{item.name}}' data-birthday='{{item.birthday}}' bindtap='selectChild'>{{item.name}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="name-list" hidden='{{feed.familyEnable != 0}}'>
+        <image class="parent-info" src="/images/person.png"></image>
+        <view class="parent-list">
+          <view hidden='{{showParenttext}}' style='color:red'>请您添加家长</view>
+          <view class='child-item' hidden='{{!showParenttext}}' wx:for='{{po.familys}}' wx:key='{{familys}}' wx:for-item="item" wx:for-index="ind">
+            <text data-index='{{ind}}' data-name='{{item.name}}' bindtap='selectParent'>{{item.name}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="name-list">
+        <image class="parent-info" src="/images/phone.png"></image>
+        <view class="parent-list">
+          <text>123456789</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="btn-wrp">
+      <view class='base-btn'>
+        <view hidden='{{feed.familyEnable != 0 }}'>成人￥{{feed.familyPrice}}元/人</view>
+        <view style='line-height:{{feed.familyEnable != 0?"100rpx":"50rpx"}}'>儿童￥{{feed.studentPrice}}元/人</view>
+      </view>
+      <view class='base-btn-ok'>报名费：￥{{totalPrice}}元</view>      
+    </view>
+
+    <view class="explain">如需修改报名信息或取消活动，请联系客服。</view>
+    
+    <view class="consult_wrp">
+      <button bindtap='consult' class="consult_btn">联系客服</button>
+    </view>
+    <view class="toindex_wrp">
+      <button bindtap='toindex' class="toindex_btn">返回首页</button>
+    </view>
+  </view>
+</view>
