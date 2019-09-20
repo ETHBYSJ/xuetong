@@ -1,6 +1,6 @@
 <view class="page">
 
-  <scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower" scroll-top="{{scrolltop}}">
+  <scroll-view scroll-y="true" class="container" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower" scroll-top="{{scrolltop}}">
     <view class="order-wrapper">
       <view class="order-header">
         <image class="header-pic" src="/images/jfjlls.png"></image>
@@ -9,7 +9,7 @@
       <view class="guodu"></view>
 
       <view class="order-content"> 
-        <view class="order-block" wx:for="{{orderList}}" wx:for-index="idx" wx:key="{{item.id}}">
+        <view class="order-block" wx:for="{{vo.orderList}}" wx:for-index="idx" wx:key="{{item.id}}">
           <view class="order-brief {{item.showDetail? 'pulldown-block':''}}">
             <view class="order-brief-index">{{idx+1}}</view>
             <view class="order-brief-name">{{item.orderType==1?item.activityStudent:item.studentName}}</view>
@@ -34,7 +34,7 @@
               <view class="order-date">{{item.createTime}}</view>
               <view class="baomingfei">报名费</view>
               <view class="baomingfei-number">￥{{item.payAmount}}</view>
-              <view class="show-detail">查看订单</view>
+              <view class="show-detail" bindtap="bindShowActivity" data-id="{{item.id}}">查看订单</view>
             </view>
           </view>
 
@@ -46,7 +46,7 @@
               <view class="order-date">{{item.createTime}}</view>
               <view class="baomingfei">报名费</view>
               <view class="baomingfei-number">￥{{item.payAmount}}</view>
-              <view class="show-detail">查看订单</view>
+              <view class="show-detail" bindtap="bindShowClazz" data-id="{{item.id}}">查看订单</view>
             </view>
           </view>
         </view>

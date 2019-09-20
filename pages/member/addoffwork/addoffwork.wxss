@@ -81,15 +81,12 @@
   border-radius: 50%;
   border: 2rpx solid #d9d9d9;
   background-color: white;
-}
-.mid_text {
-  position: absolute;
+  text-align: center;
   font-size: 28rpx;
   color: rgb(146, 209, 79);
-  left: -14rpx;
-  line-height: 100%;
-  top: 96rpx;
+  line-height: 40rpx;
 }
+
 .date_block {
   height: 200rpx;
   width: 230rpx;

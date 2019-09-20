@@ -40,7 +40,7 @@ new class extends we.Page {
   getOrderList() {
     if (this.data.nextload == true) {
       var page = this.data.pageNo + 1;
-      this.$get('/v1/order/getOrderList?page=' + page).then(data => {
+      this.$get('/v1/order/getOrderList?page=' + page + '&status=' + this.data.status).then(data => {
         console.log(data)
         if (data.msg == 'SUCC') {
           //判断能否继续加载
@@ -54,12 +54,13 @@ new class extends we.Page {
             })
           }
           //数据处理
-          var tmp = [];
+          var tmp = this.data.vo.orderList;
           if (this.data.status == '全部') {
             for (let i in data.obj) {
               if (data.obj[i].orderType == 1) {
                 var title = data.obj[i].activityHeading == null ? ['', ''] : data.obj[i].activityHeading.split('|',2);
                 tmp.push({
+                  'id': data.obj[i].id,
                   'activityHeading': title[0],
                   'activityTitle': (title[1] == undefined ? '' : title[1]),
                   'activityQuota': data.obj[i].activityQuota,
@@ -74,16 +75,17 @@ new class extends we.Page {
               }
             }
             this.setData({
-              orderList: tmp,
+              'vo.orderList': tmp,
             });
             console.log(tmp);
           } else if (this.data.status != null) { //
             if(this.data.action != null && this.data.action != undefined) { //已支付
-              var tmp = [];
+              var tmp = this.data.vo.orderList;
               for (let i in data.obj) {
                 if (data.obj[i].status == this.data.status && data.obj[i].orderType == 1 && data.obj[i].activityStatus == this.data.action) {
                   var title = data.obj[i].activityHeading == null ? ['', ''] : data.obj[i].activityHeading.split('|', 2);
                   tmp.push({
+                    'id': data.obj[i].id,
                     'activityHeading': title[0],
                     'activityTitle': (title[1] == undefined ? '' : title[1]),
                     'activityQuota': data.obj[i].activityQuota,
@@ -98,11 +100,12 @@ new class extends we.Page {
                 } 
               } 
             } else { //未支付
-              var tmp = [];
+              var tmp = this.data.vo.orderList;
               for (let i in data.obj) {
                 if (data.obj[i].status == this.data.status && data.obj[i].orderType == 1) {
                   var title = data.obj[i].activityHeading == null ? ['', ''] : data.obj[i].activityHeading.split('|', 2);
                   tmp.push({
+                    'id': data.obj[i].id,
                     'activityHeading': title[0],
                     'activityTitle': (title[1]==undefined ? '' : title[1]),
                     'activityQuota': data.obj[i].activityQuota,
@@ -119,7 +122,7 @@ new class extends we.Page {
             }
             
             this.setData({
-              orderList: tmp,
+              'vo.orderList': tmp,
             });
             console.log(tmp);
           } else {

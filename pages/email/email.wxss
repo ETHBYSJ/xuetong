@@ -70,4 +70,14 @@
   background: #F0F4F3;
   color: #000;
 }
+
+.question {
+  height: 70rpx;
+  line-height: 35rpx;
+}
+.notice-content {
+  height: 70rpx;
+  line-height: 35rpx;
+  font-size: 24rpx;
+}
 /*feed-item part is in app.wxss for multiplexing*/
