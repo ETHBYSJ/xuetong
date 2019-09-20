@@ -20,7 +20,7 @@
               <image class="order-brief-pulldown-image {{item.showDetail? 'pulldown-image':''}}" src="/images/pulldown.png"></image>
             </view>
           </view>
-          <view class="order-detail-activity" hidden="{{!item.showDetail}}" wx:if="{{item.orderType=='acitvity'}}">
+          <view class="order-detail-activity" hidden="{{!item.showDetail}}" wx:if="{{item.orderType=='activity'}}">
             <view class="order-intro">
               <image class="order-intro-pic" src="{{item.activityTitlePhoto ? imgBaseUrl + '' + item.activityTitlePhoto: '/assets/icon/loadImg_1.jpg'}}"></image>
               <!--view class="order-intro-text">【{{item.heading==null? '' : item.heading}}】{{item.note==null ? '':item.note}}</view-->

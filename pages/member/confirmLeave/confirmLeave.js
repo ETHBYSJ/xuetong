@@ -11,6 +11,7 @@ new class extends we.Page {
       totalsize: "",
       size: 5,
       hiddenScrollTop: true,
+      confirmleave: {},
     }
   }
   onLoad(options) {
@@ -19,11 +20,20 @@ new class extends we.Page {
       studentid: options.studentid,
       img: options.img,
       name: options.name,
+      leaveid: options.leaveid,
     })
   }
   onShow() {
-    this.getData()
+    this.$get('/v1/askforleave/' + this.data.leaveid).then(res => {
+      console.log(res.obj)
+      this.setData({
+        'confirmleave': res.obj,
+        'confirm': res.obj.confirm,
+      });
+    })
+    this.getData();
   }
+
   getData() {
     this.$get('/v1/askforleave/getList?id=' + this.data.studentid + '&page=1&size=' + this.data.size).then(data => {
       console.log(data)
@@ -37,17 +47,65 @@ new class extends we.Page {
       })
     })
   }
+  
+
+  bindLeave(e) {
+    this.$get("v1/askforleave/confirm?id=" + this.data.leaveid).then(res => {
+      if (res.obj == 'SUCC') {
+        wx.showToast({
+          title: '确认成功',
+          icon: 'success',
+          duration: 1000,
+        });
+        this.onShow();
+        /*this.setData({
+          'confirmleave': 1,
+        });*/
+      } else {
+        wx.showModal({
+          title: '提示',
+          content: '确认错误',
+        })
+      }
+    }).catch(err => {
+      wx.showModal({
+        title: '提示',
+        content: '通信错误'+err.errMsg,
+      });
+    })
+  }
+
+  bindScroll(e) {
+    //console.log(e)
+    if (e.detail.scrollTop > 100) {
+      this.setData({
+        hiddenScrollTop: false,
+      })
+    }
+    else {
+      this.setData({
+        hiddenScrollTop: true,
+      })
+    }
+  }
+  scrollTop() {
+    //console.log("scrollTop")
+    this.setData({
+      scrolltop: 0,
+    })
+  }
+
   upper() {
     wx.showNavigationBarLoading()
     this.getData()
-    console.log("upper")
+    //console.log("upper")
     setTimeout(function () { wx.hideNavigationBarLoading(); wx.stopPullDownRefresh(); }, 2000);
   }
   lower(e) {
     wx.showNavigationBarLoading()
     var that = this;
     setTimeout(function () { wx.hideNavigationBarLoading(); that.nextLoad(); }, 1000);
-    console.log("lower")
+    //console.log("lower")
   }
   //继续加载效果
   nextLoad() {
@@ -85,24 +143,5 @@ new class extends we.Page {
       }, 500)
     }
   }
-
-  bindScroll(e) {
-    //console.log(e)
-    if (e.detail.scrollTop > 100) {
-      this.setData({
-        hiddenScrollTop: false,
-      })
-    }
-    else {
-      this.setData({
-        hiddenScrollTop: true,
-      })
-    }
-  }
-  scrollTop() {
-    //console.log("scrollTop")
-    this.setData({
-      scrolltop: 0,
-    })
-  }
 }
+

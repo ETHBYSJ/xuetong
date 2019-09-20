@@ -5,12 +5,11 @@ new class extends we.Page {
     return {
       po: {
       },
-      /*
+      
       vo: {
         orderList: [],
       },
-      */
-      orderList: [],
+      
       status: null,
       pageNo: 0,
       totalSize: 0,

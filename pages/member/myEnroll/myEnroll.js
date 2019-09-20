@@ -42,9 +42,9 @@ new class extends we.Page {
       var page = this.data.pageNo + 1;
       var url = '';
       if (this.data.status == 'all') {
-        url = '/v1/order/getList?page=' + page;
+        url = '/v1/order/getList?page=' + page + '&type=1';
       } else {
-        url = '/v1/order/getList?page=' + page + '&status=' + this.data.status;
+        url = '/v1/order/getList?page=' + page + '&status=' + this.data.status + '&type=1';
       }
       this.$get(url).then(data => {
         console.log(data)
@@ -62,34 +62,26 @@ new class extends we.Page {
           //数据处理
           var tmp = this.data.vo.orderList;
           for (let i in data.obj) {
-            if (data.obj[i].order.orderType == 'acitvity') {
-              var title = data.obj[i].obj.activity.heading == undefined ? ['', ''] : data.obj[i].obj.activity.heading.split('|',2);
-              tmp.push({
-                'id': data.obj[i].order.id,
-                'activityHeading': title[0],
-                'activityTitle': (title[1] == undefined ? '' : title[1]),
-                'activityQuota': data.obj[i].obj.activity.quota,
-                'activityTitlePhoto': data.obj[i].obj.activity.titlePhoto,
-                'activityStatus': data.obj[i].obj.activity.status,
-                'activityRemains': data.obj[i].obj.activity.remains,
-                'activityId': data.obj[i].obj.activity.id,
-                'orderSn': data.obj[i].order.orderSn,
-                'status': data.obj[i].order.status,
-                'payAmount': data.obj[i].order.payAmount,
-              });
-            }
+            var title = data.obj[i].obj.activity.heading == undefined ? ['', ''] : data.obj[i].obj.activity.heading.split('|',2);
+            tmp.push({
+              'id': data.obj[i].order.id,
+              'activityHeading': title[0],
+              'activityTitle': (title[1] == undefined ? '' : title[1]),
+              'activityQuota': data.obj[i].obj.activity.quota,
+              'activityTitlePhoto': data.obj[i].obj.activity.titlePhoto,
+              'activityStatus': data.obj[i].obj.activity.status,
+              'activityRemains': data.obj[i].obj.activity.remains,
+              'activityId': data.obj[i].obj.activity.id,
+              'orderSn': data.obj[i].order.orderSn,
+              'status': data.obj[i].order.status,
+              'payAmount': data.obj[i].order.payAmount,
+            });
           }
-          this.setData({
-            'vo.orderList': tmp,
-          });
-          console.log(tmp);
-        } else {
-          wx.showModal({
-            title: '提示',
-            content: '订单获取错误',
-            showCancel: false,
-          })
         }
+        this.setData({
+          'vo.orderList': tmp,
+        });
+        console.log(tmp);
       }).catch(err => {
         console.log(err);
         wx.showModal({

@@ -73,7 +73,14 @@ new class extends we.Page {
           url: '../baby/payment/payment?studentid=' + studentId + '&name=' + studentName + '&img=' + studentPhoto,
         });
       });
-    } /*else if (noticetype == "ntOrderTrusteeship") {
+    } else if (noticetype == "ntAskForLeave") {
+      this.$get('/v1/notice/getUserNoticeById?noticeid=' + noticeid).then(res => {
+        wx.navigateTo({
+          url: '../member/confirmLeave/confirmLeave?studentid=' + studentId + '&name=' + studentName + '&img=' + studentPhoto + '&leaveid=' + this.data.feed[idx].obj.askForLeaveId,
+        });
+      });
+    }
+    /*else if (noticetype == "ntOrderTrusteeship") {
       wx.navigateTo({
         url: '../baby/payment/paymentDetailed/paymentDetailed?studentid=' + this.data.feed[e.currentTarget.dataset.idx].obj.studentId + '&name=' + this.data.feed[e.currentTarget.dataset.idx].obj.studentName + '&img=' + this.data.imgBaseUrl + this.data.feed[e.currentTarget.dataset.idx].obj.studentPhoto + '&orderId=' + this.data.feed[e.currentTarget.dataset.idx].obj.orderId,
       })
