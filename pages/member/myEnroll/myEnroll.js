@@ -40,7 +40,13 @@ new class extends we.Page {
   getOrderList() {
     if (this.data.nextload == true) {
       var page = this.data.pageNo + 1;
-      this.$get('/v1/order/getOrderList?page=' + page + '&status=' + this.data.status).then(data => {
+      var url = '';
+      if (this.data.status == 'all') {
+        url = '/v1/order/getList?page=' + page;
+      } else {
+        url = '/v1/order/getList?page=' + page + '&status=' + this.data.status;
+      }
+      this.$get(url).then(data => {
         console.log(data)
         if (data.msg == 'SUCC') {
           //判断能否继续加载
@@ -55,83 +61,28 @@ new class extends we.Page {
           }
           //数据处理
           var tmp = this.data.vo.orderList;
-          if (this.data.status == '全部') {
-            for (let i in data.obj) {
-              if (data.obj[i].orderType == 1) {
-                var title = data.obj[i].activityHeading == null ? ['', ''] : data.obj[i].activityHeading.split('|',2);
-                tmp.push({
-                  'id': data.obj[i].id,
-                  'activityHeading': title[0],
-                  'activityTitle': (title[1] == undefined ? '' : title[1]),
-                  'activityQuota': data.obj[i].activityQuota,
-                  'activityTitlePhoto': data.obj[i].activityTitlePhoto,
-                  'activityStatus': data.obj[i].activityStatus,
-                  'activityRemains': data.obj[i].activityRemains,
-                  'activityId': data.obj[i].activityId,
-                  'orderSn': data.obj[i].orderSn,
-                  'status': data.obj[i].status,
-                  'payAmount': data.obj[i].payAmount,
-                });
-              }
+          for (let i in data.obj) {
+            if (data.obj[i].order.orderType == 'acitvity') {
+              var title = data.obj[i].obj.activity.heading == undefined ? ['', ''] : data.obj[i].obj.activity.heading.split('|',2);
+              tmp.push({
+                'id': data.obj[i].order.id,
+                'activityHeading': title[0],
+                'activityTitle': (title[1] == undefined ? '' : title[1]),
+                'activityQuota': data.obj[i].obj.activity.quota,
+                'activityTitlePhoto': data.obj[i].obj.activity.titlePhoto,
+                'activityStatus': data.obj[i].obj.activity.status,
+                'activityRemains': data.obj[i].obj.activity.remains,
+                'activityId': data.obj[i].obj.activity.id,
+                'orderSn': data.obj[i].order.orderSn,
+                'status': data.obj[i].order.status,
+                'payAmount': data.obj[i].order.payAmount,
+              });
             }
-            this.setData({
-              'vo.orderList': tmp,
-            });
-            console.log(tmp);
-          } else if (this.data.status != null) { //
-            if(this.data.action != null && this.data.action != undefined) { //已支付
-              var tmp = this.data.vo.orderList;
-              for (let i in data.obj) {
-                if (data.obj[i].status == this.data.status && data.obj[i].orderType == 1 && data.obj[i].activityStatus == this.data.action) {
-                  var title = data.obj[i].activityHeading == null ? ['', ''] : data.obj[i].activityHeading.split('|', 2);
-                  tmp.push({
-                    'id': data.obj[i].id,
-                    'activityHeading': title[0],
-                    'activityTitle': (title[1] == undefined ? '' : title[1]),
-                    'activityQuota': data.obj[i].activityQuota,
-                    'activityTitlePhoto': data.obj[i].activityTitlePhoto,
-                    'activityStatus': data.obj[i].activityStatus,
-                    'activityRemains': data.obj[i].activityRemains,
-                    'activityId': data.obj[i].activityId,
-                    'orderSn': data.obj[i].orderSn,
-                    'status': data.obj[i].status,
-                    'payAmount': data.obj[i].payAmount,
-                  });
-                } 
-              } 
-            } else { //未支付
-              var tmp = this.data.vo.orderList;
-              for (let i in data.obj) {
-                if (data.obj[i].status == this.data.status && data.obj[i].orderType == 1) {
-                  var title = data.obj[i].activityHeading == null ? ['', ''] : data.obj[i].activityHeading.split('|', 2);
-                  tmp.push({
-                    'id': data.obj[i].id,
-                    'activityHeading': title[0],
-                    'activityTitle': (title[1]==undefined ? '' : title[1]),
-                    'activityQuota': data.obj[i].activityQuota,
-                    'activityTitlePhoto': data.obj[i].activityTitlePhoto,
-                    'activityStatus': data.obj[i].activityStatus,
-                    'activityRemains': data.obj[i].activityRemains,
-                    'activityId': data.obj[i].activityId,
-                    'orderSn': data.obj[i].orderSn,
-                    'status': data.obj[i].status,
-                    'payAmount': data.obj[i].payAmount,
-                  });
-                }
-              } 
-            }
-            
-            this.setData({
-              'vo.orderList': tmp,
-            });
-            console.log(tmp);
-          } else {
-            wx.showModal({
-              title: '提示',
-              content: '状态错误',
-              showCancel: false,
-            })
           }
+          this.setData({
+            'vo.orderList': tmp,
+          });
+          console.log(tmp);
         } else {
           wx.showModal({
             title: '提示',

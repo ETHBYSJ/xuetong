@@ -9,7 +9,7 @@ new class extends we.Page {
                 'imgBaseUrl': "",
                 'infor': [],
                 'pageNo': 1,
-                'pageSize': 4,
+                'pageSize': 6,
                 'total': "",
                 'imgUrls': []
             },

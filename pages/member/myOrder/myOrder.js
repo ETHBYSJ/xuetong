@@ -55,7 +55,7 @@ new class extends we.Page {
   getOrderList() {
     if (this.data.nextload == true) {
       var page = this.data.pageNo + 1;
-      this.$get('/v1/order/getOrderList?size=100&page=' + page + '&status=全部').then(data => {
+      this.$get('/v1/order/getList?size=100&page=' + page).then(data => {
         console.log(data)
         if (data.msg == 'SUCC') {
           //判断能否继续加载
@@ -72,35 +72,45 @@ new class extends we.Page {
           
           var tmp = this.data.vo.orderList;
           for (let i in data.obj) {
-            if (data.obj[i].orderType != undefined && data.obj[i].orderType!=null) {
-              var title = data.obj[i].activityHeading == null ? ['', ''] : data.obj[i].activityHeading.split('|', 2);
-              var student = ' ';
-              if (data.obj[i].activityStudent != undefined) {
-                if (data.obj[i].activityStudent.length > 13) {
-                  student = data.obj[i].activityStudent.substr(0, 13) + ' ...';
-                } else {
-                  student = data.obj[i].activityStudent;
-                }
-              } 
+            if (data.obj[i].order.orderType != undefined && data.obj[i].order.orderType!=null) {
+              var title = data.obj[i].obj.activity == undefined ? ['', ''] : data.obj[i].obj.activity.heading.split('|', 2);
+              var student = '';
+              
+              if (data.obj[i].obj.activityStudentList != undefined && data.obj[i].obj.activityStudentList.length > 2) {
+                //console.log(data.obj[i].obj.activityStudentList);
+                var stulist = data.obj[i].obj.activityStudentList.slice(2, -3).split('\",\"');
+                for(let j in stulist) {
+                  if (student.length < 10) {
+                    student = student + stulist[j] + ' ';
+                  } else if (stulist[j]!=undefined) {
+                    student = student + '...';
+                  }
+                } 
+              } else if (data.obj[i].obj.student != undefined){
+                student = data.obj[i].obj.student.name;
+              } else {
+                student = '名字为空~'
+              }
+              //console.log(student);
               tmp.push({
-                'id': data.obj[i].id,
-                'orderType': data.obj[i].orderType,
-                'createTime': data.obj[i].createTime.split(' ')[0],
+                'id': data.obj[i].order.id,
+                'orderType': data.obj[i].order.orderType,
+                'createTime': data.obj[i].order.createTime.split(' ')[0],
                 'activityHeading': title[0],
                 'activityTitle': (title[1] == undefined ? '' : title[1]),
-                'activityStudent': student,
-                'activityQuota': data.obj[i].activityQuota,
-                'activityTitlePhoto': data.obj[i].activityTitlePhoto,
-                'activityStatus': data.obj[i].activityStatus,
-                'activityRemains': data.obj[i].activityRemains,
-                'activityId': data.obj[i].activityId,
-                'orderSn': data.obj[i].orderSn,
+                //'activityStudent': student,
+                'activityQuota': (data.obj[i].obj.activity == undefined ? null : data.obj[i].obj.activity.quota),
+                'activityTitlePhoto': (data.obj[i].obj.activity == undefined ? null : data.obj[i].obj.activity.titlePhoto),
+                'activityStatus': (data.obj[i].obj.activity == undefined ? null : data.obj[i].obj.activity.status),
+                'activityRemains': (data.obj[i].obj.activity == undefined ? null : data.obj[i].obj.activity.remains),
+                'activityId': (data.obj[i].obj.activity == undefined ? null : data.obj[i].obj.activity.id),
+                'orderSn': data.obj[i].order.orderSn,
                 //'status': data.obj[i].status,
-                'payAmount': data.obj[i].payAmount,
+                'payAmount': data.obj[i].order.payAmount,
                 'showDetail': false,
-                'heading': data.obj[i].heading,
-                'note': data.obj[i].note,
-                'studentName': data.obj[i].studentName,
+                'heading': data.obj[i].order.heading,
+                'note': data.obj[i].order.note,
+                'studentName': student,
               });
             } else /*if (data.obj[i].status == '已支付')*/ {
               //console.log(data.obj[i])
@@ -110,6 +120,7 @@ new class extends we.Page {
           this.setData({
             'vo.orderList': tmp,
           });
+          console.log(tmp);
           //console.log(this.data.vo.orderList);
         } else {
           wx.showModal({

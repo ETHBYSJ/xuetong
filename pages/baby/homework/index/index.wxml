@@ -48,13 +48,13 @@
         <block wx:if="{{item.imageList.length == 0}}">
           <block wx:if="{{item.content}}">
             <view class="homework_picture">
-              {{item.content}}
+              {{item.content==null? '' : item.content}}
             </view>
           </block>
         </block>
         <block wx:else>
           <view class="homework_picture">
-            {{item.content}}
+            {{item.content==null? '' : item.content}}
             <scroll-view scroll-x class='imagewrap'>
               <view class='box' style='width:{{item.imageList.length*(216+26)}}rpx'>
                 <view wx:for="{{item.imageList}}" class="photos">

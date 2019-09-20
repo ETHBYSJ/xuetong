@@ -3,9 +3,9 @@
   <scroll-view class="container" scroll-y="true" lower-threshold="5" bindscrolltolower="lower" scroll-top="{{scrolltop}}">
     <view class="order-block" wx:for="{{vo.orderList}}">
       <view class="order-header">
-        <image class="header-pic" wx:if="{{item.status=='待支付'}}" src="/images/enroll0.png"></image>
-        <image class="header-pic" wx:if="{{item.status=='已支付' && item.activityStatus==0}}" src="/images/enroll1.png"></image>
-        <image class="header-pic" wx:if="{{item.status=='已支付' && item.activityStatus==1}}" src="/images/enroll2.png"></image>
+        <image class="header-pic" wx:if="{{item.status=='arrearage'}}" src="/images/enroll0.png"></image>
+        <image class="header-pic" wx:if="{{item.status=='paid'}}" src="/images/enroll1.png"></image>
+        <image class="header-pic" wx:if="{{item.status=='complete'}}" src="/images/enroll2.png"></image>
       </view>
 
       <view class="order-content">
@@ -20,8 +20,8 @@
         </view>
         <view class="order-details">
           <view class="order-number">订单号:{{item.orderSn}}</view>
-          <view class="order-price-warning" wx:if="{{item.status=='待支付'}}">待支付 ￥{{item.payAmount}}</view>
-          <view class="order-price" wx:if="{{item.status=='已支付'}}">已支付 ￥{{item.payAmount}}</view>
+          <view class="order-price-warning" wx:if="{{item.status=='arrearage'}}">待支付 ￥{{item.payAmount}}</view>
+          <view class="order-price" wx:if="{{item.status=='paid' || item.status=='complete'}}">已支付 ￥{{item.payAmount}}</view>
         </view>
       </view>
     </view>

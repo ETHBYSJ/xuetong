@@ -36,6 +36,8 @@
 .img_wrapper image {
   width: 180rpx;
   height: 180rpx; 
+  border: 2rpx solid #1296db;
+  border-radius: 20rpx;
 }
 .student_info {
   float: left;

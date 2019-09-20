@@ -32,8 +32,7 @@
       <view class="payment_date">
         <view class="mid_wrapper">
           <view class="mid_line"></view>
-          <view class="mid_circle"></view>
-          <text class="mid_text">至</text>
+          <view class="mid_circle">至</view>
         </view>
         <view class="payment_date_start">
           <view class="date_block">
@@ -72,7 +71,7 @@
         </view>
       </view>
       <view class="payment_prompt">
-        注意 : 托管时间至少选择1个月，期末结束多退少补。.
+        注意 : 托管时间至少选择1个月，期末结束多退少补。
       </view>
       <!--信息-->
       <view class="payment_info">

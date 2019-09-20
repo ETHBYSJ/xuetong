@@ -3,9 +3,9 @@
   color: #8d8d8d;
 }
 .base-cell{
+  height: 120rpx;
   padding-top: 0;
   padding-bottom: 0;
-  height: 120rpx;
   /*border-top: 1rpx solid #d9d9d9;*/
   border-bottom: 1rpx solid #d9d9d9;
 }
@@ -13,44 +13,37 @@
   border-top: 1rpx solid #d9d9d9;
 }
 .memberpic{
+  border: 1rpx solid #d9d9d9;
   width: 100rpx;
   height: 100rpx;
   overflow: scroll;
   border-radius: 50%;
   position: absolute;
-  left: 100rpx;  
+  left: 250rpx;  
 }
-.header_pic{
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-  flex: 1;  
-}
-.name_prompt{
-  margin-right: 40rpx;
-}
-.sex_prompt{
-  margin-right: 40rpx;
-}
-.birth_prompt{
-  margin-right: 40rpx;
-}
-.phone_prompt{
-  margin-right: 40rpx;
+.prompt{
+  width: 150rpx;
+  margin-right: 80rpx;
 }
 .picker{
-  width: 400rpx;
+  width: 300rpx;
   height: 100rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  line-height: 100rpx;
 }
 .icon{
   width: 40rpx;
   height: 40rpx;
   margin-right: 10rpx;
+  margin-top: 28rpx;
+  float: left;
+}
+.birth {
+  float: left;
+  height: 100rpx;
+  line-height: 100rpx;
 }
 .switch{
-  width: 120rpx;
+  width: 150rpx;
   height: 90rpx;
   display: flex;
   align-items: center;

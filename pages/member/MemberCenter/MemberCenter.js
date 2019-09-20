@@ -46,25 +46,25 @@ new class extends we.Page {
   
   bindToUnpaid() {
     this.$navigateTo({
-      url: '/pages/member/myEnroll/myEnroll?status=待支付',
+      url: '/pages/member/myEnroll/myEnroll?status=0',
     })
   }
 
   bindToDoing() {
     this.$navigateTo({
-      url: '/pages/member/myEnroll/myEnroll?status=已支付&action=0',
+      url: '/pages/member/myEnroll/myEnroll?status=1',
     })
   } //进行中
 
   bindToFinished() {
     this.$navigateTo({
-      url: '/pages/member/myEnroll/myEnroll?status=已支付&action=1',
+      url: '/pages/member/myEnroll/myEnroll?status=2',
     })
   } //已完成
 
   bindToTotal() {
     this.$navigateTo({
-      url: '/pages/member/myEnroll/myEnroll?status=全部',
+      url: '/pages/member/myEnroll/myEnroll?status=all',
     })
   }
 

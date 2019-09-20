@@ -72,8 +72,8 @@
 }
 
 .question {
-  height: 70rpx;
-  line-height: 35rpx;
+  height: 160rpx;
+  line-height: 40rpx;
 }
 .notice-content {
   height: 70rpx;

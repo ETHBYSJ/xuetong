@@ -1,22 +1,25 @@
 <view class="myinfo">
   <navigator url="" class="first base-cell base-cell_access">
-    <view class="header_pic">
-      头像
+    <view class="prompt">
+      <text decode="{{true}}">头&emsp;&emsp;像</text>
     </view>
-    <open-data type="userAvatarUrl"  class='memberpic'></open-data>   
-    <view class="base-cell__ft base-cell__ft_in-access"></view> 
+    <view class="picker">
+      <open-data type="userAvatarUrl"  class='memberpic'></open-data>
+    </view>
+       
+    <!--view class="base-cell__ft base-cell__ft_in-access"></view--> 
   </navigator>
 
   <view class="base-cell base-cell_access">
-    <view class="name_prompt">
-      <text decode="{{true}}">姓&emsp;&emsp;名&emsp;&emsp;</text>
+    <view class="prompt">
+      <text decode="{{true}}">姓&emsp;&emsp;名</text>
     </view>
 
     <input placeholder-class="center" class="picker" value="{{vo.message.name}}" bindinput="bindNameChange"> </input>
   </view>
 
   <view class="base-cell base-cell_access">
-    <view class="sex_prompt">
+    <view class="prompt">
       <text decode="{{true}}">性&emsp;&emsp;别</text>
     </view>
     <radio-group bindchange="bindSexChange" class="picker">
@@ -28,7 +31,7 @@
   </view>
 
   <view class="base-cell base-cell_access">
-    <view class="birth_prompt">
+    <view class="prompt">
       <text decode="{{true}}">出生日期</text>
     </view>
 
@@ -36,7 +39,7 @@
       
       <view class="picker" wx:if="{{vo.message.birthday}}">
         <image src="/images/rqxz.png" class="icon"></image>
-        {{vo.message.birthday}}
+        <view class="birth">{{vo.message.birthday}}</view> 
       </view>
       <view class="picker" wx:else> 点击设置 </view>
     </picker>
@@ -45,8 +48,8 @@
   </view>
 
   <view class="base-cell base-cell_access">
-    <view class="phone_prompt">
-      <text>手机号码</text>
+    <view class="prompt">
+      <text decode="{{true}}">手机号码</text>
     </view>
 
     <text decode="{{true}}" class="picker">{{vo.message.phone}}</text>

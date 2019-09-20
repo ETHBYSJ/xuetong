@@ -1,5 +1,6 @@
 let we = require('../../we/index.js')
 var util = require('../../utils/utilb.js')
+var WxParse = require('../../wxParse/wxParse.js');
 
 new class extends we.Page {
   data() {
@@ -47,22 +48,41 @@ new class extends we.Page {
   bindItemTap(e) {
     //console.log(e);
     //console.log(this.data.feed)
-    if (this.data.feed[e.currentTarget.dataset.idx].notice.noticetype == "ntHomework") {
+    var idx = e.currentTarget.dataset.idx;
+    var noticetype = this.data.feed[idx].notice.noticetype;
+    var studentId = this.data.feed[idx].obj.studentId;
+    var reportId = this.data.feed[idx].obj.reportId;
+    var studentName = this.data.feed[idx].obj.studentName;
+    var studentPhoto = this.data.imgBaseUrl + this.data.feed[idx].obj.studentPhoto;
+    var noticeid = e.currentTarget.dataset.type;
+    if (noticetype == "ntHomework") {
+      this.$get('/v1/notice/getUserNoticeById?noticeid=' + noticeid).then(res => {
+        wx.navigateTo({
+          url: '../baby/homework/index/index?studentid=' + studentId + '&name=' + tstudentName,
+        });
+      }); 
+    } else if (noticetype == "ntWeeklyReport") {
+      this.$get('/v1/notice/getUserNoticeById?noticeid=' + noticeid).then(res => {
+        wx.navigateTo({
+          url: '../member/studentStudy/studentStudy?id=' + reportId + '&studentid=' + studentId + '&name=' + studentName + '&img=' + studentPhoto,
+        });
+      });
+    } else if (noticetype == "ntTrusteeship") {
+      this.$get('/v1/notice/getUserNoticeById?noticeid=' + noticeid).then(res => {
+        wx.navigateTo({
+          url: '../baby/payment/payment?studentid=' + studentId + '&name=' + studentName + '&img=' + studentPhoto,
+        });
+      });
+    } /*else if (noticetype == "ntOrderTrusteeship") {
       wx.navigateTo({
-        url: '../baby/homework/index/index?studentid=' + this.data.feed[e.currentTarget.dataset.idx].obj.studentId + '&name=' + this.data.feed[e.currentTarget.dataset.idx].obj.studentName,
+        url: '../baby/payment/paymentDetailed/paymentDetailed?studentid=' + this.data.feed[e.currentTarget.dataset.idx].obj.studentId + '&name=' + this.data.feed[e.currentTarget.dataset.idx].obj.studentName + '&img=' + this.data.imgBaseUrl + this.data.feed[e.currentTarget.dataset.idx].obj.studentPhoto + '&orderId=' + this.data.feed[e.currentTarget.dataset.idx].obj.orderId,
       })
-    } else if (this.data.feed[e.currentTarget.dataset.idx].notice.noticetype == "ntWeeklyReport") {
-      wx.navigateTo({
-        url: '../member/studentStudy/studentStudy?id=' + this.data.feed[e.currentTarget.dataset.idx].obj.reportId + '&studentid=' + this.data.feed[e.currentTarget.dataset.idx].obj.studentId + '&name=' + this.data.feed[e.currentTarget.dataset.idx].obj.studentName + '&img=' + this.data.imgBaseUrl + this.data.feed[e.currentTarget.dataset.idx].obj.studentPhoto,
-      })
-    } /*else if (this.data.feed[e.currentTarget.dataset.idx].notice.noticetype == "ntHomework") {
-      
-    }*/ else {
-      var noticeid = e.currentTarget.dataset.type;
-      var index = e.currentTarget.dataset.idx;
+    }*/
+    
+    else {
       var data = this.data.feed;
       //console.log(index)
-      data[index].x = true;
+      data[idx].x = true;
       this.setData({
         feed: data
       })
@@ -179,9 +199,9 @@ new class extends we.Page {
       console.log(data);
       if (data.totalSize % data.pageSize!=0){
         var totalsize = Math.ceil(data.totalSize / data.pageSize);
-      }else{
+      } else{
         var totalsize = data.totalSize / data.pageSize;
-      }
+      } 
       this.setData({
         feed: data.obj,
         totalsize: totalsize,

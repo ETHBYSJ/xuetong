@@ -1,0 +1,95 @@
+<view class="page">
+  <view class="scroll_top" hidden="{{hiddenScrollTop}}" bindtap="scrollTop">
+    <image class="scroll_top_icon" src="/images/scrollTop.png"></image>
+  </view>
+  <scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower" bindscroll = "bindScroll" scroll-top="{{scrolltop}}">
+  
+  <view class="add">
+    <navigator class="empty">
+
+    </navigator>
+    <navigator class="addcontainer" url="/pages/member/addoffwork/addoffwork?studentid={{studentid}}&img={{img}}&name={{name}}">
+      +新增请假
+    </navigator>
+    <navigator class="empty">
+
+    </navigator>
+  </view>
+
+  <view class="offwork_block" wx:for="{{feed}}" wx:for-item="item">
+    <view class="offwork_header">
+    
+    </view>
+    <view class="offwork_content">
+      <view class="offwork_content_name">
+        <view class="date">
+          <view class="date_left"></view>
+          <view class="date_mid">
+            <text class="record_text">请假记录</text>
+            <view class="text_wrapper">            
+              
+            </view>
+          </view>
+          <view class="date_right"></view>
+        </view>
+
+        <view class="base_block">
+          <text class="title">请假人</text>
+          <image src="{{img}}" class="memberpic">
+
+          </image>
+          <text class="name">{{name}}</text>
+        </view>
+      </view>
+
+      <view class="offwork_content_date">
+        <view class="mid_wrapper">
+          <view class="mid_line"></view>
+          <view class="mid_circle">至</view>
+        </view>
+        <view class="offwork_date_start">
+          <view class="date_block">
+            <view class="calendar">
+              <view class="cal_top">
+                <text class="month">{{item.startDate[0]+item.startDate[1]+item.startDate[2]+item.startDate[3]}}.{{item.startDate[5]+item.startDate[6]}}</text>
+              </view>
+              <view class="cal_bottom">
+                <text class="day">{{item.startDate[8]+item.startDate[9]}}</text>
+              </view>
+            </view>
+            <view class="date_text">
+              <text>请假日期</text>
+            </view>
+          </view>
+        </view>
+
+        <view class="offwork_date_end">
+          <view class="date_block">
+            <view class="calendar">
+              <view class="cal_top">
+                <text class="month">{{item.endDate[0]+item.endDate[1]+item.endDate[2]+item.endDate[3]}}.{{item.endDate[5]+item.endDate[6]}}</text>
+              </view>
+              <view class="cal_bottom">
+                <text class="day">{{item.endDate[8]+item.endDate[9]}}</text>
+              </view>
+            </view>
+            <view class="date_text">
+              <text>请假日期</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="offwork_content_detail">
+        {{item.content}}
+      </view>
+
+      <view class="offwork_content_btn">
+        <button wx:if="{{item.confirm == 0}}" class='base-btn'>已提交</button>
+        <button wx:elif="{{item.confirm == 1}}" class="confirm-btn">老师已确认</button>
+      </view>
+    </view>
+  </view>
+  
+  </scroll-view>
+</view>
