@@ -49,8 +49,11 @@
     "pages/baby/payment/success/success",
     "pages/baby/payment/fail/fail",
     "pages/baby/payment/paymentDetailed/paymentDetailed",
-	  "pages/activity/payment/payment",	
-    "pages/member/confirmLeave/confirmLeave"  
+    "pages/activity/payment/payment",
+    "pages/member/confirmLeave/confirmLeave",
+    "pages/activity/fail/fail",
+    "pages/activity/success/success",
+    "pages/activity/detailAfterPay/detailAfterPay"
   ],
   "window": {
     "backgroundTextStyle": "light",
