@@ -14,8 +14,7 @@
     <view class="payment_date">
       <view class="mid_wrapper">
         <view class="mid_line"></view>
-        <view class="mid_circle"></view>
-        <text class="mid_text">至</text>
+        <view class="mid_circle">至</view>
       </view>
       <view class="payment_date_start">
         <view class="date_block">
@@ -48,7 +47,7 @@
       <text class="info_header">已报名\n</text>
       <text>托管地址 : <text>{{gradeAddress}}\n</text></text>
       <text>托管时间 : <text>{{gradeTime}}\n</text></text>
-      <text class="orderid">订单号 : {{orderId}}</text>
+      <text class="orderid">订单号 : {{orderSn}}</text>
       <view class="amount_wrp">
         <view class="amount_header">报名费<text class="amount_text">￥{{payAmount}}</text></view>
       </view>

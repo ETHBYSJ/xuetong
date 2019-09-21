@@ -200,6 +200,9 @@ new class extends we.Page {
             'signType': data.obj.data.signType,
             'paySign': data.obj.data.paySign,
           })
+          wx.navigateTo({
+            url: '../payment/payment',
+          })
           wx.requestPayment({
             'timeStamp': data.obj.data.timeStamp,
             'nonceStr': data.obj.data.nonceStr,

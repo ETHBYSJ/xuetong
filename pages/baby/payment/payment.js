@@ -24,7 +24,7 @@ new class extends we.Page {
       price: "",
       //班级id
       clazzId: "",
-      //订单号
+      //订单id
       orderId: "",
       //目前可托管到的日期
       endDateLatest: "",
@@ -56,8 +56,8 @@ new class extends we.Page {
       studentid: options.studentid,
       name: options.name,
       imgBaseUrl: this.$app.imgBaseUrl,
-      startDate: { year: parseInt(year), month: parseInt(month), day: parseInt(day), fulldate: date },
-      endDate: { year: parseInt(year), month: parseInt(month), day: parseInt(day), fulldate: date },
+      startDate: { year: year, month: month, day: day, fulldate: date },
+      endDate: { year: year, month: month, day: day, fulldate: date },
     })
     console.log(options)
   }
@@ -175,172 +175,122 @@ new class extends we.Page {
       url: "/pages/activity/detail/detail?id=" + e.currentTarget.dataset.id
     })
   }
-  bindStartDateChange(e) {
-    console.log(e)
-    let date = e.detail.value + ""
-    let year = parseInt(date.split("-")[0]);
-    let month = parseInt(date.split("-")[1]);
-    let day = parseInt(date.split("-")[2]);
-    this.setData({
-      startDate: { year: year, month: month, day: day, fulldate: year + "-" + month + "-" + day },
-    })
-    let endDateTmp = new Date(this.data.endDate.fulldate)
+  //计算托管费
+  getAmount() {
     let payAmount = 0
+    let startDate = this.data.startDate
+    let tmpy = parseInt(startDate.year)
+    let tmpm = parseInt(startDate.month)
+    let tmpd = parseInt(startDate.day)
+    let tmpfulldate = tmpy + '-' + (tmpm >= 1 && tmpm <= 9 ? ("0" + tmpm) : tmpm) + '-' + (tmpd >= 1 && tmpd <= 9 ? ("0" + tmpd) : tmpd)
+    let prefulldate = tmpfulldate
+    //为了方便计算,结束日期加一天
+    let endDateTmp = new Date(this.data.endDate.fulldate)
     endDateTmp.setDate(endDateTmp.getDate() + 1)
-    let y = endDateTmp.getFullYear()
-    let m = endDateTmp.getMonth() + 1
-    let d = endDateTmp.getDate()
-    endDateTmp = y + '-' + (m >= 1 && m <= 9 ? ("0" + m) : m) + '-' + (d >= 1 && d <= 9 ? ("0" + d) : d)
-    endDateTmp = { year: y, month: m, day: d, fulldate: endDateTmp }
-    console.log(endDateTmp)
-    //计算托管费
-    if (this.data.startDate.day == endDateTmp.day) {
-      //托管时间为整月，计算间隔的月数     
-      let monthInterval = (endDateTmp.year - this.data.startDate.year) * 12 + (endDateTmp.month - this.data.startDate.month)
-      console.log(monthInterval)
-      //计算需要支付的金额
-      payAmount = monthInterval * this.data.price
-      this.setData({
-        gradeTime: monthInterval + "个月",
-      })
-    }
-    else {
-      //托管时间不为整月
-      if (this.data.startDate.day < endDateTmp.day) {
-        let monthInterval = (endDateTmp.year - this.data.startDate.year) * 12 + (endDateTmp.month - this.data.startDate.month)
-        //计算多余的天数
-        let dayLeft = endDateTmp.day - this.data.startDate.day
-        console.log(dayLeft)
-        payAmount = monthInterval * this.data.price + dayLeft * this.data.price / 22
-        this.setData({
-          gradeTime: monthInterval + "个月" + dayLeft + "天"
-        })
+    let ey = endDateTmp.getFullYear()
+    let em = endDateTmp.getMonth() + 1
+    let ed = endDateTmp.getDate()
+    endDateTmp = ey + '-' + (em >= 1 && em <= 9 ? ("0" + em) : em) + '-' + (ed >= 1 && ed <= 9 ? ("0" + ed) : ed)
+    endDateTmp = { year: ey, month: em, day: ed, fulldate: endDateTmp }
+    //当前循环到的年月
+    let cy = tmpy
+    let cm = tmpm
+    //托管整月数和天数
+    let monthCount = 0
+    let dayCount = 0
+    console.log(endDateTmp.fulldate)
+    while(endDateTmp.fulldate >= tmpfulldate) {
+      prefulldate = tmpfulldate
+      let num = this.getDayNum(cy, cm)
+      tmpfulldate = this.getDateAfter(tmpfulldate, num)
+      console.log(tmpfulldate)
+      //当前年月递增
+      if(cm == 12) {
+        cm = 1
+        cy += 1
       }
       else {
-        //年份需要减去一年
-        let endDateTmpBack = {}
-        if (endDateTmp.month == 1) {
-          let monthInterval = (endDateTmp.year - this.data.startDate.year) * 12 + (endDateTmp.month - this.data.startDate.month - 1)
-          console.log(monthInterval)
-          endDateTmpBack = { year: endDateTmp.year - 1, month: 12, day: this.data.startDate.day }
-          endDateTmpBack.fulldate = "" + endDateTmpBack.year + "-" + endDateTmpBack.month + "-" + ((endDateTmpBack.day >= 1 && endDateTmpBack.day <= 9) ? "0" + endDateTmpBack.day : endDateTmpBack.day)
-          console.log(endDateTmpBack)
-          //计算时间差
-          let dayLeft = parseInt((new Date(endDateTmp.fulldate).getTime() - new Date(endDateTmpBack.fulldate).getTime()) / (1000 * 60 * 60 * 24))
-          console.log(dayLeft)
-          payAmount = monthInterval * this.data.price + dayLeft * this.data.price / 22
-          this.setData({
-            gradeTime: monthInterval + "个月" + dayLeft + "天"
-          })
-        }
-        else {
-          let monthInterval = (endDateTmp.year - this.data.startDate.year) * 12 + (endDateTmp.month - this.data.startDate.month - 1)
-          console.log(monthInterval)
-          endDateTmpBack = { year: endDateTmp.year, month: endDateTmp.month - 1, day: this.data.startDate.day }
-          endDateTmpBack.fulldate = "" + endDateTmpBack.year + "-" + ((endDateTmpBack.month >= 1 && endDateTmpBack.month <= 9) ? "0" + endDateTmpBack.month : endDateTmpBack.month) + "-" + ((endDateTmpBack.day >= 1 && endDateTmpBack.day <= 9) ? "0" + endDateTmpBack.day : endDateTmpBack.day)
-          console.log(endDateTmpBack)
-          let dayLeft = parseInt((new Date(endDateTmp.fulldate).getTime() - new Date(endDateTmpBack.fulldate).getTime()) / (1000 * 60 * 60 * 24))
-          console.log(dayLeft)
-          payAmount = monthInterval * this.data.price + dayLeft * this.data.price / 22
-          this.setData({
-            gradeTime: monthInterval + "个月" + dayLeft + "天"
-          })
-        }
+        cm += 1
       }
+      if (endDateTmp.fulldate >= tmpfulldate) {
+        monthCount += 1
+      }
+      else break
     }
+    console.log(monthCount)
+    console.log(prefulldate)
+    //计算剩余天数
+    dayCount = (parseInt(new Date(endDateTmp.fulldate).getTime() - new Date(prefulldate).getTime())) / (1000 * 60 * 60 * 24)
+    console.log(dayCount)
+    //计算总托管费用
+    payAmount = monthCount * this.data.price + dayCount * this.data.price / 22
     this.setData({
       payAmount: payAmount.toFixed(2),
     })
+    if(dayCount != 0) {
+      this.setData({
+        gradeTime: monthCount + "个月" + dayCount + "天",
+      })
+    }
+    else {
+      this.setData({
+        gradeTime: monthCount + "个月",
+      })
+    }
+  }
+  //获得某年某月的天数
+  getDayNum(year, month) {
+    return new Date(year, month, 0).getDate()
+  }
+  //获得某年某月某天向后推多少天后的日期
+  getDateAfter(fulldate, num) {
+    let tmp = new Date(fulldate)
+    tmp.setDate(tmp.getDate() + num)
+    let y = tmp.getFullYear()
+    let m = tmp.getMonth() + 1
+    let d = tmp.getDate()
+    fulldate = y + '-' + (m >= 1 && m <= 9 ? ("0" + m) : m) + '-' + (d >= 1 && d <= 9 ? ("0" + d) : d)
+    //return {year: y, month: m, day: d, fulldate: fulldate}
+    return fulldate
+  }
+  bindStartDateChange(e) {
+    console.log(e)
+    let date = e.detail.value + ""
+    let year = date.split("-")[0]
+    let month = date.split("-")[1]
+    let day = date.split("-")[2]
+    this.setData({
+      startDate: { year: year, month: month, day: day, fulldate: year + "-" + month + "-" + day },
+    })
+    //防止结束日期小于开始日期
+    if(this.data.endDate.fulldate < this.data.startDate.fulldate) {
+      //结束日期至少要和开始日期一样大
+      this.setData({
+        endDate: { year: year, month: month, day: day, fulldate: year + "-" + month + "-" + day },
+      })
+    }
+    this.getAmount()
   }
   bindEndDateChange(e) {
     console.log(e)
     let date = e.detail.value + ""
-    let year = parseInt(date.split("-")[0]);
-    let month = parseInt(date.split("-")[1]);
-    let day = parseInt(date.split("-")[2]);
+    let year = date.split("-")[0]
+    let month = date.split("-")[1]
+    let day = date.split("-")[2]
     this.setData({
       endDate: { year: year, month: month, day: day, fulldate: year + "-" + month + "-" + day },
     })
-    let endDateTmp = new Date(this.data.endDate.fulldate)
-    let payAmount = 0
-    endDateTmp.setDate(endDateTmp.getDate() + 1)
-    let y = endDateTmp.getFullYear()
-    let m = endDateTmp.getMonth() + 1
-    let d = endDateTmp.getDate()
-    endDateTmp = y + '-' + (m >= 1 && m <= 9 ? ("0" + m) : m) + '-' + (d >= 1 && d <= 9 ? ("0" + d) : d)
-    endDateTmp = { year: y, month: m, day: d, fulldate: endDateTmp }
-    console.log(endDateTmp)
-    //计算托管费
-    if (this.data.startDate.day == endDateTmp.day) {
-      //托管时间为整月，计算间隔的月数     
-      let monthInterval = (endDateTmp.year - this.data.startDate.year) * 12 + (endDateTmp.month - this.data.startDate.month)
-      console.log(monthInterval)
-      //计算需要支付的金额
-      payAmount = monthInterval * this.data.price
-      this.setData({
-        gradeTime: monthInterval + "个月",
-      })
-    }
-    else {
-      //托管时间不为整月
-      if (this.data.startDate.day < endDateTmp.day) {
-        let monthInterval = (endDateTmp.year - this.data.startDate.year) * 12 + (endDateTmp.month - this.data.startDate.month)
-        //计算多余的天数
-        let dayLeft = endDateTmp.day - this.data.startDate.day
-        console.log(dayLeft)
-        payAmount = monthInterval * this.data.price + dayLeft * this.data.price / 22
-        this.setData({
-          gradeTime: monthInterval + "个月" + dayLeft + "天"
-        })
-      }
-      else {
-        //年份需要减去一年
-        let endDateTmpBack = {}
-        if (endDateTmp.month == 1) {
-          let monthInterval = (endDateTmp.year - this.data.startDate.year) * 12 + (endDateTmp.month - this.data.startDate.month - 1)
-          console.log(monthInterval)
-          endDateTmpBack = { year: endDateTmp.year - 1, month: 12, day: this.data.startDate.day }
-          endDateTmpBack.fulldate = "" + endDateTmpBack.year + "-" + endDateTmpBack.month + "-" + ((endDateTmpBack.day >= 1 && endDateTmpBack.day <= 9) ? "0" + endDateTmpBack.day : endDateTmpBack.day)
-          console.log(endDateTmpBack)
-          //计算时间差
-          let dayLeft = parseInt((new Date(endDateTmp.fulldate).getTime() - new Date(endDateTmpBack.fulldate).getTime()) / (1000 * 60 * 60 * 24))
-          console.log(dayLeft)
-          payAmount = monthInterval * this.data.price + dayLeft * this.data.price / 22
-          this.setData({
-            gradeTime: monthInterval + "个月" + dayLeft + "天"
-          })
-        }
-        else {
-          let monthInterval = (endDateTmp.year - this.data.startDate.year) * 12 + (endDateTmp.month - this.data.startDate.month - 1)
-          console.log(monthInterval)
-          endDateTmpBack = { year: endDateTmp.year, month: endDateTmp.month - 1, day: this.data.startDate.day }
-          endDateTmpBack.fulldate = "" + endDateTmpBack.year + "-" + ((endDateTmpBack.month >= 1 && endDateTmpBack.month <= 9) ? "0" + endDateTmpBack.month : endDateTmpBack.month) + "-" + ((endDateTmpBack.day >= 1 && endDateTmpBack.day <= 9) ? "0" + endDateTmpBack.day : endDateTmpBack.day)
-          console.log(endDateTmpBack)
-          let dayLeft = parseInt((new Date(endDateTmp.fulldate).getTime() - new Date(endDateTmpBack.fulldate).getTime()) / (1000 * 60 * 60 * 24))
-          console.log(dayLeft)
-          payAmount = monthInterval * this.data.price + dayLeft * this.data.price / 22
-          this.setData({
-            gradeTime: monthInterval + "个月" + dayLeft + "天"
-          })
-        }
-      }
-    }
-    this.setData({
-      payAmount: payAmount.toFixed(2),
-    })
+    this.getAmount()
   }
   //支付接口
   pay() {
-    //console.log("pay")
-    //为了方便计算，需要先在结束日期上加一天
-    //if(gradeTime)
-    //console.log(payAmount)
     let po = {
       clazzId: this.data.clazzId,
       startDate: this.data.startDate.fulldate,
       endDate: this.data.endDate.fulldate,
       studentName: this.data.name,
       studentId: this.data.studentid,
+      days: this.data.gradeTime,
       //测试
       payAmount: 0.01,
       name: this.data.parentName,
@@ -354,7 +304,12 @@ new class extends we.Page {
         //订单号
         this.setData({
           orderId: data.obj.orderId,
+        })        
+        /*
+        wx.navigateTo({
+          url: './success/success?id=' + that.data.orderId,
         })
+        */        
         wx.requestPayment({
           'timeStamp': data.obj.data.timeStamp,
           'nonceStr': data.obj.data.nonceStr,
@@ -367,13 +322,8 @@ new class extends we.Page {
             that.$post('/v1/student/enrollSucessful', po).then(data => {
               console.log(data)
               wx.navigateTo({
-                url: './success/success?gradeAddress=' + that.data.gradeAddress + '&gradeTime=' + that.data.gradeTime + '&orderId=' + that.data.orderId + '&payAmount=' + that.data.payAmount + '&startDate=' + that.data.startDate.fulldate + '&endDate=' + that.data.endDate.fulldate + '&name=' + that.data.name + '&img=' + that.data.img,
+                url: './success/success?id=' + that.data.orderId,
               })
-              /*
-              wx.switchTab({
-                url: '../index/index',
-              })
-              */
             }).catch(err => {
               this.$showModal({
                 title: '出错',

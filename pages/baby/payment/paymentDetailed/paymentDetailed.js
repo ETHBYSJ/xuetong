@@ -7,8 +7,10 @@ new class extends we.Page {
       gradeAddress: "",
       //托管时间
       gradeTime: "",
-      //订单号
+      //订单id
       orderId: "",
+      //订单号
+      orderSn: "",
       //报名费
       payAmount: "",
       //开始日期
@@ -19,10 +21,16 @@ new class extends we.Page {
       name: "",
       //学生头像
       img: "",
+      imgBaseUrl: "",
     }
   }
   onLoad(options) {
     console.log(options)
+    this.setData({
+      orderId: options.id,
+      imgBaseUrl: this.$app.imgBaseUrl,
+    })
+    /*
     let endDate = options.endDate
     let startDate = options.startDate
     this.setData({
@@ -34,6 +42,30 @@ new class extends we.Page {
       startDate: {year: startDate.substr(0, 4), month: startDate.substr(5, 2), day: startDate.substr(8, 2), fulldate: startDate},
       endDate: {year: endDate.substr(0, 4), month: endDate.substr(5, 2), day: endDate.substr(8, 2), fulldate: endDate},
       img: options.img,
+    })
+    */
+  }
+  onShow() {
+    this.$get('/v1/order/' + this.data.orderId).then(data => {
+      console.log(data)
+      let startDate = data.obj.obj.student.startDate
+      let endDate = data.obj.obj.student.endDate
+      this.setData({
+        name: data.obj.obj.student.name,
+        img: this.data.imgBaseUrl + data.obj.obj.student.photo,
+        startDate: { year: startDate.substr(0, 4), month: startDate.substr(5, 2), day: startDate.substr(8, 2), fulldate: startDate },
+        endDate: { year: endDate.substr(0, 4), month: endDate.substr(5, 2), day: endDate.substr(8, 2), fulldate: endDate },
+        gradeAddress: data.obj.obj.student.clazz.grade.name,
+        orderSn: data.obj.order.orderSn,
+        payAmount: data.obj.order.payAmount,
+        gradeTime: data.obj.obj.student.days,
+      })
+    }).catch(err => {
+      this.$showModal({
+        title: '出错',
+        content: '获得订单信息出错',
+        showCancel: false
+      })
     })
   }
   contact() {
