@@ -30,12 +30,24 @@ new class extends we.Page {
     this.getOrderList();
   }
 
-  lower(e) {
-    wx.showNavigationBarLoading()
-    var that = this;
-    setTimeout(function () { wx.hideNavigationBarLoading(); that.getOrderList(); }, 1000);
-    console.log("lower")
+  bindToOrder(e) {
+    var idx = e.currentTarget.dataset.idx;
+    //console.log(e)
+    if (this.data.vo.orderList[idx].status == "arrearage") {
+      var url = '../../activity/apply/apply?id=' + this.data.vo.orderList[idx].id + " & titlePhoto=" + this.data.imgBaseUrl + this.data.vo.orderList[idx].activityTitlePhoto + "&heading=" + this.data.vo.orderList[idx].activityHeading + "&remains=" + this.data.vo.orderList[idx].activityRemains + "&familyPrice=" + this.data.vo.orderList[idx].familyPrice + "&studentPrice=" + this.data.vo.orderList[idx].studentPrice + "&familyEnable=" + this.data.vo.orderList[idx].familyEnable + "& phone=" + this.data.vo.orderList[idx].phone;
+      //console.log(url);
+      wx.navigateTo({
+        url: url,
+      });
+    } else {
+      var url = '../../activity/payment/payment?id=' + this.data.vo.orderList[idx].id;
+      wx.navigateTo({
+        url: url,
+      });
+    }
+    
   }
+  
 
   getOrderList() {
     if (this.data.nextload == true) {
@@ -73,6 +85,10 @@ new class extends we.Page {
               'orderSn': data.obj[i].order.orderSn,
               'status': data.obj[i].order.status,
               'payAmount': data.obj[i].order.payAmount,
+              'studentPrice': data.obj[i].obj.activity.studentPrice,
+              'familyPrice': data.obj[i].obj.activity.familyPrice,
+              'familyEnable': data.obj[i].obj.activity.familyEnable,
+              'phone': data.obj[i].obj.activity.phone,
             });
           }
         }
@@ -92,5 +108,11 @@ new class extends we.Page {
     
   }
 
+  lower(e) {
+    wx.showNavigationBarLoading()
+    var that = this;
+    setTimeout(function () { wx.hideNavigationBarLoading(); that.getOrderList(); }, 1000);
+    console.log("lower")
+  }
 
 }

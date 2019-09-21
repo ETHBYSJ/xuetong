@@ -1,14 +1,14 @@
 <!--pages/member/myEnroll/myEnroll.wxml-->
 <view class="page">
   <scroll-view class="container" scroll-y="true" lower-threshold="5" bindscrolltolower="lower" scroll-top="{{scrolltop}}">
-    <view class="order-block" wx:for="{{vo.orderList}}">
+    <view class="order-block" wx:for="{{vo.orderList}}" wx:for-index="index">
       <view class="order-header">
         <image class="header-pic" wx:if="{{item.status=='arrearage'}}" src="/images/enroll0.png"></image>
         <image class="header-pic" wx:if="{{item.status=='paid'}}" src="/images/enroll2.png"></image>
       </view>
 
       <view class="order-content">
-        <view class="order-intro">
+        <view class="order-intro" bindtap="bindToOrder" data-idx="{{index}}">
           <image class="order-intro-pic" src="{{item.activityTitlePhoto ? imgBaseUrl + '' + item.activityTitlePhoto: '/assets/icon/loadImg_1.jpg'}}"></image>
           <!--view class="order-intro-text">【{{item.heading==null? '' : item.heading}}】{{item.note==null ? '':item.note}}</view-->
           <view class="order-intro-text">{{item.activityHeading ? item.activityHeading : ''}}</view>

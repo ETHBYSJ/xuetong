@@ -48,7 +48,7 @@
 }
 .order-brief-price {
   float: left;
-  margin-top: 15rpx;
+  margin-top: 25rpx;
   background: rgb(85,212,108);
   box-shadow: 0 0 5rpx 0 rgb(204, 212, 198);
   width: 180rpx;
@@ -63,16 +63,7 @@
   color: white;
   margin-left: 50rpx;
 }
-.order-category {
-  width: 100rpx;
-  height: 25rpx;
-  line-height: 25rpx;
-  font-size: 23rpx;
-  position: absolute;
-  top: 68rpx;
-  left: 505rpx;
-  color: rgb(0, 176, 240);
-}
+
 .order-brief-pulldown {
   height: 100rpx;
   width: 100%;
@@ -99,7 +90,7 @@
 .order-intro {
   height: 198rpx;
   width: 710rpx;
-  margin: 20rpx 15rpx 0rpx;
+  margin: 15rpx 15rpx 0rpx;
   float: left;
   border: 2rpx solid rgb(242,242,242);
   border-radius: 10rpx;

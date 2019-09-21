@@ -195,7 +195,13 @@ new class extends we.Page {
           url: '../baby/payment/paymentDetailed/paymentDetailed?id=' + this.data.feed[idx].obj.orderId,
         });
       });
-    } 
+    } else if (noticetype == "ntOrderActivity") {
+      this.$get('/v1/notice/getUserNoticeById?noticeid=' + noticeid).then(res => {
+        wx.navigateTo({
+          url: '../activity/payment/payment?id=' + this.data.feed[idx].obj.orderId,
+        });
+      });
+    }
     else {
       var data = this.data.feed;
       //console.log(index)

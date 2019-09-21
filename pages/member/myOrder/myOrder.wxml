@@ -16,10 +16,7 @@
             <view class="order-brief-price">
               <text class="order-brief-price-number">￥{{item.payAmount}}</text>
             </view>
-            <view class="order-category" wx:if="{{item.orderType=='activity'}}">活动缴费</view>
-            <view class="order-category" wx:elif="{{item.orderType=='common'}}">普通缴费</view>
-            <view class="order-category" wx:elif="{{item.orderType=='trusteeship'}}">托管缴费</view>
-            <view class="order-category" wx:else>其他缴费</view>
+            
             <view class="order-brief-pulldown" bindtap="bindShowDetails" data-idx="{{idx}}">
               <image class="order-brief-pulldown-image {{item.showDetail? 'pulldown-image':''}}" src="/images/pulldown.png"></image>
             </view>
@@ -62,7 +59,7 @@
               <view class="order-date">{{item.createTime}}</view>
               <view class="baomingfei">报名费</view>
               <view class="baomingfei-number">￥{{item.payAmount}}</view>
-              <view class="show-detail" bindtap="bindShowClazz" data-id="{{item.id}}">查看订单</view>
+              <view class="show-detail" bindtap="bindShowOthers" data-id="{{item.id}}">查看订单</view>
             </view>
           </view>
         </view>

@@ -36,14 +36,24 @@ new class extends we.Page {
     //console.log("lower")
   }
 
-  bindShowActivity() {
-
+  bindShowActivity(e) {
+    wx.navigateTo({
+      url: '../../activity/payment/payment?id=' + e.currentTarget.dataset.id,
+    });
   }
 
   bindShowClazz(e) {
     wx.navigateTo({
       url: '../../baby/payment/paymentDetailed/paymentDetailed?id=' + e.currentTarget.dataset.id,
     });
+  }
+
+  bindShowOthers() {
+    wx.showModal({
+      title: '提示',
+      content: '订单类型不支持查看',
+      showCancel: false,
+    })
   }
 
   bindShowDetails(e) {
