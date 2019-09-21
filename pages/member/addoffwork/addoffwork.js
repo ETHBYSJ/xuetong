@@ -87,10 +87,15 @@ new class extends we.Page {
       content: '是否确定请假？',
       success(res) {
         if(res.confirm) {
-          that.submit()
+          that.submit();
+          wx.showToast({
+            title: '提交成功',
+            icon: 'success',
+            duration: 1000,
+          });
         }
         else if(res.cancel) {
-          console.log("用户点击取消")
+          //console.log("用户点击取消")
         }
       }
     })

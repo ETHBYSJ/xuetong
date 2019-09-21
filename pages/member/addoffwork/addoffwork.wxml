@@ -23,11 +23,11 @@
             <text class="month">{{startDate.year}}.{{startDate.month}}</text>
           </view>
           <view class="cal_bottom">
-            <text class="day">{{startDate.day}}</text>
+            <text class="day">{{startDate.day}}日</text>
           </view>
         </view>
         <view class="date_text">
-          <text>请假日期</text>
+          <text>请假开始日期</text>
         </view>
         </picker>
       </view>      
@@ -40,11 +40,11 @@
             <text class="month">{{endDate.year}}.{{endDate.month}}</text>
           </view>
           <view class="cal_bottom">
-            <text class="day">{{endDate.day}}</text>
+            <text class="day">{{endDate.day}}日</text>
           </view>
         </view>
         <view class="date_text">
-          <text>请假日期</text>
+          <text>请假结束日期</text>
         </view>
         </picker>
       </view>      

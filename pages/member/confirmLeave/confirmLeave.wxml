@@ -57,7 +57,7 @@
 
         <view class="offwork_content_btn">
           <button wx:if="{{confirmleave.confirm == 1}}" class='confirm-btn'>已确认</button>
-          <button wx:elif="{{confirmleave.confirm == 0}}" class="base-btn" bindtap="bindLeave">确认</button>
+          <button wx:elif="{{confirmleave.confirm == 0}}" class="base-btn" bindtap="bindLeave" data-leaveid="{{item.id}}">确认</button>
         </view>
       </view>
     </view>
@@ -127,8 +127,8 @@
         </view>
 
         <view class="offwork_content_btn">
-          <button wx:if="{{confirmleave.confirm == 1}}" class='confirm-btn'>已确认</button>
-          <button wx:elif="{{confirmleave.confirm == 0}}" class="base-btn" bindtap="bindLeave">确认</button>
+          <button wx:if="{{item.confirm == 1}}" class='confirm-btn'>已确认</button>
+          <button wx:elif="{{item.confirm == 0}}" class="base-btn" bindtap="bindLeave" data-leaveid="{{item.id}}">确认</button>
         </view>
       </view>
     </view>
@@ -143,7 +143,7 @@
     </view>
     <view class="leave-detail"> 
       <view class="leave-detail-createdate">发布于{{confirmleave.createDate}}</view>
-      <view class="leave-detail-family">发布人：家长{{confirmleave.familyId}}</view>
+      <view class="leave-detail-family">发布人：家长{{sendername}}</view>
     </view>
   </view>
 </view>

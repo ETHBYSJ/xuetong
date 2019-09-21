@@ -12,15 +12,17 @@ new class extends we.Page {
       size: 5,
       hiddenScrollTop: true,
       confirmleave: {},
+      sendername: "",
     }
   }
   onLoad(options) {
-    console.log(options)
+    //console.log(options)
     this.setData({
       studentid: options.studentid,
       img: options.img,
       name: options.name,
       leaveid: options.leaveid,
+      sendername: options.sendername,
     })
   }
   onShow() {
@@ -50,7 +52,8 @@ new class extends we.Page {
   
 
   bindLeave(e) {
-    this.$get("v1/askforleave/confirm?id=" + this.data.leaveid).then(res => {
+    //console.log(e)
+    this.$get("v1/askforleave/confirm?id=" + e.currentTarget.dataset.leaveid).then(res => {
       if (res.obj == 'SUCC') {
         wx.showToast({
           title: '确认成功',
@@ -110,14 +113,14 @@ new class extends we.Page {
   //继续加载效果
   nextLoad() {
     if (this.data.page != this.data.totalsize) {
-      console.log('...')
+      //console.log('...')
       wx.showToast({
         title: '加载中',
         icon: 'loading',
         duration: 4000
       })
       var page = this.data.page + 1;
-      console.log(page);
+      //console.log(page);
       this.setData({
         page: page,
       })

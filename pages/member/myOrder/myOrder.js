@@ -41,9 +41,9 @@ new class extends we.Page {
   }
 
   bindShowClazz(e) {
-    this.$get('/v1/order/' + e.currentTarget.dataset.id).then(res=> {
-      console.log(res)
-    })//e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '../../baby/payment/paymentDetailed/paymentDetailed/?id=' + e.currentTarget.dataset.id,
+    });
   }
 
   bindShowDetails(e) {

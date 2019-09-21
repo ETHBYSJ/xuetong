@@ -76,7 +76,7 @@ new class extends we.Page {
     } else if (noticetype == "ntAskForLeave") {
       this.$get('/v1/notice/getUserNoticeById?noticeid=' + noticeid).then(res => {
         wx.navigateTo({
-          url: '../member/confirmLeave/confirmLeave?studentid=' + studentId + '&name=' + studentName + '&img=' + studentPhoto + '&leaveid=' + this.data.feed[idx].obj.askForLeaveId,
+          url: '../member/confirmLeave/confirmLeave?studentid=' + studentId + '&name=' + studentName + '&img=' + studentPhoto + '&leaveid=' + this.data.feed[idx].obj.askForLeaveId + '&sendername=' + this.data.feed[idx].obj.senderName,
         });
       });
     }
