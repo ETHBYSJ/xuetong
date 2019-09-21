@@ -36,6 +36,8 @@ new class extends we.Page {
         familyEnable:"",
         phone:""
       },
+      //订单号
+      orderId: "",
     }
   }
   //事件处理函数
@@ -171,6 +173,9 @@ new class extends we.Page {
   Landing() {
     this.$post('/v1/activity/enrollActivity', this.data.po).then(data => {
       console.log(data)
+      this.setData({
+        orderId: data.obj.orderId,
+      })
       var that = this;
       if(data.obj == "SUCC"){
         that.$showModal({
@@ -193,16 +198,6 @@ new class extends we.Page {
             showCancel: false
           })
       } else{
-          console.log({
-            'timeStamp': data.obj.data.timeStamp,
-            'nonceStr': data.obj.data.nonceStr,
-            'package': data.obj.data.package,
-            'signType': data.obj.data.signType,
-            'paySign': data.obj.data.paySign,
-          })
-          wx.navigateTo({
-            url: '../payment/payment',
-          })
           wx.requestPayment({
             'timeStamp': data.obj.data.timeStamp,
             'nonceStr': data.obj.data.nonceStr,
@@ -210,16 +205,21 @@ new class extends we.Page {
             'signType': data.obj.data.signType,
             'paySign': data.obj.data.paySign,
             'success': function (res) {
-              wx.switchTab({
-                url: '../index/index',
+              wx.navigateTo({
+                url: '../success/success?id=' + that.data.orderId,
               })
             },
             'fail': function (res) {
               console.log(res)
+              /*
               that.$showModal({
                 title: '错误',
                 content: '支付失败',
                 showCancel: false
+              })
+              */
+              wx.navigateTo({
+                url: '../fail/fail',
               })
             },
             'complete': function (res) { }

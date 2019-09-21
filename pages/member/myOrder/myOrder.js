@@ -80,7 +80,7 @@ new class extends we.Page {
               
               if (data.obj[i].obj.activityStudentList != undefined && data.obj[i].obj.activityStudentList.length > 2) {
                 //console.log(data.obj[i].obj.activityStudentList);
-                var stulist = data.obj[i].obj.activityStudentList.slice(2, -3).split('\",\"');
+                var stulist = data.obj[i].obj.activityStudentList.slice(2, -2).split('\",\"');
                 for(let j in stulist) {
                   if (student.length < 10) {
                     student = student + stulist[j] + ' ';

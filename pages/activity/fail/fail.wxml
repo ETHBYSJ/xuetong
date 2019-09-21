@@ -1,0 +1,19 @@
+<!--支付失败跳转页面-->
+<view class="page">
+  <view class="fail_wrp">
+    <view class="fail_icon_wrp">
+      <image class="fail_icon" src="/assets/icon/payFail.png"></image>
+    </view>
+    <view class="fail_text_wrp">
+      支付失败
+    </view>
+  </view>
+  <!--继续支付-->
+  <view class="repay">
+    <button class="repay_btn" bindtap="repay">继续支付</button>
+  </view>
+  <!--返回首页-->
+  <view class="toindex">
+    <button class="toindex_btn" bindtap="toIndex">返回首页</button>
+  </view>
+</view>
