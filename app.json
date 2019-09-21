@@ -48,7 +48,10 @@
     "pages/member/myOrder/myOrder",
     "pages/baby/payment/success/success",
     "pages/baby/payment/fail/fail",
-	"pages/activity/payment/payment",	"pages/member/confirmLeave/confirmLeave"  ],
+    "pages/baby/payment/paymentDetailed/paymentDetailed",
+	  "pages/activity/payment/payment",	
+    "pages/member/confirmLeave/confirmLeave"  
+  ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",

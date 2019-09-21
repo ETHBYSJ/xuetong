@@ -46,6 +46,7 @@ new class extends we.Page {
     console.log(this.data.po)
     this.$post('/v1/askforleave/create', this.data.po).then(data => {
       console.log(data);
+      wx.navigateBack()
     }).catch(err => {
       console.log(err);
     })   
@@ -60,6 +61,14 @@ new class extends we.Page {
       startDate: { year: year, month: month, day: day, fulldate: year + "-" + month + "-" + day },
       "po.startDate": year + "-" + month + "-" + day,
     })
+    //防止结束日期小于开始日期
+    if (this.data.endDate.fulldate < this.data.startDate.fulldate) {
+      //结束日期至少要和开始日期一样大
+      this.setData({
+        endDate: { year: year, month: month, day: day, fulldate: year + "-" + month + "-" + day },
+        "po.endDate": year + "-" + month + "-" + day,
+      })
+    }
   }
 
   bindEndDateChange(e) {
