@@ -14,7 +14,7 @@ new class extends we.Page {
       sortList: [],
       isActive: null,
       fixedTitle: '',
-      scroolHeight: 0,
+      scrollHeight: 0,
       oHeight: [],
       toView: 'page_header',
       classList: [],
@@ -49,7 +49,7 @@ new class extends we.Page {
     //console.log(e)
     //console.log('do');
     this.setData({
-      'scroolHeight': e.detail.scrollTop,
+      'scrollHeight': e.detail.scrollTop,
     })
     if (e.detail.scrollTop < 40) {
       for (let i in this.data.sortList) {
@@ -216,7 +216,7 @@ new class extends we.Page {
           sortList: [],
           isActive: null,
           fixedTitle: '',
-          scroolHeight: 0,
+          scrollHeight: 0,
           oHeight: [],
           toView: 'page_header',
           classList: [],

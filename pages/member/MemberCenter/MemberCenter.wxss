@@ -163,7 +163,21 @@
   float: left;
   width: 75rpx;
   height: 110rpx;
-  padding: 35rpx 50rpx 0;
+  padding: 35rpx 78rpx 0;
+  position: relative;
+}
+.enrollnumber {
+  background: black;
+  font-size: 18rpx;
+  color: white;
+  height: 30rpx;
+  width: 30rpx;
+  border-radius: 50%;
+  position: absolute;
+  right: 78rpx;
+  top: 20rpx;
+  text-align: center;
+  line-height: 30rpx;
 }
 .enrollpic {
   height: 60rpx;

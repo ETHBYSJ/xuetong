@@ -1,6 +1,6 @@
 <!--index.wxml-->
 <import src="../../wxParse/wxParse.wxml"/>
-<scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower"  scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+<scroll-view scroll-y="true" class="container" bindscroll="onPageScroll" lower-threshold="5" bindscrolltolower="lower"  scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
   <view class="tap-wrp">
     <view class="tab-list {{currentTab==2 ? 'on' : ''}}" data-current="2" bindtap="swichNav">全部</view>     
     <view class="tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">已读</view>      
@@ -33,8 +33,8 @@
       <view class="feed-content">
         <view class="question" qid="{{question_id}}">
           <a class="question-link">
-            <!--text class="notice-content" wx:if="{{item.notice.noticetype=='ntSystem'}}">收到一条系统通知，点击查看详情。</text-->
-            <text class="notice-content" >{{item.notice.content}}</text>
+            <text class="notice-content" wx:if="{{item.notice.noticetype=='ntSystem'}}">收到一条{{item.notice.heading}}，点击查看详情</text>
+            <text class="notice-content" wx:else>{{item.notice.content}}</text>
           </a>
         </view>
         <view class="answer-body">

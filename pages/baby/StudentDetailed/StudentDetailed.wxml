@@ -118,7 +118,7 @@
             <!--显示作业内容-->
             <block wx:if="{{homeworktoday.imageList.length != 0 || homeworktoday.content}}">
               <view class="homework_picture">
-                {{homeworktoday.content}}
+                {{homeworktoday.content==null ? '':homeworktoday.content}}
                 <scroll-view scroll-x class='imagewrap'>
                   <view class='box' style='width:{{homeworktoday.imageList.length*(216+26)}}rpx'>
                     <view wx:for="{{homeworktoday.imageList}}" class="photos">
@@ -183,7 +183,7 @@
               </view>
               <!--显示作业内容-->
               <view class="homework_picture">
-                {{homeworktoday.content}}
+                {{homeworktoday.content==null ? '':homeworktoday.content}}
                 <scroll-view scroll-x class='imagewrap'>
                   <view class='box' style='width:{{homeworktoday.imageList.length*(216+26)}}rpx'>
                     <view wx:for="{{homeworktoday.imageList}}" class="photos">
@@ -274,7 +274,7 @@
               </view>
               <!--显示作业内容-->
               <view class="homework_picture">
-                {{homeworktoday.content}}
+                {{homeworktoday.content==null ? '':homeworktoday.content}}
                 <scroll-view scroll-x class='imagewrap'>
                   <view class='box' style='width:{{homeworktoday.imageList.length*(216+26)}}rpx'>
                     <view wx:for="{{homeworktoday.imageList}}" class="photos">
@@ -342,7 +342,7 @@
           <!--显示作业内容-->
           <block wx:if="{{hw.imageList.length != 0 || hw.content}}">
             <view class="homework_picture">
-              {{hw.content}}
+              {{hw.content==null? '':hw.content}}
               <scroll-view scroll-x class='imagewrap'>
                 <view class='box' style='width:{{hw.imageList.length*(216+26)}}rpx'>
                   <view wx:for="{{hw.imageList}}" class="photos">

@@ -5,13 +5,115 @@ var WxParse = require('../../wxParse/wxParse.js');
 new class extends we.Page {
   data() {
     return {
-    feed: [],
-    currentTab: 2,
-    page:1,
-    totalsize: "",
-    size: 10,
-    keyword:"",
-    imgBaseUrl: "",
+      feed: [],
+      currentTab: 2,
+      page: 0,
+      totalsize: "",
+      size: 10,
+      keyword:"",
+      imgBaseUrl: "",
+      nextload: true,
+      scrollTop: 0,
+      scrollHeight: 0,
+    }
+  }
+
+  onLoad() {
+    //调用应用实例的方法获取全局数据
+
+  }
+
+  onShow() {
+    
+    this.setData({
+      keyword: "",
+      nextload: true,
+      page: 0,
+      imgBaseUrl: this.$app.imgBaseUrl,
+      feed: [],
+      scrollTop: this.data.scrollHeight,
+    })
+
+    //console.log(this.data.scrollTop);
+
+    this.$get('/v1/member').then(data => {
+      if (!data.obj) {
+        wx.showModal({
+          title: '提示',
+          content: '您尚未注册登录，是否前往登录',
+          success(res) {
+            if (res.confirm) {
+              wx.switchTab({
+                url: '../../member/MemberCenter/MemberCenter',
+              })
+            } else if (res.cancel) {
+              wx.switchTab({
+                url: '../../activity/index/index',
+              })
+            }
+          }
+        })
+      } else {
+        this.$app.userType = data.obj.userType;
+        this.getData();
+      }
+    }).catch(err => {
+      if (err) {
+        //this.data.vo.coderesult = err
+        console.log(err)
+        this.$showModal({
+          title: '提示',
+          content: '您尚未登录或获取信息失败',
+          showCancel: false
+        })
+      } else {
+        this.$showModal({
+          title: '提示',
+          content: '您尚未登录或获取信息失败',
+          showCancel: false
+        })
+      }
+    })
+  }
+
+  onPageScroll(e) {
+    this.setData({
+      'scrollHeight': e.detail.scrollTop,
+    });
+  }
+
+  //使用本地 fake 数据实现刷新效果
+  getData() {
+    if (this.data.nextload) {
+      var page = this.data.page + 1;
+      this.$get('/v1/notice/getUserNoticeByKeyword?page=' + page + '&size=' + this.data.size + '&status=' + this.data.currentTab + '&keyword=' + this.data.keyword).then(data => {
+      //console.log(data);
+      //console.log(this.data.currentTab);
+        if (data.totalSize <= page * this.data.size) {
+          this.setData({
+            nextload : false,
+          });
+        }
+        
+        this.setData({
+          feed: this.data.feed.concat(data.obj),
+          totalsize: data.totalSize,
+          page: page,
+        })
+
+      }).catch(err => {
+        this.$showModal({
+          title: '获取信息错误',
+          content: err.msg,
+          showCancel: false
+        })
+      })
+    } else {
+      wx.showToast({
+        title: '已经到底啦',
+        icon: 'success',
+        duration: 500,
+      })
     }
   }
   //input框事件处理
@@ -22,6 +124,12 @@ new class extends we.Page {
   }
   //搜索消息
   searchEmail(){
+    this.setData({
+      totalsize: 0,
+      page: 0,
+      nextload: true,
+      feed: [],
+    })
     this.$get('/v1/notice/getUserNoticeByKeyword?page=1&size=' + this.data.size + '&status=' + this.data.currentTab+'&keyword='+this.data.keyword).then(data => {
      
       if (data.totalSize % data.pageSize != 0) {
@@ -47,8 +155,10 @@ new class extends we.Page {
   //事件处理函数
   bindItemTap(e) {
     //console.log(e);
-    //console.log(this.data.feed)
+    
+    //console.log(this.data.scrollHeight);
     var idx = e.currentTarget.dataset.idx;
+    console.log(this.data.feed[idx]);
     var noticetype = this.data.feed[idx].notice.noticetype;
     var studentId = this.data.feed[idx].obj.studentId;
     var reportId = this.data.feed[idx].obj.reportId;
@@ -58,7 +168,7 @@ new class extends we.Page {
     if (noticetype == "ntHomework") {
       this.$get('/v1/notice/getUserNoticeById?noticeid=' + noticeid).then(res => {
         wx.navigateTo({
-          url: '../baby/homework/index/index?studentid=' + studentId + '&name=' + tstudentName,
+          url: '../baby/homework/index/index?studentid=' + studentId + '&name=' + studentName,
         });
       }); 
     } else if (noticetype == "ntWeeklyReport") {
@@ -79,13 +189,13 @@ new class extends we.Page {
           url: '../member/confirmLeave/confirmLeave?studentid=' + studentId + '&name=' + studentName + '&img=' + studentPhoto + '&leaveid=' + this.data.feed[idx].obj.askForLeaveId + '&sendername=' + this.data.feed[idx].obj.senderName,
         });
       });
-    }
-    /*else if (noticetype == "ntOrderTrusteeship") {
-      wx.navigateTo({
-        url: '../baby/payment/paymentDetailed/paymentDetailed?studentid=' + this.data.feed[e.currentTarget.dataset.idx].obj.studentId + '&name=' + this.data.feed[e.currentTarget.dataset.idx].obj.studentName + '&img=' + this.data.imgBaseUrl + this.data.feed[e.currentTarget.dataset.idx].obj.studentPhoto + '&orderId=' + this.data.feed[e.currentTarget.dataset.idx].obj.orderId,
-      })
-    }*/
-    
+    } else if (noticetype == "ntOrderTrusteeship") {
+      this.$get('/v1/notice/getUserNoticeById?noticeid=' + noticeid).then(res => {
+        wx.navigateTo({
+          url: '../baby/payment/paymentDetailed/paymentDetailed?id=' + this.data.feed[idx].obj.orderId,
+        });
+      });
+    } 
     else {
       var data = this.data.feed;
       //console.log(index)
@@ -104,190 +214,19 @@ new class extends we.Page {
     var current = e.currentTarget.dataset.current;
     this.setData({
       currentTab: current,
-      page:1,
+      page:0,
+      feed: [],
+      totalsize: 0,
+      nextload: true,
+      scrollTop: 0,
     });
-    this.$get('/v1/notice/getUserNoticeByKeyword?page=' + this.data.page + '&size=' + this.data.size + '&status=' + this.data.currentTab + '&keyword=' + this.data.keyword).then(data => {
-      console.log(data);
-      if (data.totalSize % data.pageSize != 0) {
-        var totalsize = Math.ceil(data.totalSize / data.pageSize);
-      } else {
-        var totalsize = data.totalSize / data.pageSize;
-      }
-      this.setData({
-        feed: data.obj,
-        totalsize: totalsize,
-      })
-    }).catch(err => {
-      wx.showModal({
-        title: '获取信息错误',
-        content: '',
-        showCancel: false
-      })
-    })
-
+    this.getData();
   }  
    
-  onLoad(){
-    //调用应用实例的方法获取全局数据
-    
-  } 
-  
-  onShow() {
-    this.setData({
-      keyword:"",
-      imgBaseUrl: this.$app.imgBaseUrl,
-    })
-
-	  this.$get('/v1/member').then(data => {
-		  if (!data.obj) {
-			  wx.showModal({
-				  title: '提示',
-				  content: '您尚未注册登录，是否前往登录',
-				  success(res) {
-					  if (res.confirm) {
-						  wx.switchTab({
-							  url: '../../member/MemberCenter/MemberCenter',
-						  })
-					  } else if (res.cancel) {
-						  wx.switchTab({
-							  url: '../../activity/index/index',
-						  })
-					  }
-				  }
-			  })
-		  } else {
-			  this.$app.userType = data.obj.userType;
-			  this.getData();
-		  }
-	  }).catch(err => {
-		  if (err) {
-			  this.data.vo.coderesult = err
-			  this.$showModal({
-				  title: '提示',
-				  content: '您尚未登录或获取信息失败',
-				  showCancel: false
-			  })
-		  } else {
-			  this.$showModal({
-				  title: '提示',
-          content: '您尚未登录或获取信息失败',
-				  showCancel: false
-			  })
-		  }
-	  })
-  }
-  upper() {
-    wx.showNavigationBarLoading()
-    this.refresh();
-    //console.log("upper");
-    setTimeout(function () { wx.hideNavigationBarLoading(); wx.stopPullDownRefresh(); }, 1000);
-  }
   lower(e) {
     wx.showNavigationBarLoading();
     var that = this;
-    setTimeout(function () { wx.hideNavigationBarLoading(); that.nextLoad(); }, 1000);
+    setTimeout(function () { wx.hideNavigationBarLoading(); that.getData(); }, 1000);
     //console.log("lower")
   }
-  //scroll: function (e) {
-  //  console.log("scroll")
-  //},
-
-  //使用本地 fake 数据实现刷新效果
-  getData() {
- /*   var feed = util.getData2();
-    console.log("loaddata");
-    var feed_data = feed.data;
-    this.setData({
-      feed: feed_data,
-      feed_length: feed_data.length
-    });*/
-    //console.log('/v1/notice/getUserNotice?page=' + this.data.page + '&size=' + this.data.size + '&status=' + this.data.currentTab)
-    this.$get('/v1/notice/getUserNotice?page='+this.data.page+'&size=' + this.data.size + '&status='+this.data.currentTab).then(data => {
-      console.log(data);
-      if (data.totalSize % data.pageSize!=0){
-        var totalsize = Math.ceil(data.totalSize / data.pageSize);
-      } else{
-        var totalsize = data.totalSize / data.pageSize;
-      } 
-      this.setData({
-        feed: data.obj,
-        totalsize: totalsize,
-      })
-  
-    }).catch(err => {
-      this.$showModal({
-        title: '获取信息错误',
-        content: err.msg,
-        showCancel: false
-      })
-    })
-
-  }
-  refresh() {
-    wx.showToast({
-      title: '刷新中',
-      icon: 'loading',
-      duration: 3000
-    });
-    this.$get('/v1/notice/getUserNotice?page=1&size=' + this.data.size +'&status=' + this.data.currentTab).then(data => {
-      this.setData({
-        feed: data.obj,
-        page: 1,
-      })
-    }).catch(err => {
-      this.$showModal({
-        title: '获取信息错误',
-        content: err.msg,
-        showCancel: false
-      })
-    })
-    setTimeout(function () {
-      wx.showToast({
-        title: '刷新成功',
-        icon: 'success',
-        duration: 2000
-      })
-    }, 500)
-
-  }
-
-  //使用本地 fake 数据实现继续加载效果
-  nextLoad() {
-    if (this.data.page != this.data.totalsize){
-      wx.showToast({
-        title: '加载中',
-        icon: 'loading',
-        duration: 4000
-      })
-      var page = this.data.page + 1;
-      console.log(page);
-      this.setData({
-        page: page,
-      })
-      this.$get('/v1/notice/getUserNotice?page=' + page + '&size=' + this.data.size +'&status=' + this.data.currentTab).then(data => {
-        this.setData({
-          feed: data.obj,
-          feed: this.data.feed.concat(data.obj),
-        })
-      }).catch(err => {
-        this.$showModal({
-          title: '获取信息错误',
-          content: err.msg,
-          showCancel: false
-        })
-      })
-      setTimeout(function () {
-        wx.showToast({
-          title: '加载成功',
-          icon: 'success',
-          duration: 2000
-        })
-      }, 500)
-    }
-   
-  }
-
-
-
-
 }

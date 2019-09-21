@@ -15,6 +15,7 @@ new class extends we.Page {
       },
       head_address: '点击可以设置您的地址',
       tail_address: '未填写详细地址',
+      unpaid_num: 0,
     }
   }
 
@@ -42,6 +43,7 @@ new class extends we.Page {
       })
     }
     this.getUserStatusByLogin();
+    this.getOrderNumber();
   }
   
   bindToUnpaid() {
@@ -55,12 +57,6 @@ new class extends we.Page {
       url: '/pages/member/myEnroll/myEnroll?status=1',
     })
   } //进行中
-
-  bindToFinished() {
-    this.$navigateTo({
-      url: '/pages/member/myEnroll/myEnroll?status=2',
-    })
-  } //已完成
 
   bindToTotal() {
     this.$navigateTo({
@@ -86,22 +82,34 @@ new class extends we.Page {
   getUserStatusByLogin() {
     if(this.data.userdtatus !=103){
       wx.reLaunch({ url: `/pages/member/register/register` })
-
-    }else{
+    } else {
       this.getUserNoticeCount();
         this.setData({
             hidden: false,
           })
-        if (this.data.noticeid){
-            wx.navigateTo({
-              url: '/pages/answer/answer?noticeid=' + this.data.noticeid
-            })
-            this.data.noticeid=null
-          }else{
-            this.UserInfo()
-          }
+      if (this.data.noticeid) {
+        wx.navigateTo({
+          url: '/pages/answer/answer?noticeid=' + this.data.noticeid
+        })
+        this.data.noticeid = null
+      } else {
+        this.UserInfo()
+      }
     }
-}
+  }
+
+  getOrderNumber() {
+    this.$get('/v1/order/getList?status=0&type=1').then(res1 => {
+      this.setData({
+        'unpaid_num': res1.totalSize,
+      });
+    });
+    this.$get('/v1/order/getList?status=1&type=1').then(res2 => {
+      this.setData({
+        'paid_num': res2.totalSize,
+      });
+    });
+  }
   //switch handler
   switch() {
     //wx.removeStorageSync("__session__");

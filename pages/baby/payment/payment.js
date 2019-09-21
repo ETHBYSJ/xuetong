@@ -291,8 +291,8 @@ new class extends we.Page {
       studentName: this.data.name,
       studentId: this.data.studentid,
       days: this.data.gradeTime,
-      //测试
-      payAmount: 0.01,
+      //测试时改为0.01
+      payAmount: this.data.payAmount, //0.01
       name: this.data.parentName,
     }
     console.log(po)

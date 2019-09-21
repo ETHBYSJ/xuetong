@@ -62,11 +62,9 @@ new class extends we.Page {
           //数据处理
           var tmp = this.data.vo.orderList;
           for (let i in data.obj) {
-            var title = data.obj[i].obj.activity.heading == undefined ? ['', ''] : data.obj[i].obj.activity.heading.split('|',2);
             tmp.push({
               'id': data.obj[i].order.id,
-              'activityHeading': title[0],
-              'activityTitle': (title[1] == undefined ? '' : title[1]),
+              'activityHeading': data.obj[i].obj.activity.heading,
               'activityQuota': data.obj[i].obj.activity.quota,
               'activityTitlePhoto': data.obj[i].obj.activity.titlePhoto,
               'activityStatus': data.obj[i].obj.activity.status,

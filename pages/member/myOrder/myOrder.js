@@ -42,7 +42,7 @@ new class extends we.Page {
 
   bindShowClazz(e) {
     wx.navigateTo({
-      url: '../../baby/payment/paymentDetailed/paymentDetailed/?id=' + e.currentTarget.dataset.id,
+      url: '../../baby/payment/paymentDetailed/paymentDetailed?id=' + e.currentTarget.dataset.id,
     });
   }
 
@@ -57,7 +57,7 @@ new class extends we.Page {
   getOrderList() {
     if (this.data.nextload == true) {
       var page = this.data.pageNo + 1;
-      this.$get('/v1/order/getList?size=100&page=' + page).then(data => {
+      this.$get('/v1/order/getList?size=20&page=' + page).then(data => {
         console.log(data)
         if (data.msg == 'SUCC') {
           //判断能否继续加载
@@ -75,12 +75,11 @@ new class extends we.Page {
           var tmp = this.data.vo.orderList;
           for (let i in data.obj) {
             if (data.obj[i].order.orderType != undefined && data.obj[i].order.orderType!=null) {
-              var title = data.obj[i].obj.activity == undefined ? ['', ''] : data.obj[i].obj.activity.heading.split('|', 2);
               var student = '';
               
               if (data.obj[i].obj.activityStudentList != undefined && data.obj[i].obj.activityStudentList.length > 2) {
                 //console.log(data.obj[i].obj.activityStudentList);
-                var stulist = data.obj[i].obj.activityStudentList.slice(2, -3).split('\",\"');
+                var stulist = data.obj[i].obj.activityStudentList.slice(2, -2).split('\",\"');
                 for(let j in stulist) {
                   if (student.length < 10) {
                     student = student + stulist[j] + ' ';
@@ -98,8 +97,7 @@ new class extends we.Page {
                 'id': data.obj[i].order.id,
                 'orderType': data.obj[i].order.orderType,
                 'createTime': data.obj[i].order.createTime.split(' ')[0],
-                'activityHeading': title[0],
-                'activityTitle': (title[1] == undefined ? '' : title[1]),
+                'activityHeading': (data.obj[i].obj.activity == undefined ? null : data.obj[i].obj.activity.heading),
                 //'activityStudent': student,
                 'activityQuota': (data.obj[i].obj.activity == undefined ? null : data.obj[i].obj.activity.quota),
                 'activityTitlePhoto': (data.obj[i].obj.activity == undefined ? null : data.obj[i].obj.activity.titlePhoto),
