@@ -56,18 +56,7 @@
               <text>作业</text>
             </navigator>
           </view>
-          <!-- <view><navigator url="/pages/member/MemberCenter/MemberCenter" open-type="switchTab"> -->
-          <!-- <image src="/assets/icon/bx.png"></image> -->
-          <!-- <text>预约接送</text> -->
-          <!-- </navigator></view>  -->
-          <!-- <view><navigator url="/pages/member/MemberCenter/MemberCenter" open-type="switchTab"> -->
-          <!-- <image src="/assets/icon/jy.png" class="core-item-icon"></image> -->
-          <!-- <text>作业上传</text> -->
-          <!-- </navigator></view> -->
           <view>
-            <!--
-            <navigator url="/pages/member/photo/photo?clazzid={{clazzid}}&gradename={{gradename}}&clazzname={{clazzname}}" open-type="navigate">
-            -->
             <navigator url="/pages/member/offwork/offwork?studentid={{studentid}}&img={{item.photo?vo.imgBaseUrl+''+item.photo:'/assets/icon/loadImg.jpg'}}&name={{item.name}}" open-type="navigate">
               <image src="/assets/icon/xs.png"></image>
               <text>请假</text>
@@ -82,31 +71,12 @@
           </view>
 
           <view>
-            <!--测试-->
-            
             <navigator url="/pages/baby/payment/payment?studentid={{studentid}}&name={{item.name}}&img={{item.photo?vo.imgBaseUrl+''+item.photo:'/assets/icon/loadImg.jpg'}}" open-type="navigate">
               <image src="/assets/icon/ykt.png"></image>
               <text>缴费</text>
             </navigator>
-            
-            <!--
-            <navigator url="/pages/activity/payment/payment" open-type="navigate">
-              <image src="/assets/icon/ykt.png"></image>
-              <text>缴费</text>
-            </navigator>
-            -->
           </view>
         </view>
-      <!--
-      <view class="footer_1"  hidden='{{userType=="教职工"||userType=="门店管理员"}}'>
-        <view>
-          <navigator url="/pages/member/photo/photo?clazzid={{clazzid}}&gradename={{gradename}}&clazzname={{clazzname}}" open-type="navigate">
-            <image src="/assets/icon/kjs.png"></image>
-            <text>班级相册</text>
-          </navigator>
-        </view>
-      </view>
-      -->
       </swiper-item>
     </swiper>
     
@@ -117,7 +87,7 @@
       </view>
       <view class="activity_content">
         <view class="activity_block" data-id="{{item.id}}" wx:for="{{activityList}}" bindtap="{{item?'jumpPage':''}}">
-          <image src='{{item.titlePhoto?vo.imgBaseUrl+""+item.titlePhoto:"/images/default.jpg"}}' ></image>
+          <image src='{{item.titlePhoto?vo.imgBaseUrl+""+item.titlePhoto:"/images/album.png"}}' ></image>
           <view class="activity_name">
             {{item.heading}}
           </view>
@@ -191,10 +161,7 @@
             <view class="tab-list {{currentTab==2 ? 'on' : ''}}" data-current="2" bindtap="swichNav">全部({{studentList.length}})</view>     
             <view class="tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">已签({{attendcnt}})</view>      
             <view class="tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">未签({{studentList.length - attendcnt}})</view>
-          </view>
-          <!--
-          <scroll-view scroll-y='true' style="height:700rpx;white-space:nowrap;" class="studentlist">
-          -->         
+          </view>     
             <block wx:for="{{nowList}}" wx:for-index="idx" data-name="{{item.student.name}}" data-id="{{item.student.id}}">
               <view class="student_block" data-name="{{item.student.name}}" data-id="{{item.student.id}}">
               <view bindtap="jumpToStudentDetailed" data-name="{{item.student.name}}" data-id="{{item.student.id}}">
@@ -219,32 +186,14 @@
               </view>
                 <!--手动修改签到-->              
                 <image class="change_status" src="/assets/icon/logs_2.png" catchtap="changeStatus" data-name="{{item.student.name}}" data-id="{{item.student.id}}" hidden="{{item.attend}}"></image>              
-                <!--一键通知家长--> 
-                <!--             
-                <image class="phone_call" src="/assets/icon/logs_1.png"  catchtap="powerDrawer" data-status="open" data-index="{{idx}}"></image>
-                -->  
                 <picker range="{{item.webchatFamilyInfoList}}" range-key="key" bindchange="bindChangeIndex" data-phonelist="{{item.webchatFamilyInfoList}}">
                   <view>
                     <image class="phone_call" src="/assets/icon/logs_1.png"></image>
                   </view>
                 </picker>
               </view>
-              <!--电话号码-->   
-              <!--                     
-              <view class="drawer_screen" catchtap="powerDrawer" data-index="{{idx}}" data-status="close" wx:if="{{showModalStatus&&item.webchatFamilyInfoList.length>0&&idx==currentIndex}}" style="top:{{scrolltop}}px">             
-                <view animation="{{animationData}}" class="drawer_attr_box" wx:if="{{showModalStatus&&item.webchatFamilyInfoList.length>0&&idx==currentIndex}}" style="top:{{scrolltop}}px">
-                  
-                  <view class="drawer_content">
-                    <view class="drawer_title line" wx:for="{{item.webchatFamilyInfoList}}" wx:for-item="familyitem" data-phone="{{familyitem.phone}}" catchtap="phoneCall" data-item="{{item}}">
-                      {{familyitem.name}} {{familyitem.phone}} 
-                    </view>
-                  </view>
-                </view>
-              </view>  
-              -->    
             </block>           
-        </view>
-      
+        </view>     
       </swiper-item>
     </swiper>
   </block>
