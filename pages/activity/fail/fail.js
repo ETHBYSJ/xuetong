@@ -10,12 +10,10 @@ new class extends we.Page {
  
   //继续支付
   repay() {
-    console.log("repay")
     wx.navigateBack()
   }
   //返回首页
   toIndex() {
-    console.log("toIndex")
     wx.switchTab({
       url: '/pages/activity/index/index',
     })

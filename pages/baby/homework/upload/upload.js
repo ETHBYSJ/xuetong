@@ -10,25 +10,13 @@ new class extends we.Page {
       content: "",
       po: {
         imageList: [],
-        //createDate: "",
         studentId: "",
-        //content: "",
-        //status: 1,
-        //chineseFeedback: "",
-        //mathFeedback: "",
-        //englishFeedback: "",
-        //otherFeedback: "",
-        //chineseStatus: -1,
-        //mathStatus: -1,
-        //englishStatus: -1,
-        //otherStatus: -1,
         homeworkDate: "",
         deleteTag: 1,
       },
     }
   }
   onLoad(options) {
-    console.log(options)
     this.setData({
       "po.studentId": options.studentid,
       name: options.name,
@@ -45,18 +33,11 @@ new class extends we.Page {
     //没有作业记录,说明是第一次提交，设定默认初始值
     else {
       this.setData({
-        /*
-        "po.chineseStatus": -1,
-        "po.mathStatus": -1,
-        "po.englishStatus": -1,
-        "po.otherStatus": -1,
-        */
         //正在完成中状态
         "po.status": 3,
         "po.content": "",
       })
-    }    
-    //console.log(this.data.imgBaseUrl)
+    }  
   }
   fromAlbum() {
     var that = this
@@ -88,21 +69,8 @@ new class extends we.Page {
         that.setData({
           "po.content": that.data.content,
         })
-      }
-      /*
-      else {
-        //输入内容为空
-        if(!this.po.id) {
-          //没有作业记录
-          that.setData({
-            "po.content": "",
-          })
-        }
-      }
-      */
-      console.log(that.data.po)      
+      }     
       that.$post('/v1/homework/update', that.data.po).then(data => {
-        console.log(data) 
         if(data.msg == "SUCC") {
           wx.showToast({
             title: '上传成功',
@@ -139,15 +107,11 @@ new class extends we.Page {
         "Content-Type": "multipart/form-data",
         'Content-Type': 'application/json'
       },
-      success(res) {
-        console.log(index)
-        console.log(res)      
+      success(res) { 
         that.data.po.imageList.push({photoPath: JSON.parse(res.data).obj})
-        console.log(that.data.po.imageList)
         that.setData({
           "po.imageList": that.data.po.imageList,
-        })  
-        console.log(that.data.po)
+        });
         that.executeUpload(url, index + 1, that)
       }
     })
@@ -176,31 +140,24 @@ new class extends we.Page {
             icon: 'loading',
             mask: true,
             duration: 10000
-          })
-          /*
-          that.setData({
-            "po.imageList": [],
-          })
-          */
-          that.executeUpload(that.data.imgBaseUrl + '/v1/homework/upload', 0, that)
+          });
+          that.executeUpload(that.data.imgBaseUrl + '/v1/homework/upload', 0, that);
         }        
       }
     })    
   }
   bindInput(e) {
-    //console.log(e.detail.value)
     this.setData({      
       content: e.detail.value,
-    })
+    });
   }
   //预览图片
   imgPreview(e) {
-    let that = this
+    let that = this;
     let src = e.currentTarget.dataset.src;
-    console.log(e)
     wx.previewImage({
       current: src,
       urls: that.data.postList
-    })
+    });
   }
 }

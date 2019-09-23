@@ -78,8 +78,7 @@ new class extends we.Page {
     this.$get('/v1/activity/getActivityList?page=1&size=' + this.data.vo.pageSize + '&status=' + this.data.currentTab + '&keyword=' + this.data.inputVal +'&address='+this.data.selectaddress).then(data => {
       this.setData({
         "vo.pageNo": 1,
-      })
-      //console.log(data)
+      });
       if (data.totalSize % data.pageSize != 0) {
         var totalsize = Math.ceil(data.totalSize / data.pageSize);
       } else {
@@ -161,7 +160,6 @@ new class extends we.Page {
 
   loadBg() {
     return this.$get("/v1/activity/getActivityCarousel").then(data => {
-          //console.log(data)
           this.setData({
               'vo.imgUrls': data.obj.content
           })
@@ -235,8 +233,7 @@ new class extends we.Page {
 
   //预览图片
   imgPreview(e) {
-    let src = e.currentTarget.dataset.src
-    //console.log(src)
+    let src = e.currentTarget.dataset.src;
     //暂时只允许浏览当前一张图片
     wx.previewImage({
       current: src,
@@ -245,34 +242,29 @@ new class extends we.Page {
     
   }
   handleChange(e) {
-    //console.log(e)
     this.setData({
       currentImage: e.detail.current,
     })
   }
   toLeft(e) {
-    //console.log(e)
     let length = e.currentTarget.dataset.length
     this.setData({
       currentIndex: (this.data.currentImage + length - 1) % length,
     })
   }
   toRight(e) {
-    //console.log(e)
     let length = e.currentTarget.dataset.length
     this.setData({
       currentIndex: (this.data.currentImage + length + 1) % length,
     })
   }
   upper() {
-    //console.log("upper")
     wx.showNavigationBarLoading()
     this.init()
     setTimeout(function () { wx.hideNavigationBarLoading(); wx.stopPullDownRefresh(); }, 2000);
   }
 
   lower(e) {
-    //console.log("lower")
     wx.showNavigationBarLoading()
     var that = this;
     setTimeout(function () { wx.hideNavigationBarLoading(); that.nextLoad(); }, 1000);
@@ -284,14 +276,12 @@ new class extends we.Page {
       icon: 'loading',
       duration: 4000
     })
-    let page = this.data.vo.pageNo + 1
-    //console.log(page)
+    let page = this.data.vo.pageNo + 1;
     if(page <= this.data.totalsize) {
       this.setData({
         "vo.pageNo": page,
       })
       this.$get('/v1/activity/getActivityList?page=' + page + '&size=' + this.data.vo.pageSize + '&status=' + this.data.currentTab + '&keyword=' + this.data.inputVal + '&address=' + this.data.selectaddress).then(data => {
-        //console.log(data)
         this.setData({
           "vo.infor": this.data.vo.infor.concat(data.obj)
         })

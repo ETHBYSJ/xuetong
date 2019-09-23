@@ -34,8 +34,6 @@ new class extends we.Page {
       scrollTop: this.data.scrollHeight,
     })
 
-    //console.log(this.data.scrollTop);
-
     this.$get('/v1/member').then(data => {
       if (!data.obj) {
         wx.showModal({
@@ -59,8 +57,6 @@ new class extends we.Page {
       }
     }).catch(err => {
       if (err) {
-        //this.data.vo.coderesult = err
-        console.log(err)
         this.$showModal({
           title: '提示',
           content: '您尚未登录或获取信息失败',
@@ -87,8 +83,6 @@ new class extends we.Page {
     if (this.data.nextload) {
       var page = this.data.page + 1;
       this.$get('/v1/notice/getUserNoticeByKeyword?page=' + page + '&size=' + this.data.size + '&status=' + this.data.currentTab + '&keyword=' + this.data.keyword).then(data => {
-      //console.log(data);
-      //console.log(this.data.currentTab);
         if (data.totalSize <= page * this.data.size) {
           this.setData({
             nextload : false,
@@ -154,11 +148,7 @@ new class extends we.Page {
 
   //事件处理函数
   bindItemTap(e) {
-    //console.log(e);
-    
-    //console.log(this.data.scrollHeight);
     var idx = e.currentTarget.dataset.idx;
-    console.log(this.data.feed[idx]);
     var noticetype = this.data.feed[idx].notice.noticetype;
     var studentId = this.data.feed[idx].obj.studentId;
     var reportId = this.data.feed[idx].obj.reportId;
@@ -204,7 +194,6 @@ new class extends we.Page {
     }
     else {
       var data = this.data.feed;
-      //console.log(index)
       data[idx].x = true;
       this.setData({
         feed: data
@@ -233,6 +222,5 @@ new class extends we.Page {
     wx.showNavigationBarLoading();
     var that = this;
     setTimeout(function () { wx.hideNavigationBarLoading(); that.getData(); }, 1000);
-    //console.log("lower")
   }
 }

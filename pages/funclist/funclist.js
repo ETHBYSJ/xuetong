@@ -83,7 +83,6 @@ new class extends we.Page {
          // wx.reLaunch({ url: `/pages/activity/index/index` })
           break
         case 102://未注册用户
-          //wx.reLaunch({ url: `/pages/school/index/index` })
           //跳到注册页面
           wx.reLaunch({ url: `/pages/activity/index/index` })
           break

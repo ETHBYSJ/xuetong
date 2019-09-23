@@ -18,20 +18,13 @@ new class extends we.Page {
   }
 
   onLoad(options) {
-    //console.log(options)
     this.setData({
       studentid: options.studentid,
       name: options.name,
       imgBaseUrl: this.$app.imgBaseUrl,
-    })
-    console.log(this.data.imgBaseUrl)
+    });
   }
   onShow() {
-    /*
-    this.$get('/v1/homework/getHomeworkList?studentId=2&page=1&size=2').then(data => {
-      console.log(data)
-    })
-    */
     var today = new Date()
     var year = today.getFullYear()
     var month = today.getMonth() + 1
@@ -50,8 +43,6 @@ new class extends we.Page {
   }
   getData() {
     this.$get('/v1/homework/getList?page=1&size=' + this.data.size + '&id=' + this.data.studentid).then(data => {
-      console.log(data)      
-      //console.log(data.obj)
       //检查今日是否上传
       if(data.obj.length > 0 && data.obj[0].homeworkDate == this.data.nowday) {
         //今日作业已经上传
@@ -80,81 +71,73 @@ new class extends we.Page {
   }
 
   upper() {
-    wx.showNavigationBarLoading()
-    this.getData()
-    console.log("upper")
+    wx.showNavigationBarLoading();
+    this.getData();
     setTimeout(function () { wx.hideNavigationBarLoading(); wx.stopPullDownRefresh(); }, 2000);
   }
 
   lower(e) {
-    wx.showNavigationBarLoading()
+    wx.showNavigationBarLoading();
     var that = this;
     setTimeout(function () { wx.hideNavigationBarLoading(); that.nextLoad(); }, 1000);
-    console.log("lower")
   }
 
   //继续加载效果
   nextLoad() {
-    console.log("...")
     wx.showToast({
       title: '加载中',
       icon: 'loading',
       duration: 4000
     })
-    var page = this.data.page + 1
-    console.log(page)
+    var page = this.data.page + 1;
     this.$get('/v1/homework/getList?page=' + page + '&size=' + this.data.size + '&id=' + this.data.studentid).then(data => {
       if(data.obj.length > 0) {
         this.setData({
           page: page,          
-        })        
+        });       
         this.setData({
           feed: this.data.feed.concat(data.obj)
-        })
-        console.log(this.data.feed)
+        });
         setTimeout(function () {
           wx.showToast({
             title: '加载成功',
             icon: 'success',
             duration: 2000
           })
-        }, 500)
+        }, 500);
       }
     }).catch(err => {
       this.$showModal({
         title: '出错',
         content: err.msg,
         showCancel: false
-      })
+      });
     })
     
   }
 
   scrollTop() {
-    //console.log("scrollTop")
     this.setData({
       scrolltop: 0,
-    })
+    });
   }
   bindScroll(e) {
-    //console.log(e)
     if (e.detail.scrollTop > 100) {
       this.setData({
         hiddenScrollTop: false,
-      })
+      });
     }
     else {
       this.setData({
         hiddenScrollTop: true,
-      })
+      });
     }
   }
   
   upload() {
-    console.log("upload")
     wx.navigateTo({
       url: "../upload/upload?studentid=" + this.data.studentid + "&name=" + this.data.name + "&nowday=" + this.data.nowday + "&id=" + this.data.id,
-    })
+    });
   }
   
   end() {
@@ -170,24 +153,6 @@ new class extends we.Page {
           })
         }
       }
-    })
+    });
   }
-  /*
-  send() {
-    var that = this
-    console.log(wx.getStorageSync("__session__"))
-    wx.uploadFile({
-      url: that.data.imgBaseUrl + '/v1/homework/upload',
-      filePath: '/images/default.jpg',
-      name: 'file',
-      header: {
-        'Content-Type': 'application/json',
-        //'X-Session-Token': wx.getStorageSync("__session__"),
-      },
-      success(res) {
-        console.log(res)
-      }
-    })
-  }
-  */
 }

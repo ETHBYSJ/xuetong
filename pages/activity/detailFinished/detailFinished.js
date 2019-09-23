@@ -35,7 +35,6 @@ new class extends we.Page {
       "po.activityId": noticeid,
     })
     this.$get('/v1/activity/' + noticeid).then(data => {
-      console.log(data)
       var article = data.obj.content;
       WxParse.wxParse('article', 'html', article, this, 5);
       this.setData({
@@ -56,7 +55,6 @@ new class extends we.Page {
   }
   getCommentList() {
     this.$get('/v1/activity/getCommentList?id=' + this.data.id).then(data => {
-      console.log(data)
       this.setData({
         commentList: data.obj,
       })
@@ -68,25 +66,6 @@ new class extends we.Page {
       })
     })
   }
-
-
-
-  /*     wx.requestPayment(
-         {
-           'timeStamp': '',
-           'nonceStr': '',
-           'package': '',
-           'signType': 'MD5',
-           'paySign': '',
-           'success': function (res) { },
-           'fail': function (res) { },
-           'complete': function (res) { }
-         })*/
-
-
-
-
-
   //分享给朋友
   onShareAppMessage(res) {
     return {
@@ -108,29 +87,25 @@ new class extends we.Page {
     })
   }
   toLeft(e) {
-    //console.log(e)
     let length = e.currentTarget.dataset.length
     this.setData({
       currentIndex: (this.data.currentImage + length - 1) % length,
     })
   }
   toRight(e) {
-    //console.log(e)
     let length = e.currentTarget.dataset.length
     this.setData({
       currentIndex: (this.data.currentImage + length + 1) % length,
     })
   }
   handleChange(e) {
-    //console.log(e)
     this.setData({
       currentImage: e.detail.current,
     })
   }
   //预览图片
   imgPreview(e) {
-    let src = e.currentTarget.dataset.src
-    console.log(src)
+    let src = e.currentTarget.dataset.src;
     //暂时只允许浏览当前一张图片
     wx.previewImage({
       current: src,
@@ -138,16 +113,13 @@ new class extends we.Page {
     })
   }
   inputComment(e) {
-    //console.log(e)
     this.setData({
       "po.content": e.detail.value,
     })
   }
   //发表评论
   postComment() {
-    //console.log(this.data.po)
     this.$post('/v1/activity/comment', this.data.po).then(data => {
-      //console.log(data)
       this.getCommentList()
     }).catch(err => {
       this.$showModal({
@@ -158,7 +130,6 @@ new class extends we.Page {
     })
   }
   momentJump(e) {
-    console.log(e)
     this.setData({
       toView: "jump",
     })
