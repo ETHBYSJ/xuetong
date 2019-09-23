@@ -156,6 +156,10 @@ new class extends we.Page {
   //导航事件处理函数
   swichNav(e) {
     var current = e.currentTarget.dataset.current;
+    console.log(current)
+    console.log(this.data.studentList)
+    console.log(this.data.attendList)
+
     this.setData({
       currentTab: current,
     });
@@ -399,7 +403,7 @@ new class extends we.Page {
           attendList.push(studentList[i])
         }
         else {
-          attendList.push(studentList[i])
+          notattendList.push(studentList[i])
         }        
       }
       this.setData({
