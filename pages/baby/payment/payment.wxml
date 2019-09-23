@@ -8,7 +8,7 @@
     <!--搜索框-->
     <view class="search_bar">
       <view class="location">
-        <view class="location_text">闵行区</view>
+        <view class="location_text">{{location}}</view>
         <view class="location_icon"></view>
       </view>
       <view class="search_form">
@@ -26,7 +26,7 @@
         </view>
         <view class="student_info">
           <text class="student_name">{{name}}</text>
-          <text class="student_date">目前可托管至{{endDateLatest}}</text>
+          <text class="student_date">目前可托管至{{endDateLatest? endDateLatest : '未知'}}</text>
         </view>
       </view>
       <view class="payment_date">
@@ -96,7 +96,7 @@
     <!--搜索框-->
     <view class="search_bar">
       <view class="location">
-        <view class="location_text">闵行区</view>
+        <view class="location_text">{{location}}</view>
         <view class="location_icon"></view>
       </view>
       <view class="search_form">

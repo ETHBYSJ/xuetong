@@ -36,6 +36,7 @@ new class extends we.Page {
       gradeAddress: "",
       //应交托管费
       payAmount: 0,
+      location: "",
     }
   }
   onLoad(options) {
@@ -65,12 +66,12 @@ new class extends we.Page {
     this.init()
     //为了获得托管班的托管费,需要先得到学生信息
     this.$get('/v1/student/getInfo?id=' + this.data.studentid).then(data => {
-      console.log(data)
       this.setData({
         price: data.obj.clazz.price,
         clazzId: data.obj.clazz.id,
         endDateLatest: data.obj.endDate,
         gradeAddress: data.obj.clazz.grade.name,
+        location: this.$app.CurrentcityLink,
         //parentName: data.obj.
       })
     }).catch(err => {
@@ -304,12 +305,7 @@ new class extends we.Page {
         //订单号
         this.setData({
           orderId: data.obj.orderId,
-        })        
-        /*
-        wx.navigateTo({
-          url: './success/success?id=' + that.data.orderId,
-        })
-        */        
+        })      
         wx.requestPayment({
           'timeStamp': data.obj.data.timeStamp,
           'nonceStr': data.obj.data.nonceStr,
@@ -333,14 +329,6 @@ new class extends we.Page {
             })            
           },
           'fail': function (res) {
-            console.log(res)
-            /*
-            that.$showModal({
-              title: '错误',
-              content: '支付失败',
-              showCancel: false
-            })
-            */
             //支付失败,跳转到失败页面
             wx.navigateTo({
               url: './fail/fail',
@@ -360,11 +348,5 @@ new class extends we.Page {
   }
   //咨询电话
   consult() {
-    console.log("consult")
-    /*
-    wx.navigateTo({
-      url: './fail/fail',
-    })
-    */
   }
 }
