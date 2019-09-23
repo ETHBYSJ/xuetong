@@ -59,7 +59,6 @@ new class extends we.Page {
       name: options.name,
       imgBaseUrl: this.$app.imgBaseUrl,
       startDate: { year: year, month: month, day: day, fulldate: date },
-      //endDate: { year: year, month: month, day: day, fulldate: date },
     })
     this.getEndDate()
   }

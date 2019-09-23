@@ -36,7 +36,7 @@
         </view>
         <view class="payment_date_start">
           <view class="date_block">
-            <picker mode="date" value="{{startDate.fulldate}}" start="{{startDate.fulldate}}" bindchange="bindStartDateChange">
+            <picker mode="date" value="{{startDate.fulldate}}"  bindchange="bindStartDateChange">
               <view class="calendar">
                 <view class="cal_top">
                   <text class="month">{{startDate.year}}.{{startDate.month}}</text>
