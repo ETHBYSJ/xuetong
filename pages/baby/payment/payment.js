@@ -38,6 +38,7 @@ new class extends we.Page {
       payAmount: 0,
       //最小结束日期
       smallestEndDate: {},
+      location: "",
     }
   }
   onLoad(options) {
@@ -90,6 +91,7 @@ new class extends we.Page {
         clazzId: data.obj.clazz.id,
         endDateLatest: data.obj.endDate,
         gradeAddress: data.obj.clazz.grade.name,
+        location: this.$app.CurrentcityLink,
         //parentName: data.obj.
       })
     }).catch(err => {
@@ -299,12 +301,7 @@ new class extends we.Page {
         //订单号
         this.setData({
           orderId: data.obj.orderId,
-        })        
-        /*
-        wx.navigateTo({
-          url: './success/success?id=' + that.data.orderId,
-        })
-        */        
+        })      
         wx.requestPayment({
           'timeStamp': data.obj.data.timeStamp,
           'nonceStr': data.obj.data.nonceStr,
@@ -326,6 +323,7 @@ new class extends we.Page {
             })            
           },
           'fail': function (res) {
+            //支付失败,跳转到失败页面
             wx.navigateTo({
               url: './fail/fail',
             })
