@@ -549,38 +549,40 @@ new class extends we.Page {
   changeStatus(e) {
     let name = e.currentTarget.dataset.name
     let id = e.currentTarget.dataset.id
-    console.log(id)
+    //console.log(id)
     let that = this
-    wx.showModal({
-      title: '提示',
-      content: '是否将学生  ' + name + '  改签为已到 ？',
-      success(res) {
-        if(res.confirm) {
-          that.$get('/v1/attendance/changeReachStatusByStudentId?studentId=' + id).then(data => {
-            wx.showModal({
-              title: '提示',
-              content: '已将学生' + name + '改签为已到!',
-              showCancel: false,
+    if (!e.currentTarget.dataset.attend) {
+      wx.showModal({
+        title: '提示',
+        content: '是否将学生  ' + name + '  改签为已到 ？',
+        success(res) {
+          if (res.confirm) {
+            that.$get('/v1/attendance/changeReachStatusByStudentId?studentId=' + id).then(data => {
+              wx.showModal({
+                title: '提示',
+                content: '已将学生' + name + '改签为已到!',
+                showCancel: false,
+              })
+              that.loadStudentInfo()
+            }).catch(err => {
+              if (err) {
+                that.$showModal({
+                  title: '提示',
+                  content: `${err.message}`,
+                  showCancel: false
+                })
+              } else {
+                that.$showModal({
+                  title: '提示',
+                  content: err.msg,
+                  showCancel: false
+                })
+              }
             })
-            that.loadStudentInfo()
-          }).catch(err => {
-            if (err) {
-              that.$showModal({
-                title: '提示',
-                content: `${err.message}`,
-                showCancel: false
-              })
-            } else {
-              that.$showModal({
-                title: '提示',
-                content: err.msg,
-                showCancel: false
-              })
-            }
-          })
+          }
         }
-      }
-    })
+      })
+    }
   }
 
 }

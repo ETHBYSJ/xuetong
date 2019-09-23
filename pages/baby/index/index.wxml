@@ -206,7 +206,7 @@
                   <text wx:if="{{item.homeworkStatus != 0}}" class="student_hw_normal">作业已上传</text>
                   <text wx:else class="student_hw_warning">作业未上传</text>
                 </view>
-                <view class="student_attend">
+                <view class="student_attend" catchtap="changeStatus" data-name="{{item.student.name}}" data-id="{{item.student.id}}" data-attend="{{item.attend}}">
                   <block wx:if="{{item.attend}}">
                     <view class="circle_normal"></view>
                     <text class="student_attend_status">已到</text>
