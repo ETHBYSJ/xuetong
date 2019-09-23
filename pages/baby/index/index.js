@@ -373,7 +373,44 @@ new class extends we.Page {
     })
   }
   
-  loadStudentInfo() { 
+  loadStudentInfo() {
+    this.$get('/v1/student/getList?gradeId=' + this.data.gradeid + '&clazzId=' + this.data.clazzid).then(data => {
+      console.log(data)
+      let studentList = data.obj
+      this.setData({
+        nowList: data.obj,
+        height: 800 + 201 * data.obj.length,
+      })
+      let attendcnt = 0
+      //缓存，减少http请求次数
+      let attendList = []
+      let notattendList = []
+      for(var i = 0; i < data.obj.length; i++) {
+        for (var j = 0; j < studentList[i].webchatFamilyInfoList.length; j++) {
+          studentList[i].webchatFamilyInfoList[j].key = studentList[i].webchatFamilyInfoList[j].name + ' ' + studentList[i].webchatFamilyInfoList[j].phone
+        }
+      }
+      //统计出勤情况
+      for(var i = 0; i < data.obj.length; i++) {
+        let ifattend = studentList[i].studentAttendanceList.length != 0
+        attendcnt += ifattend ? 1 : 0
+        studentList[i].attend = ifattend
+        if(ifattend) {
+          attendList.push(studentList[i])
+        }
+        else {
+          attendList.push(studentList[i])
+        }        
+      }
+      this.setData({
+        attendcnt: attendcnt,
+        attendList: attendList,
+        notattendList: notattendList,
+        studentList: studentList,
+        nowList: studentList,
+      })
+    })
+    /* 
     this.$get('/v1/student/datalist?gradeId=' + this.data.gradeid + '&clazzId=' + this.data.clazzid).then(data => {
       let studentList = data.obj
       console.log(studentList)
@@ -417,11 +454,6 @@ new class extends we.Page {
           })
         }))
         homework_promises.push(this.$get('/v1/homework/getByStudentIdAndDate?id=' + data.obj[temp].id + '&date=' + this.data.date).then(data => {
-          /*
-          this.setData({
-            [`studentList[${temp}].homework`]: data.obj && data.obj.status != 0,
-          }) 
-          */
           studentList[temp].homework = data.obj && data.obj.status != 0
         }).catch(err => {
           this.$showModal({
@@ -468,8 +500,9 @@ new class extends we.Page {
       })
            
     })
+  */
   }
-
+  
   changeImg(){
     wx.showActionSheet({
       itemList: ['更换相册封面'],

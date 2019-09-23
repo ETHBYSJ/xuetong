@@ -195,15 +195,15 @@
           <!--
           <scroll-view scroll-y='true' style="height:700rpx;white-space:nowrap;" class="studentlist">
           -->         
-            <block wx:for="{{nowList}}" wx:for-index="idx" data-name="{{item.name}}" data-id="{{item.id}}">
-              <view class="student_block" data-name="{{item.name}}" data-id="{{item.id}}">
-              <view bindtap="jumpToStudentDetailed" data-name="{{item.name}}" data-id="{{item.id}}">
+            <block wx:for="{{nowList}}" wx:for-index="idx" data-name="{{item.student.name}}" data-id="{{item.student.id}}">
+              <view class="student_block" data-name="{{item.student.name}}" data-id="{{item.student.id}}">
+              <view bindtap="jumpToStudentDetailed" data-name="{{item.student.name}}" data-id="{{item.student.id}}">
                 <view class="studentpic-wrp">
-                  <image class="studentpic" src="{{item.photo?vo.imgBaseUrl+''+item.photo:'/assets/icon/loadImg_1.jpg'}}"></image>
+                  <image class="studentpic" src="{{item.student.photo?vo.imgBaseUrl+''+item.student.photo:'/assets/icon/loadImg_1.jpg'}}"></image>
                 </view>
                 <view class="student_baseinfo">
-                  <text class="student_name">{{item.name}}</text>
-                  <text wx:if="{{item.homework}}" class="student_hw_normal">作业已上传</text>
+                  <text class="student_name">{{item.student.name}}</text>
+                  <text wx:if="{{item.homeworkStatus != 0}}" class="student_hw_normal">作业已上传</text>
                   <text wx:else class="student_hw_warning">作业未上传</text>
                 </view>
                 <view class="student_attend">
@@ -218,7 +218,7 @@
                 </view>
               </view>
                 <!--手动修改签到-->              
-                <image class="change_status" src="/assets/icon/logs_2.png" catchtap="changeStatus" data-name="{{item.name}}" data-id="{{item.id}}" hidden="{{item.attend}}"></image>              
+                <image class="change_status" src="/assets/icon/logs_2.png" catchtap="changeStatus" data-name="{{item.student.name}}" data-id="{{item.student.id}}" hidden="{{item.attend}}"></image>              
                 <!--一键通知家长--> 
                 <!--             
                 <image class="phone_call" src="/assets/icon/logs_1.png"  catchtap="powerDrawer" data-status="open" data-index="{{idx}}"></image>
