@@ -353,6 +353,7 @@ new class extends we.Page {
   
   loadStudentInfo() {
     this.$get('/v1/student/getList?gradeId=' + this.data.gradeid + '&clazzId=' + this.data.clazzid).then(data => {
+      console.log(data.obj)
       let studentList = data.obj
       this.setData({
         nowList: data.obj,
@@ -369,15 +370,16 @@ new class extends we.Page {
       }
       //统计出勤情况
       for(var i = 0; i < data.obj.length; i++) {
-        let ifattend = studentList[i].studentAttendanceList.length != 0
-        attendcnt += ifattend ? 1 : 0
-        studentList[i].attend = ifattend
-        if(ifattend) {
-          attendList.push(studentList[i])
+        if (studentList[i].studentAttendanceList.length==0) {
+          studentList[i].attend = 0; //缺勤
+          attendList.push(studentList[i]);
+        } else if (studentList[i].studentAttendanceList[0].type==2) {
+          studentList[i].attend = 2; //请假
+          notattendList.push(studentList[i]);
+        } else {
+          studentList[i].attend = 1; //已到
+          notattendList.push(studentList[i]);
         }
-        else {
-          notattendList.push(studentList[i])
-        }        
       }
       this.setData({
         attendcnt: attendcnt,
@@ -394,19 +396,19 @@ new class extends we.Page {
     let item = e.currentTarget.dataset;
     wx.navigateTo({
       url: "/pages/activity/detail/detail?id=" + item.id
-    })
+    });
   }
   jumpToStudentDetailed(e) {
     wx.navigateTo({
       url: "/pages/baby/StudentDetailed/StudentDetailed?studentid=" + e.currentTarget.dataset.id + "&name=" + e.currentTarget.dataset.name
-    })
+    });
   }
   
   changeStatus(e) {
     let name = e.currentTarget.dataset.name;
     let id = e.currentTarget.dataset.id;
     let that = this
-    if (!e.currentTarget.dataset.attend) {
+    if (e.currentTarget.dataset.attend!=1) {
       wx.showModal({
         title: '提示',
         content: '是否将学生  ' + name + '  改签为已到 ？',

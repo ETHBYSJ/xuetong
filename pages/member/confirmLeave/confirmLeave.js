@@ -52,30 +52,37 @@ new class extends we.Page {
   
 
   bindLeave(e) {
-    //console.log(e)
-    this.$get("v1/askforleave/confirm?id=" + e.currentTarget.dataset.leaveid).then(res => {
-      if (res.obj == 'SUCC') {
-        wx.showToast({
-          title: '确认成功',
-          icon: 'success',
-          duration: 1000,
-        });
-        this.onShow();
-        /*this.setData({
-          'confirmleave': 1,
-        });*/
-      } else {
-        wx.showModal({
-          title: '提示',
-          content: '确认错误',
-        })
+    //
+    var that = this;
+    wx.showModal({
+      title: '提示',
+      content: '要确认该条请假吗？',
+      success: function(res) {
+        if (res.confirm) {
+          that.$get("v1/askforleave/confirm?id=" + e.currentTarget.dataset.leaveid).then(res => {
+            if (res.obj == 'SUCC') {
+              wx.showToast({
+                title: '确认成功',
+                icon: 'success',
+                duration: 1000,
+              });
+              that.onShow();
+            } else {
+              wx.showModal({
+                title: '提示',
+                content: '确认错误',
+              })
+            }
+          }).catch(err => {
+            wx.showModal({
+              title: '提示',
+              content: '通信错误' + err.errMsg,
+            });
+          });
+        } 
       }
-    }).catch(err => {
-      wx.showModal({
-        title: '提示',
-        content: '通信错误'+err.errMsg,
-      });
     })
+    
   }
 
   bindScroll(e) {

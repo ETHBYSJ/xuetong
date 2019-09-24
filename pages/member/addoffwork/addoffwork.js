@@ -42,11 +42,26 @@ new class extends we.Page {
       })
   }
   submit() {
-    console.log("submit")    
-    console.log(this.data.po)
+    //console.log("submit")    
+    //console.log(this.data.po)
     this.$post('/v1/askforleave/create', this.data.po).then(data => {
-      console.log(data);
-      wx.navigateBack()
+      //console.log(data);
+      if (data.obj == 'SUCC') {
+        wx.showToast({
+          title: '提交成功',
+          icon: 'success',
+          duration: 1000,
+        });
+        setTimeout(function(){
+          wx.navigateBack();
+        }, 1000);
+      } else {
+        wx.showModal({
+          title: '提示',
+          content: '提交失败',
+          showCancel: false,
+        });
+      }
     }).catch(err => {
       console.log(err);
     })   
@@ -97,11 +112,7 @@ new class extends we.Page {
       success(res) {
         if(res.confirm) {
           that.submit();
-          wx.showToast({
-            title: '提交成功',
-            icon: 'success',
-            duration: 1000,
-          });
+          
         }
         else if(res.cancel) {
           //console.log("用户点击取消")

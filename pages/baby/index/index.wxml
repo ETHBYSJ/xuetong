@@ -174,9 +174,13 @@
                   <text wx:else class="student_hw_warning">作业未上传</text>
                 </view>
                 <view class="student_attend" catchtap="changeStatus" data-name="{{item.student.name}}" data-id="{{item.student.id}}" data-attend="{{item.attend}}">
-                  <block wx:if="{{item.attend}}">
+                  <block wx:if="{{item.attend==1}}">
                     <view class="circle_normal"></view>
                     <text class="student_attend_status">已到</text>
+                  </block>
+                  <block wx:elif="{{item.attend==2}}" >
+                    <view class="circle_leave"></view>
+                    <text class="student_attend_status">请假</text>
                   </block>
                   <block wx:else >
                     <view class="circle_warning"></view>
@@ -185,7 +189,7 @@
                 </view>
               </view>
                 <!--手动修改签到-->              
-                <image class="change_status" src="/assets/icon/logs_2.png" catchtap="changeStatus" data-name="{{item.student.name}}" data-id="{{item.student.id}}" hidden="{{item.attend}}"></image>              
+                <image class="change_status" src="/assets/icon/logs_2.png" catchtap="changeStatus" data-name="{{item.student.name}}" data-id="{{item.student.id}}" hidden="{{item.attend==1}}"></image>              
                 <picker range="{{item.webchatFamilyInfoList}}" range-key="key" bindchange="bindChangeIndex" data-phonelist="{{item.webchatFamilyInfoList}}">
                   <view>
                     <image class="phone_call" src="/assets/icon/logs_1.png"></image>
