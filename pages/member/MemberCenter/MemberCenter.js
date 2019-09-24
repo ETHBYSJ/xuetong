@@ -34,14 +34,7 @@ new class extends we.Page {
           wx.reLaunch({
             url: '/pages/funclist/funclist',
           })
-        }
-        /*
-        else {
-          that.setData({
-            userdtatus: that.$app.userdtatus,
-          }) 
-        }
-        */                      
+        }                    
       }
     })
   }

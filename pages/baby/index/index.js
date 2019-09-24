@@ -68,9 +68,21 @@ new class extends we.Page {
 				  content: '您尚未注册登录，是否前往登录',
 				  success(res) {
 					  if (res.confirm) {
-						  wx.switchTab({
-							  url: '../../member/MemberCenter/MemberCenter',
-						  })
+              //检查是否授权
+              wx.getSetting({
+              success: function (res) {
+                console.log(res)
+                if (!res.authSetting['scope.userInfo']) {
+                  //未授权
+                  wx.reLaunch({
+                    url: '/pages/funclist/funclist',
+                  });
+                }
+              }
+            });
+						wx.switchTab({
+							url: '../../member/MemberCenter/MemberCenter',
+						})
 					  } else if (res.cancel) {
 						  wx.switchTab({
 							  url: '../../activity/index/index',
@@ -193,18 +205,7 @@ new class extends we.Page {
       'vo.nowDay': year + "-" + month + "-" + day,
       'date': year + "-" + month + "-" + day,
     })
-    //检查是否授权
-    wx.getSetting({
-      success: function (res) {
-        console.log(res)
-        if (!res.authSetting['scope.userInfo']) {
-          //未授权
-          wx.reLaunch({
-            url: '/pages/funclist/funclist',
-          })
-        }
-      }
-    })
+    
   }
   loadgradeInfo() {
     this.$get('/v1/grade/getInfo').then(data => {
