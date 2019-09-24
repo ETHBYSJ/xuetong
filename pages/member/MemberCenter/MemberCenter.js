@@ -51,7 +51,7 @@ new class extends we.Page {
     if (this.data.userdtatus == 103) { 
       this.setData({
         hidden: false,
-      })
+      });
     }
     this.getUserStatusByLogin();
     this.getOrderNumber();
