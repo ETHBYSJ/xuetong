@@ -19,12 +19,21 @@ new class extends we.Page {
   }
 
   onLoad() {
-    //调用应用实例的方法获取全局数据
-
+    //检查是否授权
+    wx.getSetting({
+      success: function (res) {
+        console.log(res)
+        if (!res.authSetting['scope.userInfo']) {
+          //未授权
+          wx.reLaunch({
+            url: '/pages/funclist/funclist',
+          })
+        }
+      }
+    })
   }
 
-  onShow() {
-    
+  onShow() {    
     this.setData({
       keyword: "",
       nextload: true,
@@ -42,11 +51,11 @@ new class extends we.Page {
           success(res) {
             if (res.confirm) {
               wx.switchTab({
-                url: '../../member/MemberCenter/MemberCenter',
+                url: '../member/MemberCenter/MemberCenter',
               })
             } else if (res.cancel) {
               wx.switchTab({
-                url: '../../activity/index/index',
+                url: '../activity/index/index',
               })
             }
           }

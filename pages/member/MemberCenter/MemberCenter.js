@@ -20,24 +20,42 @@ new class extends we.Page {
   }
 
   onLoad(options) {
-  
+    let that = this
     if (options.noticeid){
       this.setData({
         noticeid: options.noticeid
       })
     }
-    
-   
+    //检查是否授权
+    wx.getSetting({
+      success: function(res) {
+        if(!res.authSetting['scope.userInfo']) {
+          //未授权
+          wx.reLaunch({
+            url: '/pages/funclist/funclist',
+          })
+        }
+        /*
+        else {
+          that.setData({
+            userdtatus: that.$app.userdtatus,
+          }) 
+        }
+        */                      
+      }
+    })
   }
-
   onShow() {
-   
+    if(this.$app.userdtatus) {
+      this.setData({
+        userdtatus: this.$app.userdtatus,
+      })
+    }
     this.setData({
       'vo.imgBaseUrl': this.$app.imgBaseUrl,
-      userdtatus: this.$app.userdtatus,
+      //userdtatus: this.$app.userdtatus,
     })
     if (this.data.userdtatus == 103) { 
-     
       this.setData({
         hidden: false,
       })
@@ -80,6 +98,7 @@ new class extends we.Page {
     })
   }
   getUserStatusByLogin() {
+    console.log(this.data.userdtatus)
     if(this.data.userdtatus !=103){
       wx.reLaunch({ url: `/pages/member/register/register` })
     } else {

@@ -193,6 +193,18 @@ new class extends we.Page {
       'vo.nowDay': year + "-" + month + "-" + day,
       'date': year + "-" + month + "-" + day,
     })
+    //检查是否授权
+    wx.getSetting({
+      success: function (res) {
+        console.log(res)
+        if (!res.authSetting['scope.userInfo']) {
+          //未授权
+          wx.reLaunch({
+            url: '/pages/funclist/funclist',
+          })
+        }
+      }
+    })
   }
   loadgradeInfo() {
     this.$get('/v1/grade/getInfo').then(data => {

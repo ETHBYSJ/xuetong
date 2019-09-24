@@ -189,7 +189,14 @@ new class extends we.Page {
     var that=this;
     this.$get('/v1/session/fetchLoginStatus/' + jsCode).then(data => {
       that.$app.userdtatus = data.obj;
-      wx.switchTab({ url: `/pages/member/MemberCenter/MemberCenter` }) 
+      /*
+      wx.switchTab({
+        url: '/pages/activity/index/index',
+      })
+      */
+      wx.switchTab({
+        url: '/pages/member/MemberCenter/MemberCenter',
+      })
     }).catch(err => {
       this.$showModal({
         title: '获取粉丝状态错误',

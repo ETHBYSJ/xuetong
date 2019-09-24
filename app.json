@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/funclist/funclist",
     "pages/activity/index/index",
+    "pages/funclist/funclist",
     "pages/activity/detail/detail",
     "pages/activity/apply/apply",
     "pages/baby/StudentDetailed/StudentDetailed",

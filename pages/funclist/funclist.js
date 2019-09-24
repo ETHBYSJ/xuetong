@@ -1,8 +1,5 @@
 let we = require('../../we/index.js');
-let QQMapWX = require('../../utils/qqmap-wx-jssdk.min.js');
-let demo = new QQMapWX({
-  key: 'FJUBZ-LMP6D-WNE4G-HM6J6-JDFNH-FCFZ2' // 必填
-});
+
 
 new class extends we.Page {
   data() {
@@ -28,32 +25,6 @@ new class extends we.Page {
     this.$getSession().then(sid => {
       this.getUserStatus();
     });
-
-    //图片默认路径
-  	//this.$app.imgBaseUrl = 'https://www.xuetong360.com'
- 	this.$app.imgBaseUrl = 'https://xue.xuetong360.com'
- 	//this.$app.imgBaseUrl = 'https://localhost'
-    //获取城市 开始 可以在影院首页开始掉用//
-    wx.getLocation({
-      success: ({ latitude, longitude }) => {
-        // 调用腾讯地图接口
-        var that=this;
-        demo.reverseGeocoder({
-          location: {
-            latitude: latitude,
-            longitude: longitude
-            },
-          success: function (res) {
-            //let ad_infocity = res.result.address_component.province+res.result.address_component.city +   res.result.address_component.district+ ""
-           // let ad_infocity = (res.result.address_component.city + "").split("市")[0]
-            let ad_infocity = res.result.address_component.district + ""
-            that.$app.Currentcity = ad_infocity
-            that.$app.CurrentcityLink = ad_infocity
-          }
-        });
-      }
-    })
-    //获取城市 结束//  
   }
 
   /*获取用户状态信息*/
@@ -76,17 +47,20 @@ new class extends we.Page {
     this.$get('/v1/session/fetchLoginStatus/'+jsCode).then(data => {
       that.$app.userdtatus = data.obj;
       switch (data.obj) {
-        case 101://101未上传粉丝信息
+        //101未上传粉丝信息
+        case 101:
           //新版本不能直接调用wx.getUserInfo()了
           // this.postUserInfo()
           //这里显示funclist.wxml页面进行button授权.
          // wx.reLaunch({ url: `/pages/activity/index/index` })
           break
-        case 102://未注册用户
+        //未注册用户
+        case 102:
           //跳到注册页面
           wx.reLaunch({ url: `/pages/activity/index/index` })
           break
-        case 103://进入影视首页
+        //进入影视首页
+        case 103:
           wx.reLaunch({ url: `/pages/activity/index/index?noticeid=` + this.data.noticeid})
           break
 
@@ -112,6 +86,7 @@ new class extends we.Page {
 
   /*插入粉丝数据*/
   postUserInfo() {
+    console.log(this.$app.userdtatus)
     this.$login().then(res => {
       if (res.code) {
         this.$getUserInfo({
@@ -160,7 +135,5 @@ new class extends we.Page {
         showCancel: false
       })
     })
-
   }
-
 }

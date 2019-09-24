@@ -1,5 +1,8 @@
 let we = require('../../../we/index.js')
-
+let QQMapWX = require('../../../utils/qqmap-wx-jssdk.min.js');
+let demo = new QQMapWX({
+  key: 'FJUBZ-LMP6D-WNE4G-HM6J6-JDFNH-FCFZ2' // 必填
+});
 new class extends we.Page {
     data() {
         return {
@@ -35,18 +38,41 @@ new class extends we.Page {
           page_Type: this.$app.pageType || ""
       })
       this.$app.pageType = "";
-      this.setData({
-          'vo.Currentcity': this.$app.CurrentcityLink || ""
-      })
       this.loadBg()
       this.init()
     }
 
     onLoad(option) {
+      this.$app.imgBaseUrl = 'https://xue.xuetong360.com'
       this.setData({
         option: option,
         'vo.imgBaseUrl': this.$app.imgBaseUrl
-      })        
+      }) 
+      //获取城市 开始 可以在影院首页开始掉用//
+      wx.getLocation({
+        success: ({ latitude, longitude }) => {
+          // 调用腾讯地图接口
+          var that = this;
+          demo.reverseGeocoder({
+            location: {
+              latitude: latitude,
+              longitude: longitude
+            },
+            success: function (res) {
+              //let ad_infocity = res.result.address_component.province+res.result.address_component.city +   res.result.address_component.district+ ""
+              // let ad_infocity = (res.result.address_component.city + "").split("市")[0]
+              let ad_infocity = res.result.address_component.district + ""
+              console.log(ad_infocity)
+              that.$app.Currentcity = ad_infocity
+              that.$app.CurrentcityLink = ad_infocity
+              that.setData({
+                'vo.Currentcity': that.$app.CurrentcityLink || ""
+              })
+            }
+          });
+        }
+      })
+             
     }
 
   //导航事件处理函数
