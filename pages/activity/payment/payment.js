@@ -41,7 +41,9 @@ new class extends we.Page {
     })
   }
   onShow() {
+    console.log(this.data.orderId)
     this.$get('/v1/order/' + this.data.orderId).then(data => {
+      console.log(data)
       this.setData({
         id: data.obj.obj.activity.id,
       });

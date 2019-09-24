@@ -16,6 +16,7 @@ new class extends we.Page {
   //查看报名详情
   detail() {
     let that = this
+    console.log(that.data.orderId)
     wx.navigateTo({
       url: '/pages/activity/payment/payment?id=' + that.data.orderId,
     })

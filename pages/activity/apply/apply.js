@@ -71,34 +71,38 @@ new class extends we.Page {
       imgBaseUrl: this.$app.imgBaseUrl,
       "po.activityid": noticeid,
     })
-    this.$get('/v1/activity/findStudentOfUser').then(data => {
-      this.setData({
+    if (this.$app.userdtatus==103) {
+      this.$get('/v1/activity/findStudentOfUser').then(data => {
+        this.setData({
           ofuser: data.obj
-      })
-      if (data.obj.phone) {
-        this.setData({
-          "po.phone": data.obj.phone
         })
-      }	
-      if (data.obj.students.length!=0){
-        this.setData({
-          "po.students":data.obj.students,
-          "totalPrice":this.data.feed.studentPrice * this.data.po.students.length + this.data.feed.familyPrice * this.data.po.familys.length
+        if (data.obj.phone) {
+          this.setData({
+            "po.phone": data.obj.phone
+          })
+        }
+        if (data.obj.students.length != 0) {
+          this.setData({
+            "po.students": data.obj.students,
+            "totalPrice": this.data.feed.studentPrice * this.data.po.students.length + this.data.feed.familyPrice * this.data.po.familys.length
+          })
+          var totalPrice = this.data.feed.studentPrice * this.data.po.students.length + this.data.feed.familyPrice * this.data.po.familys.length;
+          this.setData({
+            "totalPrice": totalPrice,
+            showChildtext: true,
+          })
+        }
+      }).catch(err => {
+        console.log(err)
+        this.$showModal({
+          title: '获取信息错误',
+          content: err.msg,
+          showCancel: false
         })
-        var totalPrice = this.data.feed.studentPrice * this.data.po.students.length + this.data.feed.familyPrice * this.data.po.familys.length;
-        this.setData({
-          "totalPrice": totalPrice,
-          showChildtext: true,
-        })				
-      }
-    }).catch(err => {
-      console.log(err)
-      this.$showModal({
-        title: '获取信息错误',
-        content: err.msg,
-        showCancel: false
       })
-    })
+    } else {
+      
+    }
   }
   bindStudentname(e) {
     this.setData({

@@ -17,15 +17,19 @@ new class extends we.Page {
       imgBaseUrl: this.$app.imgBaseUrl,
       id: noticeid 
     })
-    console.log(this.data.id)
-    this.$get('/v1/activity/' + noticeid).then(data => {
-      console.log(data)
+    //console.log(this.data.id)
+    
+  } 
+
+  onShow() {
+    this.$get('/v1/activity/' + this.data.id).then(data => {
+      //console.log(data)
       var article = data.obj.content;
       WxParse.wxParse('article', 'html', article, this, 5);
       this.setData({
         feed: data.obj,
       })
-     
+
     }).catch(err => {
       this.$showModal({
         title: '获取信息错误',
@@ -33,7 +37,7 @@ new class extends we.Page {
         showCancel: false
       })
     })
-  } 
+  }
   //分享给朋友
   onShareAppMessage(res) {
     return {
@@ -52,7 +56,7 @@ new class extends we.Page {
     if (this.$app.userdtatus==101) {
       wx.showModal({
         title: '提示',
-        content: '您尚未注册登录，是否前往登录(登录前需要先进行微信授权)',
+        content: '您需要先进行微信授权,是否前往?',
         success(res) {
           if (res.confirm) {
             wx.navigateTo({
@@ -65,15 +69,11 @@ new class extends we.Page {
           }
         }
       });
-    } else if (this.$app.userdtatus == 103){
+    } else if (this.$app.userdtatus == 103 || this.$app.userdtatus == 102){
       wx.navigateTo({
-        url: "../apply/apply?id=" + this.data.id + "&titlePhoto=" + this.data.feed.titlePhoto + "&heading=" + this.data.feed.heading + "&remains=" + this.data.feed.remains + "&familyPrice=" + this.data.feed.familyPrice + "&studentPrice=" + this.data.feed.studentPrice + "&familyEnable=" + this.data.feed.familyEnable + "&phone=" + this.data.feed.phone
+        url: "../apply/apply?id=" + this.data.id + "&titlePhoto=" + this.data.feed.titlePhoto + "&heading=" + this.data.feed.heading + "&remains=" + this.data.feed.remains + "&familyPrice=" + this.data.feed.familyPrice + "&studentPrice=" + this.data.feed.studentPrice + "&familyEnable=" + this.data.feed.familyEnable + "&phone=" + this.data.feed.phone,
       });
-    } else if(this.$app.userdtatus == 102) {
-      wx.navigateTo({
-        url: '../apply/apply?id=' + this.data.id,
-      })
-    }
+    } 
     
   }
 }
