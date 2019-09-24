@@ -5,18 +5,16 @@ new class extends we.Page {
   data() {
     return {
       canIUse: wx.canIUse('button.open-type.getUserInfo'),
-      noticeid:""
-      
+      noticeid:"",
+      status: "",
     }
   }
 
   onLoad(options) {
-    if (options.noticeid){
-      this.setData({
-        noticeid: options.noticeid
-      })
-    }
-   
+    let status = options.status ? options.status : -1;    
+    this.setData({
+      status: status,
+    })
     let oldSession = wx.getStorageSync("__session__")
     wx.removeStorageSync("__session__")
     if (oldSession) {
@@ -55,7 +53,12 @@ new class extends we.Page {
         //未注册用户
         case 102:
           //跳到注册页面
-          wx.reLaunch({ url: `/pages/member/MemberCenter/MemberCenter` });
+          if(this.data.status == -1) {
+            wx.reLaunch({ url: `/pages/member/MemberCenter/MemberCenter` });
+          }    
+          else if(this.data.status == 0) {
+            wx.navigateBack()
+          }      
           break
         //进入影视首页
         case 103: //不可能，爬
