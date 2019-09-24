@@ -26,35 +26,38 @@ new class extends we.Page {
         noticeid: options.noticeid
       })
     }
-    //检查是否授权
-    wx.getSetting({
-      success: function(res) {
-        if(!res.authSetting['scope.userInfo']) {
-          //未授权
-          wx.reLaunch({
-            url: '/pages/funclist/funclist',
-          })
-        }                    
-      }
-    })
   }
   onShow() {
-    if(this.$app.userdtatus) {
-      this.setData({
-        userdtatus: this.$app.userdtatus,
-      })
-    }
     this.setData({
       'vo.imgBaseUrl': this.$app.imgBaseUrl,
-      //userdtatus: this.$app.userdtatus,
-    })
+      userdtatus: this.$app.userdtatus,
+    });
     if (this.data.userdtatus == 103) { 
       this.setData({
         hidden: false,
       });
+      this.getUserStatusByLogin();
+      this.getOrderNumber();
+    } else if (this.data.userdtatus == 101) {
+      wx.showModal({
+        title: '提示',
+        content: '您尚进行微信授权，是否跳转到授权页面授权后进行登陆？',
+        success(res) {
+          if (res.confirm) {
+            wx.reLaunch({
+              url: '../../funclist/funclist',
+            });
+          } else if (res.cancel) {
+            wx.switchTab({
+              url: '../../activity/index/index',
+            });
+          }
+        }
+      });
+    } else if (this.data.userdtatus == 102) {
+      wx.reLaunch({ url: `/pages/member/register/register` });
     }
-    this.getUserStatusByLogin();
-    this.getOrderNumber();
+    
   }
   
   bindToUnpaid() {
@@ -91,22 +94,17 @@ new class extends we.Page {
     })
   }
   getUserStatusByLogin() {
-    console.log(this.data.userdtatus)
-    if(this.data.userdtatus !=103){
-      wx.reLaunch({ url: `/pages/member/register/register` })
-    } else {
-      this.getUserNoticeCount();
-        this.setData({
-            hidden: false,
-          })
-      if (this.data.noticeid) {
-        wx.navigateTo({
-          url: '/pages/answer/answer?noticeid=' + this.data.noticeid
+    this.getUserNoticeCount();
+      this.setData({
+          hidden: false,
         })
-        this.data.noticeid = null
-      } else {
-        this.UserInfo()
-      }
+    if (this.data.noticeid) {
+      wx.navigateTo({
+        url: '/pages/answer/answer?noticeid=' + this.data.noticeid
+      })
+      this.data.noticeid = null
+    } else {
+      this.UserInfo()
     }
   }
 

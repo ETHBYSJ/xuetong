@@ -47,10 +47,43 @@ new class extends we.Page {
   }
 
   jumpPage() {
-    let that = this;
-    wx.navigateTo({
-      url: "../apply/apply?id=" + this.data.id + "&titlePhoto=" + this.data.feed.titlePhoto + "&heading=" + this.data.feed.heading + "&remains=" + this.data.feed.remains + "&familyPrice=" + this.data.feed.familyPrice + "&studentPrice=" + this.data.feed.studentPrice + "&familyEnable=" + this.data.feed.familyEnable +"&phone="+this.data.feed.phone
-    })
-
+    if (this.$app.userdtatus==101) {
+      wx.showModal({
+        title: '提示',
+        content: '您尚未注册登录，是否前往登录(登录前需要先进行微信授权)',
+        success(res) {
+          if (res.confirm) {
+            wx.reLaunch({
+              url: '../../funclist/funclist',
+            });
+          } else if (res.cancel) {
+            wx.switchTab({
+              url: '../../activity/index/index',
+            });
+          }
+        }
+      });
+    } else if (this.$app.userdtatus==102) {
+      wx.showModal({
+        title: '提示',
+        content: '您尚未注册登录，是否前往登录',
+        success(res) {
+          if (res.confirm) {
+            wx.switchTab({
+              url: '../../member/MemberCenter/MemberCenter',
+            })
+          } else if (res.cancel) {
+            wx.switchTab({
+              url: '../../activity/index/index',
+            })
+          }
+        }
+      });
+    } else if (this.$app.userdtatus==103){
+      wx.navigateTo({
+        url: "../apply/apply?id=" + this.data.id + "&titlePhoto=" + this.data.feed.titlePhoto + "&heading=" + this.data.feed.heading + "&remains=" + this.data.feed.remains + "&familyPrice=" + this.data.feed.familyPrice + "&studentPrice=" + this.data.feed.studentPrice + "&familyEnable=" + this.data.feed.familyEnable + "&phone=" + this.data.feed.phone
+      });
+    }
+    
   }
 }

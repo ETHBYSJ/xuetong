@@ -35,11 +35,11 @@ new class extends we.Page {
 
     onShow() {        
       this.setData({
-          page_Type: this.$app.pageType || ""
-      })
+        page_Type: this.$app.pageType || ""
+      });
       this.$app.pageType = "";
-      this.loadBg()
-      this.init()
+      this.loadBg();
+      this.init();
     }
 
     onLoad(option) {
@@ -59,22 +59,80 @@ new class extends we.Page {
               longitude: longitude
             },
             success: function (res) {
-              //let ad_infocity = res.result.address_component.province+res.result.address_component.city +   res.result.address_component.district+ ""
-              // let ad_infocity = (res.result.address_component.city + "").split("市")[0]
               let ad_infocity = res.result.address_component.district + ""
-              console.log(ad_infocity)
+              //console.log(ad_infocity)
               that.$app.Currentcity = ad_infocity
               that.$app.CurrentcityLink = ad_infocity
               that.setData({
                 'vo.Currentcity': that.$app.CurrentcityLink || ""
-              })
+              });
             }
           });
         }
-      })
-             
+      }); //getLocation
+      
+      //funclist的OnLoad偷走咯
+      let oldSession = wx.getStorageSync("__session__")
+      wx.removeStorageSync("__session__")
+      if (oldSession) {
+        wx.setStorageSync("__session__", oldSession)
+      }
+
+      this.$getSession().then(sid => {
+        this.getUserStatus();
+      });
     }
 
+
+  getUserStatus() {
+    var that = this
+    wx.login({
+      success: function (res) {
+        if (res.code) {
+          //发起网络请求
+          console.log('登录成功！' + res.code);
+          that.getUserStatusByLogin(res.code);
+        } else {
+          console.log('登录失败！' + res.errMsg)
+        }
+      }
+    });
+  }
+
+  getUserStatusByLogin(jsCode) {
+    var that = this
+    this.$get('/v1/session/fetchLoginStatus/' + jsCode).then(data => {
+      that.$app.userdtatus = data.obj;
+      switch (data.obj) {
+        //101未上传粉丝信息
+        case 101:
+          //新版本不能直接调用wx.getUserInfo()了
+          // this.postUserInfo()
+          //这里显示funclist.wxml页面进行button授权.
+          // wx.reLaunch({ url: `/pages/activity/index/index` })
+          break
+        //未注册用户
+        case 102:
+          //跳到注册页面
+          break
+        //进入影视首页
+        case 103:
+          break
+
+        default:
+          wx.removeStorageSync("__session__")
+          this.$getSession().then(sid => {
+            this.getUserStatus();
+          });
+          break;
+      }
+    }).catch(err => {
+      wx.removeStorageSync("__session__")
+      this.$getSession().then(sid => {
+        this.getUserStatus();
+      });
+    })
+  }
   //导航事件处理函数
   swichNav(e) {
     var current = e.currentTarget.dataset.current;

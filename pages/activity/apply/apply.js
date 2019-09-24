@@ -92,11 +92,12 @@ new class extends we.Page {
         })				
       }
     }).catch(err => {
-        this.$showModal({
-            title: '获取信息错误',
-            content: err.msg,
-            showCancel: false
-        })
+      console.log(err)
+      this.$showModal({
+        title: '获取信息错误',
+        content: err.msg,
+        showCancel: false
+      })
     })
   }
   bindStudentname(e) {

@@ -61,54 +61,71 @@ new class extends we.Page {
     }    
   }
   onShow(){
-	  this.$get('/v1/member').then(data => {
-		  if (!data.obj) {
-			  wx.showModal({
-				  title: '提示',
-				  content: '您尚未注册登录，是否前往登录',
-				  success(res) {
-					  if (res.confirm) {
-              
-              wx.switchTab({
-                url: '../../member/MemberCenter/MemberCenter',
-              })
-					  } else if (res.cancel) {
-						  wx.switchTab({
-							  url: '../../activity/index/index',
-						  })
-					  }
-				  }
-			  })
-		  } else {
-			  this.$app.userType = data.obj.userType;
-			  this.setData({
-				  'userType': this.$app.userType
-			  })
-			  if (this.$app.userType == '教职工') {
-				  this.loadTechInfo()
-			  } else if (this.$app.userType == '门店管理员') {
-				  this.loadgradeInfo()
-			  } else {
-				  this.loadInfo()
-          this.loadActivity();
-			  }
-		  }
-	  }).catch(err => {
-		  if (err) {
-			  this.data.vo.coderesult = err
-			  this.$showModal({
-				  title: '提示',
-				  content: `${err.message}`,
-				  showCancel: false
-			  })
-		  } else {
-			  this.$showModal({
-				  title: '提示',
-				  content: err.msg,
-				  showCancel: false
-			  })
-		  }
-	  })
+    if (this.$app.userdtatus == 101) {
+      wx.showModal({
+        title: '提示',
+        content: '您尚未注册登录，是否前往登录(登录前需要先进行微信授权)',
+        success(res) {
+          if (res.confirm) {
+            wx.reLaunch({
+              url: '../../funclist/funclist',
+            });
+          } else if (res.cancel) {
+            wx.switchTab({
+              url: '../../activity/index/index',
+            });
+          }
+        }
+      });
+    } else if (this.$app.userdtatus) {
+      this.$get('/v1/member').then(data => {
+        if (!data.obj) {
+          wx.showModal({
+            title: '提示',
+            content: '您尚未注册登录，是否前往登录',
+            success(res) {
+              if (res.confirm) {
+                wx.switchTab({
+                  url: '../../member/MemberCenter/MemberCenter',
+                })
+              } else if (res.cancel) {
+                wx.switchTab({
+                  url: '../../activity/index/index',
+                })
+              }
+            }
+          })
+        } else {
+          this.$app.userType = data.obj.userType;
+          this.setData({
+            'userType': this.$app.userType
+          })
+          if (this.$app.userType == '教职工') {
+            this.loadTechInfo()
+          } else if (this.$app.userType == '门店管理员') {
+            this.loadgradeInfo()
+          } else {
+            this.loadInfo()
+            this.loadActivity();
+          }
+        }
+      }).catch(err => {
+        if (err) {
+          this.data.vo.coderesult = err
+          this.$showModal({
+            title: '提示',
+            content: `${err.message}`,
+            showCancel: false
+          })
+        } else {
+          this.$showModal({
+            title: '提示',
+            content: err.msg,
+            showCancel: false
+          })
+        }
+      })
+    } else {}
   }
   //滑动页面处理函数
   onSlideChangeEnd(e) {
@@ -193,19 +210,7 @@ new class extends we.Page {
       'vo.nowDate': year + "年" + month + "月" + day + "日",
       'vo.nowDay': year + "-" + month + "-" + day,
       'date': year + "-" + month + "-" + day,
-    })
-    //检查是否授权
-    wx.getSetting({
-      success: function (res) {
-        console.log(res)
-        if (!res.authSetting['scope.userInfo']) {
-          //未授权
-          wx.reLaunch({
-            url: '/pages/funclist/funclist',
-          });
-        }
-      }
-    });
+    })  
   }
   loadgradeInfo() {
     this.$get('/v1/grade/getInfo').then(data => {

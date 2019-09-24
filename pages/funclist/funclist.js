@@ -22,9 +22,7 @@ new class extends we.Page {
     if (oldSession) {
       wx.setStorageSync("__session__", oldSession)
     }
-    this.$getSession().then(sid => {
-      this.getUserStatus();
-    });
+    
   }
 
   /*获取用户状态信息*/
@@ -57,11 +55,11 @@ new class extends we.Page {
         //未注册用户
         case 102:
           //跳到注册页面
-          wx.reLaunch({ url: `/pages/activity/index/index` })
+          wx.reLaunch({ url: `/pages/member/MemberCenter/MemberCenter` });
           break
         //进入影视首页
-        case 103:
-          wx.reLaunch({ url: `/pages/activity/index/index?noticeid=` + this.data.noticeid})
+        case 103: //不可能，爬
+          //wx.reLaunch({ url: `/pages/activity/index/index?noticeid=` + this.data.noticeid})
           break
 
         default:
@@ -80,19 +78,20 @@ new class extends we.Page {
   }
 
   bindGetUserInfo(e) {
-    wx.reLaunch({ url: `/pages/activity/index/index`})
-    this.postUserInfo()
+    this.postUserInfo();
   }
 
   /*插入粉丝数据*/
   postUserInfo() {
-    console.log(this.$app.userdtatus)
+    //console.log(this.$app.userdtatus)
     this.$login().then(res => {
+      console.log('kaiqi0')
       if (res.code) {
         this.$getUserInfo({
           withCredentials: true,
-          lang: 'zh_CN'
+          lang: 'zh_CN',
         }).then(data => {
+          console.log('kaiqi')
           return this.$post("/v1/session/addWechatFansInfo", {
             //"jsCode": res.code,
             "name": data.userInfo.nickName,
@@ -102,23 +101,39 @@ new class extends we.Page {
             "country": data.userInfo.country, //所在国家
             "imgUrl": data.userInfo.avatarUrl,
             "encryptedData": data.encryptedData,
-            "iv": data.iv
+            "iv": data.iv,
           }).then(data => {
-            this.getUserStatus()
+            //console.log(postUserInfo);
+            this.getUserStatus();
           })
         }).catch(err => {
           this.$showModal({
             title: '提示',
             content: "请允许该小程序使用用户数据，否则无法进行下一步",
-            showCancel: false
+            cancelText: '返回主页',
+            confirmText: '继续授权',
+            //success: function(res) {
+            //  if (res.confirm) {
+            //    wx.reLaunch({
+            //      url: '../../activity/index/index',
+            //    })
+            //  }
+            //}
           }).then(result => {
-            this.$openSetting().then(setting => {
-              if (setting.authSetting["scope.userInfo"]) {
-                this.postUserInfo()
-              } else {
-                this.postUserInfo()
-              }
-            })
+            //console.log(result);
+            if (result.cancel) {
+              wx.reLaunch({
+                url: '../activity/index/index',
+              });
+            } else {
+              //this.$openSetting().then(setting => {
+              //  if (setting.authSetting["scope.userInfo"]) {
+              //    this.postUserInfo()
+              //  } else {
+              //    this.postUserInfo()
+              //  }
+              //});
+            }
           })
         })
       } else {

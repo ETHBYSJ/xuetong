@@ -19,18 +19,7 @@ new class extends we.Page {
   }
 
   onLoad() {
-    //检查是否授权
-    wx.getSetting({
-      success: function (res) {
-        console.log(res)
-        if (!res.authSetting['scope.userInfo']) {
-          //未授权
-          wx.reLaunch({
-            url: '/pages/funclist/funclist',
-          })
-        }
-      }
-    })
+    
   }
 
   onShow() {    
@@ -43,43 +32,61 @@ new class extends we.Page {
       scrollTop: this.data.scrollHeight,
     })
 
-    this.$get('/v1/member').then(data => {
-      if (!data.obj) {
-        wx.showModal({
-          title: '提示',
-          content: '您尚未注册登录，是否前往登录',
-          success(res) {
-            if (res.confirm) {
-              
-              wx.switchTab({
-                url: '../member/MemberCenter/MemberCenter',
-              })
-            } else if (res.cancel) {
-              wx.switchTab({
-                url: '../activity/index/index',
-              })
-            }
+    if (this.$app.userdtatus == 101) {
+      wx.showModal({
+        title: '提示',
+        content: '您尚未注册登录，是否前往登录(登录前需要先进行微信授权)',
+        success(res) {
+          if (res.confirm) {
+            wx.reLaunch({
+              url: '../funclist/funclist',
+            });
+          } else if (res.cancel) {
+            wx.switchTab({
+              url: '../activity/index/index',
+            });
           }
-        })
-      } else {
-        this.$app.userType = data.obj.userType;
-        this.getData();
-      }
-    }).catch(err => {
-      if (err) {
-        this.$showModal({
-          title: '提示',
-          content: '您尚未登录或获取信息失败',
-          showCancel: false
-        })
-      } else {
-        this.$showModal({
-          title: '提示',
-          content: '您尚未登录或获取信息失败',
-          showCancel: false
-        })
-      }
-    })
+        }
+      });
+    } else if (this.$app.userdtatus) {
+      this.$get('/v1/member').then(data => {
+        if (!data.obj) {
+          wx.showModal({
+            title: '提示',
+            content: '您尚未注册登录，是否前往登录',
+            success(res) {
+              if (res.confirm) {
+                
+                wx.switchTab({
+                  url: '../member/MemberCenter/MemberCenter',
+                })
+              } else if (res.cancel) {
+                wx.switchTab({
+                  url: '../activity/index/index',
+                })
+              }
+            }
+          })
+        } else {
+          this.$app.userType = data.obj.userType;
+          this.getData();
+        }
+      }).catch(err => {
+        if (err) {
+          this.$showModal({
+            title: '提示',
+            content: '您尚未登录或获取信息失败',
+            showCancel: false
+          })
+        } else {
+          this.$showModal({
+            title: '提示',
+            content: '您尚未登录或获取信息失败',
+            showCancel: false
+          })
+        }
+      });
+    }
   }
 
   onPageScroll(e) {
