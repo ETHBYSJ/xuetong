@@ -280,29 +280,6 @@ new class extends we.Page {
     })
   }
 
-  //获取轮播图
-/*  loadCarousel(id) {
-    this.$get('/v1/school/getSchoolCarousel?school=' + id).then(data => {
-      this.setData({
-        'vo.CarouselDetails': data.obj[0],
-      })
-    }).catch(err => {
-      if (err) {
-        this.data.vo.coderesult = err
-        this.$showModal({
-          title: '提示',
-          content: `${err.message}`,
-          showCancel: false
-        })
-      } else {
-        this.$showModal({
-          title: '提示',
-          content: err.msg,
-          showCancel: false
-        })
-      }
-    })
-  }*/
   //获取机构详情
   cinemaDetail(id) {
     this.$get('/v1/school/getSchoolInfo?school=' + id).then(data => {
@@ -376,7 +353,7 @@ new class extends we.Page {
   loadStudentInfo() { 
     this.$get('/v1/student/datalist?gradeId=' + this.data.gradeid + '&clazzId=' + this.data.clazzid).then(data => {
       let studentList = data.obj
-      console.log(studentList)
+      //console.log(studentList)
       this.setData({
         nowList: data.obj,
         height: 800 + 201 * data.obj.length,
@@ -480,27 +457,8 @@ new class extends we.Page {
         console.log(res.errMsg)
       }
     })  
-
-
-
-  /*   var that =this;
-     wx.chooseImage({
-       count: 1, // 默认9
-       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-       success: function (res) {
-         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-         var tempFilePaths = res.tempFilePaths;
-         that.setData({
-           'vo.BackgroundImg': tempFilePaths
-         })
-         wx.setStorageSync("__imgbg__", tempFilePaths)
-         console.log(wx.getStorageSync("__imgbg__"));
-        
-       }
-     })*/
-
   }
+
   jumpPage(e) {
     let item = e.currentTarget.dataset;
     wx.navigateTo({
