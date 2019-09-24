@@ -253,7 +253,8 @@ new class extends we.Page {
   }
   loadInfo() {
     this.$get('/v1/family/getInfo').then(data => {
-      if (data.obj){
+      console.log(data)
+      if (data.msg == 'SUCC' && data.obj.studentList.length>0){
         this.setData({
           'vo.message': data.obj,
           gradeid: data.obj.studentList[this.data.index].gradeid,
@@ -266,24 +267,24 @@ new class extends we.Page {
         this.loadAttend();
         this.cinemaDetail(data.obj.studentList[this.data.index].gradeid);
       } else{
-		  wx.showModal({
-			  title: '提示',
-			  content: `您尚未有孩子关联学堂，无法访问`,
-			  showCancel: false,
-			  success(res) {
-				  if (res.confirm) {
-					  wx.switchTab({
-						  url: '../../activity/index/index',
-					  })
-				  } else if (res.cancel) {
-				  }
-			  }
+        wx.showModal({
+          title: '提示',
+          content: `您尚未有孩子关联学堂，无法访问`,
+          showCancel: false,
+          success(res) {
+            if (res.confirm) {
+              wx.switchTab({
+                url: '../../activity/index/index',
+              })
+            } else if (res.cancel) {
+            }
+          }
 		  })
       }
     }).catch(err => {
       this.$showModal({
         title: '获取信息错误',
-		  content: `${err.message}`,
+		    content: `${err.message}`,
         showCancel: false
       });
     })
