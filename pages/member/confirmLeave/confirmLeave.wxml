@@ -57,7 +57,7 @@
 
         <view class="offwork_content_btn">
           <button wx:if="{{confirmleave.confirm == 1}}" class='confirm-btn'>已确认</button>
-          <button wx:elif="{{confirmleave.confirm == 0}}" class="base-btn" bindtap="bindLeave" data-leaveid="{{item.id}}">确认</button>
+          <button wx:elif="{{confirmleave.confirm == 0}}" class="base-btn" bindtap="bindLeave" data-leaveid="{{confirmleave.id}}">确认</button>
         </view>
       </view>
     </view>

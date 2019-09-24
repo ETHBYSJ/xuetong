@@ -312,6 +312,13 @@
   border-radius: 50%;
   float: left;
 }
+.circle_leave {
+  background-color: green;
+  width: 30rpx;
+  height: 30rpx;
+  border-radius: 50%;
+  float: left;
+}
 .class-date{
   text-align: center;
   font-size: 30rpx;

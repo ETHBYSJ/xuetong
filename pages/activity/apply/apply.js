@@ -59,7 +59,6 @@ new class extends we.Page {
       success: function(res) {
         if (res.code) {
           //发起网络请求
-          console.log('登录成功！' + res.code);
           that.setData({
               "po.code": res.code,
           })
@@ -93,11 +92,12 @@ new class extends we.Page {
         })				
       }
     }).catch(err => {
-        this.$showModal({
-            title: '获取信息错误',
-            content: err.msg,
-            showCancel: false
-        })
+      console.log(err)
+      this.$showModal({
+        title: '获取信息错误',
+        content: err.msg,
+        showCancel: false
+      })
     })
   }
   bindStudentname(e) {
@@ -172,7 +172,6 @@ new class extends we.Page {
 
   Landing() {
     this.$post('/v1/activity/enrollActivity', this.data.po).then(data => {
-      console.log(data)
       this.setData({
         orderId: data.obj.orderId,
       })
@@ -184,7 +183,6 @@ new class extends we.Page {
           showCancel:false,
           success(res) {
             if (res.confirm) {
-              console.log('用户点击确定')
               wx.switchTab({
                 url: '../index/index',
               })
@@ -210,14 +208,6 @@ new class extends we.Page {
               })
             },
             'fail': function (res) {
-              console.log(res)
-              /*
-              that.$showModal({
-                title: '错误',
-                content: '支付失败',
-                showCancel: false
-              })
-              */
               wx.navigateTo({
                 url: '../fail/fail',
               })
@@ -242,7 +232,6 @@ new class extends we.Page {
       childValue: "",
       check: false,
     })
-    console.log(this.data.po.students);
   }
 
   enterChild() {
@@ -383,7 +372,6 @@ new class extends we.Page {
 						})
 					}
 				} else if (res.cancel) {
-					console.log('用户点击取消')
 				}
 			}
 		})
@@ -411,7 +399,6 @@ new class extends we.Page {
 						})
 					}
 				} else if (res.cancel) {
-					console.log('用户点击取消')
 				}
 			}
 		}) 
@@ -449,12 +436,6 @@ new class extends we.Page {
     let that = this;
     wx.makePhoneCall({
       phoneNumber: that.data.feed.phone,
-      success: function() {
-          console.log("拨打电话成功！")
-      },
-      fail: function() {
-          console.log("拨打电话失败！")
-      }
     })
   }
 }

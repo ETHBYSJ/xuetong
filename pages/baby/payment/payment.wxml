@@ -8,12 +8,12 @@
     <!--搜索框-->
     <view class="search_bar">
       <view class="location">
-        <view class="location_text">闵行区</view>
+        <view class="location_text">{{location}}</view>
         <view class="location_icon"></view>
       </view>
       <view class="search_form">
         <input class="search_form_input" placeholder="请输入关键字" placeholder-style="font-size:30rpx;color:#d9d9d9;" bindinput="inputKeyword" value="{{keyword}}"></input>
-        <view class="search_icon" bindtap="searchActivity">
+        <view class="search_icon" bindtap="">
           <image class="search_icon_image" src="/assets/icon/searchloc.png"></image>
         </view>
       </view>
@@ -26,7 +26,7 @@
         </view>
         <view class="student_info">
           <text class="student_name">{{name}}</text>
-          <text class="student_date">目前可托管至{{endDateLatest}}</text>
+          <text class="student_date">目前可托管至{{endDateLatest? endDateLatest : '未知'}}</text>
         </view>
       </view>
       <view class="payment_date">
@@ -36,7 +36,7 @@
         </view>
         <view class="payment_date_start">
           <view class="date_block">
-            <picker mode="date" value="{{startDate.fulldate}}" start="{{startDate.fulldate}}" bindchange="bindStartDateChange">
+            <picker mode="date" value="{{startDate.fulldate}}"  bindchange="bindStartDateChange">
               <view class="calendar">
                 <view class="cal_top">
                   <text class="month">{{startDate.year}}.{{startDate.month}}</text>
@@ -54,7 +54,7 @@
 
         <view class="payment_date_end">          
           <view class="date_block">
-            <picker mode="date" value="{{endDate.fulldate}}" start="{{startDate.fulldate}}" bindchange="bindEndDateChange">
+            <picker mode="date" value="{{endDate.fulldate}}" start="{{smallestEndDate.fulldate}}" bindchange="bindEndDateChange">
               <view class="calendar">
                 <view class="cal_top">
                   <text class="month">{{endDate.year}}.{{endDate.month}}</text>
@@ -96,7 +96,7 @@
     <!--搜索框-->
     <view class="search_bar">
       <view class="location">
-        <view class="location_text">闵行区</view>
+        <view class="location_text">{{location}}</view>
         <view class="location_icon"></view>
       </view>
       <view class="search_form">

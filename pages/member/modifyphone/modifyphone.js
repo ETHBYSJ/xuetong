@@ -18,7 +18,6 @@ new class extends we.Page {
   }
 
   changeSex(e) {
-    console.log(e);
     this.setData({
       'vo.message.sex': e.detail.value,
     })
@@ -38,7 +37,6 @@ new class extends we.Page {
   
   }
 
-  //获取验证码
   bindGetYzm(e) {
     var that = this;
     var time = 60;
@@ -65,8 +63,6 @@ new class extends we.Page {
       this.setData({
         'po.code1':data.obj,
       })
-      //console.log('data: '+ JSON.stringify(data));
-      //console.log('po.code1: '+ this.data.po.code1);
     }).catch(err => {
       if (err) {
         this.data.vo.coderesult = err
@@ -93,7 +89,6 @@ new class extends we.Page {
 
   //第一次验证码的验证 跳转至新界面
   bindNextPhone(e){
-    //console.log('po.code: ' + this.data.po.code);
     if(this.data.po.code==this.data.po.code1 && this.data.po.code!='') {
       wx.navigateTo({
         url: '/pages/member/newphone/newphone',
@@ -105,9 +100,6 @@ new class extends we.Page {
         icon: 'loading',
         duration: 1500,  
       })
-      /*wx.navigateTo({
-        url: '/pages/member/newphone/newphone',
-      })*/
     } else{
       wx.showToast({
         title: '验证码输错啦~',
@@ -124,10 +116,10 @@ new class extends we.Page {
         'vo.message': data.obj
       })
       if(data.obj.phone) {
-        //182****5585
+        
         var tmp_phone = data.obj.phone;
         tmp_phone = tmp_phone.slice(0,3)+"****"+tmp_phone.slice(7);
-        //console.log(tmp_phone);
+       
         this.setData({
           'vo.phone_display': tmp_phone,
         })
@@ -136,7 +128,6 @@ new class extends we.Page {
           'vo.phone_display': null,
         })
       }
-      //console.log(data);
       
     }).catch(err => {
       this.$showModal({
@@ -163,7 +154,6 @@ new class extends we.Page {
           'vo.phone_display': null,
         })
       }
-      console.log(data);
     }).catch(err => {
       this.$showModal({
         title: '获取信息错误',

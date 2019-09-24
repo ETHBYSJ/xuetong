@@ -17,8 +17,9 @@ new class extends we.Page {
       imgBaseUrl: this.$app.imgBaseUrl,
       id: noticeid 
     })
+    console.log(this.data.id)
     this.$get('/v1/activity/' + noticeid).then(data => {
-      console.log(data.obj)
+      console.log(data)
       var article = data.obj.content;
       WxParse.wxParse('article', 'html', article, this, 5);
       this.setData({
@@ -48,10 +49,31 @@ new class extends we.Page {
   }
 
   jumpPage() {
-    let that = this;
-    wx.navigateTo({
-      url: "../apply/apply?id=" + this.data.id + "&titlePhoto=" + this.data.feed.titlePhoto + "&heading=" + this.data.feed.heading + "&remains=" + this.data.feed.remains + "&familyPrice=" + this.data.feed.familyPrice + "&studentPrice=" + this.data.feed.studentPrice + "&familyEnable=" + this.data.feed.familyEnable +"&phone="+this.data.feed.phone
-    })
-
+    if (this.$app.userdtatus==101) {
+      wx.showModal({
+        title: '提示',
+        content: '您尚未注册登录，是否前往登录(登录前需要先进行微信授权)',
+        success(res) {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '../../funclist/funclist?status=0',
+            });
+          } else if (res.cancel) {
+            wx.switchTab({
+              url: '../../activity/index/index',
+            });
+          }
+        }
+      });
+    } else if (this.$app.userdtatus == 103){
+      wx.navigateTo({
+        url: "../apply/apply?id=" + this.data.id + "&titlePhoto=" + this.data.feed.titlePhoto + "&heading=" + this.data.feed.heading + "&remains=" + this.data.feed.remains + "&familyPrice=" + this.data.feed.familyPrice + "&studentPrice=" + this.data.feed.studentPrice + "&familyEnable=" + this.data.feed.familyEnable + "&phone=" + this.data.feed.phone
+      });
+    } else if(this.$app.userdtatus == 102) {
+      wx.navigateTo({
+        url: '../apply/apply?id=' + this.data.id,
+      })
+    }
+    
   }
 }

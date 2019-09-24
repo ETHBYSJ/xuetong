@@ -1,5 +1,8 @@
 let we = require('../../../we/index.js')
-
+let QQMapWX = require('../../../utils/qqmap-wx-jssdk.min.js');
+let demo = new QQMapWX({
+  key: 'FJUBZ-LMP6D-WNE4G-HM6J6-JDFNH-FCFZ2' // 必填
+});
 new class extends we.Page {
     data() {
         return {
@@ -32,23 +35,104 @@ new class extends we.Page {
 
     onShow() {        
       this.setData({
-          page_Type: this.$app.pageType || ""
-      })
+        page_Type: this.$app.pageType || ""
+      });
       this.$app.pageType = "";
-      this.setData({
-          'vo.Currentcity': this.$app.CurrentcityLink || ""
-      })
-      this.loadBg()
-      this.init()
+      this.loadBg();
+      this.init();
     }
 
     onLoad(option) {
+      this.$app.imgBaseUrl = 'https://xue.xuetong360.com'
       this.setData({
         option: option,
         'vo.imgBaseUrl': this.$app.imgBaseUrl
-      })        
+      }) 
+      //获取城市 开始 可以在影院首页开始掉用//
+      wx.getLocation({
+        success: ({ latitude, longitude }) => {
+          // 调用腾讯地图接口
+          var that = this;
+          demo.reverseGeocoder({
+            location: {
+              latitude: latitude,
+              longitude: longitude
+            },
+            success: function (res) {
+              let ad_infocity = res.result.address_component.district + ""
+              //console.log(ad_infocity)
+              that.$app.Currentcity = ad_infocity
+              that.$app.CurrentcityLink = ad_infocity
+              that.setData({
+                'vo.Currentcity': that.$app.CurrentcityLink || ""
+              });
+            }
+          });
+        }
+      }); //getLocation
+      
+      //funclist的OnLoad偷走咯
+      let oldSession = wx.getStorageSync("__session__")
+      wx.removeStorageSync("__session__")
+      if (oldSession) {
+        wx.setStorageSync("__session__", oldSession)
+      }
+
+      this.$getSession().then(sid => {
+        this.getUserStatus();
+      });
     }
 
+
+  getUserStatus() {
+    var that = this
+    wx.login({
+      success: function (res) {
+        if (res.code) {
+          //发起网络请求
+          console.log('登录成功！' + res.code);
+          that.getUserStatusByLogin(res.code);
+        } else {
+          console.log('登录失败！' + res.errMsg)
+        }
+      }
+    });
+  }
+
+  getUserStatusByLogin(jsCode) {
+    var that = this
+    this.$get('/v1/session/fetchLoginStatus/' + jsCode).then(data => {
+      that.$app.userdtatus = data.obj;
+      switch (data.obj) {
+        //101未上传粉丝信息
+        case 101:
+          //新版本不能直接调用wx.getUserInfo()了
+          // this.postUserInfo()
+          //这里显示funclist.wxml页面进行button授权.
+          // wx.reLaunch({ url: `/pages/activity/index/index` })
+          break
+        //未注册用户
+        case 102:
+          //跳到注册页面
+          break
+        //进入影视首页
+        case 103:
+          break
+
+        default:
+          wx.removeStorageSync("__session__")
+          this.$getSession().then(sid => {
+            this.getUserStatus();
+          });
+          break;
+      }
+    }).catch(err => {
+      wx.removeStorageSync("__session__")
+      this.$getSession().then(sid => {
+        this.getUserStatus();
+      });
+    })
+  }
   //导航事件处理函数
   swichNav(e) {
     var current = e.currentTarget.dataset.current;
@@ -78,8 +162,7 @@ new class extends we.Page {
     this.$get('/v1/activity/getActivityList?page=1&size=' + this.data.vo.pageSize + '&status=' + this.data.currentTab + '&keyword=' + this.data.inputVal +'&address='+this.data.selectaddress).then(data => {
       this.setData({
         "vo.pageNo": 1,
-      })
-      //console.log(data)
+      });
       if (data.totalSize % data.pageSize != 0) {
         var totalsize = Math.ceil(data.totalSize / data.pageSize);
       } else {
@@ -161,7 +244,6 @@ new class extends we.Page {
 
   loadBg() {
     return this.$get("/v1/activity/getActivityCarousel").then(data => {
-          //console.log(data)
           this.setData({
               'vo.imgUrls': data.obj.content
           })
@@ -235,8 +317,7 @@ new class extends we.Page {
 
   //预览图片
   imgPreview(e) {
-    let src = e.currentTarget.dataset.src
-    //console.log(src)
+    let src = e.currentTarget.dataset.src;
     //暂时只允许浏览当前一张图片
     wx.previewImage({
       current: src,
@@ -245,34 +326,29 @@ new class extends we.Page {
     
   }
   handleChange(e) {
-    //console.log(e)
     this.setData({
       currentImage: e.detail.current,
     })
   }
   toLeft(e) {
-    //console.log(e)
     let length = e.currentTarget.dataset.length
     this.setData({
       currentIndex: (this.data.currentImage + length - 1) % length,
     })
   }
   toRight(e) {
-    //console.log(e)
     let length = e.currentTarget.dataset.length
     this.setData({
       currentIndex: (this.data.currentImage + length + 1) % length,
     })
   }
   upper() {
-    //console.log("upper")
     wx.showNavigationBarLoading()
     this.init()
     setTimeout(function () { wx.hideNavigationBarLoading(); wx.stopPullDownRefresh(); }, 2000);
   }
 
   lower(e) {
-    //console.log("lower")
     wx.showNavigationBarLoading()
     var that = this;
     setTimeout(function () { wx.hideNavigationBarLoading(); that.nextLoad(); }, 1000);
@@ -284,14 +360,12 @@ new class extends we.Page {
       icon: 'loading',
       duration: 4000
     })
-    let page = this.data.vo.pageNo + 1
-    //console.log(page)
+    let page = this.data.vo.pageNo + 1;
     if(page <= this.data.totalsize) {
       this.setData({
         "vo.pageNo": page,
       })
       this.$get('/v1/activity/getActivityList?page=' + page + '&size=' + this.data.vo.pageSize + '&status=' + this.data.currentTab + '&keyword=' + this.data.inputVal + '&address=' + this.data.selectaddress).then(data => {
-        //console.log(data)
         this.setData({
           "vo.infor": this.data.vo.infor.concat(data.obj)
         })

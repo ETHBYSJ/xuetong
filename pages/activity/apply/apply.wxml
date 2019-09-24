@@ -9,7 +9,7 @@
   </view>
   <view class="contain">
     <view class='base-nav_contant_list clearfix'>
-      <image src='{{feed.titlePhoto?imgBaseUrl+""+feed.titlePhoto:"/images/icon8.jpg"}}' mode='scaleToFill' class='base-nav_contant_list-img'></image>
+      <image src='{{feed.titlePhoto?imgBaseUrl+""+feed.titlePhoto:"/assets/icon/logo_black.png"}}' mode='scaleToFill' class='base-nav_contant_list-img'></image>
       <view class='base-nav_contant_list_cen'>
         <view class='base-nav_contant_list_txt'>{{feed.heading}}</view>
         <view class='active_warp' id="">

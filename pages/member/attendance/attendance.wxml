@@ -1,0 +1,69 @@
+<!--index.wxml-->
+<view class='page'>
+<swiper indicator-dots indicator-active-color='#1296db' bindchange='onSlideChangeEnd'>
+ <swiper-item wx:for="{{feed}}" wx:key="item.id" wx:for-item="item">
+<scroll-view scroll-y="true" class="container" bindscrolltoupper="upper" upper-threshold="10" lower-threshold="5" bindscrolltolower="lower"  scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+<view class='member'>
+    <!-- <image wx:if="{{vo.UserInfo.loginImage}}" src='{{vo.imgBaseUrl}}{{vo.UserInfo.loginImage}}' class='memberpic'></image> -->
+      <image class='userImage' src="{{item.photo?vo.imgBaseUrl+''+item.photo:'/assets/icon/loadImg_1.jpg'}}"  class='memberpic'></image>
+   <view class="Loginname">
+    <view class="greadtitle">姓名:</view>
+      <view class="left">
+      {{item.name}}
+      </view>
+      <view class="greadtitle" hidden='{{userType=="教职工"||userType=="门店管理员"}}'>学号:</view>
+       <view class="greadtitle" hidden='{{userType=="家长"}}'>工号:</view>
+      <view class="right">
+        {{item.number}}
+      </view>
+    </view>
+    <view class="Loginname">
+    <view class="greadtitle">机构:</view>
+      <view class="left">
+     {{item.gradename}}
+      </view>
+      <view class="greadtitle">班级:</view>
+      <view class="right">
+     {{item.clazzname}}
+      </view>
+    </view>
+   </view>
+
+  <view class="check" hidden='{{userType=="教职工"}}' wx:for="{{item.studentEverydayAttendanceVOList}}" wx:key="item.attendancedate" wx:for-item="item"><navigator url="/pages/answerb/answerb?studentid={{studentid}}&date={{item.attendancedate}}" open-type="navigate" class="check-nav" hidden="{{item.attendanceStudentList[0].type==2}}">
+   </navigator>
+      <!-- <view class="check-name"> -->
+        <!-- <text>{{item.attendancedate}}</text> -->
+      <!-- </view> -->
+      <view class="check-time">
+        <view class='date'>{{item.attendancedate}}</view>
+        <view class="time-wrap">
+          <view class="time"  hidden="{{item.attendanceStudentList[0].type==2}}">到达  {{item.attendanceStudentList[0].attendancetime}}<text hidden='{{item.attendanceStudentList[0].attendancetime}}'>----</text></view>
+          <view class="time"  hidden="{{item.attendanceStudentList[0].type==2}}">离开  {{item.attendanceStudentList[1].attendancetime}}<text hidden='{{item.attendanceStudentList[1].attendancetime}}'>----</text></view>
+		  <view hidden="{{item.attendanceStudentList[0].type!=2}}" class="time" style="padding-top:38rpx;color:red;height:60rpx;">已请假</view>
+        </view>  
+		
+       <view class="base-cell__ft_in-access"></view> 
+      </view>
+   </view> 
+
+
+   
+  <view class="check" hidden='{{userType=="家长"}}' wx:for="{{item.teacherEverydayAttendanceVOList}}" wx:key="item.attendancedate" wx:for-item="item"><navigator url="/pages/answerb/answerb?clazzid={{clazzid}}&date={{item.attendancedate}}" open-type="navigate">
+      <!-- <view class="check-name"> -->
+        <!-- <text>{{item.attendancedate}}</text> -->
+      <!-- </view> -->
+      <view class="check-time">
+        <view class='date'>{{item.attendancedate}}</view>
+        <view class="time-wrap">
+          <view class="time">到达  {{item.attendanceTeacherList[0].attendancetime}}<text hidden='{{item.attendanceTeacherList[0].attendancetime}}'>----</text></view>
+          <view class="time">离开  {{item.attendanceTeacherList[1].attendancetime}}<text hidden='{{item.attendanceTeacherList[1].attendancetime}}'>----</text></view>
+        </view>  
+       <view class="base-cell__ft_in-access"></view> 
+      </view>
+    </navigator></view>      
+     
+  
+</scroll-view>
+ </swiper-item>
+  </swiper>
+</view>

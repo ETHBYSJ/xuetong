@@ -1,59 +1,26 @@
 let we = require('../../we/index.js');
-let QQMapWX = require('../../utils/qqmap-wx-jssdk.min.js');
-let demo = new QQMapWX({
-  key: 'FJUBZ-LMP6D-WNE4G-HM6J6-JDFNH-FCFZ2' // 必填
-});
+
 
 new class extends we.Page {
   data() {
     return {
       canIUse: wx.canIUse('button.open-type.getUserInfo'),
-      noticeid:""
-      
+      noticeid:"",
+      status: "",
     }
   }
 
   onLoad(options) {
-    if (options.noticeid){
-      this.setData({
-        noticeid: options.noticeid
-      })
-    }
-   
+    let status = options.status ? options.status : -1;    
+    this.setData({
+      status: status,
+    })
     let oldSession = wx.getStorageSync("__session__")
     wx.removeStorageSync("__session__")
     if (oldSession) {
       wx.setStorageSync("__session__", oldSession)
     }
-    this.$getSession().then(sid => {
-      this.getUserStatus();
-    });
-
-    //图片默认路径
-  	//this.$app.imgBaseUrl = 'https://www.xuetong360.com'
- 	this.$app.imgBaseUrl = 'https://xue.xuetong360.com'
- 	//this.$app.imgBaseUrl = 'https://localhost'
-    //获取城市 开始 可以在影院首页开始掉用//
-    wx.getLocation({
-      success: ({ latitude, longitude }) => {
-        // 调用腾讯地图接口
-        var that=this;
-        demo.reverseGeocoder({
-          location: {
-            latitude: latitude,
-            longitude: longitude
-            },
-          success: function (res) {
-            //let ad_infocity = res.result.address_component.province+res.result.address_component.city +   res.result.address_component.district+ ""
-           // let ad_infocity = (res.result.address_component.city + "").split("市")[0]
-            let ad_infocity = res.result.address_component.district + ""
-            that.$app.Currentcity = ad_infocity
-            that.$app.CurrentcityLink = ad_infocity
-          }
-        });
-      }
-    })
-    //获取城市 结束//  
+    
   }
 
   /*获取用户状态信息*/
@@ -76,19 +43,26 @@ new class extends we.Page {
     this.$get('/v1/session/fetchLoginStatus/'+jsCode).then(data => {
       that.$app.userdtatus = data.obj;
       switch (data.obj) {
-        case 101://101未上传粉丝信息
+        //101未上传粉丝信息
+        case 101:
           //新版本不能直接调用wx.getUserInfo()了
           // this.postUserInfo()
           //这里显示funclist.wxml页面进行button授权.
          // wx.reLaunch({ url: `/pages/activity/index/index` })
           break
-        case 102://未注册用户
-          //wx.reLaunch({ url: `/pages/school/index/index` })
+        //未注册用户
+        case 102:
           //跳到注册页面
-          wx.reLaunch({ url: `/pages/activity/index/index` })
+          if(this.data.status == -1) {
+            wx.reLaunch({ url: `/pages/member/MemberCenter/MemberCenter` });
+          }    
+          else if(this.data.status == 0) {
+            wx.navigateBack()
+          }      
           break
-        case 103://进入影视首页
-          wx.reLaunch({ url: `/pages/activity/index/index?noticeid=` + this.data.noticeid})
+        //进入影视首页
+        case 103: //不可能，爬
+          //wx.reLaunch({ url: `/pages/activity/index/index?noticeid=` + this.data.noticeid})
           break
 
         default:
@@ -107,18 +81,20 @@ new class extends we.Page {
   }
 
   bindGetUserInfo(e) {
-    wx.reLaunch({ url: `/pages/activity/index/index`})
-    this.postUserInfo()
+    this.postUserInfo();
   }
 
   /*插入粉丝数据*/
   postUserInfo() {
+    //console.log(this.$app.userdtatus)
     this.$login().then(res => {
+      console.log('kaiqi0')
       if (res.code) {
         this.$getUserInfo({
           withCredentials: true,
-          lang: 'zh_CN'
+          lang: 'zh_CN',
         }).then(data => {
+          console.log('kaiqi')
           return this.$post("/v1/session/addWechatFansInfo", {
             //"jsCode": res.code,
             "name": data.userInfo.nickName,
@@ -128,23 +104,39 @@ new class extends we.Page {
             "country": data.userInfo.country, //所在国家
             "imgUrl": data.userInfo.avatarUrl,
             "encryptedData": data.encryptedData,
-            "iv": data.iv
+            "iv": data.iv,
           }).then(data => {
-            this.getUserStatus()
+            //console.log(postUserInfo);
+            this.getUserStatus();
           })
         }).catch(err => {
           this.$showModal({
             title: '提示',
             content: "请允许该小程序使用用户数据，否则无法进行下一步",
-            showCancel: false
+            cancelText: '返回主页',
+            confirmText: '继续授权',
+            //success: function(res) {
+            //  if (res.confirm) {
+            //    wx.reLaunch({
+            //      url: '../../activity/index/index',
+            //    })
+            //  }
+            //}
           }).then(result => {
-            this.$openSetting().then(setting => {
-              if (setting.authSetting["scope.userInfo"]) {
-                this.postUserInfo()
-              } else {
-                this.postUserInfo()
-              }
-            })
+            //console.log(result);
+            if (result.cancel) {
+              wx.reLaunch({
+                url: '../activity/index/index',
+              });
+            } else {
+              //this.$openSetting().then(setting => {
+              //  if (setting.authSetting["scope.userInfo"]) {
+              //    this.postUserInfo()
+              //  } else {
+              //    this.postUserInfo()
+              //  }
+              //});
+            }
           })
         })
       } else {
@@ -161,7 +153,5 @@ new class extends we.Page {
         showCancel: false
       })
     })
-
   }
-
 }

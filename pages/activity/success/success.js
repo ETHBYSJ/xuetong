@@ -9,14 +9,12 @@ new class extends we.Page {
     }
   }
   onLoad(options) {
-    console.log(options)
     this.setData({
       orderId: options.id,
     })
   }
   //查看报名详情
   detail() {
-    console.log("detail")
     let that = this
     wx.navigateTo({
       url: '/pages/activity/payment/payment?id=' + that.data.orderId,
@@ -24,7 +22,6 @@ new class extends we.Page {
   }
   //返回首页
   toIndex() {
-    console.log("toIndex")
     wx.switchTab({
       url: '/pages/activity/index/index',
     })

@@ -44,8 +44,7 @@ new class extends we.Page {
     this.$get('/v1/order/' + this.data.orderId).then(data => {
       this.setData({
         id: data.obj.obj.activity.id,
-      })
-      console.log(data)
+      });
       if (data.obj.obj.activityStudentList && data.obj.obj.activityStudentList.length > 2) {
         this.setData({
           studentList: data.obj.obj.activityStudentList.slice(2, -2).split('\",\"'),
@@ -81,11 +80,9 @@ new class extends we.Page {
     })
   }
   consult() {
-    console.log("consult")
   }
   //返回首页
   toIndex() {
-    console.log("toIndex")
     wx.switchTab({
       url: '/pages/activity/index/index',
     })

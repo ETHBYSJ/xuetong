@@ -36,10 +36,12 @@ new class extends we.Page {
       gradeAddress: "",
       //应交托管费
       payAmount: 0,
+      //最小结束日期
+      smallestEndDate: {},
+      location: "",
     }
   }
   onLoad(options) {
-    //console.log(options)
     var date = new Date()
     var year = date.getFullYear()
     var month = date.getMonth() + 1
@@ -57,20 +59,38 @@ new class extends we.Page {
       name: options.name,
       imgBaseUrl: this.$app.imgBaseUrl,
       startDate: { year: year, month: month, day: day, fulldate: date },
-      endDate: { year: year, month: month, day: day, fulldate: date },
     })
-    console.log(options)
+    this.getEndDate()
+  }
+  //将开始日期推移一个月之后的结束日期
+  getEndDate() {
+    let year = this.data.startDate.year
+    let month = this.data.startDate.month
+    //计算一个月之后的日期
+    let num = this.getDayNum(parseInt(year), parseInt(month))
+    let tmpfulldate = this.getDateAfter(this.data.startDate.fulldate, num)
+    //结束日期等于一个月后的日期减去一天
+    let endDateTmp = new Date(tmpfulldate)
+    endDateTmp.setDate(endDateTmp.getDate() - 1)
+    let ey = endDateTmp.getFullYear()
+    let em = endDateTmp.getMonth() + 1
+    let ed = endDateTmp.getDate()
+    endDateTmp = ey + '-' + (em >= 1 && em <= 9 ? ("0" + em) : em) + '-' + (ed >= 1 && ed <= 9 ? ("0" + ed) : ed)
+    this.setData({
+      endDate: {year: ey, month: em, day: ed, fulldate: endDateTmp},
+      smallestEndDate: { year: ey, month: em, day: ed, fulldate: endDateTmp },
+    })
   }
   onShow() {
     this.init()
     //为了获得托管班的托管费,需要先得到学生信息
     this.$get('/v1/student/getInfo?id=' + this.data.studentid).then(data => {
-      console.log(data)
       this.setData({
         price: data.obj.clazz.price,
         clazzId: data.obj.clazz.id,
         endDateLatest: data.obj.endDate,
         gradeAddress: data.obj.clazz.grade.name,
+        location: this.$app.CurrentcityLink,
         //parentName: data.obj.
       })
     }).catch(err => {
@@ -82,7 +102,6 @@ new class extends we.Page {
     })
     //获得当前家长用户信息
     this.$get('/v1/family/getInfo').then(data => {
-      console.log(data)
       this.setData({
         parentName: data.obj.name,
       })
@@ -100,7 +119,6 @@ new class extends we.Page {
       page: 1,
     })
     this.$get('/v1/activity/getActivityList?page=1&size=' + this.data.size + '&keyword=' + this.data.keyword + '&address=' + this.data.address + '&status=0').then(data => {
-      console.log(data)
       this.setData({
         activitylist: data.obj,
         totalsize: data.totalPage,
@@ -108,18 +126,15 @@ new class extends we.Page {
     })
   }
   swichNav(e) {
-    //console.log(e)
     let current = e.currentTarget.dataset.current;
     this.setData({
       currentTab: current,
     });
   }
   searchActivity(e) {
-    //console.log(e)
     this.init()
   }
   inputKeyword(e) {
-    //console.log(e)
     this.setData({
       keyword: e.detail.value,
     })
@@ -127,14 +142,12 @@ new class extends we.Page {
   upper() {
     wx.showNavigationBarLoading()
     this.init()
-    console.log("upper")
     setTimeout(function () { wx.hideNavigationBarLoading(); wx.stopPullDownRefresh(); }, 2000);
   }
   lower(e) {
     wx.showNavigationBarLoading()
     var that = this;
     setTimeout(function () { wx.hideNavigationBarLoading(); that.nextLoad(); }, 1000);
-    console.log("lower")
   }
   //继续加载效果
   nextLoad() {
@@ -149,7 +162,6 @@ new class extends we.Page {
         page: page,
       })
       this.$get('/v1/activity/getActivityList?page=' + page + '&size=' + this.data.size + '&keyword=' + this.data.keyword + '&address=' + this.data.address + '&status=0').then(data => {
-        console.log(data)
         this.setData({
           activitylist: this.data.activitylist.concat(data.obj)
         })
@@ -170,7 +182,6 @@ new class extends we.Page {
     }    
   }
   jumpPage(e) {
-    console.log(e)
     wx.navigateTo({
       url: "/pages/activity/detail/detail?id=" + e.currentTarget.dataset.id
     })
@@ -198,12 +209,10 @@ new class extends we.Page {
     //托管整月数和天数
     let monthCount = 0
     let dayCount = 0
-    console.log(endDateTmp.fulldate)
     while(endDateTmp.fulldate >= tmpfulldate) {
       prefulldate = tmpfulldate
       let num = this.getDayNum(cy, cm)
       tmpfulldate = this.getDateAfter(tmpfulldate, num)
-      console.log(tmpfulldate)
       //当前年月递增
       if(cm == 12) {
         cm = 1
@@ -217,11 +226,8 @@ new class extends we.Page {
       }
       else break
     }
-    console.log(monthCount)
-    console.log(prefulldate)
     //计算剩余天数
     dayCount = (parseInt(new Date(endDateTmp.fulldate).getTime() - new Date(prefulldate).getTime())) / (1000 * 60 * 60 * 24)
-    console.log(dayCount)
     //计算总托管费用
     payAmount = monthCount * this.data.price + dayCount * this.data.price / 22
     this.setData({
@@ -254,7 +260,6 @@ new class extends we.Page {
     return fulldate
   }
   bindStartDateChange(e) {
-    console.log(e)
     let date = e.detail.value + ""
     let year = date.split("-")[0]
     let month = date.split("-")[1]
@@ -262,17 +267,10 @@ new class extends we.Page {
     this.setData({
       startDate: { year: year, month: month, day: day, fulldate: year + "-" + month + "-" + day },
     })
-    //防止结束日期小于开始日期
-    if(this.data.endDate.fulldate < this.data.startDate.fulldate) {
-      //结束日期至少要和开始日期一样大
-      this.setData({
-        endDate: { year: year, month: month, day: day, fulldate: year + "-" + month + "-" + day },
-      })
-    }
+    this.getEndDate()
     this.getAmount()
   }
   bindEndDateChange(e) {
-    console.log(e)
     let date = e.detail.value + ""
     let year = date.split("-")[0]
     let month = date.split("-")[1]
@@ -295,21 +293,14 @@ new class extends we.Page {
       payAmount: this.data.payAmount, //0.01
       name: this.data.parentName,
     }
-    console.log(po)
     this.$post('/v1/student/enroll', po).then(data => {
-      console.log(data)
       po.orderId = data.obj.orderId      
       let that = this
       if(data.obj) {
         //订单号
         this.setData({
           orderId: data.obj.orderId,
-        })        
-        /*
-        wx.navigateTo({
-          url: './success/success?id=' + that.data.orderId,
-        })
-        */        
+        })      
         wx.requestPayment({
           'timeStamp': data.obj.data.timeStamp,
           'nonceStr': data.obj.data.nonceStr,
@@ -317,10 +308,8 @@ new class extends we.Page {
           'signType': data.obj.data.signType,
           'paySign': data.obj.data.paySign,
           'success': function(res) {
-            //支付成功，调用学生报名成功接口    
-            console.log(po)        
+            //支付成功，调用学生报名成功接口         
             that.$post('/v1/student/enrollSucessful', po).then(data => {
-              console.log(data)
               wx.navigateTo({
                 url: './success/success?id=' + that.data.orderId,
               })
@@ -333,14 +322,6 @@ new class extends we.Page {
             })            
           },
           'fail': function (res) {
-            console.log(res)
-            /*
-            that.$showModal({
-              title: '错误',
-              content: '支付失败',
-              showCancel: false
-            })
-            */
             //支付失败,跳转到失败页面
             wx.navigateTo({
               url: './fail/fail',
@@ -360,11 +341,6 @@ new class extends we.Page {
   }
   //咨询电话
   consult() {
-    console.log("consult")
-    /*
-    wx.navigateTo({
-      url: './fail/fail',
-    })
-    */
+
   }
 }
