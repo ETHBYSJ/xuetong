@@ -168,7 +168,7 @@
 }
 .enrollnumber {
   background: black;
-  font-size: 18rpx;
+  font-size: 15rpx;
   color: white;
   height: 30rpx;
   width: 30rpx;

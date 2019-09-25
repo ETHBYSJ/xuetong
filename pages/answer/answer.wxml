@@ -8,7 +8,7 @@
         <view class="bg-half"></view>
         <view class="answerer flex-wrp">
             <view class="avatar flex-item">
-                <image src="../../images/icon1.jpeg"></image>
+                <image src="../../assets/icon/logo_black.png"></image>
             </view>
             <view class="answerer-info flex-item">
                 <text class="answerer-name">{{feed.notice.heading}}</text>

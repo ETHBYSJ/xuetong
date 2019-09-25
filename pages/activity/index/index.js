@@ -4,74 +4,47 @@ let demo = new QQMapWX({
   key: 'FJUBZ-LMP6D-WNE4G-HM6J6-JDFNH-FCFZ2' // 必填
 });
 new class extends we.Page {
-    data() {
-        return {
-            po: {},
-            vo: {
-                'Currentcity': "",
-                'imgBaseUrl': "",
-                'infor': [],
-                'pageNo': 1,
-                'pageSize': 6,
-                'total': "",
-                'imgUrls': []
-            },
-          inputVal:"",
-          selectaddress:"",
-          myTimer: null,
-          currentTab: 0,
-          //焦点图banner
-          mod: [
-            'aspectFit',
-            'widthFix',
-          ],
-          totalsize:"",
-          leftMargin: '203rpx',
-          rightMargin: '203rpx',
-          currentImage: 0,
-          currentIndex: 0,
-        }
+  data() {
+    return {
+      po: {},
+      vo: {
+          'Currentcity': "",
+          'imgBaseUrl': "",
+          'infor': [],
+          'pageNo': 1,
+          'pageSize': 6,
+          'total': "",
+          'imgUrls': []
+      },
+      inputVal:"",
+      selectaddress:"",
+      myTimer: null,
+      currentTab: 0,
+      //焦点图banner
+      mod: [
+        'aspectFit',
+        'widthFix',
+      ],
+      totalsize:"",
+      leftMargin: '203rpx',
+      rightMargin: '203rpx',
+      currentImage: 0,
+      currentIndex: 0,
     }
+  }
 
-    onShow() {        
-      this.setData({
-        page_Type: this.$app.pageType || ""
-      });
-      this.$app.pageType = "";
-      this.loadBg();
-      this.init();
-    }
+    
 
-    onLoad(option) {
-      this.$app.imgBaseUrl = 'https://xue.xuetong360.com'
-      this.setData({
-        option: option,
-        'vo.imgBaseUrl': this.$app.imgBaseUrl
-      }) 
-      //获取城市 开始 可以在影院首页开始掉用//
-      wx.getLocation({
-        success: ({ latitude, longitude }) => {
-          // 调用腾讯地图接口
-          var that = this;
-          demo.reverseGeocoder({
-            location: {
-              latitude: latitude,
-              longitude: longitude
-            },
-            success: function (res) {
-              let ad_infocity = res.result.address_component.district + ""
-              //console.log(ad_infocity)
-              that.$app.Currentcity = ad_infocity
-              that.$app.CurrentcityLink = ad_infocity
-              that.setData({
-                'vo.Currentcity': that.$app.CurrentcityLink || ""
-              });
-            }
-          });
-        }
-      }); //getLocation
-      
-      //funclist的OnLoad偷走咯
+  onLoad(option) {
+    this.$app.imgBaseUrl = 'https://xue.xuetong360.com'
+    this.setData({
+      option: option,
+      'vo.imgBaseUrl': this.$app.imgBaseUrl
+    }) 
+    
+    
+    console.log('OnLoad ' + this.$app.userdtatus);
+    if (this.$app.userdtatus==undefined) { //首次加载 获得session后拥有userdtatus
       let oldSession = wx.getStorageSync("__session__")
       wx.removeStorageSync("__session__")
       if (oldSession) {
@@ -81,8 +54,71 @@ new class extends we.Page {
       this.$getSession().then(sid => {
         this.getUserStatus();
       });
-    }
+    } else {
+      this.getNoticeNumber();
+    }    
+  }
 
+  onShow() {
+    this.setData({
+      page_Type: this.$app.pageType || ""
+    });
+    this.$app.pageType = "";
+    this.loadBg();
+    this.init();
+    this.getUserLocation();
+  }
+
+  getUserLocation() {
+    //获取城市 开始 可以在影院首页开始掉用//
+    wx.getLocation({
+      success: ({ latitude, longitude }) => {
+        // 调用腾讯地图接口
+        var that = this;
+        demo.reverseGeocoder({
+          location: {
+            latitude: latitude,
+            longitude: longitude
+          },
+          success: function (res) {
+            let ad_infocity = res.result.address_component.district + ""
+            //console.log(ad_infocity)
+            that.$app.Currentcity = ad_infocity
+            that.$app.CurrentcityLink = ad_infocity
+            that.setData({
+              'vo.Currentcity': that.$app.CurrentcityLink || ""
+            });
+          }
+        });
+      }
+    }); //getLocation
+  }
+
+  getNoticeNumber() {
+    //console.log(this.$app.userdtatus);
+    if(this.$app.userdtatus==103) {
+      this.$get('/v1/notice/getUserNoticeCount').then(data => {
+        
+        let unreadCount = data.obj.unreadCount;
+        if (unreadCount > 0) {
+          wx.setTabBarBadge({
+            text: unreadCount + '',
+            index: 2,
+          });
+        } else if (unreadCount==0) {
+          wx.removeTabBarBadge({
+            index: 2,
+          });
+        }
+      }).catch(err => {
+        console.log(err);
+      });
+    } else {
+      wx.removeTabBarBadge({
+        index: 2,
+      });
+    }
+  }
 
   getUserStatus() {
     var that = this
@@ -100,8 +136,9 @@ new class extends we.Page {
   }
 
   getUserStatusByLogin(jsCode) {
-    var that = this
+    var that = this;
     this.$get('/v1/session/fetchLoginStatus/' + jsCode).then(data => {
+      console.log(data);
       that.$app.userdtatus = data.obj;
       switch (data.obj) {
         //101未上传粉丝信息
@@ -117,6 +154,7 @@ new class extends we.Page {
           break
         //进入影视首页
         case 103:
+          that.getNoticeNumber();
           break
 
         default:

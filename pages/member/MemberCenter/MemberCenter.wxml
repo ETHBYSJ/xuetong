@@ -72,7 +72,7 @@
 
       <view class="enroll-cell" bindtap="bindToUnpaid">
         <image class="enrollpic" src="/images/unpaid.png"></image>
-        <view class="enrollnumber" wx:if="{{unpaid_num>0}}">{{unpaid_num>99 ? 99 : unpaid_num}}</view>
+        <view class="enrollnumber" wx:if="{{unpaid_num>0}}">{{unpaid_num>99 ? '99+' : unpaid_num}}</view>
         <view class="enrollintro">未支付</view>
       </view>
 

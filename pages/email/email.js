@@ -30,7 +30,7 @@ new class extends we.Page {
       imgBaseUrl: this.$app.imgBaseUrl,
       feed: [],
       scrollTop: this.data.scrollHeight,
-    })
+    });
 
     if (this.$app.userdtatus == 101) {
       wx.showModal({
@@ -70,6 +70,7 @@ new class extends we.Page {
         } else {
           this.$app.userType = data.obj.userType;
           this.getData();
+          this.getNoticeNumber();
         }
       }).catch(err => {
         if (err) {
@@ -87,6 +88,22 @@ new class extends we.Page {
         }
       });
     }
+  }
+
+  getNoticeNumber() {
+    this.$get('/v1/notice/getUserNoticeCount').then(data => {
+      let unreadCount = data.obj.unreadCount;
+      if (unreadCount > 0) {
+        wx.setTabBarBadge({
+          text: unreadCount + '',
+          index: 2,
+        });
+      } else {
+        wx.removeTabBarBadge({
+          index: 2,
+        });
+      }
+    });
   }
 
   onPageScroll(e) {

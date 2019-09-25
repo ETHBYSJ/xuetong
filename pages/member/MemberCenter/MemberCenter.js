@@ -20,12 +20,7 @@ new class extends we.Page {
   }
 
   onLoad(options) {
-    let that = this
-    if (options.noticeid){
-      this.setData({
-        noticeid: options.noticeid
-      })
-    }
+    this.getNoticeNumber();
   }
   onShow() {
     this.setData({
@@ -55,6 +50,7 @@ new class extends we.Page {
         }
       });
     } else if (this.data.userdtatus == 102) {
+      console.log('gotologin')
       wx.reLaunch({ url: `/pages/member/register/register` });
     }
     
@@ -78,26 +74,50 @@ new class extends we.Page {
     })
   }
 
+  getNoticeNumber() {
+    //console.log(this.$app.userdtatus);
+    if (this.$app.userdtatus == 103) {
+      this.$get('/v1/notice/getUserNoticeCount').then(data => {
 
-  /*获取用户未读信息*/
-  getUserNoticeCount(){
-    this.$get('/v1/notice/getUserNoticeCount').then(data => {
-      this.setData({
-        'vo.unreadCount': data.obj.unreadCount
-      })
-    }).catch(err => {
-      this.$showModal({
-        title: '获取信息错误',
-        content: err.msg,
-        showCancel: false
-      })
-    })
+        let unreadCount = data.obj.unreadCount;
+        if (unreadCount > 0) {
+          wx.setTabBarBadge({
+            text: unreadCount + '',
+            index: 2,
+          });
+        } else if (unreadCount == 0) {
+          wx.removeTabBarBadge({
+            index: 2,
+          });
+        }
+      }).catch(err => {
+        console.log(err);
+      });
+    } else {
+      wx.removeTabBarBadge({
+        index: 2,
+      });
+    }
   }
+  /*获取用户未读信息*/
+  //getUserNoticeCount(){
+  //  this.$get('/v1/notice/getUserNoticeCount').then(data => {
+  //    this.setData({
+  //      'vo.unreadCount': data.obj.unreadCount
+  //    })
+  //  }).catch(err => {
+  //    this.$showModal({
+  //      title: '获取信息错误',
+  //      content: err.msg,
+  //      showCancel: false
+  //    })
+  //  })
+  //}
   getUserStatusByLogin() {
-    this.getUserNoticeCount();
-      this.setData({
-          hidden: false,
-        })
+    //getUserNoticeCount();
+    this.setData({
+        hidden: false,
+    });
     if (this.data.noticeid) {
       wx.navigateTo({
         url: '/pages/answer/answer?noticeid=' + this.data.noticeid
