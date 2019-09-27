@@ -61,7 +61,7 @@ new class extends we.Page {
     }    
   }
   onShow(){
-    if (this.$app.userdtatus == 101) {
+    /*if (this.$app.userdtatus == 101) {
       wx.showModal({
         title: '提示',
         content: '您尚未注册登录，是否前往登录(登录前需要先进行微信授权)',
@@ -77,7 +77,7 @@ new class extends we.Page {
           }
         }
       });
-    } else if (this.$app.userdtatus) {
+    } else*/if (this.$app.userdtatus) {
       this.$get('/v1/member').then(data => {
         if (!data.obj) {
           wx.showModal({
@@ -233,23 +233,40 @@ new class extends we.Page {
   }
   loadTechInfo() {
     this.$get('/v1/teacher/getInfo').then(data => {
-      this.setData({
-        'vo.message': data.obj,
-        gradeid: data.obj.webchatClazzList[this.data.index].gradeid,
-        clazzid: data.obj.webchatClazzList[this.data.index].clazzid,
-        gradename: data.obj.webchatClazzList[this.data.index].gradename,
-        clazzname: data.obj.webchatClazzList[this.data.index].clazzname,
-      });
-      this.loadTechAttend();
-      this.loadStudentInfo();
-      this.cinemaDetail(data.obj.webchatClazzList[this.data.index].gradeid)
+      if (data.msg == 'SUCC' && data.obj.webchatClazzList.length > 0) {
+        this.setData({
+          'vo.message': data.obj,
+          gradeid: data.obj.webchatClazzList[this.data.index].gradeid,
+          clazzid: data.obj.webchatClazzList[this.data.index].clazzid,
+          gradename: data.obj.webchatClazzList[this.data.index].gradename,
+          clazzname: data.obj.webchatClazzList[this.data.index].clazzname,
+        });
+        this.loadTechAttend();
+        this.loadStudentInfo();
+        this.cinemaDetail(data.obj.webchatClazzList[this.data.index].gradeid);
+      } else {
+        wx.showModal({
+          title: '提示',
+          content: `您尚未有学生关联学堂，无法访问`,
+          showCancel: false,
+          success(res) {
+            if (res.confirm) {
+              wx.switchTab({
+                url: '../../activity/index/index',
+              })
+            } else if (res.cancel) {
+            }
+          }
+        })
+      }
+      
     }).catch(err => {
       this.$showModal({
         title: '获取信息错误',
         content: err.msg,
         showCancel: false
       })
-    })
+    })  
   }
   loadInfo() {
     this.$get('/v1/family/getInfo').then(data => {
@@ -279,7 +296,7 @@ new class extends we.Page {
             } else if (res.cancel) {
             }
           }
-		  })
+		    })
       }
     }).catch(err => {
       this.$showModal({

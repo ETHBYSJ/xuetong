@@ -32,7 +32,7 @@ new class extends we.Page {
       scrollTop: this.data.scrollHeight,
     });
 
-    if (this.$app.userdtatus == 101) {
+    /*if (this.$app.userdtatus == 101) {
       wx.showModal({
         title: '提示',
         content: '您尚未注册登录，是否前往登录(登录前需要先进行微信授权)',
@@ -48,7 +48,7 @@ new class extends we.Page {
           }
         }
       });
-    } else if (this.$app.userdtatus) {
+    } else */if (this.$app.userdtatus) {
       this.$get('/v1/member').then(data => {
         if (!data.obj) {
           wx.showModal({

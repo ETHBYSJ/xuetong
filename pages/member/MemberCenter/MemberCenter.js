@@ -27,13 +27,13 @@ new class extends we.Page {
       'vo.imgBaseUrl': this.$app.imgBaseUrl,
       userdtatus: this.$app.userdtatus,
     });
-    if (this.data.userdtatus == 103) { 
+    if (this.data.userdtatus==103) { 
       this.setData({
         hidden: false,
       });
       this.getUserStatusByLogin();
       this.getOrderNumber();
-    } else if (this.data.userdtatus == 101) {
+    } /*else if (this.data.userdtatus == 101) {
       wx.showModal({
         title: '提示',
         content: '您尚进行微信授权，是否跳转到授权页面授权后进行登陆？',
@@ -49,7 +49,7 @@ new class extends we.Page {
           }
         }
       });
-    } else if (this.data.userdtatus == 102) {
+    } */else if (this.data.userdtatus) {
       console.log('gotologin')
       wx.reLaunch({ url: `/pages/member/register/register` });
     }
@@ -152,7 +152,7 @@ new class extends we.Page {
       this.setData({
         'vo.UserInfo': data.obj,
       })
-      //console.log(data.obj);
+      console.log(data.obj);
      this.$app.userType = data.obj.userType;
 
      if (data.obj.userType == '家长') {
