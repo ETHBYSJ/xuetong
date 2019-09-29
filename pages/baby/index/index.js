@@ -171,7 +171,6 @@ new class extends we.Page {
   //导航事件处理函数
   swichNav(e) {
     var current = e.currentTarget.dataset.current;
-
     this.setData({
       currentTab: current,
     });
@@ -190,7 +189,9 @@ new class extends we.Page {
         nowList: this.data.notattendList,
       })
     }
-
+    this.setData({
+      height: 800 + 201 * this.data.nowList.length,
+    })
   }
   onLoad() {
     this.setData({
@@ -396,13 +397,14 @@ new class extends we.Page {
       for(var i = 0; i < data.obj.length; i++) {
         if (studentList[i].studentAttendanceList.length==0) {
           studentList[i].attend = 0; //缺勤
-          attendList.push(studentList[i]);
+          notattendList.push(studentList[i]);
         } else if (studentList[i].studentAttendanceList[0].type==2) {
           studentList[i].attend = 2; //请假
           notattendList.push(studentList[i]);
         } else {
           studentList[i].attend = 1; //已到
-          notattendList.push(studentList[i]);
+          attendList.push(studentList[i]);
+          attendcnt += 1;
         }
       }
       this.setData({
@@ -412,6 +414,8 @@ new class extends we.Page {
         studentList: studentList,
         nowList: studentList,
       })
+      console.log(attendList)
+      console.log(notattendList)
     });
   }
   

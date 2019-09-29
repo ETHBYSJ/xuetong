@@ -155,4 +155,20 @@ new class extends we.Page {
       }
     });
   }
+
+  //图片预览
+  imgPreview(e) {
+    let src = e.currentTarget.dataset.src
+    let imageList = e.currentTarget.dataset.imagelist
+    for(var i = 0; i < imageList.length; i++) {
+      imageList[i] = this.data.imgBaseUrl + imageList[i].photoPath
+    }
+    wx.previewImage({
+      current: src,
+      urls: imageList,
+    })
+  }
+  homeworkPreview(e) {
+    console.log(e.currentTarget.dataset.id)
+  }
 }

@@ -40,6 +40,7 @@
           <view wx:if="{{item.status == 2}}" class="name_normal"></view>
           <view wx:elif="{{item.status == 0}}" class="name_warning"></view>
           <view wx:elif="{{item.status == 1}}" class="name_warning"></view>
+          <view wx:elif="{{item.status == 3}}" class="name_warning"></view>
           <text>{{name}}</text>
         </view>
         <view class="not_upload">
@@ -53,12 +54,12 @@
           </block>
         </block>
         <block wx:else>
-          <view class="homework_picture">
+          <view class="homework_picture" bindtap="homeworkPreview" data-id="{{item.id}}">
             {{item.content==null? '' : item.content}}
             <scroll-view scroll-x class='imagewrap'>
               <view class='box' style='width:{{item.imageList.length*(216+26)}}rpx'>
-                <view wx:for="{{item.imageList}}" class="photos">
-                  <image class="photo" src="{{imgBaseUrl}}{{item.photoPath}}" data-src="{{imgBaseUrl}}{{item.photoPath}}" bindtap="imgPreview"/>
+                <view wx:for="{{item.imageList}}" class="photos" data-imageList="{{item.imageList}}" wx:for-item="imgItem">
+                  <image class="photo" src="{{imgBaseUrl}}{{imgItem.photoPath}}" data-src="{{imgBaseUrl}}{{imgItem.photoPath}}" catchtap="imgPreview" data-imagelist="{{item.imageList}}"/>
                 </view>
               </view>  
             </scroll-view>
