@@ -4,7 +4,7 @@
   padding-bottom: 20rpx;
 }
 .contact_btn {
-  background-color: #d9d9d9;
+  background-color: #00b848;
   color: white;
   width: 690rpx;
 }
@@ -18,7 +18,7 @@
   border: 2rpx solid #00b848;
 }
 .orderid {
-  color: aqua;
+  color: black;
   font-size: 26rpx;
 }
 .amount_header {

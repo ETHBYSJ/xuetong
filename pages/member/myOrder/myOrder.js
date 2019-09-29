@@ -130,7 +130,7 @@ new class extends we.Page {
           this.setData({
             'vo.orderList': tmp,
           });
-          console.log(tmp);
+          //console.log(tmp);
           //console.log(this.data.vo.orderList);
         } else {
           wx.showModal({

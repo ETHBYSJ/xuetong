@@ -37,7 +37,7 @@ new class extends we.Page {
         phone:""
       },
       //订单号
-      orderId: "",
+      orderId: null,
     }
   }
   //事件处理函数
@@ -52,6 +52,7 @@ new class extends we.Page {
         studentPrice: options.studentPrice,
         familyEnable: options.familyEnable,
         phone: options.phone,
+        orderId: options.orderid,
       },
     })
     var that = this;
@@ -71,7 +72,10 @@ new class extends we.Page {
       imgBaseUrl: this.$app.imgBaseUrl,
       "po.activityid": noticeid,
     })
-    if (this.$app.userdtatus==103) {
+  }
+
+  onShow() {
+    if (this.$app.userdtatus == 103) {
       this.$get('/v1/activity/findStudentOfUser').then(data => {
         this.setData({
           ofuser: data.obj
@@ -101,9 +105,10 @@ new class extends we.Page {
         })
       })
     } else {
-      
+
     }
   }
+
   bindStudentname(e) {
     this.setData({
       "childValue": e.detail.value,
@@ -127,6 +132,7 @@ new class extends we.Page {
   }
 
   Landcode() {
+    console.log(this.data.po)
     var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
     if (this.data.po.students.length == 0) {
       this.setData({
@@ -161,7 +167,7 @@ new class extends we.Page {
 
     } else if (this.data.po.students.length > this.data.feed.remains){
         this.setData({
-          'promptTxt': "已超过活动报名剩余名额",
+          'promptTxt': "已超过剩余名额",
           'promptDisplay': "block"
         });
         setTimeout(function () {
@@ -175,31 +181,17 @@ new class extends we.Page {
   }
 
   Landing() {
-    this.$post('/v1/activity/enrollActivity', this.data.po).then(data => {
-      this.setData({
-        orderId: data.obj.orderId,
-      })
-      var that = this;
-      if(data.obj == "SUCC"){
-        that.$showModal({
-          title: '提示',
-          content: '报名成功',
-          showCancel:false,
-          success(res) {
-            if (res.confirm) {
-              wx.switchTab({
-                url: '../index/index',
-              })
-            }
-          }
-        })
-      } else if (!data.obj){
-          that.$showModal({
-            title: '错误',
-            content: '报名失败',
-            showCancel: false
-          })
-      } else{
+    //console.log(this.data.po)
+    if (this.data.orderId != null) {
+      this.$post
+    } else {
+      this.$post('/v1/activity/enrollActivity', this.data.po).then(data => {
+        console.log(data);
+        this.setData({
+          orderId: data.obj.orderId,
+        });
+        var that = this;
+        if (data.msg == "SUCC") {
           wx.requestPayment({
             'timeStamp': data.obj.data.timeStamp,
             'nonceStr': data.obj.data.nonceStr,
@@ -209,7 +201,7 @@ new class extends we.Page {
             'success': function (res) {
               wx.navigateTo({
                 url: '../success/success?id=' + that.data.orderId,
-              })
+              });
             },
             'fail': function (res) {
               wx.navigateTo({
@@ -218,14 +210,24 @@ new class extends we.Page {
             },
             'complete': function (res) { }
           })
-      } 
-    }).catch(err => {
+        } else if (!data.obj) {
+          that.$showModal({
+            title: '错误',
+            content: '报名失败',
+            showCancel: false
+          })
+        } else {
+          
+        }
+      }).catch(err => {
         this.$showModal({
           title: '提示',
           content: err.msg,
           showCancel: false
         })
-    })
+      })
+    }
+    
   }
 
   addChild() {

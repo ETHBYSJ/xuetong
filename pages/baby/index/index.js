@@ -6,7 +6,7 @@ new class extends we.Page {
     return {
       feed:[],
       vo: {
-        'BackgroundImg': 'http://pic.616pic.com/bg_w1180/00/11/52/pKsDC2YqzS.jpg!/fh/300',
+        imgBaseUrl: "",
         message: {},
         nowDate:"",
         nowDay:"",
@@ -40,9 +40,31 @@ new class extends we.Page {
       currentIndex: "",
       scrolltop: "",
       phoneindex: 0,
-      
+      schoolPhoto: "",
     }
   }
+
+  onLoad() {
+    this.setData({
+      'vo.imgBaseUrl': this.$app.imgBaseUrl
+    })
+    var date = new Date();
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    if (month < 10) {
+      month = "0" + month;
+    }
+    if (day < 10) {
+      day = "0" + day;
+    }
+    this.setData({
+      'vo.nowDate': year + "年" + month + "月" + day + "日",
+      'vo.nowDay': year + "-" + month + "-" + day,
+      'date': year + "-" + month + "-" + day,
+    })
+  }
+
   bindChangeIndex(e) {
     this.setData({
       phoneindex: e.detail.value,
@@ -61,23 +83,7 @@ new class extends we.Page {
     }    
   }
   onShow(){
-    /*if (this.$app.userdtatus == 101) {
-      wx.showModal({
-        title: '提示',
-        content: '您尚未注册登录，是否前往登录(登录前需要先进行微信授权)',
-        success(res) {
-          if (res.confirm) {
-            wx.reLaunch({
-              url: '../../funclist/funclist',
-            });
-          } else if (res.cancel) {
-            wx.switchTab({
-              url: '../../activity/index/index',
-            });
-          }
-        }
-      });
-    } else*/if (this.$app.userdtatus) {
+    if (this.$app.userdtatus) {
       this.$get('/v1/member').then(data => {
         if (!data.obj) {
           wx.showModal({
@@ -193,26 +199,17 @@ new class extends we.Page {
       height: 800 + 201 * this.data.nowList.length,
     })
   }
-  onLoad() {
-    this.setData({
-      'vo.imgBaseUrl': this.$app.imgBaseUrl
-    })
-    var date = new Date();
-    var year = date.getFullYear();
-    var month = date.getMonth() + 1;
-    var day = date.getDate();
-    if (month < 10) {
-      month = "0" + month;
-    }
-    if (day < 10) {
-      day = "0" + day;
-    }
-    this.setData({
-      'vo.nowDate': year + "年" + month + "月" + day + "日",
-      'vo.nowDay': year + "-" + month + "-" + day,
-      'date': year + "-" + month + "-" + day,
-    })  
+  
+
+  loadSchoolPhoto(gradeId) {
+    this.$get('/v1/school/getSchoolCarousel?school=' + gradeId).then(data => {
+      this.setData({
+        'schoolPhoto': data.obj[0],
+      });
+      console.log(this.data.vo.imgBaseUrl+this.data.schoolPhoto);
+    });
   }
+
   loadgradeInfo() {
     this.$get('/v1/grade/getInfo').then(data => {
       this.setData({
@@ -283,6 +280,7 @@ new class extends we.Page {
           clazzname: data.obj.studentList[this.data.index].clazzname,
         });
         this.loadAttend();
+        this.loadSchoolPhoto(data.obj.studentList[this.data.index].gradeid);
         this.cinemaDetail(data.obj.studentList[this.data.index].gradeid);
       } else{
         wx.showModal({

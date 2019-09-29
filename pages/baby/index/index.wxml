@@ -4,7 +4,7 @@
     <swiper indicator-dots indicator-active-color='#1296db' bindchange='onSlideChangeEnd' class='baby-body'>
       <swiper-item wx:for="{{vo.message.studentList}}" wx:key="item.id" wx:for-item="item">
         <view class='member'>
-          <image src='{{vo.imgBaseUrl}}{{vo.CarouselDetails}}' mode='aspectFill' class="member-bg"></image>
+          <image src='{{vo.imgBaseUrl}}{{schoolPhoto}}' mode='aspectFill' class="member-bg"></image>
           <view class="school-title">
             <image src="{{vo.imgBaseUrl}}{{vo.cinemaDetails.photopath}}" class="school-icon"></image>
             <view class="school-name">{{item.gradename}}</view>
