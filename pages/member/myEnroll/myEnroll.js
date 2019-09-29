@@ -33,9 +33,10 @@ new class extends we.Page {
   bindToOrder(e) {
     var idx = e.currentTarget.dataset.idx;
     //console.log(e)
+    console.log()
     if (this.data.vo.orderList[idx].status == "arrearage") {
-      var url = '../../activity/apply/apply?id=' + this.data.vo.orderList[idx].id + " & titlePhoto=" + this.data.imgBaseUrl + this.data.vo.orderList[idx].activityTitlePhoto + "&heading=" + this.data.vo.orderList[idx].activityHeading + "&remains=" + this.data.vo.orderList[idx].activityRemains + "&familyPrice=" + this.data.vo.orderList[idx].familyPrice + "&studentPrice=" + this.data.vo.orderList[idx].studentPrice + "&familyEnable=" + this.data.vo.orderList[idx].familyEnable + "& phone=" + this.data.vo.orderList[idx].phone;
-      //console.log(url);
+      var url = '../../activity/apply/apply?id=' + this.data.vo.orderList[idx].activityId + "&titlePhoto=" + this.data.vo.orderList[idx].activityTitlePhoto + "&heading=" + this.data.vo.orderList[idx].activityHeading + "&remains=" + this.data.vo.orderList[idx].activityRemains + "&familyPrice=" + this.data.vo.orderList[idx].familyPrice + "&studentPrice=" + this.data.vo.orderList[idx].studentPrice + "&familyEnable=" + this.data.vo.orderList[idx].familyEnable + "&phone=" + this.data.vo.orderList[idx].phone + "&orderid=" + this.data.vo.orderList[idx].id;
+      console.log(url);
       wx.navigateTo({
         url: url,
       });

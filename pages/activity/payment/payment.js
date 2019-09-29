@@ -32,6 +32,7 @@ new class extends we.Page {
       payAmount: 0,
       //活动id
       id: "",
+      phone: "",
     }
   }
   onLoad(options) {
@@ -43,9 +44,10 @@ new class extends we.Page {
   onShow() {
     console.log(this.data.orderId)
     this.$get('/v1/order/' + this.data.orderId).then(data => {
-      console.log(data)
+      console.log(data);
       this.setData({
         id: data.obj.obj.activity.id,
+        phone: data.obj.obj.activity.phone,
       });
       if (data.obj.obj.activityStudentList && data.obj.obj.activityStudentList.length > 2) {
         this.setData({
@@ -82,6 +84,9 @@ new class extends we.Page {
     })
   }
   consult() {
+    wx.makePhoneCall({
+      phoneNumber: this.data.phone,
+    })
   }
   //返回首页
   toIndex() {

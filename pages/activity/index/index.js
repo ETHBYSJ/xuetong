@@ -198,6 +198,7 @@ new class extends we.Page {
   init() {
     let that = this;
     this.$get('/v1/activity/getActivityList?page=1&size=' + this.data.vo.pageSize + '&status=' + this.data.currentTab + '&keyword=' + this.data.inputVal +'&address='+this.data.selectaddress).then(data => {
+      console.log(data.obj)
       this.setData({
         "vo.pageNo": 1,
       });
@@ -404,9 +405,10 @@ new class extends we.Page {
         "vo.pageNo": page,
       })
       this.$get('/v1/activity/getActivityList?page=' + page + '&size=' + this.data.vo.pageSize + '&status=' + this.data.currentTab + '&keyword=' + this.data.inputVal + '&address=' + this.data.selectaddress).then(data => {
+        console.log(data.obj)
         this.setData({
-          "vo.infor": this.data.vo.infor.concat(data.obj)
-        })
+          "vo.infor": this.data.vo.infor.concat(data.obj),
+        });
         setTimeout(function () {
           wx.showToast({
             title: '加载成功',

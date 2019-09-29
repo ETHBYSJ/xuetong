@@ -31,11 +31,11 @@ new class extends we.Page {
       //家长姓名
       parentName: "",
       //托管时间
-      gradeTime: '未设置',
+      gradeTime: '1个月',
       //托管地址
       gradeAddress: "",
       //应交托管费
-      payAmount: 0,
+      payAmount: 400,
       //最小结束日期
       smallestEndDate: {},
       location: "",
@@ -60,7 +60,7 @@ new class extends we.Page {
       imgBaseUrl: this.$app.imgBaseUrl,
       startDate: { year: year, month: month, day: day, fulldate: date },
     })
-    this.getEndDate()
+    
   }
   //将开始日期推移一个月之后的结束日期
   getEndDate() {
@@ -85,11 +85,13 @@ new class extends we.Page {
     this.init()
     //为了获得托管班的托管费,需要先得到学生信息
     this.$get('/v1/student/getInfo?id=' + this.data.studentid).then(data => {
+      console.log(data)
       this.setData({
         price: data.obj.clazz.price,
         clazzId: data.obj.clazz.id,
         endDateLatest: data.obj.endDate,
         gradeAddress: data.obj.clazz.grade.name,
+        gradePhone: data.obj.clazz.grade.phone,
         location: this.$app.CurrentcityLink,
         //parentName: data.obj.
       })
@@ -112,6 +114,8 @@ new class extends we.Page {
         showCancel: false
       })
     })
+
+    this.getEndDate();
   }
   //加载默认活动列表
   init() {
@@ -341,6 +345,8 @@ new class extends we.Page {
   }
   //咨询电话
   consult() {
-
+    wx.makePhoneCall({
+      phoneNumber: this.data.gradePhone,
+    })
   }
 }

@@ -59,7 +59,8 @@ new class extends we.Page {
         orderSn: data.obj.order.orderSn,
         payAmount: data.obj.order.payAmount,
         gradeTime: data.obj.obj.student.days,
-      })
+        phone: data.obj.obj.student.clazz.grade.phone,
+      });
     }).catch(err => {
       this.$showModal({
         title: '出错',
@@ -69,7 +70,9 @@ new class extends we.Page {
     })
   }
   contact() {
-
+    wx.makePhoneCall({
+      phoneNumber: this.data.phone,
+    })
   }
   //返回首页
   toIndex() {
