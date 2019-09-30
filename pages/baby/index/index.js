@@ -231,6 +231,7 @@ new class extends we.Page {
   }
   loadTechInfo() {
     this.$get('/v1/teacher/getInfo').then(data => {
+      console.log(data)
       if (data.msg == 'SUCC' && data.obj.webchatClazzList.length > 0) {
         this.setData({
           'vo.message': data.obj,
@@ -268,7 +269,6 @@ new class extends we.Page {
   }
   loadInfo() {
     this.$get('/v1/family/getInfo').then(data => {
-      console.log(data)
       if (data.msg == 'SUCC' && data.obj.studentList.length>0){
         this.setData({
           'vo.message': data.obj,
@@ -376,7 +376,6 @@ new class extends we.Page {
   
   loadStudentInfo() {
     this.$get('/v1/student/getList?gradeId=' + this.data.gradeid + '&clazzId=' + this.data.clazzid).then(data => {
-      console.log(data.obj)
       let studentList = data.obj
       this.setData({
         nowList: data.obj,
@@ -412,8 +411,6 @@ new class extends we.Page {
         studentList: studentList,
         nowList: studentList,
       })
-      console.log(attendList)
-      console.log(notattendList)
     });
   }
   

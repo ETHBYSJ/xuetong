@@ -42,7 +42,8 @@
     "pages/member/confirmLeave/confirmLeave",
     "pages/activity/fail/fail",
     "pages/activity/success/success",
-    "pages/activity/detailAfterPay/detailAfterPay"
+    "pages/activity/detailAfterPay/detailAfterPay",
+    "pages/baby/homework/editHomework/editHomework"
   ],
   "window": {
     "backgroundTextStyle": "light",

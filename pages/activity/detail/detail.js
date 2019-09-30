@@ -7,7 +7,8 @@ new class extends we.Page {
       feed: [],
       order: [],
       imgBaseUrl: "",
-      id: ""
+      id: "",
+      nowday: "",
     }
   }
   //事件处理函数
@@ -17,13 +18,27 @@ new class extends we.Page {
       imgBaseUrl: this.$app.imgBaseUrl,
       id: noticeid 
     })
-    //console.log(this.data.id)
+    var today = new Date()
+    var year = today.getFullYear()
+    var month = today.getMonth() + 1
+    if (month >= 1 && month <= 9) {
+      month = "0" + month
+    }
+    var day = today.getDate()
+    if (day >= 0 && day <= 9) {
+      day = "0" + day
+    }
+    today = year + "-" + month + "-" + day
+
+    this.setData({
+      nowday: today,
+    })
     
   } 
 
   onShow() {
     this.$get('/v1/activity/' + this.data.id).then(data => {
-      //console.log(data)
+      console.log(data)
       var article = data.obj.content;
       WxParse.wxParse('article', 'html', article, this, 5);
       this.setData({

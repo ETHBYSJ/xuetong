@@ -1,0 +1,107 @@
+.upload_header {  
+  /*
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;  
+  */
+  height: 100rpx;
+  border-top: 2rpx solid #d9d9d9;
+}
+.upload_header_left {
+  float: left;
+  height: 100rpx;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+.upload_header_right {
+  float: right;
+  height: 100rpx;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+.upload_header_text {
+  font-size: 34rpx;
+  font-weight: bold;
+  line-height: 100rpx;
+}
+.album{
+  height: 60rpx;
+  width: 85rpx;
+  float: right;
+  margin-right: 20rpx;
+}
+.album image {
+  height: 60rpx;
+  width: 85rpx;
+}
+.camera{
+  height: 60rpx;
+  width: 85rpx;
+  float: right;
+  margin-right: 20rpx;
+}
+.camera image {
+  height: 60rpx;
+  width: 85rpx;
+}
+.upload_foot {
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+  border-top: 2rpx solid #d9d9d9;
+}
+.upload_confirm {
+  width: 690rpx;
+  color: #fff;
+  display: block;
+  background: #1296db;
+  font-size: 30rpx;
+}
+.upload_content_top {
+  border-top: 2rpx solid #d9d9d9;
+}
+.textarea-bg {
+  padding: 20rpx 20rpx 20rpx 20rpx;  
+  font-size: 30rpx;
+}
+.placeholder {
+  font-size: 30rpx;
+  color: #d9d9d9;
+}
+.upload_content_bottom {
+  /*position: relative;*/
+  /*height: 500rpx;*/
+}
+.img-wrapper {
+  width: 214rpx;
+  height: 214rpx;
+  float: left;
+  margin-left: 15rpx;
+  margin-right: 15rpx;
+  margin-top: 15rpx;
+  margin-bottom: 15rpx;
+  /*background-color: #1296db;*/
+  border: 3rpx solid #d9d9d9;
+  display:flex;                    
+  justify-content: center;    
+  position: relative;     
+}
+.img-wrapper image {
+  width: 200rpx;
+  height: 200rpx;
+}
+.cross {
+  position: absolute;
+  width: 30rpx;
+  height: 30rpx;
+  right: 0rpx;
+  bottom: 15rpx;
+}
+.cross image {
+  width: 30rpx;
+  height: 30rpx;
+}

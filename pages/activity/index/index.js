@@ -30,6 +30,7 @@ new class extends we.Page {
       rightMargin: '203rpx',
       currentImage: 0,
       currentIndex: 0,
+      nowday: "",
     }
   }
 
@@ -41,8 +42,23 @@ new class extends we.Page {
       option: option,
       'vo.imgBaseUrl': this.$app.imgBaseUrl
     }) 
+    var today = new Date()
+    var year = today.getFullYear()
+    var month = today.getMonth() + 1
+    if (month >= 1 && month <= 9) {
+      month = "0" + month
+    }
+    var day = today.getDate()
+    if (day >= 0 && day <= 9) {
+      day = "0" + day
+    }
+    today = year + "-" + month + "-" + day
     
+    this.setData({
+      nowday: today,
+    })
     
+    console.log(this.data.nowday)
     console.log('OnLoad ' + this.$app.userdtatus);
     if (this.$app.userdtatus==undefined) { //首次加载 获得session后拥有userdtatus
       let oldSession = wx.getStorageSync("__session__")

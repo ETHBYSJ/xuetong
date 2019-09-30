@@ -51,8 +51,19 @@
           <view class='base-nav_contant_list_cen' id="{{item.id}}">
             <view class='base-nav_contant_list_txt' id="{{item.id}}">{{item.heading}}</view>
             <view class='active_warp' id="">
-              <text style='color:#1296db'>{{item.remains==0 ? '活动已结束' : '活动报名中'}}</text>
-              <text style="padding-left:130rpx;" wx:if="">剩余<text style='color:red'>{{item.remains}}</text>个名额</text>
+              <!--活动已结束-->
+              <block wx:if="{{item.enddate <= nowday}}">
+                <text style='color:#1296db'>活动已结束</text>
+              </block>
+              <block wx:else>
+                <block wx:if="{{item.remains == 0}}">
+                  <text style='color:#1296db'>报名已截止</text>
+                </block>
+                <block wx:else>
+                  <text style='color:#1296db'>活动报名中</text>
+                  <text style="padding-left:130rpx;" >剩余<text style='color:red'>{{item.remains}}</text>个名额</text>
+                </block>
+              </block>
             </view>
           </view>
         </view>

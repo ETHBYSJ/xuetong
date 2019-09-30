@@ -26,7 +26,6 @@
    <view hidden='{{feed.familyEnable != 0 }}'>成人￥{{feed.familyPrice}}元/人</view>
    <view style='line-height:{{feed.familyEnable != 0?"100rpx":"50rpx"}}'>儿童￥{{feed.studentPrice}}元/人</view>
  </view>
- <view class='{{feed.remains == 0?"base-btn-no":"base-btn-ok"}}' bindtap='{{feed.remains == 0?"":"jumpPage"}}'>立即报名</view>
- 
+ <view class='{{feed.remains == 0 || feed.enddate <= nowday?"base-btn-no":"base-btn-ok"}}' bindtap='{{feed.remains == 0 || feed.enddate <= nowday?"":"jumpPage"}}'>立即报名</view>
 </view>
 
