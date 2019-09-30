@@ -161,20 +161,21 @@
             <view class="tab-list {{currentTab==2 ? 'on' : ''}}" data-current="2" bindtap="swichNav">全部({{studentList.length}})</view>     
             <view class="tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">已签({{attendcnt}})</view>      
             <view class="tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">未签({{studentList.length - attendcnt}})</view>
-          </view>     
-            <block wx:for="{{nowList}}" wx:for-index="idx" data-name="{{item.student.name}}" data-id="{{item.student.id}}">
-              <view class="student_block" data-name="{{item.student.name}}" data-id="{{item.student.id}}">
-              <view bindtap="jumpToStudentDetailed" data-name="{{item.student.name}}" data-id="{{item.student.id}}">
-                <view class="studentpic-wrp">
-                  <image class="studentpic" src="{{item.student.photo?vo.imgBaseUrl+''+item.student.photo:'/assets/icon/loadImg_1.jpg'}}"></image>
+            </view>     
+              <block wx:for="{{nowList}}" wx:for-index="idx" data-name="{{item.student.name}}" data-id="{{item.student.id}}">
+                <view class="student_block" data-name="{{item.student.name}}" data-id="{{item.student.id}}">
+                <view class='stu-tap' bindtap="jumpToStudentDetailed" data-name="{{item.student.name}}" data-id="{{item.student.id}}">
+                  <view class="studentpic-wrp">
+                    <image class="studentpic" src="{{item.student.photo?vo.imgBaseUrl+''+item.student.photo:'/assets/icon/loadImg_1.jpg'}}"></image>
+                  </view>
+                  <view class="student_baseinfo">
+                    <text class="student_name">{{item.student.name}}</text>
+                    <text wx:if="{{item.homeworkStatus != 0}}" class="student_hw_normal">作业已上传</text>
+                    <text wx:else class="student_hw_warning">作业未上传</text>
+                  </view>
                 </view>
-                <view class="student_baseinfo">
-                  <text class="student_name">{{item.student.name}}</text>
-                  <text wx:if="{{item.homeworkStatus != 0}}" class="student_hw_normal">作业已上传</text>
-                  <text wx:else class="student_hw_warning">作业未上传</text>
-                </view>
-                <view class="student_attend" catchtap="changeStatus" data-name="{{item.student.name}}" data-id="{{item.student.id}}" data-attend="{{item.attend}}">
-                  <block wx:if="{{item.attend==1}}">
+                <picker class="student_attend" bindchange="changeStatus" data-name="{{item.student.name}}" data-id="{{item.student.id}}" value="{{item.attend}}" range="{{item.attendStatus}}">
+                  <block wx:if="{{item.attend==0}}">
                     <view class="circle_normal"></view>
                     <text class="student_attend_status">已到</text>
                   </block>
@@ -182,14 +183,17 @@
                     <view class="circle_leave"></view>
                     <text class="student_attend_status">请假</text>
                   </block>
-                  <block wx:else >
+                  <block wx:elif="{{item.attend==3}}" >
                     <view class="circle_warning"></view>
                     <text class="student_attend_status">未到</text>
                   </block>
-                </view>
-              </view>
-                <!--手动修改签到-->              
-                <image class="change_status" src="/assets/icon/logs_2.png" catchtap="changeStatus" data-name="{{item.student.name}}" data-id="{{item.student.id}}" hidden="{{item.attend==1}}"></image>              
+                  <block wx:elif="{{item.attend==1}}" >
+                    <view class="circle_left"></view>
+                    <text class="student_attend_status">离开</text>
+                  </block>
+                </picker>
+              
+                <!--手动修改签到-->                         
                 <picker range="{{item.webchatFamilyInfoList}}" range-key="key" bindchange="bindChangeIndex" data-phonelist="{{item.webchatFamilyInfoList}}">
                   <view>
                     <image class="phone_call" src="/assets/icon/logs_1.png"></image>

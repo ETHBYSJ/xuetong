@@ -272,7 +272,7 @@
   float: left;
   font-size: 28rpx;
   font-weight: bold;
-  width: 300rpx;
+  width: 200rpx;
 }
 .student_hw_normal {
   float: left;
@@ -314,6 +314,13 @@
   float: left;
 }
 .circle_leave {
+  background-color: yellow;
+  width: 30rpx;
+  height: 30rpx;
+  border-radius: 50%;
+  float: left;
+}
+.circle_left {
   background-color: green;
   width: 30rpx;
   height: 30rpx;
@@ -420,7 +427,7 @@
   width: 60rpx;
   height: 60rpx;
   position: absolute;
-  right: 20rpx;
+  right: 80rpx;
   top: 75rpx;
 }
 .drawer_screen {
@@ -458,4 +465,9 @@
 }
 .line{
   border-bottom: 1px solid #f8f8f8;
+}
+.stu-tap {
+  float:left;
+  height: 160rpx;
+  width: 390rpx;
 }

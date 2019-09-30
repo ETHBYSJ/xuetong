@@ -392,14 +392,19 @@ new class extends we.Page {
       }
       //统计出勤情况
       for(var i = 0; i < data.obj.length; i++) {
+        studentList[i].attendStatus = ['已到','离开','请假','未到'];
         if (studentList[i].studentAttendanceList.length==0) {
-          studentList[i].attend = 0; //缺勤
+          studentList[i].attend = 3; //缺勤
           notattendList.push(studentList[i]);
         } else if (studentList[i].studentAttendanceList[0].type==2) {
           studentList[i].attend = 2; //请假
           notattendList.push(studentList[i]);
+        } else if (studentList[i].studentAttendanceList.length > 1 || studentList[i].studentAttendanceList[0].type==1){
+          studentList[i].attend = 1; //离开
+          attendList.push(studentList[i]);
+          attendcnt += 1;
         } else {
-          studentList[i].attend = 1; //已到
+          studentList[i].attend = 0; //已到
           attendList.push(studentList[i]);
           attendcnt += 1;
         }
@@ -430,39 +435,39 @@ new class extends we.Page {
   changeStatus(e) {
     let name = e.currentTarget.dataset.name;
     let id = e.currentTarget.dataset.id;
-    let that = this
-    if (e.currentTarget.dataset.attend!=1) {
-      wx.showModal({
-        title: '提示',
-        content: '是否将学生  ' + name + '  改签为已到 ？',
-        success(res) {
-          if (res.confirm) {
-            that.$get('/v1/attendance/changeReachStatusByStudentId?studentId=' + id).then(data => {
-              wx.showModal({
-                title: '提示',
-                content: '已将学生' + name + '改签为已到!',
-                showCancel: false,
-              })
-              that.loadStudentInfo()
-            }).catch(err => {
-              if (err) {
-                that.$showModal({
-                  title: '提示',
-                  content: `${err.message}`,
-                  showCancel: false
-                })
-              } else {
-                that.$showModal({
-                  title: '提示',
-                  content: err.msg,
-                  showCancel: false
-                })
-              }
+    let alist = ['已到', '离开', '请假', '未到'];
+    let that = this;
+    wx.showModal({
+      title: '提示',
+      content: '是否将学生  ' + name + '  改签为' + alist[e.detail.value] + ' ？',
+      success(res) {
+        if (res.confirm) {
+          that.$get('/v1/attendance/changeStatusByStudentId?studentId=' + id + '&status=' + e.detail.value).then(data => {
+            wx.showModal({
+              title: '提示',
+              content: '已将学生' + name + '改签为' + alist[e.detail.value] + '!',
+              showCancel: false,
             })
-          }
+            that.loadStudentInfo()
+          }).catch(err => {
+            if (err) {
+              that.$showModal({
+                title: '提示',
+                content: `${err.message}`,
+                showCancel: false
+              })
+            } else {
+              that.$showModal({
+                title: '提示',
+                content: err.msg,
+                showCancel: false
+              })
+            }
+          })
         }
-      })
-    }
+      }
+    })
+    
   }
 
 }
