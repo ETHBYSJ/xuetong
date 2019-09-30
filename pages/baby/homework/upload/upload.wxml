@@ -26,7 +26,7 @@
     <view class="upload_content_bottom" style="height:{{250*height}}rpx">
       <view class="img-wrapper" wx:for="{{postList}}" wx:for-index="index" bindtap="imgPreview" data-src="{{item}}">
         <image src="{{item}}"></image>
-        <view class="cross" bindtap="deleteImg" data-index="{{index}}">
+        <view class="cross" catchtap="deleteImg" data-index="{{index}}">
           <image src="/images/cross.png"></image>
         </view>
       </view>

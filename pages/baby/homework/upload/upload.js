@@ -12,7 +12,7 @@ new class extends we.Page {
         imageList: [],
         studentId: "",
         homeworkDate: "",
-        deleteTag: 1,
+        //deleteTag: 1,
       },
     }
   }
@@ -70,25 +70,28 @@ new class extends we.Page {
           "po.content": that.data.content,
         })
       }     
-      that.$post('/v1/homework/update', that.data.po).then(data => {
+      console.log(that.data.po)
+      that.$post('/v1/homework/addto', that.data.po).then(data => {
         if(data.msg == "SUCC") {
-          wx.showToast({
-            title: '上传成功',
-            icon: 'success',
-            duration: 1500,
+          wx.showModal({
+            title: '提示',
+            content: '上传成功',
+            showCancel: false,
+            success(res) {
+              wx.navigateBack({
+                delta: 1
+              }) 
+            }
           })
         }
         else {
-          wx.showToast({
-            title: '上传失败',
-            image: '/images/kulian.png',
-            icon: 'loading',
-            duration: 1500,
+          wx.showModal({
+            title: '提示',
+            content: '上传失败',
+            showCancel: false,
           })
         }
-        wx.navigateBack({
-          delta: 1
-        })       
+            
         return;
       }).catch(err => {
         this.$showModal({

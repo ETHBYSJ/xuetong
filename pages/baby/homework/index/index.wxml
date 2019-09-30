@@ -47,14 +47,12 @@
           <button wx:if="{{item.status == 0}}" class="not_upload_btn">您未上传作业</button>
         </view>
         <block wx:if="{{item.imageList.length == 0}}">
-          <block wx:if="{{item.content}}">
-            <view class="homework_picture">
-              {{item.content==null? '' : item.content}}
-            </view>
-          </block>
+          <view class="homework_picture" bindtap="homeworkPreview" data-id="{{item.id}}" data-homeworkdate="{{item.homeworkDate}}">
+          {{item.content==null? '' : item.content}}
+          </view>
         </block>
         <block wx:else>
-          <view class="homework_picture" bindtap="homeworkPreview" data-id="{{item.id}}">
+          <view class="homework_picture" bindtap="homeworkPreview" data-id="{{item.id}}" data-homeworkdate="{{item.homeworkDate}}">
             {{item.content==null? '' : item.content}}
             <scroll-view scroll-x class='imagewrap'>
               <view class='box' style='width:{{item.imageList.length*(216+26)}}rpx'>

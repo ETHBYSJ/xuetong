@@ -61,6 +61,7 @@ new class extends we.Page {
         feed: data.obj,
         page: 1,
       })
+      console.log(this.data.feed)
     }).catch(err => {
       this.$showModal({
         title: '出错',
@@ -169,6 +170,9 @@ new class extends we.Page {
     })
   }
   homeworkPreview(e) {
-    console.log(e.currentTarget.dataset.id)
+    console.log(e)
+    wx.navigateTo({
+      url: '../editHomework/editHomework?id=' + e.currentTarget.dataset.id + '&name=' + this.data.name + '&studentid=' + this.data.studentid + '&homeworkDate=' + e.currentTarget.dataset.homeworkdate,
+    })
   }
 }

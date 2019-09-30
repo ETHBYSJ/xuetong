@@ -1,4 +1,37 @@
 <!--点击已提交作业进行编辑-->
 <view class="page">
-
+  <view class="upload_header">
+    <view class="upload_header_left">
+      <text class="upload_header_text">{{nowday}} {{name}}的作业</text>
+    </view>
+    <view class="upload_header_right">
+      <view class="album" bindtap="fromAlbum">
+        <image src="/images/album.png" ></image>
+      </view>
+    </view>
+  </view>
+  <view class="upload_content">
+    <view class="upload_content_top">
+      <textarea class="textarea-bg" placeholder="输入内容(可直接上传图片)" placeholder-class="placeholder" bindinput="bindInput" value="{{content}}"/>
+    </view>
+    <view class="upload_content_bottom" style="height:{{250*height}}rpx">
+      <!--已上传-->
+      <view class="img-wrapper" wx:for="{{imageList}}" wx:for-index="index" bindtap="imgPreview" data-src="{{item}}">
+        <image src="{{item}}"></image>
+        <view class="cross" catchtap="deleteImg" data-index="{{index}}">
+          <image src="/images/cross.png"></image>
+        </view>
+      </view>  
+      <!--新上传-->
+      <view class="img-wrapper" wx:for="{{postList}}" wx:for-index="index" bindtap="imgPreview" data-src="{{item}}">
+        <image src="{{item}}"></image>
+        <view class="cross" catchtap="deletePost" data-index="{{index}}">
+          <image src="/images/cross.png"></image>
+        </view>
+      </view> 
+    </view>
+  </view>
+  <view class="upload_foot">
+    <button class="upload_confirm" bindtap="postConfirm">点击确认</button>
+  </view>
 </view>
