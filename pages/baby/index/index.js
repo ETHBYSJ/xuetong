@@ -220,7 +220,8 @@ new class extends we.Page {
         clazzname: data.obj.webchatClazzList[this.data.index].clazzname,
       });
       this.loadTechAttend();
-      this.cinemaDetail(data.obj.webchatClazzList[this.data.index].gradeid);
+      this.cinemaDetail(data.obj.webchatClazzList[this.data.index].gradeid)
+    	this.loadCarousel(data.obj.webchatClazzList[this.data.index].gradeid)
     }).catch(err => {
       this.$showModal({
         title: '获取信息错误',
@@ -243,6 +244,7 @@ new class extends we.Page {
         this.loadTechAttend();
         this.loadStudentInfo();
         this.cinemaDetail(data.obj.webchatClazzList[this.data.index].gradeid);
+		this.loadCarousel(data.obj.webchatClazzList[this.data.index].gradeid);
       } else {
         wx.showModal({
           title: '提示',
@@ -282,6 +284,7 @@ new class extends we.Page {
         this.loadAttend();
         this.loadSchoolPhoto(data.obj.studentList[this.data.index].gradeid);
         this.cinemaDetail(data.obj.studentList[this.data.index].gradeid);
+		this.loadCarousel(data.obj.studentList[this.data.index].gradeid)
       } else{
         wx.showModal({
           title: '提示',
@@ -303,6 +306,29 @@ new class extends we.Page {
 		    content: `${err.message}`,
         showCancel: false
       });
+    })
+  }
+  //获取轮播图
+  loadCarousel(id) {
+    this.$get('/v1/school/getSchoolCarousel?school=' + id).then(data => {
+      this.setData({
+        'vo.CarouselDetails': data.obj[0],
+      })
+    }).catch(err => {
+      if (err) {
+        this.data.vo.coderesult = err
+        this.$showModal({
+          title: '提示',
+          content: `${err.message}`,
+          showCancel: false
+        })
+      } else {
+        this.$showModal({
+          title: '提示',
+          content: err.msg,
+          showCancel: false
+        })
+      }
     })
   }
   //获取机构详情
