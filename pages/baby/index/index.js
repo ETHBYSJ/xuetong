@@ -377,6 +377,7 @@ new class extends we.Page {
   loadStudentInfo() {
     this.$get('/v1/student/getList?gradeId=' + this.data.gradeid + '&clazzId=' + this.data.clazzid).then(data => {
       let studentList = data.obj
+      console.log(studentList)
       this.setData({
         nowList: data.obj,
         height: 800 + 201 * data.obj.length,
@@ -399,7 +400,7 @@ new class extends we.Page {
         } else if (studentList[i].studentAttendanceList[0].type==2) {
           studentList[i].attend = 2; //请假
           notattendList.push(studentList[i]);
-        } else if (studentList[i].studentAttendanceList.length > 1 || studentList[i].studentAttendanceList[0].type==1){
+        } else if (studentList[i].studentAttendanceList[0].type == 1 || (studentList[i].studentAttendanceList.length == 2 && studentList[i].studentAttendanceList[1].recorddate > studentList[i].studentAttendanceList[0].recorddate)){
           studentList[i].attend = 1; //离开
           attendList.push(studentList[i]);
           attendcnt += 1;
