@@ -78,7 +78,7 @@
         <text class='name'>姓名:</text> 
         <input placeholder="请输入孩子姓名" placeholder-style='color:#ccc' bindinput='bindStudentname' value='{{childValue}}' cursor-spacing="140px"/>        
 				<text class='brithay'> 生日:</text>
-        <picker mode="date" value="{{birthday}}" start="1990-01-01" end="2019-12-31" bindchange="bindDateChange" class="select-child-date" data-index='{{ind}}'>
+        <picker mode="date" value="{{birthday}}" start="2000-01-01" end="2049-12-31" bindchange="bindDateChange" class="select-child-date" data-index='{{ind}}'>
           <view class="select-child-date">
           {{birthday}}
           </view>

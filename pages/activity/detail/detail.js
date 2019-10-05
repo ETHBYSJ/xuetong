@@ -68,27 +68,8 @@ new class extends we.Page {
   }
 
   jumpPage() {
-    /*if (this.$app.userdtatus==101) {
-      wx.showModal({
-        title: '提示',
-        content: '您需要先进行微信授权,是否前往?',
-        success(res) {
-          if (res.confirm) {
-            wx.navigateTo({
-              url: '../../funclist/funclist?status=0',
-            });
-          } else if (res.cancel) {
-            wx.switchTab({
-              url: '../../activity/index/index',
-            });
-          }
-        }
-      });
-    } else */if (this.$app.userdtatus){ //== 103 || this.$app.userdtatus == 102){
       wx.navigateTo({
         url: "../apply/apply?id=" + this.data.id + "&titlePhoto=" + this.data.feed.titlePhoto + "&heading=" + this.data.feed.heading + "&remains=" + this.data.feed.remains + "&familyPrice=" + this.data.feed.familyPrice + "&studentPrice=" + this.data.feed.studentPrice + "&familyEnable=" + this.data.feed.familyEnable + "&phone=" + this.data.feed.phone,
       });
     } 
-    
-  }
 }

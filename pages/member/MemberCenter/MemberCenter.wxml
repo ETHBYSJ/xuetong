@@ -65,7 +65,7 @@
       
     </view>
 
-    <view class="myenroll" wx:if='{{vo.UserInfo.userType=="家长"}}'> 
+    <view class="myenroll"> 
       <view class="bm">
         <text>我的报名</text>
       </view>

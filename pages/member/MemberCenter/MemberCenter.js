@@ -129,14 +129,11 @@ new class extends we.Page {
   }
 
   getOrderNumber() {
+    
     this.$get('/v1/order/getList?status=0&type=1').then(res1 => {
+      console.log(res1)
       this.setData({
         'unpaid_num': res1.totalSize,
-      });
-    });
-    this.$get('/v1/order/getList?status=1&type=1').then(res2 => {
-      this.setData({
-        'paid_num': res2.totalSize,
       });
     });
   }

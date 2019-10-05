@@ -15,7 +15,7 @@ new class extends we.Page {
       check: false,
       childValue: "",
       parentValue: "",
-      birthday:"1990-01-01",
+      birthday:"2000-01-01",
       promptTxt: "",
       promptDisplay: "",
       index:"",
@@ -75,7 +75,7 @@ new class extends we.Page {
   }
 
   onShow() {
-    if (this.$app.userdtatus == 103) {
+    if (this.$app.userdtatus == 103 && this.$app.userType == '家长') {
       this.$get('/v1/activity/findStudentOfUser').then(data => {
         this.setData({
           ofuser: data.obj
